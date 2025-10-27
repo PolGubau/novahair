@@ -6,6 +6,9 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import ReactLenis from "lenis/react";
+import { Footer } from "@/shared/ui/footer";
+import { SquiCircleFilterLayout } from "@/shared/ui/squicircle";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
@@ -45,7 +48,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				{children}
+				<ReactLenis root>
+					<SquiCircleFilterLayout />
+					{children}
+					<Footer />
+				</ReactLenis>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",

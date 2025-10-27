@@ -1,36 +1,22 @@
 import { Link } from "@tanstack/react-router";
+import { Images } from "./hero/images";
+import { Title } from "./title";
 
 export const Hero = () => {
 	return (
-		<section className="flex flex-col items-center gap-8 max-w-7xl mx-auto px-4 min-h-[90vh]">
+		<section className="flex flex-col items-center gap-8 max-w-7xl mx-auto px-4 min-h-[85vh]">
 			<header className="flex flex-col gap-2 items-center">
-				<div className="flex gap-20 items-end">
-					<img
-						src="/images/1.webp"
-						alt="NovaHair Logo"
-						className="w-64 object-contain -rotate-3 rounded-xl shadow-lg"
-					/>
-					<img
-						src="/images/4.webp"
-						alt="NovaHair Logo"
-						className="w-96 h- mt-24 rounded-xl shadow-lg"
-					/>
-					<img
-						src="/images/3.webp"
-						alt="NovaHair Logo"
-						className="w-64 object-contain mb-12 rotate-6 rounded-xl shadow-lg"
-					/>
-				</div>
+				<Images />
 
-				<h1 className="text-9xl font-bold text-center mt-36">NOVAHAIR</h1>
-				<strong className="text-center text-2xl">
+				<Title />
+				<strong className="text-center text-xl px-6 md:text-2xl text-balance motion-preset-slide-up motion-delay-1200">
 					Renueva tu estilo. Redefine tu esencia
 				</strong>
 			</header>
 
 			<Link
 				to="/book/choose-service"
-				className="rounded-full group flex gap-2 items-center border border-primary/40 hover:border-primary pl-4 p-2 text-xl h-16"
+				className="rounded-full group flex gap-2 items-center border border-primary/40 hover:border-primary pl-4 p-2 text-xl h-16 motion-preset-slide-up motion-delay-1500"
 			>
 				Book an appointment
 				<span className="bg-primary rounded-full aspect-square size-0 group-hover:size-10 translate-x-full group-hover:translate-x-0 transition-all flex items-center justify-center text-background">

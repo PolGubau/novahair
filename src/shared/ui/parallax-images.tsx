@@ -35,10 +35,11 @@ const ParallaxImages = () => {
 	});
 
 	const { height } = dimension;
-	const y = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
+	const y = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
 	const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
-	const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
+	const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
 	const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
+	const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
 
 	useEffect(() => {
 		const lenis = new Lenis();
@@ -62,27 +63,41 @@ const ParallaxImages = () => {
 	}, []);
 
 	return (
-		<section
+		<motion.section
 			ref={gallery}
-			className="scroll-scale-in relative box-border rounded-[200px] flex h-[175vh] gap-[2vw] overflow-hidden bg-white p-[2vw]"
+			style={{ scale }}
+			className="scroll-scale-in relative grid sm:grid-cols-2 lg:grid-cols-4 h-[150vh] gap-[2vw] overflow-hidden bg-white p-[2vw]"
 		>
-			<Column images={[images[0], images[1], images[2]]} y={y} />
-			<Column images={[images[3], images[4], images[5]]} y={y2} />
-			<Column images={[images[6], images[7], images[8]]} y={y3} />
-			<Column images={[images[6], images[7], images[8]]} y={y4} />
-		</section>
+			<Column images={[images[0], images[1], images[2], images[3]]} y={y} />
+			<Column
+				images={[images[3], images[4], images[5], images[6]]}
+				y={y2}
+				className="max-sm:hidden"
+			/>
+			<Column
+				images={[images[6], images[7], images[8], images[9]]}
+				y={y3}
+				className="max-lg:hidden"
+			/>
+			<Column
+				images={[images[9], images[10], images[11], images[12]]}
+				y={y4}
+				className="max-lg:hidden"
+			/>
+		</motion.section>
 	);
 };
 
 type ColumnProps = {
 	images: string[];
 	y: MotionValue<number>;
+	className?: string;
 };
 
-const Column = ({ images, y }: ColumnProps) => {
+const Column = ({ images, y, className }: ColumnProps) => {
 	return (
 		<motion.div
-			className="relative -top-[45%] flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] first:top-[-45%] nth-2:top-[-95%] nth-3:top-[-45%] nth-4:top-[-75%]"
+			className={`relative -top-[45%] flex h-full w-full min-w-[250px] flex-col gap-[2vw] first:top-[-45%] nth-2:top-[-95%] nth-3:top-[-45%] nth-4:top-[-75%] ${className}`}
 			style={{ y }}
 		>
 			{images.map((src) => (
@@ -90,7 +105,7 @@ const Column = ({ images, y }: ColumnProps) => {
 					<img
 						src={src}
 						alt="Parallax"
-						className="pointer-events-none object-cover"
+						className="pointer-events-none object-cover h-full"
 					/>
 				</div>
 			))}

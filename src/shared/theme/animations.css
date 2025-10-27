@@ -1,20 +1,20 @@
-/* Activa la animación cuando el div entra ~40% en viewport */
-@scroll-timeline scale-timeline {
-  source: auto; /* usa el scroll del viewport */
-  orientation: block;
-  scroll-offsets: (enter 40%) (exit 100%);
+ 
+@keyframes scaleUp {
+  from { scale: 0.9; border-radius: 300px; }
+  50% { scale: 1; border-radius: 30px; }
+  to { scale: 0.9; border-radius: 300px; }
 }
+
 
 .scroll-scale-in {
-  scale: 0.6;
-  animation-timeline: --imageTimeline;
-  animation: scaleUp 1 both;
-  animation-duration: 1ms; 
-  animation-timeline: scale-timeline;
-  animation-timing-function: ease-out;
-}
+	/* Create View Timeline */
+	view-timeline-name: --revealing-image;
+	view-timeline-axis: block;
 
-@keyframes scaleUp {
-  from { scale: 0.6; }
-  to { scale: 1; }
+	/* Attach animation, linked to the  View Timeline */
+	animation: linear scaleUp both;
+	animation-timeline: --revealing-image;
+
+	/* Tweak range when effect should run*/
+	animation-range: entry 0% 100%;
 }

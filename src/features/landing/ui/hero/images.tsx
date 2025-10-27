@@ -1,0 +1,43 @@
+import gsap from "gsap";
+import { useEffect } from "react";
+
+export const Images = () => {
+	useEffect(() => {
+		const images = document.querySelectorAll(".hero_imgs img");
+
+		gsap.fromTo(
+			images,
+			{ y: -200, x: (i) => [-80, 0, 80][i], opacity: 0, rotate: 0 },
+			{
+				y: 0,
+				x: 0,
+				opacity: 1,
+				rotate: (i) => [-3, 0, 6][i], // mantiene tu rotación original
+				duration: 0.8,
+				delay: 1.5,
+				stagger: 0.15,
+				ease: "power3.out",
+			},
+		);
+	}, []);
+
+	return (
+		<div className="hero_imgs flex lg:gap-20 items-end relative justify-center">
+			<img
+				src="/images/1.webp"
+				alt="NovaHair Logo"
+				className="w-36 lg:w-64 object-contain -rotate-3 rounded-xl shadow-lg"
+			/>
+			<img
+				src="/images/4.webp"
+				alt="NovaHair Logo"
+				className="w-64 lg:w-96 mt-24 rounded-xl shadow-lg"
+			/>
+			<img
+				src="/images/3.webp"
+				alt="NovaHair Logo"
+				className="w-36 lg:w-64 object-contain mb-12 rotate-6 rounded-xl shadow-lg"
+			/>
+		</div>
+	);
+};

@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/outfit';
-@import 'tw-animate-css';
 @import "./shared/theme/animations.css";
+@plugin "tailwindcss-motion";
+
 
 @custom-variant dark (&:is(.dark *));
 
