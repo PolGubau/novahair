@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
+const dateFormatter = new Intl.DateTimeFormat("es-ES", {
 	month: "long",
 	year: "numeric",
 });

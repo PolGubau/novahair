@@ -40,8 +40,8 @@ export const Calendar = ({
 					<tr>
 						{weekDays.map((dayName) => (
 							<th key={dayName.long}>
-								<span className="md:hidden">{dayName.short}</span>
-								<span className="max-md:hidden">{dayName.long}</span>
+								<span className="md:hidden capitalize">{dayName.short}</span>
+								<span className="max-md:hidden capitalize">{dayName.long}</span>
 							</th>
 						))}
 					</tr>
