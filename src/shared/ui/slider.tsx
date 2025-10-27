@@ -1,9 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
-import "./slider.css";
 import {
 	Autoplay,
 	EffectCoverflow,
@@ -11,39 +8,39 @@ import {
 	Pagination,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { cn } from "@/lib/cn";
+import "./slider.css";
 
-const Slider = ({
-	images,
-	className,
-	showPagination = false,
-	showNavigation = false,
-	loop = true,
-	autoplay = false,
-	spaceBetween = 40,
-}: {
-	images: { src: string; alt: string }[];
+type SliderProps<T> = {
+	items: T[];
 	className?: string;
 	showPagination?: boolean;
 	showNavigation?: boolean;
 	loop?: boolean;
 	autoplay?: boolean;
+	slidesPerView?: number;
 	spaceBetween?: number;
-}) => {
+	render: (item: T, index: number) => React.ReactNode;
+};
+
+const Slider = <T,>({
+	items,
+	className,
+	showPagination = true,
+	showNavigation = false,
+	loop = true,
+	slidesPerView = 2.46,
+	autoplay = true,
+	spaceBetween = 40,
+	render,
+}: SliderProps<T>) => {
 	const css = `
   .Carousal_001 {
     padding-bottom: 50px !important;
   }
   `;
 	return (
-		<motion.div
-			initial={{ opacity: 0, translateY: 20 }}
-			animate={{ opacity: 1, translateY: 0 }}
-			transition={{
-				duration: 0.3,
-				delay: 0.5,
-			}}
-			className={cn("w-3xl relative", className)}
-		>
+		<div className={cn("w-full relative h-full", className)}>
 			<style>{css}</style>
 
 			<Swiper
@@ -51,7 +48,7 @@ const Slider = ({
 				autoplay={
 					autoplay
 						? {
-								delay: 1500,
+								delay: 2000,
 								disableOnInteraction: false,
 							}
 						: false
@@ -60,13 +57,13 @@ const Slider = ({
 				grabCursor={true}
 				centeredSlides={true}
 				loop={loop}
-				slidesPerView={2.43}
+				slidesPerView={slidesPerView}
 				coverflowEffect={{
-					rotate: 0,
+					rotate: 5,
 					slideShadows: false,
-					stretch: 0,
+					stretch: 10,
 					depth: 100,
-					modifier: 2.5,
+					modifier: 2,
 				}}
 				pagination={
 					showPagination
@@ -86,28 +83,22 @@ const Slider = ({
 				className="Carousal_001"
 				modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
 			>
-				{images.map((image, index) => (
+				{items.map((item, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: index está bien aquí
-					<SwiperSlide key={index} className="h-80! w-full border">
-						<img
-							className="h-full w-full object-cover"
-							src={image.src}
-							alt={image.alt}
-						/>
-					</SwiperSlide>
+					<SwiperSlide key={index}>{render(item, index)}</SwiperSlide>
 				))}
 				{showNavigation && (
 					<div>
-						<div className="swiper-button-next after:hidden">
-							<ChevronRightIcon className="h-6 w-6 text-white" />
+						<div className="swiper-button-next after:hidden z-50">
+							<ChevronRightIcon className="h-6 w-6 text-foreground" />
 						</div>
-						<div className="swiper-button-prev after:hidden">
-							<ChevronLeftIcon className="h-6 w-6 text-white" />
+						<div className="swiper-button-prev after:hidden z-50">
+							<ChevronLeftIcon className="h-6 w-6 text-foreground" />
 						</div>
 					</div>
 				)}
 			</Swiper>
-		</motion.div>
+		</div>
 	);
 };
 

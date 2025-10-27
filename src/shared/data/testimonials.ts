@@ -1,26 +1,34 @@
 export const testimonials = [
 	{
 		src: "/images/1.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "Pablo Navarro",
+		testimonial:
+			"Excelente servicio y atención personalizada. ¡Muy recomendable!",
 	},
 	{
 		src: "/images/2.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "María López",
+		testimonial:
+			"Me encantó el ambiente y el profesionalismo del equipo. Volveré seguro.",
 	},
 	{
 		src: "/images/3.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "Juan Pérez",
+		testimonial: "Gran experiencia, salí muy satisfecho con mi nuevo look.",
 	},
 	{
 		src: "/images/4.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "Ana García",
+		testimonial: "El mejor lugar para cuidar tu cabello. ¡Me siento renovada!",
 	},
 	{
 		src: "/images/5.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "Luis Martínez",
+		testimonial: "Un servicio excepcional, definitivamente volveré por más.",
 	},
 	{
 		src: "/images/6.webp",
-		alt: "Illustrations by my fav AarzooAly",
+		name: "Laura Fernández",
+		testimonial: "Un lugar acogedor y un equipo muy profesional. ¡Recomendado!",
 	},
 ];
