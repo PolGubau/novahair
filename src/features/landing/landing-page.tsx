@@ -8,8 +8,6 @@ export const LandingPage = () => {
 			<Hero />
 			<ParallaxImages />
 			<Services />
-
-			<div className="h-[200vh]">hola</div>
 		</main>
 	);
 };
