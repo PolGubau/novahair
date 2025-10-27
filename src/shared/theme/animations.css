@@ -1,0 +1,20 @@
+/* Activa la animación cuando el div entra ~40% en viewport */
+@scroll-timeline scale-timeline {
+  source: auto; /* usa el scroll del viewport */
+  orientation: block;
+  scroll-offsets: (enter 40%) (exit 100%);
+}
+
+.scroll-scale-in {
+  scale: 0.6;
+  animation-timeline: --imageTimeline;
+  animation: scaleUp 1 both;
+  animation-duration: 1ms; 
+  animation-timeline: scale-timeline;
+  animation-timing-function: ease-out;
+}
+
+@keyframes scaleUp {
+  from { scale: 0.6; }
+  to { scale: 1; }
+}
