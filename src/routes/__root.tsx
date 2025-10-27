@@ -8,9 +8,9 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import ReactLenis from "lenis/react";
+import { Devtools } from "@/shared/ui/dev-tools";
 import { Footer } from "@/shared/ui/footer";
 import { SquiCircleFilterLayout } from "@/shared/ui/squicircle";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
 interface MyRouterContext {
@@ -28,7 +28,53 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "NOVAHAIR - Tu nueva peluquería de confianza",
+			},
+			{
+				name: "description",
+				content: "Descubre todos nuestros servicios de corte, color y peinado.",
+			},
+			{
+				property: "og:title",
+				content: "NOVAHAIR - Tu nueva peluquería de confianza",
+			},
+			{ property: "og:type", content: "website" },
+			{
+				property: "og:description",
+				content: "Descubre todos nuestros servicios de corte, color y peinado.",
+			},
+			{
+				property: "og:image",
+				content: "/images/1.webp",
+			},
+			{
+				name: "twitter:card",
+				content: "summary_large_image",
+			},
+			{
+				name: "twitter:description",
+				content: "Descubre todos nuestros servicios de corte, color y peinado.",
+			},
+			{
+				name: "twitter:image",
+				content: "/images/1.webp",
+			},
+			{
+				name: "twitter:title",
+				content: "NOVAHAIR - Tu nueva peluquería de confianza",
+			},
+			{
+				name: "author",
+				content: "Destacat.cat - Pol Gubau Amores",
+			},
+			{
+				name: "keywords",
+				content:
+					"peluquería, corte de pelo, coloración, peinados, tratamientos capilares, NOVAHAIR",
+			},
+			{
+				name: "robots",
+				content: "index, follow",
 			},
 		],
 		links: [
@@ -54,18 +100,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					{children}
 					<Footer />
 				</ReactLenis>
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-						TanStackQueryDevtools,
-					]}
-				/>
+				<Devtools />
 				<Scripts />
 			</body>
 		</html>

@@ -1,15 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { appointmentFormRepository } from "@/features/appointment-form/infra/repository";
 import { useAvailableDays } from "@/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "@/features/appointment-form/model/use-calendar-times";
 import { Calendar } from "@/features/appointment-form/ui/calendar";
 import { Drawer } from "@/shared/ui/drawer";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/book/$serviceId")({
 	component: CalendarStep,
+
 });
 
 function CalendarStep() {

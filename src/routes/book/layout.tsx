@@ -3,6 +3,7 @@ import { AppointmentFormHeader } from "@/features/appointment-form/ui/layout/hea
 
 export const Route = createFileRoute("/book")({
 	component: BookComponent,
+	
 });
 
 function BookComponent() {

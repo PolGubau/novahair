@@ -10,5 +10,5 @@ function RouteComponent() {
 		<section className="min-h-screen grid gap-4 p-4 ">
 			<ServiceSelector />
 		</section>
-	)
+	);
 }
