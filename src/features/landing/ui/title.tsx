@@ -31,11 +31,11 @@ export const Title = () => {
 	return (
 		<h1
 			ref={titleRef}
-			className="text-5xl md:text-6xl lg:text-9xl font-bold text-center mt-36"
+			className="text-5xl md:text-6xl lg:text-9xl font-bold text-center mt-10 lg:mt-36"
 		>
 			{text.split("").map((letter, i) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: its ok
-<span key={i} className="letter inline-block overflow-hidden relative">
+				<span key={i} className="letter inline-block overflow-hidden relative">
 					<span className="block will-change-transform">{letter}</span>
 				</span>
 			))}

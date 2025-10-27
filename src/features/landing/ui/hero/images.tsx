@@ -22,21 +22,21 @@ export const Images = () => {
 	}, []);
 
 	return (
-		<div className="hero_imgs flex lg:gap-20 items-end relative justify-center">
+		<div className="hero_imgs flex gap-4 lg:gap-20 items-end relative justify-center">
 			<img
 				src="/images/1.webp"
 				alt="NovaHair Logo"
-				className="w-36 lg:w-64 object-contain -rotate-3 rounded-xl shadow-lg"
+				className="w-36 lg:w-64 z-10 max-lg:-mr-28 object-contain -rotate-3 rounded-xl shadow-lg"
 			/>
 			<img
 				src="/images/4.webp"
 				alt="NovaHair Logo"
-				className="w-64 lg:w-96 mt-24 rounded-xl shadow-lg"
+				className="w-64 lg:w-96 mb-20 mt-10 lg:mt-24 rounded-xl shadow-lg"
 			/>
 			<img
 				src="/images/3.webp"
 				alt="NovaHair Logo"
-				className="w-36 lg:w-64 object-contain mb-12 rotate-6 rounded-xl shadow-lg"
+				className="w-36 lg:w-64 z-10 max-lg:-ml-28 object-contain mb-12 rotate-6 rounded-xl shadow-lg"
 			/>
 		</div>
 	);

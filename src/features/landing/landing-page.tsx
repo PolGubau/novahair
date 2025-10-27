@@ -1,6 +1,7 @@
 import { ParallaxImages } from "@/shared/ui/parallax-images";
 import { Hero } from "./ui/hero";
 import { Services } from "./ui/services";
+import { Testimonials } from "./ui/testimonials";
 
 export const LandingPage = () => {
 	return (
@@ -8,6 +9,7 @@ export const LandingPage = () => {
 			<Hero />
 			<ParallaxImages />
 			<Services />
+			<Testimonials />
 		</main>
 	);
 };
