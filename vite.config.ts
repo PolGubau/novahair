@@ -12,14 +12,17 @@ const config = defineConfig({
     }),
     tailwindcss(),
     tanstackStart({
+      
       router:{
         routeToken: 'layout',
       }
     }),
     viteReact(),
   ],
+  
 
   server: {
+    
     proxy: {
       '/api': {
         target: "http://production-core-mzpxsa-57de11-185-250-36-170.traefik.me/api",
