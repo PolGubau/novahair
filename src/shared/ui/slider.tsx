@@ -8,7 +8,7 @@ import {
 	Pagination,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { cn } from "@/lib/cn";
+import { cn } from "~/lib/cn";
 import "./slider.css";
 
 type SliderProps<T> = {

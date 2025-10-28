@@ -1,16 +1,15 @@
 /// <reference types="vite/client" />
-import { TanStackDevtools } from "@tanstack/react-devtools";
+
 import type { QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import ReactLenis from "lenis/react";
-import { Devtools } from "@/shared/ui/dev-tools";
-import { Footer } from "@/shared/ui/footer";
-import { SquiCircleFilterLayout } from "@/shared/ui/squicircle";
+import { Devtools } from "~/shared/ui/dev-tools";
+import { Footer } from "~/shared/ui/footer";
+import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
 
 interface MyRouterContext {
@@ -96,9 +95,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ReactLenis root>
+					<div className="min-h-screen flex flex-col justify-between w-full">
+						{children}
+						<Footer />
+					</div>
 					<SquiCircleFilterLayout />
-					{children}
-					<Footer />
 				</ReactLenis>
 				<Devtools />
 				<Scripts />

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { useAvailableDays } from "@/features/appointment-form/model/use-available-days";
-import { useCalendarTimes } from "@/features/appointment-form/model/use-calendar-times";
-import { Calendar } from "@/features/appointment-form/ui/calendar";
-import { AppointmentForm } from "@/features/appointment-form/ui/form/form";
-import { Drawer } from "@/shared/ui/drawer";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
+import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
+import { Calendar } from "~/features/appointment-form/ui/calendar";
+import { AppointmentForm } from "~/features/appointment-form/ui/form/form";
+import { Drawer } from "~/shared/ui/drawer";
+import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 
 export const Route = createFileRoute("/book/$serviceId")({
 	component: CalendarStep,

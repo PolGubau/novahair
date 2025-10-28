@@ -1,4 +1,4 @@
-import { endpoints, type GetAvailableDaysProps } from "@/shared/constants";
+import { endpoints, type GetAvailableDaysProps } from "~/shared/constants";
 import type { AvailableDay } from "../domain/available-day";
 import type { Service } from "../domain/service";
 

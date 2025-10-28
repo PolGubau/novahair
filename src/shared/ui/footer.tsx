@@ -2,7 +2,7 @@ import { copy } from "../data/copy";
 
 export const Footer = () => {
 	return (
-		<footer className="flex flex-col items-center gap-8 max-w-7xl mx-auto px-4 py-12 pb-[40vh]">
+		<footer className="flex flex-col max-w-7xl w-full mx-auto py-12">
 			<div className="md:grid md:grid-cols-[auto,1fr]">
 				<div className="content text-sm leading-[1.3] uppercase tracking-[-0.41px] text-appGray-500 text-center mb-8 md:text-base md:leading-[1.3] md:text-left">
 					<div className="content-primitive content--paragraph">
@@ -82,7 +82,7 @@ export const Footer = () => {
 			<div className="flex flex-col items-center text-center md:flex-row md:justify-between">
 				<div className="flex items-center max-md:mb-3.5">
 					<span className="text-sm leading-none tracking-[-0.41px] mr-2 md:text-base md:leading-none md:mr-3">
-						{copy.footer.brand}
+						{copy.name}
 					</span>
 				</div>
 				<p className="text-xs leading-none md:text-base md:leading-none">

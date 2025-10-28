@@ -1,5 +1,5 @@
-import { testimonials } from "@/shared/data/testimonials";
-import { Slider } from "@/shared/ui/slider";
+import { testimonials } from "~/shared/data/testimonials";
+import { Slider } from "~/shared/ui/slider";
 
 export const Testimonials = () => {
 	const commonProps = {

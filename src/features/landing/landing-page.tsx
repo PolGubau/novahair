@@ -1,4 +1,4 @@
-import { ParallaxImages } from "@/shared/ui/parallax-images";
+import { ParallaxImages } from "~/shared/ui/parallax-images";
 import { BookButton } from "./ui/book-button";
 import { Hero } from "./ui/hero";
 import { Services } from "./ui/services";

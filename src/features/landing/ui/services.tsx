@@ -1,4 +1,4 @@
-import { services } from "@/shared/data/services";
+import { services } from "~/shared/data/services";
 
 export const Services = () => {
 	return (

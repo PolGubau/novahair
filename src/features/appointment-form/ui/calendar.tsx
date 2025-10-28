@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: Lo necesitamos */
-import { generateCalendarMatrix } from "@/lib/calendar";
-import { cn } from "@/lib/cn";
-import { getWeekdayNames } from "@/lib/get-weekday-names";
+import { generateCalendarMatrix } from "~/lib/calendar";
+import { cn } from "~/lib/cn";
+import { getWeekdayNames } from "~/lib/get-weekday-names";
 import type { AvailableDay } from "../domain/available-day";
 
 function getOnlyDate(date: Date) {

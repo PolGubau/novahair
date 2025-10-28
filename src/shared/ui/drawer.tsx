@@ -1,6 +1,6 @@
 import type { SheetProps } from "react-modal-sheet";
 import { Sheet } from "react-modal-sheet";
-import { cn } from "@/lib/cn";
+import { cn } from "~/lib/cn";
 
 type Props = SheetProps & {
 	footer?: React.ReactNode;
