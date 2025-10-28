@@ -34,14 +34,22 @@ export const Calendar = ({
 	const weekDays = getWeekdayNames();
 	const today = new Date();
 	return (
-		<div className="w-full h-full ">
-			<table className="w-full h-full border-collapse">
+		<div className="w-full h-full bg-white p-4 md:p-16 rounded-lg shadow-md">
+			<table
+				className="w-full h-full border-collapse table-fixed text-sm"
+				cellPadding={0}
+				cellSpacing={0}
+			>
 				<thead>
 					<tr>
 						{weekDays.map((dayName) => (
-							<th key={dayName.long}>
-								<span className="md:hidden capitalize">{dayName.short}</span>
-								<span className="max-md:hidden capitalize">{dayName.long}</span>
+							<th key={dayName.long} className="pt-2 pb-6">
+								<span className="md:hidden first-letter:capitalize">
+									{dayName.short}
+								</span>
+								<span className="max-md:hidden first-letter:capitalize">
+									{dayName.long}
+								</span>
 							</th>
 						))}
 					</tr>
@@ -55,17 +63,15 @@ export const Calendar = ({
 								const isAvailable =
 									cell.date && isThisDayAvailable(cell.date, availableDays);
 								return (
-									<td key={dayIndex}>
+									<td key={dayIndex} className=" w-[14%]">
 										<button
+											disabled={!isAvailable}
 											type="button"
-											className={cn(
-												"p-4 w-full text-center min-h-24 bg-background",
-												{
-													"text-gray-400 bg-background/50": !cell.inMonth,
-													"font-bold bg-amber-100": isToday,
-													"bg-neutral-500/20": isAvailable,
-												},
-											)}
+											className={cn("p-4 w-full text-center min-h-24", {
+												border: cell.inMonth,
+												"font-bold bg-amber-100": isToday,
+												"bg-neutral-500/20 ": isAvailable,
+											})}
 											onClick={() =>
 												isAvailable && cell.date && onSelectDate?.(cell.date)
 											}
