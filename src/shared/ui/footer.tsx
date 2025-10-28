@@ -2,7 +2,7 @@ import { copy } from "../data/copy";
 
 export const Footer = () => {
 	return (
-		<footer className="flex flex-col max-w-7xl w-full mx-auto py-12">
+		<footer className="flex flex-col max-w-7xl w-full mx-auto">
 			<div className="md:grid md:grid-cols-[auto,1fr]">
 				<div className="content text-sm leading-[1.3] uppercase tracking-[-0.41px] text-appGray-500 text-center mb-8 md:text-base md:leading-[1.3] md:text-left">
 					<div className="content-primitive content--paragraph">

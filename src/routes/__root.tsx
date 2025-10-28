@@ -95,10 +95,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ReactLenis root>
-					<div className="min-h-screen flex flex-col justify-between w-full">
-						{children}
-						<Footer />
-					</div>
+					{children}
 					<SquiCircleFilterLayout />
 				</ReactLenis>
 				<Devtools />

@@ -4,6 +4,7 @@ import { ServiceItem } from "./item";
 type Props = {
 	services: Service[];
 };
+
 export const ServiceList = ({ services }: Props) => {
 	return (
 		<ul className="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-4">

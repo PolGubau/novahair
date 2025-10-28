@@ -10,7 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as BookLayoutRouteImport } from './routes/book/layout'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as landingLayoutRouteImport } from './routes/(landing)/layout'
+import { Route as landingIndexRouteImport } from './routes/(landing)/index'
 import { Route as BookChooseServiceRouteImport } from './routes/book/choose-service'
 import { Route as BookServiceIdRouteImport } from './routes/book/$serviceId'
 
@@ -19,10 +20,14 @@ const BookLayoutRoute = BookLayoutRouteImport.update({
   path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const landingLayoutRoute = landingLayoutRouteImport.update({
+  id: '/(landing)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const landingIndexRoute = landingIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => landingLayoutRoute,
 } as any)
 const BookChooseServiceRoute = BookChooseServiceRouteImport.update({
   id: '/choose-service',
@@ -36,34 +41,41 @@ const BookServiceIdRoute = BookServiceIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/book': typeof BookLayoutRouteWithChildren
   '/book/$serviceId': typeof BookServiceIdRoute
   '/book/choose-service': typeof BookChooseServiceRoute
+  '/': typeof landingIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/book': typeof BookLayoutRouteWithChildren
   '/book/$serviceId': typeof BookServiceIdRoute
   '/book/choose-service': typeof BookChooseServiceRoute
+  '/': typeof landingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(landing)': typeof landingLayoutRouteWithChildren
   '/book': typeof BookLayoutRouteWithChildren
   '/book/$serviceId': typeof BookServiceIdRoute
   '/book/choose-service': typeof BookChooseServiceRoute
+  '/(landing)/': typeof landingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book' | '/book/$serviceId' | '/book/choose-service'
+  fullPaths: '/book' | '/book/$serviceId' | '/book/choose-service' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book' | '/book/$serviceId' | '/book/choose-service'
-  id: '__root__' | '/' | '/book' | '/book/$serviceId' | '/book/choose-service'
+  to: '/book' | '/book/$serviceId' | '/book/choose-service' | '/'
+  id:
+    | '__root__'
+    | '/(landing)'
+    | '/book'
+    | '/book/$serviceId'
+    | '/book/choose-service'
+    | '/(landing)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  landingLayoutRoute: typeof landingLayoutRouteWithChildren
   BookLayoutRoute: typeof BookLayoutRouteWithChildren
 }
 
@@ -76,12 +88,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/(landing)': {
+      id: '/(landing)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof landingLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(landing)/': {
+      id: '/(landing)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof landingIndexRouteImport
+      parentRoute: typeof landingLayoutRoute
     }
     '/book/choose-service': {
       id: '/book/choose-service'
@@ -100,6 +119,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface landingLayoutRouteChildren {
+  landingIndexRoute: typeof landingIndexRoute
+}
+
+const landingLayoutRouteChildren: landingLayoutRouteChildren = {
+  landingIndexRoute: landingIndexRoute,
+}
+
+const landingLayoutRouteWithChildren = landingLayoutRoute._addFileChildren(
+  landingLayoutRouteChildren,
+)
+
 interface BookLayoutRouteChildren {
   BookServiceIdRoute: typeof BookServiceIdRoute
   BookChooseServiceRoute: typeof BookChooseServiceRoute
@@ -115,7 +146,7 @@ const BookLayoutRouteWithChildren = BookLayoutRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  landingLayoutRoute: landingLayoutRouteWithChildren,
   BookLayoutRoute: BookLayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport

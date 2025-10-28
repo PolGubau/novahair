@@ -11,19 +11,19 @@ export const ServiceItem = ({ service }: Props) => {
 			key={service.id}
 			className="rounded-2xl overflow-hidden shadow bg-white gap-5 grid grid-cols-[1fr_2fr] items-center"
 		>
-			<img
-				src={"/images/1.webp"}
-				alt="preview"
-				className="h-full w-full object-cover"
-			/>
-			<div className="p-4">
-				<h2 className="text-2xl mb-2">{service.name}</h2>
+			<div className="h-full bg-primary/5 w-full grid place-items-center">
+				{service.imageUrl && (
+					<img src={service.imageUrl} alt="preview" className=" object-cover" />
+				)}
+			</div>
+			<div className="p-4 flex flex-col h-full justify-between">
+				<header>
+					<h2 className="text-2xl mb-2">{service.name}</h2>
 
-				<p className="text-foreground/80 text-balance line-clamp-5">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-					distinctio vero ipsa minima rem sunt ullam, minus autem qui
-					perferendis cum dignissimos.
-				</p>
+					<p className="text-foreground/80 text-balance line-clamp-5">
+						{service.description}
+					</p>
+				</header>
 
 				<nav className="flex justify-end pt-3">
 					<Link
