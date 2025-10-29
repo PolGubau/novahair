@@ -1,4 +1,14 @@
 {
 	"elige_servicio": "Elige un servicio",
-	"home": "Inicio"
+	"home": "Inicio",
+	"name": "Nombre",
+	"email": "Correo electrónico",
+	"phone": "Teléfono",
+	"appointment_date": "Pide cita el {{date}}",
+	"notes": "Notas",
+	"name_placeholder": "Antonio Lobato",
+	"email_placeholder": "lobato@tucoche.com",
+	"book_appointment": "Pedir cita",
+	"notes_placeholder": "Escribe aquí cualquier detalle adicional...",
+	"choose_time_slot": "Elige una franja horaria"
 }

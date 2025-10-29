@@ -34,7 +34,7 @@ export const Calendar = ({
 	const weekDays = getWeekdayNames();
 	const today = new Date();
 	return (
-		<div className="w-full h-full bg-white p-4 md:p-16 rounded-lg shadow-md">
+		<div className="w-full h-full bg-white p-4 md:p-14 rounded-lg shadow-md">
 			<table
 				className="w-full h-full border-collapse table-fixed text-sm"
 				cellPadding={0}

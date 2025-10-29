@@ -10,7 +10,7 @@ export const ServiceSelector = () => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<h1 className="text-4xl mb-4">{t("eligeServicio")}</h1>
+			<h1 className="text-4xl mb-4">{t("elige_servicio")}</h1>
 			<LoadingOverlay isLoading={isLoading}>
 				<ServiceList services={services} />
 			</LoadingOverlay>

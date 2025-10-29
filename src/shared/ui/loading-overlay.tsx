@@ -9,7 +9,7 @@ export const LoadingOverlay = ({
 	children,
 }: PropsWithChildren<LoadingOverlayProps>) => {
 	return (
-		<>
+		<div className="relative">
 			{isLoading && (
 				<div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
 					<div className="loader">Loading...</div>
@@ -17,6 +17,6 @@ export const LoadingOverlay = ({
 			)}
 
 			{children}
-		</>
+		</div>
 	);
 };

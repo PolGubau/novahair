@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-router";
 import ReactLenis from "lenis/react";
 import { Devtools } from "~/shared/ui/dev-tools";
-import { Footer } from "~/shared/ui/footer";
 import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
 
@@ -80,6 +79,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			{
 				rel: "stylesheet",
 				href: appCss,
+			},
+			{
+				rel: "icon",
+				href: "/favicon.svg",
 			},
 		],
 	}),

@@ -10,6 +10,7 @@ export const Drawer = ({
 	children,
 	isOpen,
 	footer,
+	className,
 	onClose,
 	...rest
 }: Props) => {
@@ -23,10 +24,11 @@ export const Drawer = ({
 		>
 			<Sheet.Container
 				className={cn(
-					"md:px-4 pt-4 max-w-7xl mx-auto md:mb-6 mb:pb-[max(env(safe-area-inset-bottom),16px)] bg-transparent! shadow-none! left-1/2! translate-x-[-50%] grid grid-cols-[1fr_auto] gap-2",
+					"md:px-4 pt-4 mx-auto md:mb-6 mb:pb-[max(env(safe-area-inset-bottom),16px)] bg-transparent! shadow-none! left-1/2! translate-x-[-50%] grid grid-cols-[1fr_auto] gap-2",
 					{
 						"max-w-4xl ": rest.detent === "content",
 					},
+					className,
 				)}
 			>
 				<div
@@ -44,7 +46,7 @@ export const Drawer = ({
 						<Sheet.DragIndicator unstyled={false} />
 					</Sheet.Header>
 
-					<Sheet.Content className="flex-1 overflow-y-auto px-4 pb-[max(env(safe-area-inset-bottom),32px)] min-h-0 grid grid-cols-[1fr_auto] pointer-events-auto">
+					<Sheet.Content className="flex-1 overflow-y-auto h-full px-4 pb-[max(env(safe-area-inset-bottom),32px)] min-h-0 grid grid-cols-[1fr_auto] pointer-events-auto">
 						{children}
 						{footer && <div>{footer}</div>}
 					</Sheet.Content>

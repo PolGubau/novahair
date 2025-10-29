@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { t } from "i18next";
 import { useState } from "react";
 import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
@@ -17,7 +18,6 @@ function CalendarStep() {
 		goNextMonth,
 		formattedDate,
 		goPreviousMonth,
-		goToday,
 		currentDate,
 		month,
 		year,
@@ -31,17 +31,22 @@ function CalendarStep() {
 	const [selectedDay, setSelectedDay] = useState<Date | null>(null);
 
 	if (error) return `An error has occurred: ${error.message}`;
+	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
 	return (
 		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
 			<Drawer
+				className="max-w-4xl"
 				isOpen={Boolean(selectedDay)}
 				onClose={() => setSelectedDay(null)}
 			>
 				<section className="p-4">
 					<h2 className="text-2xl font-bold mb-4">
-						Pide cita el {selectedDay?.toLocaleDateString()}
+						{t("appointment_date", {
+							date: parsedDate,
+						})}
 					</h2>
-					<AppointmentForm />
+
+					{selectedDay && <AppointmentForm date={selectedDay} />}
 				</section>
 			</Drawer>
 

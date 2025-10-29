@@ -1,4 +1,14 @@
 {
 	"elige_servicio": "Choose a service",
-	"home": "Home"
+	"home": "Home",
+	"name": "Name",
+	"email": "Email",
+	"phone": "Phone",
+	"appointment_date": "Book appointment on {{date}}",
+	"notes": "Notes",
+	"book_appointment": "Book appointment",
+	"choose_time_slot": "Choose a time slot",
+	"name_placeholder": "John Doe",
+	"notes_placeholder": "Write any additional details here...",
+	"email_placeholder": "john.doe@example.com"
 }
