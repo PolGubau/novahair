@@ -99,7 +99,7 @@ export const useSubmitAppointment = (
 	};
 
 	return {
-		isLoading: mutation.status === "pending",
+		isLoading: mutation.isPending,
 		error: (mutation.error as Error) ?? null,
 		handleSubmit,
 		isSuccess,

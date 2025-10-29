@@ -5,10 +5,10 @@ type Props = {
 };
 
 export const ErrorMessage = ({ error }: Props) => {
-	const defaultMessage = `An error occurred: ${error.message}`;
+	const message = `An error occurred: ${error.message}`;
 	return (
 		<div role="alert" className="text-destructive mt-2">
-			{t("booking_error", defaultMessage)}
+			{t("booking_error", { message })}
 		</div>
 	);
 };

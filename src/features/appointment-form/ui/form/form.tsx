@@ -6,8 +6,8 @@ import { Route } from "~/routes/book/$serviceId";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
 import { Textarea } from "~/shared/ui/textarea";
-import { ErrorMessage } from "./ErrorMessage";
-import { SuccessMessage } from "./SuccessMessage";
+import { ErrorMessage } from "./error-message";
+import { SuccessMessage } from "./success-message";
 import { SlotChooser } from "./slot-chooser";
 
 type AppointmentFormProps = {
@@ -50,11 +50,16 @@ export const AppointmentForm = ({ date, staffId }: AppointmentFormProps) => {
 				label={t("name")}
 				placeholder={t("name_placeholder")}
 				name={"name"}
+				required
+				minLength={2}
 			/>
 			<Input
 				label={t("email")}
 				placeholder={t("email_placeholder")}
 				name="email"
+				type="email"
+				required
+				minLength={5}
 			/>
 			<Input label={t("phone")} placeholder="600 123 456" name="phone" />
 
