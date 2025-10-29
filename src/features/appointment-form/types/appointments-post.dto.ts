@@ -1,7 +1,7 @@
 export interface AppointmentDtoPost {
 	tenantId: string;
 	serviceId: string;
-	staffId: string;
+	staffId: string | undefined;
 	customer: Customer;
 	startsAt: string;
 	endsAt: string;

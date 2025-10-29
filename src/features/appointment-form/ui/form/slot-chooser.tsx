@@ -1,15 +1,18 @@
 import { t } from "i18next";
-import React from "react";
 import { Route } from "~/routes/book/$serviceId";
 import { Button } from "~/shared/ui/button";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 import { useSlots } from "../../model/use-slots";
 
+export type SlotShort = {
+	start: string;
+	end: string;
+};
 type SlotChooserProps = {
 	date: Date;
 	staffId?: string;
-	selectedSlot?: string;
-	onChange: (slot: string) => void;
+	selectedSlot?: SlotShort;
+	onChange: (slot: SlotShort) => void;
 };
 export const SlotChooser = ({
 	date,
@@ -35,14 +38,14 @@ export const SlotChooser = ({
 
 			<ul className="overflow-x-auto gap-2 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))]">
 				{slots.map((slot) => {
-					const isSelected = selectedSlot === slot.start;
+					const isSelected = selectedSlot?.start === slot.start;
 					return (
 						<li key={slot.start} className="border-b last:border-0">
 							<Button
 								variant={isSelected ? "default" : "outline"}
 								className="w-full"
 								type="button"
-								onClick={() => onChange(slot.start)}
+								onClick={() => onChange({ start: slot.start, end: slot.end })}
 								data-active={isSelected}
 								aria-pressed={isSelected}
 							>

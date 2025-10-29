@@ -10,5 +10,8 @@
 	"email_placeholder": "lobato@tucoche.com",
 	"book_appointment": "Pedir cita",
 	"notes_placeholder": "Escribe aquí cualquier detalle adicional...",
-	"choose_time_slot": "Elige una franja horaria"
+	"choose_time_slot": "Elige una franja horaria",
+	"appointment_created_title": "Cita creada",
+	"appointment_created_details": "{{name}} — {{datetime}}",
+	"booking_error": "Ha ocurrido un error: {{message}}"
 }

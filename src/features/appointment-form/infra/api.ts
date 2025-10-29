@@ -52,20 +52,21 @@ export async function bookAppointment(props: BookAppointmentProps) {
 			phone: props.customer.phone,
 			notes: "",
 		},
-		startsAt: new Date().toISOString(),
-		endsAt: new Date(Date.now() + 30 * 60 * 1000).toISOString(), // +30 minutes
-		priceCents: 5000,
+		startsAt: props.start,
+		endsAt: props.end,
+		priceCents: 0,
 		notes: props.notes,
 	};
 
 	const url = endpoints.bookAppointment;
+	const stringifiedBody = JSON.stringify(body);
 
-	return genericFetch(url, {
+	return genericFetch<AppointmentDtoPost>(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(body),
+		body: stringifiedBody,
 	});
 }
 
@@ -73,4 +74,5 @@ export const api = {
 	listServices,
 	listAvailableDays,
 	listSlots,
+	bookAppointment,
 };
