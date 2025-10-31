@@ -6,7 +6,11 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
+import gsap from "gsap";
 import ReactLenis from "lenis/react";
+import { useEffect } from "react";
+import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
+import { Preloader } from "~/features/preloader/ui/preloader";
 import { Devtools } from "~/shared/ui/dev-tools";
 import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
@@ -88,9 +92,19 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	}),
 
 	shellComponent: RootDocument,
+	notFoundComponent: () => <div>404 - Not Found</div>,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { isReady } = usePreloader();
+
+	useEffect(() => {
+		if (isReady) {
+			// Inicia tus animaciones GSAP cuando ya está todo cargado
+			gsap.from(".fade-in", { opacity: 0, y: 20, duration: 1 });
+		}
+	}, [isReady]);
+
 	return (
 		<html lang="en">
 			<head>
@@ -98,7 +112,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ReactLenis root>
-					{children}
+					{!isReady && <Preloader isReady={isReady} />}
+
+					<div className="fade-in">{children}</div>
 					<SquiCircleFilterLayout />
 				</ReactLenis>
 				<Devtools />

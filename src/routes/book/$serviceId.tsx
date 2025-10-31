@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
 import { Calendar } from "~/features/appointment-form/ui/calendar";
+import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { AppointmentForm } from "~/features/appointment-form/ui/form/form";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
@@ -32,6 +33,8 @@ function CalendarStep() {
 
 	if (error) return `An error has occurred: ${error.message}`;
 	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
+
+	
 	return (
 		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
 			<Drawer
@@ -56,42 +59,20 @@ function CalendarStep() {
 						{formattedDate}
 					</div>
 
-					<nav className="flex gap-4 items-center">
-						<button
-							type="button"
-							onClick={goPreviousMonth}
-							className="bg-primary rounded-full aspect-square size-10 group-focus:size-10 transition-all flex items-center justify-center text-background"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								className="rotate-180"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#e3e3e3"
-							>
-								<title>Arrow Right</title>
-								<path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-							</svg>
-						</button>
-
-						<button
-							type="button"
-							onClick={goNextMonth}
-							className="bg-primary rounded-full aspect-square size-10 group-focus:size-10 transition-all flex items-center justify-center text-background"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#e3e3e3"
-							>
-								<title>Arrow Right</title>
-								<path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-							</svg>
-						</button>
-					</nav>
+					<CalendarNav
+						onPrev={goPreviousMonth}
+						onNext={goNextMonth}
+						showPrev={
+							// Only show previous when the displayed month is after the current month
+							(() => {
+								const today = new Date();
+								return (
+									year > today.getFullYear() ||
+									(year === today.getFullYear() && month > today.getMonth())
+								);
+							})()
+						}
+					/>
 				</header>
 				<LoadingOverlay isLoading={isLoading}>
 					<Calendar
