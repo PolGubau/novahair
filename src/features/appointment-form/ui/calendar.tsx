@@ -35,7 +35,7 @@ export const Calendar = ({
 	const today = new Date();
 	return (
 		<div className="w-full h-full bg-white p-4 md:p-14 rounded-lg shadow-md">
-			<table
+ 			<table
 				className="w-full h-full border-collapse table-fixed text-sm"
 				cellPadding={0}
 				cellSpacing={0}
@@ -63,14 +63,14 @@ export const Calendar = ({
 								const isAvailable =
 									cell.date && isThisDayAvailable(cell.date, availableDays);
 								return (
-									<td key={dayIndex} className=" w-[14%]">
+									<td key={dayIndex} className="w-[14%]">
 										<button
 											disabled={!isAvailable}
 											type="button"
 											className={cn("p-4 w-full text-center min-h-24", {
 												border: cell.inMonth,
 												"font-bold bg-amber-100": isToday,
-												"bg-neutral-500/20 ": isAvailable,
+												"bg-green-500/20 ": isAvailable,
 											})}
 											onClick={() =>
 												isAvailable && cell.date && onSelectDate?.(cell.date)

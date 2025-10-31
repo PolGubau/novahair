@@ -8,8 +8,7 @@ type Props = {
 export const ServiceItem = ({ service }: Props) => {
 	return (
 		<li
-			key={service.id}
-			className="rounded-2xl overflow-hidden shadow bg-white gap-5 grid grid-cols-[1fr_2fr] items-center"
+ 			className="rounded-2xl overflow-hidden shadow bg-white gap-5 grid grid-cols-[1fr_2fr] items-center"
 		>
 			<div className="h-full bg-primary/5 w-full grid place-items-center">
 				{service.imageUrl && (

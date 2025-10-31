@@ -13,10 +13,14 @@ function Textarea({ className, label, ...props }: Props) {
 			{label && (
 				<label
 					htmlFor={id}
-					className="block mb-1 text-sm font-medium text-foreground"
+				className="flex gap-2 items-center"
 					data-slot="label"
 				>
+					<span	className="block mb-1 text-sm font-medium text-foreground">
+
 					{label}
+					</span>
+					{!props.required && <span className="text-foreground/80 text-thin text-xs"> {`(opcional)`}</span>}
 				</label>
 			)}
 			<textarea

@@ -8,7 +8,7 @@ import type { AppointmentDtoPost } from "../types/appointments-post.dto";
 type Params = {
 	serviceId: string;
 	staffId?: string;
-};
+ };
 type UseSubmitAppointmentResult = {
 	isLoading: boolean;
 	error: Error | null;

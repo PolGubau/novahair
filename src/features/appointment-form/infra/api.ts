@@ -42,19 +42,14 @@ export async function listSlots(props: GetSlotsProps) {
 
 export async function bookAppointment(props: BookAppointmentProps) {
 	const body: AppointmentDtoPost = {
-		tenantId: constants.tenantId,
-		serviceId: props.serviceId,
+ 		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
-			tenantId: constants.tenantId,
-			name: props.customer.name,
+ 			name: props.customer.name,
 			email: props.customer.email,
 			phone: props.customer.phone,
-			notes: "",
 		},
 		startsAt: props.start,
-		endsAt: props.end,
-		priceCents: 0,
 		notes: props.notes,
 	};
 

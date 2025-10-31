@@ -131,3 +131,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+.skeleton {
+  @apply animate-pulse bg-foreground/10 rounded-md text-transparent w-fit;
+}
+.skeleton-dark {
+  @apply animate-pulse bg-background/10 rounded-md text-transparent w-fit;
+}

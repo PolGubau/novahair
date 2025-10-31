@@ -1,7 +1,6 @@
 import { t } from "i18next";
-import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 import { useServices } from "../model/use-services";
-import { ServiceList } from "./services/list";
+import { ServiceList, ServiceListSkeleton } from "./services/list";
 
 export const ServiceSelector = () => {
 	const { isLoading, error, services } = useServices();
@@ -11,9 +10,7 @@ export const ServiceSelector = () => {
 	return (
 		<div className="flex flex-col gap-4">
 			<h1 className="text-4xl mb-4">{t("elige_servicio")}</h1>
-			<LoadingOverlay isLoading={isLoading}>
-				<ServiceList services={services} />
-			</LoadingOverlay>
-		</div>
+ 				{isLoading ? <ServiceListSkeleton /> : <ServiceList services={services} />}
+ 		</div>
 	);
 };
