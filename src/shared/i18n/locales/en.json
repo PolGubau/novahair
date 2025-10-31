@@ -7,6 +7,7 @@
 	"appointment_date": "Book appointment on {{date}}",
 	"notes": "Notes",
 	"book_appointment": "Book appointment",
+	"seleccionar": "Select",
 	"choose_time_slot": "Choose a time slot",
 	"name_placeholder": "John Doe",
 	"notes_placeholder": "Write any additional details here...",

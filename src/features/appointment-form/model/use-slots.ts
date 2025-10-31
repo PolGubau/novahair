@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { Slot } from "../domain/slot";
 import { appointmentFormRepository } from "../infra/repository";
 
@@ -17,7 +17,7 @@ type UseSlots = (props: Props) => Response;
 export const useSlots: UseSlots = ({
 	serviceId,
 	currentDate,
-	staffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25",
+	staffId,
 }) => {
 	/**
 	 * Get day in 'YYYY-MM-DD' format

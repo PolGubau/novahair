@@ -1,4 +1,4 @@
-import { constants, endpoints } from "~/shared/constants";
+import { endpoints } from "~/shared/constants";
 import type { AvailableDay } from "../domain/available-day";
 import type { Service } from "../domain/service";
 import type { Slot } from "../domain/slot";
@@ -42,10 +42,10 @@ export async function listSlots(props: GetSlotsProps) {
 
 export async function bookAppointment(props: BookAppointmentProps) {
 	const body: AppointmentDtoPost = {
- 		serviceId: props.serviceId,
+		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
- 			name: props.customer.name,
+			name: props.customer.name,
 			email: props.customer.email,
 			phone: props.customer.phone,
 		},

@@ -8,7 +8,7 @@ type Props = {
 
 export const ServiceList = ({ services }: Props) => {
 	return (
-		<ul className="grid grid-cols-[repeat(auto-fit,minmax(500px,1fr))] gap-4">
+		<ul className="grid md:grid-cols-2 gap-4">
 			{services.map((service) => (
 				<ServiceItem key={service.id} service={service} />
 			))}
@@ -16,11 +16,11 @@ export const ServiceList = ({ services }: Props) => {
 	);
 };
 
-
-export const ServiceListSkeleton = ({ count=4 }: { count?: number }) => {
+export const ServiceListSkeleton = ({ count = 4 }: { count?: number }) => {
 	return (
-		<ul className="grid grid-cols-[repeat(auto-fit,minmax(500px,1fr))] gap-4">
+		<ul className="grid md:grid-cols-2 gap-4">
 			{Array.from({ length: count }).map((_, index) => (
+				// biome-ignore lint/suspicious/noArrayIndexKey: ta bn
 				<ServiceItemSkeleton key={index} />
 			))}
 		</ul>

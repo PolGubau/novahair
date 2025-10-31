@@ -6,10 +6,10 @@ import { Route } from "~/routes/book/$serviceId";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
 import { Textarea } from "~/shared/ui/textarea";
-import { ErrorMessage } from "./error-message";
-import { SuccessMessage } from "./success-message";
-import { SlotChooser } from "./slot-chooser";
 import { useFormValues } from "../../model/use-form-values";
+import { ErrorMessage } from "./error-message";
+import { SlotChooser } from "./slot-chooser";
+import { SuccessMessage } from "./success-message";
 
 type AppointmentFormProps = {
 	date: Date;
@@ -23,9 +23,10 @@ type FormValue = {
 	notes?: string;
 };
 
-export const AppointmentForm = ({ date, staffId }: AppointmentFormProps) => {
+export const AppointmentForm = ({ date }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
+	const staffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
 	const [chosenSlot, setChosenSlot] = useState<{
 		start: string;
 		end: string;
@@ -39,7 +40,9 @@ export const AppointmentForm = ({ date, staffId }: AppointmentFormProps) => {
 		useSubmitAppointment(serviceId ? { serviceId, staffId } : null);
 
 	useEffect(() => {
-		if (isSuccess) {formRef.current?.reset()}
+		if (isSuccess) {
+			formRef.current?.reset();
+		}
 	}, [isSuccess]);
 
 	return (
@@ -65,15 +68,21 @@ export const AppointmentForm = ({ date, staffId }: AppointmentFormProps) => {
 			<Input
 				label={t("name")}
 				placeholder={t("name_placeholder")}
-				name={"name"} 
+				name={"name"}
 				required
 				value={fields.name}
 				onChange={(e) => updateField("name", e.target.value)}
 				minLength={2}
 			/>
 
-			<Input label={t("phone")} value={fields.phone}
-				onChange={(e) => updateField("phone", e.target.value)} placeholder="123 456 789" name="phone" type="tel" />
+			<Input
+				label={t("phone")}
+				value={fields.phone}
+				onChange={(e) => updateField("phone", e.target.value)}
+				placeholder="123 456 789"
+				name="phone"
+				type="tel"
+			/>
 
 			<Input
 				label={t("email")}
@@ -86,11 +95,10 @@ export const AppointmentForm = ({ date, staffId }: AppointmentFormProps) => {
 				minLength={5}
 			/>
 
-		
 			<Textarea
 				label={t("notes")}
 				placeholder={t("notes_placeholder")}
-				name="notes" 
+				name="notes"
 				className="min-h-18 max-h-96"
 			/>
 

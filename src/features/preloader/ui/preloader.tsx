@@ -37,7 +37,7 @@ export const Preloader = ({ isReady }: Props) => {
 	return (
 		<output
 			ref={ref}
-			className="fixed inset-0 z-50 flex items-center justify-center bg-background"
+			className="fixed inset-0 z-50 flex items-center justify-center bg-background motion-preset-fade"
 			aria-live="polite"
 		>
 			<div className="flex flex-col items-center gap-4">
@@ -62,13 +62,9 @@ export const Preloader = ({ isReady }: Props) => {
 					</svg>
 
 					{/* Brand with subtle pulsing/scale animation */}
-					<motion.p
-						className="text-2xl md:text-4xl font-semibold"
-						animate={{ scale: [1, 1.06, 1] }}
-						transition={{ duration: 1.2, repeat: Infinity }}
-					>
+					<p className="text-2xl md:text-4xl font-semibold animate-pulse">
 						NOVAHAIR
-					</motion.p>
+					</p>
 				</div>
 
 				{/* Loading text with animated dots */}

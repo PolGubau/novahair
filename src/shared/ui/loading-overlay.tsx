@@ -11,7 +11,7 @@ export const LoadingOverlay = ({
 	return (
 		<div className="relative">
 			{isLoading && (
-				<div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
+				<div className="absolute inset-0 bg-background/5 backdrop-blur-md flex items-center justify-center z-10">
 					<div className="loader">Loading...</div>
 				</div>
 			)}

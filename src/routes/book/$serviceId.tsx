@@ -49,7 +49,7 @@ function CalendarStep() {
 						})}
 					</h2>
 
-					{selectedDay && <AppointmentForm date={selectedDay} />}
+					{selectedDay && <AppointmentForm date={selectedDay}  />}
 				</section>
 			</Drawer>
 
