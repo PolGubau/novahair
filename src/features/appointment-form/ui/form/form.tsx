@@ -13,17 +13,17 @@ import { SuccessMessage } from "./success-message";
 
 type AppointmentFormProps = {
 	date: Date;
-	staffId?: string;
+	onSuccess: () => void;
 };
 
-type FormValue = {
+export type FormValue = {
 	name: string;
 	email: string;
 	phone: string;
 	notes?: string;
 };
 
-export const AppointmentForm = ({ date }: AppointmentFormProps) => {
+export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
 	const staffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
@@ -37,7 +37,11 @@ export const AppointmentForm = ({ date }: AppointmentFormProps) => {
 	const serviceId = Route.useParams().serviceId;
 
 	const { isLoading, error, handleSubmit, isSuccess, createdAppointment } =
-		useSubmitAppointment(serviceId ? { serviceId, staffId } : null);
+		useSubmitAppointment({
+			serviceId,
+			staffId,
+			onSuccess,
+		});
 
 	useEffect(() => {
 		if (isSuccess) {

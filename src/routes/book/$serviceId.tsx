@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import confetti from "canvas-confetti";
 import { t } from "i18next";
 import { useState } from "react";
 import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
+import { useFormValues } from "~/features/appointment-form/model/use-form-values";
 import { Calendar } from "~/features/appointment-form/ui/calendar";
+import {
+	AppointmentForm,
+	type FormValue,
+} from "~/features/appointment-form/ui/form/form";
+import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
-import { AppointmentForm } from "~/features/appointment-form/ui/form/form";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 
@@ -30,11 +36,38 @@ function CalendarStep() {
 	});
 
 	const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+	const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
+	const { fields } = useFormValues<FormValue>();
+
+	const triggerConfetti = () => {
+		const end = Date.now() + 3 * 1000; // 3 seconds
+		const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+		const frame = () => {
+			if (Date.now() > end) return;
+			confetti({
+				particleCount: 2,
+				angle: 60,
+				spread: 55,
+				startVelocity: 60,
+				origin: { x: 0, y: 0.5 },
+				colors: colors,
+			});
+			confetti({
+				particleCount: 2,
+				angle: 120,
+				spread: 55,
+				startVelocity: 60,
+				origin: { x: 1, y: 0.5 },
+				colors: colors,
+			});
+			requestAnimationFrame(frame);
+		};
+		frame();
+	};
 
 	if (error) return `An error has occurred: ${error.message}`;
 	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
 
-	
 	return (
 		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
 			<Drawer
@@ -43,13 +76,27 @@ function CalendarStep() {
 				onClose={() => setSelectedDay(null)}
 			>
 				<section className="p-4">
-					<h2 className="text-2xl font-bold mb-4">
-						{t("appointment_date", {
-							date: parsedDate,
-						})}
-					</h2>
+					{!isSuccessfullySent ? (
+						selectedDay && (
+							<>
+								<h2 className="text-2xl font-bold mb-4">
+									{t("appointment_date", {
+										date: parsedDate,
+									})}
+								</h2>
 
-					{selectedDay && <AppointmentForm date={selectedDay}  />}
+								<AppointmentForm
+									date={selectedDay}
+									onSuccess={() => {
+										triggerConfetti();
+										setIsSuccessfullySent(true);
+									}}
+								/>
+							</>
+						)
+					) : (
+						<SuccessAppointment date={parsedDate} email={fields.email} />
+					)}
 				</section>
 			</Drawer>
 

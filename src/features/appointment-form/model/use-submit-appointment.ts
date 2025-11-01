@@ -7,8 +7,9 @@ import type { AppointmentDtoPost } from "../types/appointments-post.dto";
 
 type Params = {
 	serviceId: string;
+	onSuccess?: () => void;
 	staffId?: string;
- };
+};
 type UseSubmitAppointmentResult = {
 	isLoading: boolean;
 	error: Error | null;
@@ -56,6 +57,7 @@ export const useSubmitAppointment = (
 
 				setCreatedAppointment(data);
 				setIsSuccess(true);
+				params?.onSuccess?.();
 			},
 			onError() {
 				setIsSuccess(false);

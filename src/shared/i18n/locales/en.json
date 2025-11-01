@@ -14,5 +14,7 @@
 	"email_placeholder": "john.doe@example.com",
 	"appointment_created_title": "Appointment created",
 	"appointment_created_details": "{{name}} — {{datetime}}",
-	"booking_error": "An error occurred: {{message}}"
+	"booking_error": "An error occurred: {{message}}",
+	"your_appointment_created_at": "Your appointment created at {{datetime}}",
+	"we_sent_email_confirmation": "We sent a confirmation email to {{email}}"
 }

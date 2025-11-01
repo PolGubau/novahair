@@ -14,5 +14,7 @@
 	"choose_time_slot": "Elige una franja horaria",
 	"appointment_created_title": "Cita creada",
 	"appointment_created_details": "{{name}} — {{datetime}}",
-	"booking_error": "Ha ocurrido un error: {{message}}"
+	"booking_error": "Ha ocurrido un error: {{message}}",
+	"your_appointment_created_at": "Tu cita se ha creado para el {{datetime}}",
+	"we_sent_email_confirmation": "Hemos enviado un correo de confirmación a {{email}}"
 }
