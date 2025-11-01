@@ -1,18 +1,16 @@
 import { t } from "i18next";
 import { Route } from "~/routes/book/$serviceId";
-import { Button } from "~/shared/ui/button";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
+import type { Slot } from "../../domain/slot";
 import { useSlots } from "../../model/use-slots";
+import { SlotList } from "./slots/list";
+import { SlotListSkeleton } from "./slots/list-skeleton";
 
-export type SlotShort = {
-	start: string;
-	end: string;
-};
 type SlotChooserProps = {
 	date: Date;
 	staffId?: string;
-	selectedSlot?: SlotShort;
-	onChange: (slot: SlotShort) => void;
+	selectedSlot: Slot | null;
+	onChange: (slot: Slot) => void;
 };
 export const SlotChooser = ({
 	date,
@@ -28,41 +26,28 @@ export const SlotChooser = ({
 		staffId,
 	});
 	return (
-		<LoadingOverlay isLoading={isLoading}>
+		<>
 			<p
 				className="block mb-1 text-sm font-medium text-foreground"
 				data-slot="label"
 			>
 				{t("choose_time_slot")}
 			</p>
-
-			<ul className="overflow-x-auto gap-2 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))]">
-				{slots.map((slot) => {
-					const isSelected = selectedSlot?.start === slot.start;
-					return (
-						<li key={slot.start} className="border-b last:border-0">
-							<Button
-								variant={isSelected ? "default" : "outline"}
-								className="w-full"
-								type="button"
-								onClick={() => onChange({ start: slot.start, end: slot.end })}
-								data-active={isSelected}
-								aria-pressed={isSelected}
-							>
-								{new Date(slot.start).toLocaleTimeString([], {
-									hour: "2-digit",
-									minute: "2-digit",
-								})}
-								-
-								{new Date(slot.end).toLocaleTimeString([], {
-									hour: "2-digit",
-									minute: "2-digit",
-								})}
-							</Button>
-						</li>
-					);
-				})}
-			</ul>
-		</LoadingOverlay>
+			<LoadingOverlay isLoading={isLoading}>
+				{isLoading ? (
+					<SlotListSkeleton />
+				) : error ? (
+					<p className="text-red-500">
+						{t("error_loading_slots", { message: error })}
+					</p>
+				) : (
+					<SlotList
+						slots={slots}
+						selectedSlot={selectedSlot}
+						onChange={onChange}
+					/>
+				)}
+			</LoadingOverlay>
+		</>
 	);
 };

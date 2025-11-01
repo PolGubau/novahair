@@ -6,6 +6,7 @@ import { Route } from "~/routes/book/$serviceId";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
 import { Textarea } from "~/shared/ui/textarea";
+import type { Slot } from "../../domain/slot";
 import { useFormValues } from "../../model/use-form-values";
 import { ErrorMessage } from "./error-message";
 import { SlotChooser } from "./slot-chooser";
@@ -27,10 +28,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
 	const staffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
-	const [chosenSlot, setChosenSlot] = useState<{
-		start: string;
-		end: string;
-	} | null>(null);
+	const [chosenSlot, setChosenSlot] = useState<Slot | null>(null);
 
 	const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -65,7 +63,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 			<SlotChooser
 				date={date}
 				staffId={staffId}
-				selectedSlot={chosenSlot || undefined}
+				selectedSlot={chosenSlot}
 				onChange={setChosenSlot}
 			/>
 			<hr className="my-4" />
@@ -106,7 +104,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				className="min-h-18 max-h-96"
 			/>
 
-			<Button type="submit" className="mt-6" disabled={isLoading}>
+			<Button type="submit" className="mt-6" disabled={isLoading || !chosenSlot}>
 				{t("book_appointment")}
 				<Send className="size-4" />
 			</Button>

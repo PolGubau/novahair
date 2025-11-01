@@ -1,4 +1,6 @@
 import type { PropsWithChildren } from "react";
+import { cn } from "~/lib/cn";
+import { Loader } from "./loader";
 
 type LoadingOverlayProps = {
 	isLoading: boolean;
@@ -11,12 +13,18 @@ export const LoadingOverlay = ({
 	return (
 		<div className="relative">
 			{isLoading && (
-				<div className="absolute inset-0 bg-background/5 backdrop-blur-md flex items-center justify-center z-10">
-					<div className="loader">Loading...</div>
+				<div className="absolute inset-0 flex items-center justify-center z-10">
+					<Loader />
 				</div>
 			)}
 
-			{children}
+			<div
+				className={cn({
+					"blur-xs": isLoading,
+				})}
+			>
+				{children}
+			</div>
 		</div>
 	);
 };

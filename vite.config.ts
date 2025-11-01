@@ -22,16 +22,6 @@ const config = defineConfig({
     viteReact(),
   ],
   
-
-  server: {
-    proxy: {
-      '/server': {
-        target: "https://api.gerardmartinez.es",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/server/, '/api/'),
-      },
-    }
-  }
 })
 
 export default config

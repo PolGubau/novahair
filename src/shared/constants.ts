@@ -20,7 +20,7 @@ const versions = {
 
 /**
  * Construye una URL con versión y query params.
- * Soporta rutas relativas (ej: /api en dev).
+ * Soporta rutas relativas (ej: /server en dev).
  */
 export const buildUrl = (
 	path = "",
@@ -28,9 +28,7 @@ export const buildUrl = (
 	params?: Record<string, string | undefined>,
 ) => {
 	// si baseUrl es relativo (/server), añadimos un origen temporal
-	const base = constants.baseUrl.startsWith("https://")
-		? constants.baseUrl
-		: window.location.origin + constants.baseUrl;
+	const base = import.meta.env.VITE_BASE_URL;
 
 	const url = new URL(`${base}/${version}/${path}`);
 

@@ -40,7 +40,7 @@ function CalendarStep() {
 	const { fields } = useFormValues<FormValue>();
 
 	const triggerConfetti = () => {
-		const end = Date.now() + 3 * 1000; // 3 seconds
+		const end = Date.now() + 2 * 1000; // 2 seconds
 		const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 		const frame = () => {
 			if (Date.now() > end) return;
@@ -68,12 +68,16 @@ function CalendarStep() {
 	if (error) return `An error has occurred: ${error.message}`;
 	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
 
+	const handleCloseDialog = () => {
+		setSelectedDay(null);
+		setIsSuccessfullySent(false);
+	};
 	return (
 		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
 			<Drawer
 				className="max-w-4xl"
 				isOpen={Boolean(selectedDay)}
-				onClose={() => setSelectedDay(null)}
+				onClose={handleCloseDialog}
 			>
 				<section className="p-4">
 					{!isSuccessfullySent ? (
@@ -95,7 +99,11 @@ function CalendarStep() {
 							</>
 						)
 					) : (
-						<SuccessAppointment date={parsedDate} email={fields.email} />
+						<SuccessAppointment
+							date={parsedDate}
+							email={fields.email}
+							onCloseDialog={handleCloseDialog}
+						/>
 					)}
 				</section>
 			</Drawer>

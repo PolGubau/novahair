@@ -21,12 +21,10 @@ export const useAvailableDays: UseAvailableDays = ({
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["available-days", serviceId, currentDate],
 		staleTime: 1000 * 60 * 5, // 5 minutes
- 		queryFn: () => {
-			console.log("HACIENDO LA LLAMADA PARA EL ",currentDate)
+
+		queryFn: () => {
 			const { start, end } = getMonthBoundaries(currentDate);
 
-			console.log({start:start.toLocaleDateString("es-ES"), end: end.toLocaleDateString("es-ES")})
-				
 			// start should be the first day of the month at 00:00:00 BUT if today is after that, use today
 			// let adjustedStart = start;
 			// const today = new Date();
