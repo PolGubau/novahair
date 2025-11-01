@@ -4,7 +4,7 @@ import type {
 } from "~/features/appointment-form/infra/repository";
 
 export const baseUrl = import.meta.env.DEV
-	? "/api"
+	? "/server"
 	: import.meta.env.VITE_BASE_URL;
 
 export const constants = {
@@ -27,8 +27,8 @@ export const buildUrl = (
 	version = versions.v1,
 	params?: Record<string, string | undefined>,
 ) => {
-	// si baseUrl es relativo (/api), añadimos un origen temporal
-	const base = constants.baseUrl.startsWith("http")
+	// si baseUrl es relativo (/server), añadimos un origen temporal
+	const base = constants.baseUrl.startsWith("https://")
 		? constants.baseUrl
 		: window.location.origin + constants.baseUrl;
 

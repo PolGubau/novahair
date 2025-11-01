@@ -15,7 +15,6 @@ const config = defineConfig({
     tailwindcss(),
     nitro(),
     tanstackStart({
-      
       router:{
         routeToken: 'layout',
       }
@@ -25,12 +24,11 @@ const config = defineConfig({
   
 
   server: {
-    
     proxy: {
-      '/api': {
-        target: "https://api.gerardmartinez.es/api",
+      '/server': {
+        target: "https://api.gerardmartinez.es",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/server/, '/api/'),
       },
     }
   }
