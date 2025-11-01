@@ -10,6 +10,7 @@ import {
 	AppointmentForm,
 	type FormValue,
 } from "~/features/appointment-form/ui/form/form";
+import { ServiceSwitcher } from "~/features/appointment-form/ui/form/service-switcher";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
@@ -108,8 +109,11 @@ function CalendarStep() {
 				</section>
 			</Drawer>
 
-			<section className="h-full grid gap-10 p-4 ">
-				<header className="flex items-center gap-6 text-center justify-between">
+			<section className="h-full grid gap-2">
+				<div className="md:hidden px-4">
+					<ServiceSwitcher />
+				</div>
+				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">
 					<div className="text-3xl md:text-5xl first-letter:capitalize">
 						{formattedDate}
 					</div>

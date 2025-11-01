@@ -33,7 +33,7 @@ export const ServiceItem = ({ service }: Props) => {
 						params={{ serviceId: service.id }}
 						className="mt-2 flex gap-2 pl-4 pr-2 py-2 bg-primary hover:bg-primary/80 transition-all text-white rounded-xl cursor-pointer"
 					>
-						{t("seleccionar")}
+						{t("check_availability")}
 						<ChevronRight />
 					</Link>
 				</nav>

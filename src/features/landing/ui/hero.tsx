@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { BookButton } from "./book-button";
 import { Images } from "./hero/images";
 import { Title } from "./title";
@@ -10,7 +11,7 @@ export const Hero = () => {
 
 				<Title />
 				<strong className="text-center text-xl px-6 md:text-2xl text-balance motion-preset-slide-up motion-delay-1200">
-					Renueva tu estilo. Redefine tu esencia
+					{t("hero.subtitle")}
 				</strong>
 			</header>
 

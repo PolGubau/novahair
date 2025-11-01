@@ -34,8 +34,8 @@ export const Calendar = ({
 	const weekDays = getWeekdayNames();
 	const today = new Date();
 	return (
-		<div className="w-full h-full bg-white p-4 md:p-14 rounded-lg shadow-md">
- 			<table
+		<div className="w-full h-full p-4 md:p-14 rounded-lg">
+			<table
 				className="w-full h-full border-collapse table-fixed text-sm"
 				cellPadding={0}
 				cellSpacing={0}
@@ -67,10 +67,11 @@ export const Calendar = ({
 										<button
 											disabled={!isAvailable}
 											type="button"
-											className={cn("p-4 w-full text-center min-h-24", {
-												border: cell.inMonth,
-												"font-bold bg-amber-100": isToday,
-												"bg-green-500/20 ": isAvailable,
+											className={cn("border p-3 w-full text-center min-h-24", {
+												"border-transparent": !cell.inMonth,
+												"border-foreground/5": cell.inMonth,
+												"font-bold bg-amber-500/10": isToday,
+												"bg-primary/10 ": isAvailable,
 											})}
 											onClick={() =>
 												isAvailable && cell.date && onSelectDate?.(cell.date)

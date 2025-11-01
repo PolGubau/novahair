@@ -8,7 +8,7 @@ import type { AppointmentDtoPost } from "../types/appointments-post.dto";
 type Params = {
 	serviceId: string;
 	onSuccess?: () => void;
-	staffId?: string;
+	staffId: string | undefined;
 };
 type UseSubmitAppointmentResult = {
 	isLoading: boolean;
@@ -86,7 +86,7 @@ export const useSubmitAppointment = (
 
 		const payload: BookAppointmentProps = {
 			serviceId: params.serviceId,
-			staffId: params.staffId,
+			staffId: params.staffId ?? undefined,
 			customer: {
 				name,
 				email,

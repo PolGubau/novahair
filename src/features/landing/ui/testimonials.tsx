@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { testimonials } from "~/shared/data/testimonials";
 import { Slider } from "~/shared/ui/slider";
 
@@ -24,9 +25,9 @@ export const Testimonials = () => {
 
 	return (
 		<section className="flex flex-col items-center gap-4 max-w-7xl w-full mx-auto px-4 min-h-[85vh] overflow-visible py-12">
-			<h2 className="text-4xl lg:text-6xl">Algunos Testimonios</h2>
+			<h2 className="text-4xl lg:text-6xl">{t("testimonials.title")}</h2>
 			<p className="text-center text-pretty max-w-md mb-16">
-				Lo que nuestros clientes dicen sobre nosotros 💇‍♀️✨
+				{t("testimonials.description")}
 			</p>
 
 			<div className="relative  w-full   motion-preset-blur-up-lg">

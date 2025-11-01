@@ -9,7 +9,8 @@ import { Textarea } from "~/shared/ui/textarea";
 import type { Slot } from "../../domain/slot";
 import { useFormValues } from "../../model/use-form-values";
 import { ErrorMessage } from "./error-message";
-import { SlotChooser } from "./slot-chooser";
+import { SlotChooser } from "./slots/slot-chooser";
+import { StaffSelector } from "./staff/list";
 import { SuccessMessage } from "./success-message";
 
 type AppointmentFormProps = {
@@ -27,9 +28,10 @@ export type FormValue = {
 export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
-	const staffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
+	const defaultStaffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
 	const [chosenSlot, setChosenSlot] = useState<Slot | null>(null);
 
+	const [staffId, setStaffId] = useState<string | undefined>(defaultStaffId);
 	const formRef = useRef<HTMLFormElement | null>(null);
 
 	const serviceId = Route.useParams().serviceId;
@@ -66,6 +68,13 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				selectedSlot={chosenSlot}
 				onChange={setChosenSlot}
 			/>
+			{chosenSlot?.staff && (
+				<StaffSelector
+					staffs={chosenSlot?.staff}
+					selectedStaffId={staffId}
+					onSelectStaff={setStaffId}
+				/>
+			)}
 			<hr className="my-4" />
 			<Input
 				label={t("name")}
@@ -76,7 +85,6 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				onChange={(e) => updateField("name", e.target.value)}
 				minLength={2}
 			/>
-
 			<Input
 				label={t("phone")}
 				value={fields.phone}
@@ -85,7 +93,6 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				name="phone"
 				type="tel"
 			/>
-
 			<Input
 				label={t("email")}
 				placeholder={t("email_placeholder")}
@@ -96,21 +103,21 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				required
 				minLength={5}
 			/>
-
 			<Textarea
 				label={t("notes")}
 				placeholder={t("notes_placeholder")}
 				name="notes"
 				className="min-h-18 max-h-96"
 			/>
-
-			<Button type="submit" className="mt-6" disabled={isLoading || !chosenSlot}>
+			<Button
+				type="submit"
+				className="mt-6"
+				disabled={isLoading || !chosenSlot}
+			>
 				{t("book_appointment")}
 				<Send className="size-4" />
 			</Button>
-
 			{error && <ErrorMessage error={error} />}
-
 			{isSuccess && createdAppointment && (
 				<SuccessMessage appointment={createdAppointment} />
 			)}

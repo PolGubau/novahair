@@ -1,10 +1,10 @@
 import { t } from "i18next";
 import { Route } from "~/routes/book/$serviceId";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
-import type { Slot } from "../../domain/slot";
-import { useSlots } from "../../model/use-slots";
-import { SlotList } from "./slots/list";
-import { SlotListSkeleton } from "./slots/list-skeleton";
+import type { Slot } from "../../../domain/slot";
+import { useSlots } from "../../../model/use-slots";
+import { SlotList } from "./list";
+import { SlotListSkeleton } from "./list-skeleton";
 
 type SlotChooserProps = {
 	date: Date;

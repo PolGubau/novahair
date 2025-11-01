@@ -24,7 +24,7 @@ export const Drawer = ({
 		>
 			<Sheet.Container
 				className={cn(
-					"md:px-4 pt-4 mx-auto md:mb-6 mb:pb-[max(env(safe-area-inset-bottom),16px)] bg-transparent! shadow-none! left-1/2! translate-x-[-50%] grid grid-cols-[1fr_auto] gap-2",
+					"md:px-4 pt-4 mx-auto pb-20 md:pb-[max(env(safe-area-inset-bottom),16px)] bg-transparent! shadow-none! left-1/2! translate-x-[-50%] grid grid-cols-[1fr_auto] gap-2",
 					{
 						"max-w-4xl ": rest.detent === "content",
 					},
