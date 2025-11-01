@@ -28,7 +28,7 @@ const config = defineConfig({
     
     proxy: {
       '/api': {
-        target: "http://production-core-mzpxsa-57de11-185-250-36-170.traefik.me/api",
+        target: "https://api.gerardmartinez.es/api",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

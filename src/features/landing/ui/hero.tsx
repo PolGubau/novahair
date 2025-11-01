@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { BookButton } from "./book-button";
 import { Images } from "./hero/images";
 import { Title } from "./title";
