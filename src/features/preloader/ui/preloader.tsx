@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { copy } from "~/shared/data/copy";
+import { Loader } from "~/shared/ui/loader";
 
 type Props = {
 	isReady: boolean;
@@ -12,27 +13,81 @@ type Props = {
 export const Preloader = ({ isReady }: Props) => {
 	const ref = useRef<HTMLOutputElement>(null);
 
+	// UX timings
+	const SHOW_DELAY_MS = 300; // wait before showing the preloader
+	const MIN_VISIBLE_MS = 400; // once shown, keep visible at least this long
+
+	const [visible, setVisible] = useState(false);
+
+	const showTimerRef = useRef<number | null>(null);
+	const hideTimerRef = useRef<number | null>(null);
+	const shownAtRef = useRef<number | null>(null);
+
+	useEffect(() => {
+		// Start a timer to show the preloader only if loading takes a bit
+		if (!isReady) {
+			showTimerRef.current = window.setTimeout(() => {
+				setVisible(true);
+				shownAtRef.current = Date.now();
+			}, SHOW_DELAY_MS);
+		}
+
+		return () => {
+			if (showTimerRef.current) clearTimeout(showTimerRef.current);
+			if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+			// kill any running gsap tweens on unmount
+			gsap.killTweensOf(ref.current);
+		};
+	}, [isReady]);
+
+	// Entrance animation when the preloader becomes visible
 	useEffect(() => {
 		const el = ref.current;
-		if (!el) return;
+		if (!el || !visible) return;
 
-		// Aparece el preloader al montar
-		gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+		gsap.fromTo(
+			el,
+			{ opacity: 0, translateY: 20 },
+			{ opacity: 1, translateY: 0, duration: 0.4 },
+		);
+	}, [visible]);
 
-		if (isReady) {
-			// Desaparece el preloader cuando isReady es true
+	// When ready, hide the preloader respecting minimum visible time
+	useEffect(() => {
+		if (!isReady) return;
+
+		// If preloader wasn't shown yet, cancel the show timer and do nothing
+		if (!visible) {
+			if (showTimerRef.current) {
+				clearTimeout(showTimerRef.current);
+			}
+			return;
+		}
+
+		const shownAt = shownAtRef.current ?? Date.now();
+		const elapsed = Date.now() - shownAt;
+		const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
+
+		hideTimerRef.current = window.setTimeout(() => {
+			const el = ref.current;
+			if (!el) return;
+
 			gsap.to(el, {
 				opacity: 0,
-				translateY: -100,
-				duration: 1,
+				translateY: -20,
+				duration: 0.35,
 				onComplete: () => {
-					if (el.parentNode) {
-						el.parentNode.removeChild(el);
-					}
+					setVisible(false);
 				},
 			});
-		}
-	}, [isReady]);
+		}, wait);
+
+		return () => {
+			if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+		};
+	}, [isReady, visible]);
+
+	if (!visible) return null;
 
 	return (
 		<output
@@ -41,49 +96,11 @@ export const Preloader = ({ isReady }: Props) => {
 			aria-live="polite"
 		>
 			<div className="flex flex-col items-center gap-4">
-				<div className="flex items-center gap-4">
-					{/* Spinner SVG */}
-					<svg
-						className="h-10 w-10 text-primary animate-spin"
-						viewBox="0 0 50 50"
-						aria-hidden="true"
-					>
-						<title>Spinner</title>
-						<circle
-							cx="25"
-							cy="25"
-							r="20"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="5"
-							strokeLinecap="round"
-							strokeDasharray="31.4 31.4"
-						/>
-					</svg>
-
-					{/* Brand with subtle pulsing/scale animation */}
+				<div className="flex flex-col items-center gap-4">
 					<p className="text-2xl md:text-4xl font-semibold animate-pulse">
-						NOVAHAIR
+						{copy.name}
 					</p>
-				</div>
-
-				{/* Loading text with animated dots */}
-				<div className="text-sm text-muted-foreground flex items-center gap-2">
-					<span>Cargando</span>
-					<span className="inline-flex items-center gap-1" aria-hidden>
-						<span
-							className="h-1.5 w-1.5 rounded-full bg-muted animate-bounce"
-							style={{ animationDelay: "0s" }}
-						/>
-						<span
-							className="h-1.5 w-1.5 rounded-full bg-muted animate-bounce"
-							style={{ animationDelay: "0.15s" }}
-						/>
-						<span
-							className="h-1.5 w-1.5 rounded-full bg-muted animate-bounce"
-							style={{ animationDelay: "0.3s" }}
-						/>
-					</span>
+					<Loader size={48} />
 				</div>
 			</div>
 		</output>

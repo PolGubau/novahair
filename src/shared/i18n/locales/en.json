@@ -11,6 +11,8 @@
 	"select_staff": "Select staff",
 	"optional": "optional",
 	"our_services": "Our Services",
+	"no_available_hours": "No available hours",
+	"available": "Available",
 	"select_first_time_slot": "Select first a time slot",
 	"select_service": "Select a service",
 	"description_services": "We offer a wide range of services to meet all your hair care and styling needs.",

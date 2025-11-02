@@ -112,7 +112,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ReactLenis root>
-					{!isReady && <Preloader isReady={isReady} />}
+					<Preloader isReady={isReady} />
 
 					<div className="fade-in">{children}</div>
 					<SquiCircleFilterLayout />

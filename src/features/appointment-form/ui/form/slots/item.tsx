@@ -16,9 +16,9 @@ export const SlotItem = ({ slot, isSelected, onSelect }: Props) => {
 	const endTime = format.format(new Date(slot.end));
 
 	return (
-		<li className="border-b last:border-0">
+		<li>
 			<Button
-				variant={isSelected ? "default" : "outline"}
+				variant={isSelected ? "secondary" : "outline"}
 				className="w-full gap-1"
 				type="button"
 				onClick={onSelect}

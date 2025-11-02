@@ -34,62 +34,69 @@ export const Calendar = ({
 	const weekDays = getWeekdayNames();
 	const today = new Date();
 	return (
-		<div className="w-full h-full p-4 md:p-14 rounded-lg">
-			<table
-				className="w-full h-full border-collapse table-fixed text-sm"
-				cellPadding={0}
-				cellSpacing={0}
-			>
-				<thead>
-					<tr>
-						{weekDays.map((dayName) => (
-							<th key={dayName.long} className="pt-2 pb-6">
-								<span className="md:hidden first-letter:capitalize">
-									{dayName.short}
-								</span>
-								<span className="max-md:hidden first-letter:capitalize">
-									{dayName.long}
-								</span>
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{matrix.map((week, weekIndex) => (
-						<tr key={weekIndex}>
-							{week.map((cell, dayIndex) => {
-								const isToday =
-									today.toDateString() === cell.date?.toDateString();
-								const isAvailable =
-									cell.date && isThisDayAvailable(cell.date, availableDays);
-								return (
-									<td key={dayIndex} className="w-[14%]">
-										<button
-											disabled={!isAvailable}
-											type="button"
-											className={cn(
-												"border transition-all p-3 w-full text-center min-h-24",
-												{
-													"border-transparent": !cell.inMonth,
-													"border-foreground/5": cell.inMonth,
-													"font-bold bg-amber-500/10": isToday,
-													"bg-primary/5 hover:bg-primary/10 focus:bg-primary/20 ":
-														isAvailable,
-												},
-											)}
-											onClick={() =>
-												isAvailable && cell.date && onSelectDate?.(cell.date)
-											}
-										>
-											{cell.day}
-										</button>
-									</td>
-								);
-							})}
-						</tr>
+		<table
+			className="w-full h-full border-collapse table-fixed text-sm"
+			cellPadding={0}
+			cellSpacing={0}
+		>
+			<thead>
+				<tr className="">
+					{weekDays.map((dayName) => (
+						<th
+							key={dayName.long}
+							className="py-2 border-y first:border-l first:rounded-l-full last:border-r last:rounded-r-full border-foreground/10 font-medium text-foreground/70"
+						>
+							<span className="md:hidden first-letter:capitalize">
+								{dayName.short}
+							</span>
+							<span className="max-md:hidden first-letter:capitalize">
+								{dayName.long}
+							</span>
+						</th>
 					))}
-				</tbody>
-			</table>
-		</div>
+				</tr>
+			</thead>
+			<tbody>
+				{matrix.map((week, weekIndex) => (
+					<tr key={weekIndex}>
+						{week.map((cell, dayIndex) => {
+							const isToday =
+								today.toDateString() === cell.date?.toDateString();
+							const isAvailable =
+								cell.date && isThisDayAvailable(cell.date, availableDays);
+							return (
+								<td key={dayIndex} className="w-[14%]">
+									<button
+										disabled={!isAvailable}
+										type="button"
+										className={cn(
+											"border transition-all p-3 w-full text-center min-h-24",
+											{
+												"border-transparent": !cell.inMonth,
+												"border-foreground/5": cell.inMonth,
+												"font-bold bg-amber-500/10": isToday,
+												[cellStyles.available]: isAvailable,
+												[cellStyles.unavailable]: !isAvailable,
+											},
+										)}
+										onClick={() =>
+											isAvailable && cell.date && onSelectDate?.(cell.date)
+										}
+									>
+										{cell.day}
+									</button>
+								</td>
+							);
+						})}
+					</tr>
+				))}
+			</tbody>
+		</table>
 	);
+};
+
+export const cellStyles = {
+	available:
+		"bg-primary/5 hover:bg-primary/10 focus:bg-primary/20 cursor-pointer",
+	unavailable: "bg-foreground/0 text-foreground/50 cursor-not-allowed",
 };

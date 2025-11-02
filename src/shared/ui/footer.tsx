@@ -86,8 +86,8 @@ export const Footer = () => {
 						{copy.name}
 					</span>
 				</div>
-				<AnimatedThemeToggler />
-				<p className="text-xs leading-none md:text-base md:leading-none">
+				<p className="text-xs flex gap-2 items-center leading-none md:text-base md:leading-none">
+					<AnimatedThemeToggler />
 					{copy.footer.copyright}
 				</p>
 			</div>

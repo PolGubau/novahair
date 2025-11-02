@@ -2,7 +2,7 @@ import { defineConfig } from 'i18next-cli';
 export default defineConfig({
   locales: [
     "en",
-    "es"
+    "es","ca"
   ],  
   types: {
     input: ['locales/en/*.json'],

@@ -16,18 +16,16 @@ export const ServiceSwitcher = () => {
 	};
 
 	return (
-		<div>
-			<Select onChange={handleChange} value={selectedServiceId}>
-				<option disabled value="">
-					{t("select_service")}
-				</option>
+		<Select onChange={handleChange} value={selectedServiceId}>
+			<option disabled value="">
+				{t("select_service")}
+			</option>
 
-				{services.map((service) => (
-					<option key={service.id} value={service.id}>
-						{service.name}
-					</option>
-				))}
-			</Select>
-		</div>
+			{services.map((service) => (
+				<option key={service.id} value={service.id}>
+					{service.name}
+				</option>
+			))}
+		</Select>
 	);
 };

@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import { cn } from "~/lib/cn";
 import { Button, type ButtonProps } from "./button";
+import { Tooltip } from "./tooltip";
 
 export type IconButtonProps = ButtonProps & {
 	label?: string;
@@ -21,21 +22,23 @@ const iconButtonVariants = cva("aspect-square rounded-full", {
 
 export function IconButton({
 	className,
-	variant = "default",
+	variant = "secondary",
 	asChild = false,
 	size,
 	...props
 }: IconButtonProps) {
 	return (
-		<Button
-			data-slot="icon-button"
-			className={cn(iconButtonVariants({ size }), className)}
-			variant={variant}
-			size={size}
-			asChild={asChild}
-			{...props}
-		>
-			{props.children}
-		</Button>
+		<Tooltip label={props.label}>
+			<Button
+				data-slot="icon-button"
+				className={cn(iconButtonVariants({ size }), className)}
+				variant={variant}
+				size={size}
+				asChild={asChild}
+				{...props}
+			>
+				{props.children}
+			</Button>
+		</Tooltip>
 	);
 }

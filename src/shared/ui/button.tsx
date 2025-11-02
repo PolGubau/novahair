@@ -6,18 +6,16 @@ import { cn } from "~/lib/cn";
 import { Loader } from "./loader";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none border focus-visible:border-2 focus-visible:border-foreground aria-invalid:ring-error/20 dark:aria-invalid:ring-error/40 aria-invalid:border-error border-transparent cursor-pointer",
 	{
 		variants: {
 			variant: {
-				default:
-					"bg-primary text-primary-foreground hover:bg-primary/90 border border-transparent",
-				destructive:
-					"bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+				primary: "bg-primary text-background hover:bg-primary/90 ",
+				error:
+					"bg-error text-background hover:bg-error/90 focus-visible:border-error/20 dark:focus-visible:border-error/40 dark:bg-error/60",
 				outline:
-					"border bg-background shadow-xs hover:bg-foreground/10 border-foreground/20",
-				secondary:
-					"bg-secondary text-secondary-foreground hover:bg-secondary/80",
+					" bg-background shadow-xs hover:bg-foreground/10 border-foreground/20",
+				secondary: "bg-foreground text-background hover:bg-secondary/90",
 				ghost: "hover:bg-primary/10",
 				link: "text-primary underline-offset-4 hover:underline",
 			},
@@ -28,7 +26,7 @@ const buttonVariants = cva(
 			},
 		},
 		defaultVariants: {
-			variant: "default",
+			variant: "secondary",
 			size: "md",
 		},
 	},
@@ -38,18 +36,12 @@ type ButtonProps = React.ComponentProps<"button"> &
 		loading?: boolean;
 		asChild?: boolean;
 		size?: "sm" | "md" | "lg";
-		variant?:
-			| "default"
-			| "destructive"
-			| "outline"
-			| "secondary"
-			| "ghost"
-			| "link";
+		variant?: "primary" | "error" | "outline" | "secondary" | "ghost" | "link";
 	};
 
 function Button({
 	className,
-	variant = "default",
+	variant = "secondary",
 	size,
 	loading,
 	asChild = false,
@@ -63,18 +55,7 @@ function Button({
 			className={cn(buttonVariants({ variant, size, className }))}
 			{...props}
 		>
-			{loading && (
-				<Loader
-					hasLabel={false}
-					className={cn(
-						"text-foreground size-4",
-						{
-							"text-background": variant === "default",
-						},
-						className,
-					)}
-				/>
-			)}
+			{loading && <Loader hasLabel={false} className={cn("size-4")} />}
 			{props.children}
 		</Comp>
 	);

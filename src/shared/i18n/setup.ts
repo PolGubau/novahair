@@ -21,6 +21,9 @@ export const resources = {
 	es: {
 		common: es,
 	},
+	ca: {
+		common: es,
+	},
 } as const;
 
 i18n

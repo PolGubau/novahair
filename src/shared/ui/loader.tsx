@@ -14,15 +14,10 @@ export const Loader = ({
 	...rest
 }: Props) => {
 	return (
-		<output
-			className={cn(
-				"flex gap-2 items-center text-primary font-medium",
-				className,
-			)}
-		>
+		<output className={cn("flex gap-2 items-center font-medium", className)}>
 			<Icon
 				{...rest}
-				className={cn("animate-spin size-6 text-primary", className)}
+				className={cn("animate-spin size-6 text-current", className)}
 			/>
 			{hasLabel && <span className="">{t(label)}</span>}
 		</output>

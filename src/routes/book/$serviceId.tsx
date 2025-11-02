@@ -5,13 +5,14 @@ import { useState } from "react";
 import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
 import { useFormValues } from "~/features/appointment-form/model/use-form-values";
-import { Calendar } from "~/features/appointment-form/ui/calendar";
+import { Calendar, cellStyles } from "~/features/appointment-form/ui/calendar";
 import {
 	AppointmentForm,
 	type FormValue,
 } from "~/features/appointment-form/ui/form/form";
 import { ServiceSwitcher } from "~/features/appointment-form/ui/form/service-switcher";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
+import { cn } from "~/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
@@ -114,7 +115,7 @@ function CalendarStep() {
 					<ServiceSwitcher />
 				</div>
 				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">
-					<div className="text-3xl md:text-5xl first-letter:capitalize">
+					<div className="text-2xl md:text-4xl xl:text-5xl first-letter:capitalize">
 						{formattedDate}
 					</div>
 
@@ -141,6 +142,23 @@ function CalendarStep() {
 						availableDays={days}
 					/>
 				</LoadingOverlay>
+				<ul className="flex gap-2 md:gap-6 px-4 md:px-0 max-md:flex-col">
+					<li className="flex gap-2 items-center">
+						<div
+							className={cn("size-4 rounded-full border", cellStyles.available)}
+						></div>
+						{t("available")}
+					</li>
+					<li className="flex gap-2 items-center">
+						<div
+							className={cn(
+								"size-4 rounded-full border",
+								cellStyles.unavailable,
+							)}
+						></div>
+						{t("no_available_hours")}
+					</li>
+				</ul>
 			</section>
 		</main>
 	);

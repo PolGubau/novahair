@@ -20,7 +20,7 @@ function Select({ className, ...props }: React.ComponentProps<"select">) {
 				{...props}
 			/>
 			<ChevronDownIcon
-				className="text-muted-foreground pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 opacity-50 select-none"
+				className="text-muted pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 opacity-50 select-none"
 				aria-hidden="true"
 				data-slot="native-select-icon"
 			/>

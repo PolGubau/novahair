@@ -62,6 +62,10 @@ type TooltipProps = React.ComponentProps<typeof TooltipRoot> & {
 	content?: React.ComponentProps<typeof TooltipContent>;
 };
 export function Tooltip({ children, label, content, ...rest }: TooltipProps) {
+	if (!label) {
+		return <>{children}</>;
+	}
+
 	return (
 		<TooltipRoot>
 			<TooltipTrigger asChild {...rest}>

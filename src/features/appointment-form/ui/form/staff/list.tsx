@@ -22,7 +22,7 @@ export const StaffSelector = ({
 				{!staffs.length ? (
 					<div className="flex gap-2 items-center">
 						<p>{t("select_first_time_slot")}</p>
-						<ArrowUp className="text-primary/50 size-5" />
+						<ArrowUp className="text-foreground/50 size-5" />
 					</div>
 				) : (
 					staffs.map((staff) => {
@@ -35,7 +35,7 @@ export const StaffSelector = ({
 							<li key={staff.id} className="flex items-center gap-2">
 								<Button
 									type="button"
-									variant={isSelected ? "default" : "outline"}
+									variant={isSelected ? "secondary" : "outline"}
 									onClick={handleSelect}
 								>
 									<Avatar

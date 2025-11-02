@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LandingPage } from "~/features/landing/landing-page";
+import { AdminPage } from "~/features/admin/ui/page";
 
 export const Route = createFileRoute("/admin/")({
-	component: App,
+	component: AdminRoute,
 });
 
-function App() {
-	return <LandingPage />;
+function AdminRoute() {
+	return <AdminPage />;
 }

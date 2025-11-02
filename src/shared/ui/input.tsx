@@ -31,5 +31,5 @@ function Input({ className, label, type, ...props }: Props) {
 export { Input };
 
 export const baseInputClasses = {
-	base: "placeholder:text-foreground/50 selection:bg-primary  border w-full rounded-md selection:text-primary-foreground border-foreground/20 bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed flex disabled:opacity-50 md:text-sm focus-visible:border-primary/20 focus-visible:ring-primary/10 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+	base: "placeholder:text-foreground/50 selection:bg-primary  border w-full rounded-md selection:text-primary-foreground border-foreground/20 bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed flex disabled:opacity-50 md:text-sm focus-visible:border-primary/20 focus-visible:ring-primary/10 focus-visible:ring-[3px] aria-invalid:ring-error/20 dark:aria-invalid:ring-error/40 aria-invalid:border-error",
 };

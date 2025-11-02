@@ -33,7 +33,7 @@ export const SlotChooser = ({
 				{isLoading ? (
 					<SlotListSkeleton />
 				) : error ? (
-					<p className="text-destructive">
+					<p className="text-error">
 						{t("error_loading_slots", { message: error })}
 					</p>
 				) : (
