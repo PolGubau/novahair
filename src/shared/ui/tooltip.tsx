@@ -1,6 +1,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import type * as React from "react";
 import { cn } from "~/lib/cn";
+import { Button } from "./button";
 
 function TooltipProvider({
 	delayDuration = 0,
@@ -15,7 +16,7 @@ function TooltipProvider({
 	);
 }
 
-function Tooltip({
+function TooltipRoot({
 	...props
 }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
 	return (
@@ -55,4 +56,20 @@ function TooltipContent({
 	);
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+type TooltipProps = React.ComponentProps<typeof TooltipRoot> & {
+	children: React.ReactNode;
+	label?: React.ReactNode;
+	content?: React.ComponentProps<typeof TooltipContent>;
+};
+export function Tooltip({ children, label, content, ...rest }: TooltipProps) {
+	return (
+		<TooltipRoot>
+			<TooltipTrigger asChild {...rest}>
+				<div>{children}</div>
+			</TooltipTrigger>
+			<TooltipContent {...content}>{label}</TooltipContent>
+		</TooltipRoot>
+	);
+}
+
+export { TooltipRoot, TooltipTrigger, TooltipContent, TooltipProvider };

@@ -7,25 +7,27 @@ type Props = {
 	onSelect: () => void;
 };
 export const SlotItem = ({ slot, isSelected, onSelect }: Props) => {
+	const format = Intl.DateTimeFormat([], {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+
+	const startTime = format.format(new Date(slot.start));
+	const endTime = format.format(new Date(slot.end));
+
 	return (
 		<li className="border-b last:border-0">
 			<Button
 				variant={isSelected ? "default" : "outline"}
-				className="w-full"
+				className="w-full gap-1"
 				type="button"
 				onClick={onSelect}
 				data-active={isSelected}
 				aria-pressed={isSelected}
 			>
-				{new Date(slot.start).toLocaleTimeString([], {
-					hour: "2-digit",
-					minute: "2-digit",
-				})}
-				-
-				{new Date(slot.end).toLocaleTimeString([], {
-					hour: "2-digit",
-					minute: "2-digit",
-				})}
+				<span>{startTime}</span>
+				<span>-</span>
+				<span>{endTime}</span>
 			</Button>
 		</li>
 	);

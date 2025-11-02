@@ -5,8 +5,14 @@ import type { TranslationKey } from "../i18n/setup";
 
 type Props = LucideProps & {
 	label?: TranslationKey;
+	hasLabel?: boolean;
 };
-export const Loader = ({ className, label = "loading", ...rest }: Props) => {
+export const Loader = ({
+	className,
+	label = "loading",
+	hasLabel = true,
+	...rest
+}: Props) => {
 	return (
 		<output
 			className={cn(
@@ -18,7 +24,7 @@ export const Loader = ({ className, label = "loading", ...rest }: Props) => {
 				{...rest}
 				className={cn("animate-spin size-6 text-primary", className)}
 			/>
-			{label && <span className="">{t(label)}</span>}
+			{hasLabel && <span className="">{t(label)}</span>}
 		</output>
 	);
 };

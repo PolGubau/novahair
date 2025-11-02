@@ -1,7 +1,9 @@
 import Avatar from "boring-avatars";
 import { t } from "i18next";
+import { ArrowUp } from "lucide-react";
 import type { Staff } from "~/features/appointment-form/domain/slot";
 import { Button } from "~/shared/ui/button";
+import { labelClasses } from "~/shared/ui/label";
 
 type Props = {
 	staffs: Staff[];
@@ -14,32 +16,39 @@ export const StaffSelector = ({
 	onSelectStaff,
 }: Props) => {
 	return (
-		<div className="flex flex-col gap-2">
-			<h3>Select Staff</h3>
-			<ul className="flex flex-wrap ">
-				{staffs.map((staff) => {
-					const isSelected = selectedStaffId === staff.id;
-					function handleSelect() {
-						onSelectStaff?.(staff.id);
-					}
+		<div className="flex flex-col gap-1 min-h-16">
+			<h3 className={labelClasses.base}>{t("select_staff")}</h3>
+			<ul className="flex flex-wrap">
+				{!staffs.length ? (
+					<div className="flex gap-2 items-center">
+						<p>{t("select_first_time_slot")}</p>
+						<ArrowUp className="text-primary/50 size-5" />
+					</div>
+				) : (
+					staffs.map((staff) => {
+						const isSelected = selectedStaffId === staff.id;
+						function handleSelect() {
+							onSelectStaff?.(staff.id);
+						}
 
-					return (
-						<li key={staff.id} className="flex items-center gap-2">
-							<Button
-								type="button"
-								variant={isSelected ? "default" : "outline"}
-								onClick={handleSelect}
-							>
-								<Avatar
-									size={24}
-									name={staff.name ?? "Unknown"}
-									variant="beam"
-								/>
-								<span>{staff.name ?? t("unknown")}</span>
-							</Button>
-						</li>
-					);
-				})}
+						return (
+							<li key={staff.id} className="flex items-center gap-2">
+								<Button
+									type="button"
+									variant={isSelected ? "default" : "outline"}
+									onClick={handleSelect}
+								>
+									<Avatar
+										size={24}
+										name={staff.name ?? "Unknown"}
+										variant="beam"
+									/>
+									<span>{staff.name ?? t("unknown")}</span>
+								</Button>
+							</li>
+						);
+					})
+				)}
 			</ul>
 		</div>
 	);

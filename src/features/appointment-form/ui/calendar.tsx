@@ -67,12 +67,16 @@ export const Calendar = ({
 										<button
 											disabled={!isAvailable}
 											type="button"
-											className={cn("border p-3 w-full text-center min-h-24", {
-												"border-transparent": !cell.inMonth,
-												"border-foreground/5": cell.inMonth,
-												"font-bold bg-amber-500/10": isToday,
-												"bg-primary/10 ": isAvailable,
-											})}
+											className={cn(
+												"border transition-all p-3 w-full text-center min-h-24",
+												{
+													"border-transparent": !cell.inMonth,
+													"border-foreground/5": cell.inMonth,
+													"font-bold bg-amber-500/10": isToday,
+													"bg-primary/5 hover:bg-primary/10 focus:bg-primary/20 ":
+														isAvailable,
+												},
+											)}
 											onClick={() =>
 												isAvailable && cell.date && onSelectDate?.(cell.date)
 											}

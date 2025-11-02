@@ -1,5 +1,7 @@
 import { useId } from "react";
 import { cn } from "~/lib/cn";
+import { baseInputClasses } from "./input";
+import { Label } from "./label";
 
 type Props = React.ComponentProps<"textarea"> & {
 	label?: string;
@@ -10,23 +12,12 @@ function Textarea({ className, label, ...props }: Props) {
 
 	return (
 		<div>
-			{label && (
-				<label
-					htmlFor={id}
-				className="flex gap-2 items-center"
-					data-slot="label"
-				>
-					<span	className="block mb-1 text-sm font-medium text-foreground">
-
-					{label}
-					</span>
-					{!props.required && <span className="text-foreground/80 text-thin text-xs"> {`(opcional)`}</span>}
-				</label>
-			)}
+			{label && <Label htmlFor={id} label={label} required={props.required} />}
 			<textarea
 				data-slot="textarea"
 				className={cn(
-					"border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+					"field-sizing-content min-h-16 max-h-96 px-3 py-2",
+					baseInputClasses.base,
 					className,
 				)}
 				{...props}

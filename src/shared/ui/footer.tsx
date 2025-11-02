@@ -1,4 +1,5 @@
 import { copy } from "../data/copy";
+import { AnimatedThemeToggler } from "./animated-theme-toggler";
 
 export const Footer = () => {
 	return (
@@ -85,6 +86,7 @@ export const Footer = () => {
 						{copy.name}
 					</span>
 				</div>
+				<AnimatedThemeToggler />
 				<p className="text-xs leading-none md:text-base md:leading-none">
 					{copy.footer.copyright}
 				</p>

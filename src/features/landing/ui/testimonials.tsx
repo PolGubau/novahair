@@ -1,46 +1,49 @@
 import { t } from "i18next";
-import { testimonials } from "~/shared/data/testimonials";
-import { Slider } from "~/shared/ui/slider";
+import { cn } from "~/lib/cn";
+import { type Testimonial, testimonials } from "~/shared/data/testimonials";
+import { Marquee } from "~/shared/ui/marquee";
+
+export const TestimonialCard = ({
+	testimonial,
+}: {
+	testimonial: Testimonial;
+}) => {
+	return (
+		<div
+			className={cn(
+				"relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+				// light styles
+				"border-gray-950/10 bg-gray-950/10 hover:bg-gray-950/5",
+				// dark styles
+				"dark:border-gray-50/10 dark:bg-gray-50/10 dark:hover:bg-gray-50/15",
+			)}
+		>
+			<img src={testimonial.src} alt={testimonial.name} />
+			<blockquote className="text-lg text-balance text-foreground/80 px-4">
+				{testimonial.body}
+			</blockquote>
+			<p className="px-6">{testimonial.name}</p>
+		</div>
+	);
+};
 
 export const Testimonials = () => {
-	const commonProps = {
-		items: testimonials,
-		render: (item: (typeof testimonials)[number], index: number) => {
-			return (
-				<div
-					key={index}
-					className="flex flex-col gap-4 overflow-hidden pb-6 bg-white rounded-3xl shadow-lg h-full"
-				>
-					<img src={item.src} alt={item.name} />
-					<p className="text-lg text-balance text-foreground/80 italic px-4">
-						"{item.testimonial}"
-					</p>
-					<h3 className="px-6">{item.name}</h3>
-				</div>
-			);
-		},
-		showPagination: true,
-		loop: true,
-	};
-
 	return (
-		<section className="flex flex-col items-center gap-4 max-w-7xl w-full mx-auto px-4 min-h-[85vh] overflow-visible py-12">
-			<h2 className="text-4xl lg:text-6xl">{t("testimonials.title")}</h2>
-			<p className="text-center text-pretty max-w-md mb-16">
-				{t("testimonials.description")}
-			</p>
+		<div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-12">
+			<header className="flex flex-col items-center gap-4 ">
+				<h2 className="text-4xl lg:text-6xl">{t("testimonials.title")}</h2>
+				<p className="text-center text-pretty max-w-md mb-16">
+					{t("testimonials.description")}
+				</p>
+			</header>
 
-			<div className="relative  w-full   motion-preset-blur-up-lg">
-				<div className="absolute inset-0 pointer-events-none flex bg-linear-to-r from-background to-20% to-background/5 z-10 h-full"></div>
-				<div className="absolute inset-0 flex bg-linear-to-l pointer-events-none from-background to-20% to-background/5 z-10 h-full"></div>
-
-				<div className="max-md:hidden">
-					<Slider {...commonProps} slidesPerView={2.46} />
-				</div>
-				<div className="md:hidden">
-					<Slider {...commonProps} slidesPerView={1.2} />
-				</div>
-			</div>
-		</section>
+			<Marquee pauseOnHover className="[--duration:20s]">
+				{testimonials.map((review) => (
+					<TestimonialCard key={review.name} testimonial={review} />
+				))}
+			</Marquee>
+			<div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r"></div>
+			<div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
+		</div>
 	);
 };

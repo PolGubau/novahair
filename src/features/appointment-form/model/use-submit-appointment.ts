@@ -19,7 +19,6 @@ type UseSubmitAppointmentResult = {
 		end: string,
 	) => void;
 	isSuccess: boolean;
-	createdAppointment: AppointmentDtoPost | null;
 };
 
 /**
@@ -35,8 +34,6 @@ export const useSubmitAppointment = (
 	params: Params | null,
 ): UseSubmitAppointmentResult => {
 	const queryClient = useQueryClient();
-	const [createdAppointment, setCreatedAppointment] =
-		useState<AppointmentDtoPost | null>(null);
 	const [isSuccess, setIsSuccess] = useState(false);
 
 	const mutation = useMutation<AppointmentDtoPost, Error, BookAppointmentProps>(
@@ -55,7 +52,6 @@ export const useSubmitAppointment = (
 					(old) => [data].concat(old ?? []),
 				);
 
-				setCreatedAppointment(data);
 				setIsSuccess(true);
 				params?.onSuccess?.();
 			},
@@ -105,6 +101,5 @@ export const useSubmitAppointment = (
 		error: (mutation.error as Error) ?? null,
 		handleSubmit,
 		isSuccess,
-		createdAppointment,
 	};
 };

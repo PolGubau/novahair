@@ -1,7 +1,7 @@
 import { SlotItemSkeleton } from "./item-skeleton";
 import { slotsListClassNames } from "./list";
 
-export const SlotListSkeleton = ({ count = 10 }: { count?: number }) => {
+export const SlotListSkeleton = ({ count = 14 }: { count?: number }) => {
 	return (
 		<ul className={slotsListClassNames.list}>
 			{Array.from({ length: count }, (_, index) => (

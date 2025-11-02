@@ -11,7 +11,6 @@ import { useFormValues } from "../../model/use-form-values";
 import { ErrorMessage } from "./error-message";
 import { SlotChooser } from "./slots/slot-chooser";
 import { StaffSelector } from "./staff/list";
-import { SuccessMessage } from "./success-message";
 
 type AppointmentFormProps = {
 	date: Date;
@@ -36,12 +35,11 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 
 	const serviceId = Route.useParams().serviceId;
 
-	const { isLoading, error, handleSubmit, isSuccess, createdAppointment } =
-		useSubmitAppointment({
-			serviceId,
-			staffId,
-			onSuccess,
-		});
+	const { isLoading, error, handleSubmit, isSuccess } = useSubmitAppointment({
+		serviceId,
+		staffId,
+		onSuccess,
+	});
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -68,13 +66,13 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				selectedSlot={chosenSlot}
 				onChange={setChosenSlot}
 			/>
-			{chosenSlot?.staff && (
-				<StaffSelector
-					staffs={chosenSlot?.staff}
-					selectedStaffId={staffId}
-					onSelectStaff={setStaffId}
-				/>
-			)}
+
+			<StaffSelector
+				staffs={chosenSlot?.staff ?? []}
+				selectedStaffId={staffId}
+				onSelectStaff={setStaffId}
+			/>
+
 			<hr className="my-4" />
 			<Input
 				label={t("name")}
@@ -85,24 +83,26 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				onChange={(e) => updateField("name", e.target.value)}
 				minLength={2}
 			/>
-			<Input
-				label={t("phone")}
-				value={fields.phone}
-				onChange={(e) => updateField("phone", e.target.value)}
-				placeholder="123 456 789"
-				name="phone"
-				type="tel"
-			/>
-			<Input
-				label={t("email")}
-				placeholder={t("email_placeholder")}
-				name="email"
-				type="email"
-				value={fields.email}
-				onChange={(e) => updateField("email", e.target.value)}
-				required
-				minLength={5}
-			/>
+			<div className="grid gap-4 md:grid-cols-2">
+				<Input
+					label={t("phone")}
+					value={fields.phone}
+					onChange={(e) => updateField("phone", e.target.value)}
+					placeholder="123 456 789"
+					name="phone"
+					type="tel"
+				/>
+				<Input
+					label={t("email")}
+					placeholder={t("email_placeholder")}
+					name="email"
+					type="email"
+					value={fields.email}
+					onChange={(e) => updateField("email", e.target.value)}
+					required
+					minLength={5}
+				/>
+			</div>
 			<Textarea
 				label={t("notes")}
 				placeholder={t("notes_placeholder")}
@@ -110,6 +110,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				className="min-h-18 max-h-96"
 			/>
 			<Button
+				loading={isLoading}
 				type="submit"
 				className="mt-6"
 				disabled={isLoading || !chosenSlot}
@@ -118,9 +119,6 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				<Send className="size-4" />
 			</Button>
 			{error && <ErrorMessage error={error} />}
-			{isSuccess && createdAppointment && (
-				<SuccessMessage appointment={createdAppointment} />
-			)}
 		</form>
 	);
 };

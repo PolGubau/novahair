@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
+import { t } from "i18next";
 import { Route } from "~/routes/book/$serviceId";
-import { NativeSelect } from "~/shared/ui/native-select";
+import { Select } from "~/shared/ui/select";
 import { useServices } from "../../model/use-services";
 
 export const ServiceSwitcher = () => {
@@ -16,13 +17,17 @@ export const ServiceSwitcher = () => {
 
 	return (
 		<div>
-			<NativeSelect onChange={handleChange} value={selectedServiceId}>
+			<Select onChange={handleChange} value={selectedServiceId}>
+				<option disabled value="">
+					{t("select_service")}
+				</option>
+
 				{services.map((service) => (
 					<option key={service.id} value={service.id}>
 						{service.name}
 					</option>
 				))}
-			</NativeSelect>
+			</Select>
 		</div>
 	);
 };
