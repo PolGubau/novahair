@@ -1,3 +1,4 @@
+import Avatar from "boring-avatars";
 import { t } from "i18next";
 import { cn } from "~/lib/cn";
 import { type Testimonial, testimonials } from "~/shared/data/testimonials";
@@ -9,21 +10,38 @@ export const TestimonialCard = ({
 	testimonial: Testimonial;
 }) => {
 	return (
-		<div
+		<figure
 			className={cn(
-				"relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+				"relative h-full w-96 cursor-pointer overflow-hidden rounded-xl p-4",
 				// light styles
-				"border-gray-950/10 bg-gray-950/10 hover:bg-gray-950/5",
-				// dark styles
-				"dark:border-gray-50/10 dark:bg-gray-50/10 dark:hover:bg-gray-50/15",
+				"bg-foreground/5 hover:bg-foreground/5",
 			)}
 		>
-			<img src={testimonial.src} alt={testimonial.name} />
-			<blockquote className="text-lg text-balance text-foreground/80 px-4">
+			<div className="flex flex-row items-center gap-2">
+				{testimonial.src ? (
+					<img
+						className="rounded-full size-8"
+						width="32"
+						height="32"
+						alt=""
+						src={testimonial.src}
+					/>
+				) : (
+					<Avatar size={32} name={testimonial.name} variant="beam" />
+				)}
+				<div className="flex flex-col">
+					<figcaption className="text-lg text-foreground/90">
+						{testimonial.name}
+					</figcaption>
+					<p className="text-xs font-medium text-foreground/70">
+						{testimonial.service}
+					</p>
+				</div>
+			</div>
+			<blockquote className="mt-2 px-1 text-pretty">
 				{testimonial.body}
 			</blockquote>
-			<p className="px-6">{testimonial.name}</p>
-		</div>
+		</figure>
 	);
 };
 
