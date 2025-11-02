@@ -4,7 +4,8 @@ import TanStackQueryDevtools from "../../integrations/tanstack-query/devtools";
 
 export const Devtools = import.meta.env.DEV
 	? () => (
-			<TanStackDevtools
+			<>
+				{/*  <TanStackDevtools
 				config={{ position: "bottom-right" }}
 				plugins={[
 					{
@@ -14,5 +15,7 @@ export const Devtools = import.meta.env.DEV
 					TanStackQueryDevtools,
 				]}
 			/>
+			 */}
+			</>
 		)
 	: () => null;

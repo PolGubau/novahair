@@ -1,7 +1,8 @@
 "use client";
 
+import { t } from "i18next";
 import { ChevronRight, type LucideIcon } from "lucide-react";
-
+import type { TranslationKey } from "~/shared/i18n/setup";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -17,24 +18,12 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "../../sidebar";
+import type { NavMainItem } from "./app-sidebar";
 
-export function NavMain({
-	items,
-}: {
-	items: {
-		title: string;
-		url: string;
-		icon?: LucideIcon;
-		isActive?: boolean;
-		items?: {
-			title: string;
-			url: string;
-		}[];
-	}[];
-}) {
+export function NavMain({ items }: { items: NavMainItem[] }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Platform</SidebarGroupLabel>
+			<SidebarGroupLabel>{t("platform")}</SidebarGroupLabel>
 			<SidebarMenu>
 				{items.map((item) => (
 					<Collapsible
@@ -47,7 +36,7 @@ export function NavMain({
 							<CollapsibleTrigger asChild>
 								<SidebarMenuButton tooltip={item.title}>
 									{item.icon && <item.icon />}
-									<span>{item.title}</span>
+									<span>{t(item.title)}</span>
 									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 								</SidebarMenuButton>
 							</CollapsibleTrigger>
@@ -57,7 +46,7 @@ export function NavMain({
 										<SidebarMenuSubItem key={subItem.title}>
 											<SidebarMenuSubButton asChild>
 												<a href={subItem.url}>
-													<span>{subItem.title}</span>
+													<span>{t(subItem.title)}</span>
 												</a>
 											</SidebarMenuSubButton>
 										</SidebarMenuSubItem>

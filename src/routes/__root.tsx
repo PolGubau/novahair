@@ -98,13 +98,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { isReady } = usePreloader();
 
-	useEffect(() => {
-		if (isReady) {
-			// Inicia tus animaciones GSAP cuando ya está todo cargado
-			gsap.from(".fade-in", { opacity: 0, y: 20, duration: 1 });
-		}
-	}, [isReady]);
-
 	return (
 		<html lang="en">
 			<head>

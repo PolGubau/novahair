@@ -24,16 +24,9 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from "../../sidebar";
+import type { SidebarProject } from "./app-sidebar";
 
-export function NavProjects({
-	projects,
-}: {
-	projects: {
-		name: string;
-		url: string;
-		icon: LucideIcon;
-	}[];
-}) {
+export function NavProjects({ projects }: { projects: SidebarProject[] }) {
 	const { isMobile } = useSidebar();
 
 	return (

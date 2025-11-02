@@ -10,8 +10,10 @@ function BookComponent() {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main>
-				<SidebarTrigger />
+			<main className="w-full min-h-screen">
+				<header className="p-2 border-b border-foreground/20">
+					<SidebarTrigger />
+				</header>
 				<Outlet />
 			</main>
 		</SidebarProvider>

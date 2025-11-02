@@ -2,19 +2,15 @@
 
 import {
 	AudioWaveform,
-	BookOpen,
-	Bot,
 	Command,
 	Frame,
 	GalleryVerticalEnd,
-	MapIcon,
-	PieChart,
 	Settings2,
-	SquareTerminal,
+	SlidersHorizontal,
+	Users,
 } from "lucide-react";
 import type * as React from "react";
-
- 
+import type { TranslationKey } from "~/shared/i18n/setup";
 import {
 	Sidebar,
 	SidebarContent,
@@ -22,117 +18,108 @@ import {
 	SidebarHeader,
 	SidebarRail,
 } from "../../sidebar";
-import { TeamSwitcher } from "./team-switcher";
+import { TeamSwitcher } from "./location-switcher";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projet";
+import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 
-// This is sample data.
-const data = {
+export type Team = {
+	name: string;
+	logo: React.ComponentType;
+	plan: string;
+};
+export type NavMainItem = {
+	title: TranslationKey;
+	url: string;
+	icon?: React.ComponentType;
+	isActive?: boolean;
+
+	items?: {
+		title: TranslationKey;
+		url: string;
+	}[];
+};
+
+export type SidebarProject = {
+	name: string;
+	url: string;
+	icon: React.ComponentType;
+};
+export type SidebarUser = {
+	name: string;
+	email: string;
+	avatar?: string;
+};
+export type SidebarMenu = {
+	user: SidebarUser;
+	teams: Team[];
+	navMain: NavMainItem[];
+	projects: SidebarProject[];
+};
+
+const data: SidebarMenu = {
 	user: {
-		name: "shadcn",
-		email: "m@example.com",
+		name: "Pofubu martinez",
+		email: "pofuvu@martinez.com",
 		avatar: "/avatars/shadcn.jpg",
 	},
 	teams: [
 		{
-			name: "Acme Inc",
+			name: "Peluquería Mataró",
 			logo: GalleryVerticalEnd,
 			plan: "Enterprise",
 		},
 		{
-			name: "Acme Corp.",
+			name: "Barbería San Sadurní d'Anoia",
 			logo: AudioWaveform,
 			plan: "Startup",
 		},
 		{
-			name: "Evil Corp.",
+			name: "Salon de Belleza Cubelles",
 			logo: Command,
 			plan: "Free",
 		},
 	],
 	navMain: [
 		{
-			title: "Playground",
+			title: "management",
 			url: "#",
-			icon: SquareTerminal,
+			icon: SlidersHorizontal,
 			isActive: true,
 			items: [
 				{
-					title: "History",
-					url: "#",
+					title: "view_appointments",
+					url: "/admin/general/appointments",
 				},
 				{
-					title: "Starred",
-					url: "#",
-				},
-				{
-					title: "Settings",
-					url: "#",
+					title: "your_services",
+					url: "/admin/general/services",
 				},
 			],
 		},
 		{
-			title: "Models",
+			title: "team",
 			url: "#",
-			icon: Bot,
+			icon: Users,
 			items: [
 				{
-					title: "Genesis",
-					url: "#",
-				},
-				{
-					title: "Explorer",
-					url: "#",
-				},
-				{
-					title: "Quantum",
-					url: "#",
+					title: "team_members",
+					url: "/admin/team/members/",
 				},
 			],
 		},
+
 		{
-			title: "Documentation",
-			url: "#",
-			icon: BookOpen,
-			items: [
-				{
-					title: "Introduction",
-					url: "#",
-				},
-				{
-					title: "Get Started",
-					url: "#",
-				},
-				{
-					title: "Tutorials",
-					url: "#",
-				},
-				{
-					title: "Changelog",
-					url: "#",
-				},
-			],
-		},
-		{
-			title: "Settings",
+			title: "settings",
 			url: "#",
 			icon: Settings2,
 			items: [
 				{
-					title: "General",
+					title: "general",
 					url: "#",
 				},
 				{
-					title: "Team",
-					url: "#",
-				},
-				{
-					title: "Billing",
-					url: "#",
-				},
-				{
-					title: "Limits",
+					title: "profile",
 					url: "#",
 				},
 			],
@@ -144,22 +131,12 @@ const data = {
 			url: "#",
 			icon: Frame,
 		},
-		{
-			name: "Sales & Marketing",
-			url: "#",
-			icon: PieChart,
-		},
-		{
-			name: "Travel",
-			url: "#",
-			icon: MapIcon,
-		},
 	],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar collapsible="icon" variant="sidebar" {...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={data.teams} />
 			</SidebarHeader>

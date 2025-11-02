@@ -92,7 +92,7 @@ export const Preloader = ({ isReady }: Props) => {
 	return (
 		<output
 			ref={ref}
-			className="fixed inset-0 z-50 flex items-center justify-center bg-background motion-preset-fade"
+			className="fixed inset-0 z-50 flex items-center justify-center bg-background"
 			aria-live="polite"
 		>
 			<div className="flex flex-col items-center gap-4">
