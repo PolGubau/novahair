@@ -1,6 +1,6 @@
 import { t } from "i18next";
-import { useServices } from "~/features/appointment-form/model/use-services";
-import { ServiceList } from "~/features/appointment-form/ui/services/list";
+import { useServices } from "~/features/services/model/use-services";
+import { ServiceList } from "~/features/services/ui/list/list";
 
 export const Services = () => {
 	const { services } = useServices();

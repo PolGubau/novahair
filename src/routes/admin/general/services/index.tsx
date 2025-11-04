@@ -1,140 +1,72 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import type { Service } from "~/features/appointment-form/domain/service";
-import { useServices } from "~/features/appointment-form/model/use-services";
+import { Plus, RefreshCcw } from "lucide-react";
+import { useState } from "react";
+import type { Service } from "~/features/services/domain/service";
+import { useService } from "~/features/services/model/use-service";
+import { useServices } from "~/features/services/model/use-services";
+import { ServiceCreationForm } from "~/features/services/ui/creation-form";
+import { ServiceTable } from "~/features/services/ui/table/service-table";
 import { Button } from "~/shared/ui/button";
-import { Checkbox } from "~/shared/ui/checkbox";
-import { DataTable } from "~/shared/ui/data-table";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "~/shared/ui/dropdown-menu";
+import { Drawer } from "~/shared/ui/drawer";
 import { AdminMain } from "~/shared/ui/layouts/admin/admin-main";
-import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 
 export const Route = createFileRoute("/admin/general/services/")({
 	component: RouteComponent,
 });
-export type Payment = {
-	id: string;
-	amount: number;
-	status: "pending" | "processing" | "success" | "failed";
-	email: string;
-};
-export const columns: ColumnDef<Service>[] = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<Checkbox
-				checked={
-					table.getIsAllPageRowsSelected() ||
-					(table.getIsSomePageRowsSelected() && "indeterminate")
-				}
-				onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Select all"
-			/>
-		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
 
-	{
-		accessorKey: "name",
-		header: ({ column }) => {
-			return (
-				<Button
-					variant="ghost"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-				>
-					Name
-					<ArrowUpDown />
-				</Button>
-			);
-		},
-		cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
-	},
-	{
-		accessorKey: "description",
-		header: () => {
-			return <span>Description</span>;
-		},
-		cell: ({ row }) => (
-			<div className="lowercase">{row.getValue("description")}</div>
-		),
-	},
-	{
-		accessorKey: "imageUrl",
-		header: () => {
-			return <span>Image URL</span>;
-		},
-		cell: ({ row }) => (
-			<div className="lowercase">{row.getValue("imageUrl")}</div>
-		),
-	},
-	{
-		accessorKey: "priceCents",
-		header: () => {
-			return (
-				<p className="flex gap-1">
-					<span>Precio</span>
-					<span className="text-sm">(En céntimos)</span>
-				</p>
-			);
-		},
-		cell: ({ row }) => (
-			<div className="lowercase">{row.getValue("priceCents")}</div>
-		),
-	},
-	{
-		id: "actions",
-		enableHiding: false,
-		cell: ({ row }) => {
-			const payment = row.original;
-
-			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" className="h-8 w-8 p-0">
-							<span className="sr-only">Open menu</span>
-							<MoreHorizontal />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem
-							onClick={() => navigator.clipboard.writeText(payment.id)}
-						>
-							Copy payment ID
-						</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>View customer</DropdownMenuItem>
-						<DropdownMenuItem>View payment details</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			);
-		},
-	},
-];
 function RouteComponent() {
-	const { services, isLoading } = useServices();
+	const { services, isLoading, refetch } = useServices();
+	const { remove } = useService();
+
+	const [isFormOpened, setIsFormOpened] = useState(false);
+	const [editing, setEditing] = useState<Service | null>(null);
+
+	const openCreate = () => {
+		setEditing(null);
+		setIsFormOpened(true);
+	};
+
+	const openEdit = (s: Service) => {
+		setEditing(s);
+		setIsFormOpened(true);
+	};
+
+	const handleDelete = (s: Service) => {
+		remove.mutate(s.id);
+	};
+
 	return (
 		<AdminMain title={"services"} description={"manage_your_services"}>
-			<LoadingOverlay isLoading={isLoading}>
-				<DataTable data={services} columns={columns} />
-			</LoadingOverlay>
+			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
+				<ServiceCreationForm
+					service={editing}
+					onClose={() => {
+						setIsFormOpened(false);
+						setEditing(null);
+					}}
+				/>
+			</Drawer>
+			<nav className="flex gap-2 items-center">
+				<Button onClick={openCreate}>
+					<Plus />
+					{t("add_new_service")}
+				</Button>
+
+				<Button onClick={() => refetch()} variant="ghost" className="group">
+					<div className="group-focus:rotate-90 transition-all">
+						<RefreshCcw />
+					</div>
+
+					{t("refresh_services")}
+				</Button>
+			</nav>
+			<ServiceTable
+				services={services}
+				isLoading={isLoading}
+				onEdit={openEdit}
+				onDelete={handleDelete}
+			/>
 		</AdminMain>
 	);
 }

@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { ServiceSwitcher } from "~/features/appointment-form/ui/form/service-switcher";
+import { ServiceSwitcher } from "~/features/services/ui/switcher";
 import { IconButton } from "./icon-button";
 
 type CalendarNavProps = {

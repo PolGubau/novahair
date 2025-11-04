@@ -10,8 +10,8 @@ import {
 	AppointmentForm,
 	type FormValue,
 } from "~/features/appointment-form/ui/form/form";
-import { ServiceSwitcher } from "~/features/appointment-form/ui/form/service-switcher";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
+import { ServiceSwitcher } from "~/features/services/ui/switcher";
 import { cn } from "~/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";

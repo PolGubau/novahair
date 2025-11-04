@@ -36,25 +36,17 @@ const ParallaxImages = () => {
 
 	const { height } = dimension;
 	const y = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
-	const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3]);
+	const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 2.8]);
 	const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 2]);
 	const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
 	const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
 
 	useEffect(() => {
-		const lenis = new Lenis();
-
-		const raf = (time: number) => {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		};
-
 		const resize = () => {
 			setDimension({ width: window.innerWidth, height: window.innerHeight });
 		};
 
 		window.addEventListener("resize", resize);
-		requestAnimationFrame(raf);
 		resize();
 
 		return () => {
@@ -66,21 +58,28 @@ const ParallaxImages = () => {
 		<motion.section
 			ref={gallery}
 			style={{ scale }}
-			className="scroll-scale-in relative grid sm:grid-cols-2 lg:grid-cols-4 h-[150vh] gap-[2vw] overflow-hidden bg-white p-[2vw]"
+			className="scroll-scale-in relative grid sm:grid-cols-2 lg:grid-cols-4 h-[150vh] gap-[2vw] overflow-hidden bg-foreground/10 p-[2vw]"
 		>
 			<Column images={[images[0], images[1], images[2], images[3]]} y={y} />
 			<Column
-				images={[images[3], images[4], images[5], images[6]]}
+				images={[
+					images[3],
+					images[4],
+					images[5],
+					images[6],
+					images[1],
+					images[3],
+				]}
 				y={y2}
 				className="max-sm:hidden"
 			/>
 			<Column
-				images={[images[6], images[7], images[8], images[9]]}
+				images={[images[6], images[7], images[8], images[9], images[7]]}
 				y={y3}
 				className="max-lg:hidden"
 			/>
 			<Column
-				images={[images[9], images[10], images[11], images[12]]}
+				images={[images[9], images[10], images[11], images[12], images[10]]}
 				y={y4}
 				className="max-lg:hidden"
 			/>
@@ -97,7 +96,12 @@ type ColumnProps = {
 const Column = ({ images, y, className }: ColumnProps) => {
 	return (
 		<motion.div
-			className={`relative -top-[45%] flex h-full w-full min-w-[250px] flex-col gap-[2vw] first:top-[-45%] nth-2:top-[-95%] nth-3:top-[-45%] nth-4:top-[-75%] ${className}`}
+			className={`relative flex h-full w-full min-w-[250px] flex-col gap-[2vw] 
+				first:top-[-60%] 
+				nth-2:top-[-80%] 
+				nth-3:top-[-45%] 
+				nth-4:top-[-85%] 
+				 ${className}`}
 			style={{ y }}
 		>
 			{images.map((src) => (

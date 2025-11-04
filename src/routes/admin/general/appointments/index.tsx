@@ -2,48 +2,45 @@ import { createFileRoute } from "@tanstack/react-router";
 import { t } from "i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
-import type { Staff } from "~/features/staff/domain/staff";
-import { useStaff } from "~/features/staff/models/use-staff";
-import { useStaffs } from "~/features/staff/models/use-staffs";
-import { StaffForm } from "~/features/staff/ui/form";
-import { StaffTable } from "~/features/staff/ui/table";
+import type { Service } from "~/features/services/domain/service";
+import { useService } from "~/features/services/model/use-service";
+import { useServices } from "~/features/services/model/use-services";
+import { ServiceCreationForm } from "~/features/services/ui/creation-form";
+import { ServiceTable } from "~/features/services/ui/table/service-table";
 import { Button } from "~/shared/ui/button";
 import { Drawer } from "~/shared/ui/drawer";
 import { AdminMain } from "~/shared/ui/layouts/admin/admin-main";
 
-export const Route = createFileRoute("/admin/team/members/")({
+export const Route = createFileRoute("/admin/general/appointments/")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	const { staffs, isLoading, refetch } = useStaffs();
-	const { remove } = useStaff();
+	const { services, isLoading, refetch } = useServices();
+	const { remove } = useService();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
-	const [editing, setEditing] = useState<Staff | null>(null);
+	const [editing, setEditing] = useState<Service | null>(null);
 
 	const openCreate = () => {
 		setEditing(null);
 		setIsFormOpened(true);
 	};
 
-	const openEdit = (s: Staff) => {
+	const openEdit = (s: Service) => {
 		setEditing(s);
 		setIsFormOpened(true);
 	};
 
-	const handleDelete = (s: Staff) => {
+	const handleDelete = (s: Service) => {
 		remove.mutate(s.id);
 	};
 
 	return (
-		<AdminMain
-			title="team_members"
-			description="manage_your_team_and_schedules"
-		>
+		<AdminMain title={"services"} description={"manage_your_services"}>
 			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
-				<StaffForm
-					staff={editing}
+				<ServiceCreationForm
+					service={editing}
 					onClose={() => {
 						setIsFormOpened(false);
 						setEditing(null);
@@ -64,8 +61,8 @@ function RouteComponent() {
 					{t("refresh_services")}
 				</Button>
 			</nav>
-			<StaffTable
-				staffs={staffs}
+			<ServiceTable
+				services={services}
 				isLoading={isLoading}
 				onEdit={openEdit}
 				onDelete={handleDelete}

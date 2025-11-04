@@ -10,7 +10,7 @@ export const Hero = () => {
 				<Images />
 
 				<Title />
-				<strong className="text-center text-xl px-6 md:text-2xl text-balance motion-preset-slide-up motion-delay-1200">
+				<strong className="text-center text-foreground/70 text-xl px-6 md:text-2xl text-balance motion-preset-slide-up motion-delay-1200">
 					{t("hero.subtitle")}
 				</strong>
 			</header>

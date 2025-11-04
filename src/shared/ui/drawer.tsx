@@ -26,7 +26,10 @@ export const Drawer = ({
 		<D.Root {...rest}>
 			<D.Portal>
 				<D.Overlay
-					className={cn("fixed inset-0 bg-black/40", classNames?.overlay)}
+					className={cn(
+						"fixed inset-0 bg-foreground/50 backdrop-blur-xs",
+						classNames?.overlay,
+					)}
 				/>
 				<D.Content
 					className={cn(
@@ -36,7 +39,7 @@ export const Drawer = ({
 				>
 					<div
 						className={cn(
-							"bg-background grid grid-rows-[auto_1fr_auto] rounded-t-3xl md:rounded-3xl h-fit max-h-[90dvh] shadow-lg md:mb-4 md:max-w-4xl w-full",
+							"bg-background grid grid-rows-[auto_1fr_auto] rounded-t-3xl md:rounded-3xl h-fit max-h-[90dvh] shadow-lg md:mb-4 md:max-w-4xl w-full transition-all",
 							className,
 						)}
 					>

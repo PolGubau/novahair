@@ -13,7 +13,7 @@ export const SuccessAppointment = ({
 	onCloseDialog,
 }: SuccessAppointmentProps) => {
 	return (
-		<section className="flex flex-col justify-center gap-6">
+		<section className="flex flex-col justify-center gap-6 p-4 md:p-8">
 			<header className="flex flex-col justify-center gap-1">
 				<h2 className="text-2xl font-bold">
 					{t("your_appointment_created_at", { datetime: date })}

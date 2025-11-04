@@ -1,7 +1,7 @@
 import Avatar from "boring-avatars";
 import { t } from "i18next";
 import { ArrowUp } from "lucide-react";
-import type { Staff } from "~/features/appointment-form/domain/slot";
+import type { Staff } from "~/features/staff/domain/staff";
 import { Button } from "~/shared/ui/button";
 import { labelClasses } from "~/shared/ui/label";
 

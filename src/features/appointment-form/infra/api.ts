@@ -1,6 +1,5 @@
 import { endpoints } from "~/shared/constants";
 import type { AvailableDay } from "../domain/available-day";
-import type { Service } from "../domain/service";
 import type { Slot } from "../domain/slot";
 import type { AppointmentDtoPost } from "../types/appointments-post.dto";
 import type {
@@ -9,9 +8,9 @@ import type {
 	GetSlotsProps,
 } from "./repository";
 
-const { getServices, getAvailableDays, getSlots } = endpoints;
+const { getAvailableDays, getSlots } = endpoints;
 
-async function genericFetch<ResponseType>(
+export async function genericFetch<ResponseType>(
 	url: string,
 	options?: RequestInit,
 ): Promise<ResponseType> {
@@ -23,10 +22,6 @@ async function genericFetch<ResponseType>(
 		);
 	}
 	return await (response.json() as Promise<ResponseType>);
-}
-
-export async function listServices() {
-	return genericFetch<Service[]>(getServices) || [];
 }
 
 export async function listAvailableDays(props: GetAvailableDaysProps) {
@@ -66,7 +61,6 @@ export async function bookAppointment(props: BookAppointmentProps) {
 }
 
 export const api = {
-	listServices,
 	listAvailableDays,
 	listSlots,
 	bookAppointment,

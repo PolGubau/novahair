@@ -55,7 +55,12 @@ export const Testimonials = () => {
 				</p>
 			</header>
 
-			<Marquee pauseOnHover className="[--duration:20s]">
+			<Marquee pauseOnHover className="[--duration:45s]">
+				{testimonials.map((review) => (
+					<TestimonialCard key={review.name} testimonial={review} />
+				))}
+			</Marquee>
+			<Marquee pauseOnHover className="[--duration:40s]">
 				{testimonials.map((review) => (
 					<TestimonialCard key={review.name} testimonial={review} />
 				))}

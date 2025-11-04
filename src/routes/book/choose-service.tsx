@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ServiceSelector } from "~/features/appointment-form/ui/service-selector";
+import { ServiceSelector } from "~/features/services/ui/selector";
 
 export const Route = createFileRoute("/book/choose-service")({
 	component: RouteComponent,

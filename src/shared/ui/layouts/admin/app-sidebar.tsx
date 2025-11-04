@@ -3,7 +3,6 @@
 import {
 	AudioWaveform,
 	Command,
-	Frame,
 	GalleryVerticalEnd,
 	Settings2,
 	SlidersHorizontal,
@@ -20,7 +19,6 @@ import {
 } from "../../sidebar";
 import { TeamSwitcher } from "./location-switcher";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 
 export type Team = {
@@ -40,11 +38,6 @@ export type NavMainItem = {
 	}[];
 };
 
-export type SidebarProject = {
-	name: string;
-	url: string;
-	icon: React.ComponentType;
-};
 export type SidebarUser = {
 	name: string;
 	email: string;
@@ -54,7 +47,6 @@ export type SidebarMenu = {
 	user: SidebarUser;
 	teams: Team[];
 	navMain: NavMainItem[];
-	projects: SidebarProject[];
 };
 
 const data: SidebarMenu = {
@@ -125,13 +117,6 @@ const data: SidebarMenu = {
 			],
 		},
 	],
-	projects: [
-		{
-			name: "Design Engineering",
-			url: "#",
-			icon: Frame,
-		},
-	],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -142,7 +127,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser user={data.user} />

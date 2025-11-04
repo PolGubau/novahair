@@ -22,12 +22,12 @@ body {
   --sidebar-accent: hsl(240 4.8% 95.9%);
   --sidebar-accent-foreground: hsl(240 5.9% 10%);
   --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @theme inline {
   --font-sans: 'Outfit Variable', sans-serif;
-
+ 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

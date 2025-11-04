@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { t } from "i18next";
 import { Route } from "~/routes/book/$serviceId";
 import { Select } from "~/shared/ui/select";
-import { useServices } from "../../model/use-services";
+import { useServices } from "../model/use-services";
 
 export const ServiceSwitcher = () => {
 	const navigate = useNavigate({ from: "/book/$serviceId" });
