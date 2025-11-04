@@ -107,7 +107,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 					placeholder={t("notes_placeholder")}
 					name="notes"
 					className="min-h-18 max-h-96"
-				/>{" "}
+				/>
 			</section>
 			<nav className="sticky bottom-0 p-4 md:p-8 bg-background/50 backdrop-blur-sm justify-end flex rounded-xl">
 				<Button

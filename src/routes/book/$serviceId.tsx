@@ -75,7 +75,7 @@ function CalendarStep() {
 		setIsSuccessfullySent(false);
 	};
 	return (
-		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
+		<main className="grid grid-rows-[auto_1fr]">
 			<Drawer
 				className="max-w-4xl"
 				classNames={{
@@ -115,7 +115,7 @@ function CalendarStep() {
 				</section>
 			</Drawer>
 
-			<section className="h-full grid gap-2">
+			<section className="h-full grid gap-2 md:gap-8">
 				<div className="md:hidden px-4">
 					<ServiceSwitcher />
 				</div>
