@@ -1,58 +1,64 @@
-import type { SheetProps } from "react-modal-sheet";
-import { Sheet } from "react-modal-sheet";
+import { Drawer as D, type DialogProps } from "vaul";
 import { cn } from "~/lib/cn";
 
-type Props = SheetProps & {
+type Props = DialogProps & {
 	footer?: React.ReactNode;
+	className?: string;
+	header?: React.ReactNode;
+	classNames?: {
+		overlay?: string;
+		content?: string;
+		header?: string;
+		handle?: string;
+		body?: string;
+		footer?: string;
+	};
 };
-
 export const Drawer = ({
 	children,
-	isOpen,
 	footer,
 	className,
-	onClose,
+	header,
+	classNames,
 	...rest
 }: Props) => {
 	return (
-		<Sheet
-			detent={rest.detent ?? "content"}
-			{...rest}
-			isOpen={isOpen}
-			onClose={onClose}
-			unstyled
-		>
-			<Sheet.Container
-				className={cn(
-					"md:px-4 pt-4 mx-auto md:pb-[max(env(safe-area-inset-bottom),16px)] bg-transparent! shadow-none! left-1/2! translate-x-[-50%] grid grid-cols-[1fr_auto] gap-2",
-					{
-						"max-w-4xl ": rest.detent === "content",
-					},
-					className,
-				)}
-			>
-				<div
+		<D.Root {...rest}>
+			<D.Portal>
+				<D.Overlay
+					className={cn("fixed inset-0 bg-black/40", classNames?.overlay)}
+				/>
+				<D.Content
 					className={cn(
-						"grid grid-rows-[1fr_auto] rounded-t-2xl md:rounded-2xl shadow-xl bg-background max-h-[90vh]",
-						{
-							"": rest.detent === "content",
-						},
+						"h-fit fixed flex justify-center bottom-0 left-0 right-0 mx-auto md:max-w-[90vw] outline-none",
+						classNames?.content,
 					)}
 				>
-					<Sheet.Header
-						className="h-8 grid place-items-center"
-						unstyled={false}
+					<div
+						className={cn(
+							"bg-background grid grid-rows-[auto_1fr_auto] rounded-t-3xl md:rounded-3xl h-fit max-h-[90dvh] shadow-lg md:mb-4 md:max-w-4xl w-full",
+							className,
+						)}
 					>
-						<Sheet.DragIndicator unstyled={false} />
-					</Sheet.Header>
+						<header
+							className={cn("flex flex-col gap-3 p-4", classNames?.header)}
+						>
+							<D.Handle className={classNames?.handle} />
+							{header}
+						</header>
 
-					<Sheet.Content className="flex-1 overflow-y-auto h-full px-4 pb-[max(env(safe-area-inset-bottom),32px)] min-h-0 grid grid-cols-[1fr_auto] pointer-events-auto">
-						{children}
-						{footer && <div>{footer}</div>}
-					</Sheet.Content>
-				</div>
-			</Sheet.Container>
-			<Sheet.Backdrop onTap={onClose} unstyled={false} />
-		</Sheet>
+						<section
+							className={cn(
+								"h-full overflow-y-auto relative p-4",
+								classNames?.body,
+							)}
+						>
+							{children}
+						</section>
+						{footer && <div className={classNames?.footer}>{footer}</div>}
+					</div>
+				</D.Content>
+			</D.Portal>
+		</D.Root>
 	);
 };

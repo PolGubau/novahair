@@ -60,65 +60,66 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 				handleSubmit(e, chosenSlot.start, chosenSlot.end);
 			}}
 		>
-			<SlotChooser
-				date={date}
-				staffId={staffId}
-				selectedSlot={chosenSlot}
-				onChange={setChosenSlot}
-			/>
-
-			<StaffSelector
-				staffs={chosenSlot?.staff ?? []}
-				selectedStaffId={staffId}
-				onSelectStaff={setStaffId}
-			/>
-
-			<hr className="my-4" />
-			<Input
-				label={t("name")}
-				placeholder={t("name_placeholder")}
-				name={"name"}
-				required
-				value={fields.name}
-				onChange={(e) => updateField("name", e.target.value)}
-				minLength={2}
-			/>
-			<div className="grid gap-4 md:grid-cols-2">
-				<Input
-					label={t("phone")}
-					value={fields.phone}
-					onChange={(e) => updateField("phone", e.target.value)}
-					placeholder="123 456 789"
-					name="phone"
-					type="tel"
+			<section className="flex flex-col px-4 md:px-8 gap-4">
+				<SlotChooser
+					date={date}
+					staffId={staffId}
+					selectedSlot={chosenSlot}
+					onChange={setChosenSlot}
 				/>
+				<StaffSelector
+					staffs={chosenSlot?.staff ?? []}
+					selectedStaffId={staffId}
+					onSelectStaff={setStaffId}
+				/>
+				<hr className="my-4" />
 				<Input
-					label={t("email")}
-					placeholder={t("email_placeholder")}
-					name="email"
-					type="email"
-					value={fields.email}
-					onChange={(e) => updateField("email", e.target.value)}
+					label={t("name")}
+					placeholder={t("name_placeholder")}
+					name={"name"}
 					required
-					minLength={5}
+					value={fields.name}
+					onChange={(e) => updateField("name", e.target.value)}
+					minLength={2}
 				/>
-			</div>
-			<Textarea
-				label={t("notes")}
-				placeholder={t("notes_placeholder")}
-				name="notes"
-				className="min-h-18 max-h-96"
-			/>
-			<Button
-				loading={isLoading}
-				type="submit"
-				className="mt-6"
-				disabled={isLoading || !chosenSlot}
-			>
-				{t("book_appointment")}
-				<Send className="size-4" />
-			</Button>
-			{error && <ErrorMessage error={error} />}
+				<div className="grid gap-4 md:grid-cols-2">
+					<Input
+						label={t("email")}
+						placeholder={t("email_placeholder")}
+						name="email"
+						type="email"
+						value={fields.email}
+						onChange={(e) => updateField("email", e.target.value)}
+						required
+						minLength={5}
+					/>
+					<Input
+						label={t("phone")}
+						value={fields.phone}
+						onChange={(e) => updateField("phone", e.target.value)}
+						placeholder="123 456 789"
+						name="phone"
+						type="tel"
+					/>
+				</div>
+				<Textarea
+					label={t("notes")}
+					placeholder={t("notes_placeholder")}
+					name="notes"
+					className="min-h-18 max-h-96"
+				/>{" "}
+			</section>
+			<nav className="sticky bottom-0 p-4 md:p-8 bg-background/50 backdrop-blur-sm justify-end flex rounded-xl">
+				<Button
+					loading={isLoading}
+					type="submit"
+					disabled={isLoading || !chosenSlot}
+				>
+					{t("book_appointment")}
+					<Send className="size-4" />
+				</Button>
+				{error && <ErrorMessage error={error} />}
+			</nav>
 		</form>
 	);
 };

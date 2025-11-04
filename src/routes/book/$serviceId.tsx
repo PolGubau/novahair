@@ -42,7 +42,7 @@ function CalendarStep() {
 	const { fields } = useFormValues<FormValue>();
 
 	const triggerConfetti = () => {
-		const end = Date.now() + 2 * 1000; // 2 seconds
+		const end = Date.now() + 1 * 1000; // 1 second
 		const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 		const frame = () => {
 			if (Date.now() > end) return;
@@ -78,27 +78,32 @@ function CalendarStep() {
 		<main className="min-h-dvh grid grid-rows-[auto_1fr]">
 			<Drawer
 				className="max-w-4xl"
-				isOpen={Boolean(selectedDay)}
+				classNames={{
+					header: "md:px-8 pt-6",
+					body: "p-0",
+				}}
+				open={Boolean(selectedDay)}
 				onClose={handleCloseDialog}
+				header={
+					<div className="border-foreground/10">
+						<h2 className="text-lg md:text-2xl font-medium">
+							{t("appointment_date", {
+								date: parsedDate,
+							})}
+						</h2>
+					</div>
+				}
 			>
-				<section className="p-4">
+				<section className="">
 					{!isSuccessfullySent ? (
 						selectedDay && (
-							<>
-								<h2 className="text-2xl font-bold mb-4">
-									{t("appointment_date", {
-										date: parsedDate,
-									})}
-								</h2>
-
-								<AppointmentForm
-									date={selectedDay}
-									onSuccess={() => {
-										triggerConfetti();
-										setIsSuccessfullySent(true);
-									}}
-								/>
-							</>
+							<AppointmentForm
+								date={selectedDay}
+								onSuccess={() => {
+									triggerConfetti();
+									setIsSuccessfullySent(true);
+								}}
+							/>
 						)
 					) : (
 						<SuccessAppointment
