@@ -14,7 +14,7 @@ export const Preloader = ({ isReady }: Props) => {
 	const ref = useRef<HTMLOutputElement>(null);
 
 	// UX timings
-	const SHOW_DELAY_MS = 300; // wait before showing the preloader
+	const SHOW_DELAY_MS = 0; // wait before showing the preloader
 	const MIN_VISIBLE_MS = 400; // once shown, keep visible at least this long
 
 	const [visible, setVisible] = useState(false);

@@ -1,24 +1,24 @@
 import { ChevronRight } from "lucide-react";
+import { Button } from "~/shared/ui/button";
 
 export const ServiceItemSkeleton = () => {
 	return (
-		<li className="rounded-2xl overflow-hidden shadow bg-white gap-5 grid grid-cols-[1fr_2fr] items-center">
-			<div className="h-full bg-primary/5 w-full grid place-items-center"></div>
-			<div className="p-4 flex flex-col h-full justify-between">
+		<li className="rounded-2xl overflow-hidden shadow bg-foreground/3 gap-1 md:gap-4 grid grid-cols-[1fr_2fr] items-center">
+			<div className="bg-foreground/10 w-full grid place-items-center h-44"></div>
+			<div className="p-2 md:py-4 gap-2 flex flex-col h-full justify-between">
 				<header>
-					<h2 className="text-2xl mb-2 skeleton">lorem ipsum lorem</h2>
+					<h2 className="text-xl md:text-2xl skeleton">lorem ipsum lorem</h2>
 
-					<p className="text-foreground/80 text-balance skeleton line-clamp-5">
+					<p className="text-foreground/80 text-balance skeleton line-clamp-4">
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
 						mollitia exercitationem enim, a iure
 					</p>
 				</header>
-
-				<nav className="flex justify-end pt-3">
-					<span className="mt-2 flex gap-2 pl-4 pr-2 py-2 bg-primary hover:bg-primary/80 transition-all text-white rounded-xl cursor-pointer ">
+				<nav className="flex">
+					<Button disabled>
 						<span className="skeleton-inverted">Seleccionar</span>
 						<ChevronRight />
-					</span>
+					</Button>
 				</nav>
 			</div>
 		</li>
