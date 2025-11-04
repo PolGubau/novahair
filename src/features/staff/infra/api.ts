@@ -1,13 +1,12 @@
 import { genericFetch } from "~/features/appointment-form/infra/api";
 import { endpoints } from "~/shared/constants";
-import type { Service } from "../../services/domain/service";
 import type { Staff } from "../domain/staff";
 import type { StaffRepository } from "./repository";
 
-const { staffs: baseUrl } = endpoints;
+const { list_staffs: baseGetUrl, staff: baseUrl } = endpoints;
 
 export async function list() {
-	return genericFetch<Staff[]>(baseUrl) || [];
+	return genericFetch<Staff[]>(baseGetUrl) || [];
 }
 export const getOne: StaffRepository["get"] = (id) => {
 	return genericFetch<Staff>(`${baseUrl}/${id}`) || null;

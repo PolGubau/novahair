@@ -32,7 +32,7 @@ function CalendarStep() {
 		year,
 	} = useCalendarTimes();
 
-	const { isLoading, error, days } = useAvailableDays({
+	const { isLoading, error, days, refetch } = useAvailableDays({
 		serviceId,
 		currentDate,
 	});
@@ -71,6 +71,7 @@ function CalendarStep() {
 	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
 
 	const handleCloseDialog = () => {
+		refetch();
 		setSelectedDay(null);
 		setIsSuccessfullySent(false);
 	};

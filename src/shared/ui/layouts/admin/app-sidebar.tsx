@@ -3,6 +3,7 @@
 import {
 	AudioWaveform,
 	Command,
+	Database,
 	GalleryVerticalEnd,
 	Settings2,
 	SlidersHorizontal,
@@ -83,9 +84,16 @@ const data: SidebarMenu = {
 					title: "view_appointments",
 					url: "/admin/general/appointments",
 				},
+			],
+		},
+		{
+			title: "services",
+			url: "#",
+			icon: Database,
+			items: [
 				{
 					title: "your_services",
-					url: "/admin/general/services",
+					url: "/admin/services/",
 				},
 			],
 		},

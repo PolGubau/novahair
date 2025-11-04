@@ -42,7 +42,8 @@ export const buildUrl = (
 };
 
 export const endpoints = {
-	staffs: buildUrl(`staff/tenant/${constants.tenantId}`),
+	staff: buildUrl(`staff`),
+	list_staffs: buildUrl(`staff/tenant/${constants.tenantId}`),
 	services: buildUrl("services"),
 	getServices: buildUrl(`services/tenant/${constants.tenantId}`),
 	getAvailableDays: (params: GetAvailableDaysProps) =>

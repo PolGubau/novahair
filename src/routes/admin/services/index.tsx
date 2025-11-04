@@ -11,7 +11,7 @@ import { Button } from "~/shared/ui/button";
 import { Drawer } from "~/shared/ui/drawer";
 import { AdminMain } from "~/shared/ui/layouts/admin/admin-main";
 
-export const Route = createFileRoute("/admin/general/services/")({
+export const Route = createFileRoute("/admin/services/")({
 	component: RouteComponent,
 });
 
@@ -25,16 +25,16 @@ function RouteComponent() {
 	const openCreate = () => {
 		setEditing(null);
 		setIsFormOpened(true);
-	};
+	}
 
 	const openEdit = (s: Service) => {
 		setEditing(s);
 		setIsFormOpened(true);
-	};
+	}
 
 	const handleDelete = (s: Service) => {
 		remove.mutate(s.id);
-	};
+	}
 
 	return (
 		<AdminMain title={"services"} description={"manage_your_services"}>
@@ -43,7 +43,7 @@ function RouteComponent() {
 					service={editing}
 					onClose={() => {
 						setIsFormOpened(false);
-						setEditing(null);
+						setEditing(null)
 					}}
 				/>
 			</Drawer>
@@ -68,5 +68,5 @@ function RouteComponent() {
 				onDelete={handleDelete}
 			/>
 		</AdminMain>
-	);
+	)
 }

@@ -61,7 +61,7 @@ function RouteComponent() {
 						<RefreshCcw />
 					</div>
 
-					{t("refresh_services")}
+					{t("refresh")}
 				</Button>
 			</nav>
 			<StaffTable

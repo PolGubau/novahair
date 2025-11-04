@@ -80,12 +80,7 @@ export const getColumns = (options?: {
 		{
 			accessorKey: "priceCents",
 			header: () => {
-				return (
-					<p className="flex gap-1">
-						<span>{t("price")}</span>
-						<span className="text-sm">({t("in_cents")})</span>
-					</p>
-				);
+				return <span>{t("price")}</span>;
 			},
 			cell: ({ row }) => {
 				const format = new Intl.NumberFormat(i18n.language, {

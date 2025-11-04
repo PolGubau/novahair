@@ -24,6 +24,7 @@ export const ServiceCreationForm = ({
 		description: service?.description ?? "",
 		priceCents: service?.priceCents ?? 0,
 		durationMin: service?.durationMin ?? 30,
+		imageUrl: service?.imageUrl ?? "",
 	});
 
 	function handleChange(
@@ -37,7 +38,7 @@ export const ServiceCreationForm = ({
 		}));
 	}
 
-	const { name, description, priceCents, durationMin } = values;
+	const { name, description, priceCents, durationMin, imageUrl } = values;
 
 	useEffect(() => {
 		if (service) {
@@ -47,6 +48,7 @@ export const ServiceCreationForm = ({
 				bufferAfter: service.bufferAfter ?? 0,
 				bufferBefore: service.bufferBefore ?? 0,
 				priceCents: service.priceCents,
+				imageUrl: service.imageUrl ?? "",
 				durationMin: service.durationMin,
 			});
 		}
@@ -57,6 +59,7 @@ export const ServiceCreationForm = ({
 		const payload: EditableServiceCreateDTO = {
 			name,
 			description,
+			imageUrl,
 			priceCents,
 			bufferAfter: 0,
 			bufferBefore: 0,
@@ -77,28 +80,31 @@ export const ServiceCreationForm = ({
 
 	return (
 		<form onSubmit={onSubmit} className="grid gap-4">
-			<div>
-				<Input
-					label={t("name")}
-					value={name}
-					name="name"
-					placeholder={t("service_name_placeholder")}
-					required
-					onChange={handleChange}
-				/>
-			</div>
+			<Input
+				label={t("name")}
+				value={name}
+				name="name"
+				placeholder={t("service_name_placeholder")}
+				required
+				onChange={handleChange}
+			/>
+			<Textarea
+				placeholder={t("service_description_placeholder")}
+				required
+				label={t("description")}
+				name="description"
+				value={description ?? ""}
+				onChange={handleChange}
+			/>
 
-			<div>
-				<Textarea
-					placeholder={t("service_description_placeholder")}
-					required
-					label={t("description")}
-					name="description"
-					value={description ?? ""}
-					onChange={handleChange}
-				/>
-			</div>
-
+			<Input
+				label={t("image_url")}
+				value={imageUrl}
+				name="imageUrl"
+				type="url"
+				required
+				onChange={handleChange}
+			/>
 			<div className="grid grid-cols-2 gap-4">
 				<div>
 					<Input
@@ -122,7 +128,6 @@ export const ServiceCreationForm = ({
 					/>
 				</div>
 			</div>
-
 			<div className="flex gap-2 justify-end">
 				<Button
 					variant="outline"

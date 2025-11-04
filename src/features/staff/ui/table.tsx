@@ -74,7 +74,6 @@ export const getColumns = (options?: {
 							backgroundColor: row.getValue("color"),
 						}}
 					/>
-					{row.getValue("color")}
 				</div>
 			),
 		},

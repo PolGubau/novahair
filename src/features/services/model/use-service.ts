@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { constants } from "~/shared/constants";
-import type { Service } from "../../services/domain/service";
 import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
 import { serviceRepository } from "../infra/repository";
 
@@ -11,6 +10,7 @@ export const useService = () => {
 		mutationFn: (payload: EditableServiceCreateDTO) =>
 			serviceRepository.create({
 				name: payload.name,
+				imageUrl: payload.imageUrl,
 				description: payload.description,
 				priceCents: payload.priceCents,
 				durationMin: payload.durationMin,
@@ -34,6 +34,7 @@ export const useService = () => {
 		}) =>
 			serviceRepository.update(id, {
 				name: payload.name,
+				imageUrl: payload.imageUrl,
 				description: payload.description,
 				priceCents: payload.priceCents,
 				durationMin: payload.durationMin,

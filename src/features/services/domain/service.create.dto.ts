@@ -3,6 +3,7 @@ export interface ServiceCreateDTO {
 	name: string;
 	description: string;
 	durationMin: number;
+	imageUrl: string;
 	priceCents: number;
 	bufferBefore: number;
 	bufferAfter: number;
@@ -15,6 +16,7 @@ export interface EditableServiceCreateDTO
 		| "name"
 		| "description"
 		| "durationMin"
+		| "imageUrl"
 		| "priceCents"
 		| "bufferBefore"
 		| "bufferAfter"

@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { AvailableDay } from "../domain/available-day";
 import { appointmentFormRepository } from "../infra/repository";
 import { getMonthBoundaries } from "../utils/get-month-boundaries";
@@ -10,6 +10,7 @@ type Props = {
 type Response = {
 	isLoading: boolean;
 	error: Error | null;
+	refetch: () => void;
 	days: AvailableDay[];
 };
 type UseAvailableDays = (props: Props) => Response;
@@ -18,7 +19,7 @@ export const useAvailableDays: UseAvailableDays = ({
 	serviceId,
 	currentDate,
 }) => {
-	const { isLoading, error, data } = useQuery({
+	const { isLoading, error, data, refetch } = useQuery({
 		queryKey: ["available-days", serviceId, currentDate],
 		staleTime: 1000 * 60 * 5, // 5 minutes
 
@@ -42,12 +43,12 @@ export const useAvailableDays: UseAvailableDays = ({
 					serviceId,
 					from: start.toISOString(),
 					to: end.toISOString(),
-					staffId: "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25",
+					// staffId: "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25",
 				}) || []
 			);
 		},
 	});
 
 	const days = data || [];
-	return { isLoading, error, days };
+	return { isLoading, error, days, refetch };
 };
