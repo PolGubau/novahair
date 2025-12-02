@@ -1,7 +1,7 @@
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
-import type { AvailableDay } from "../domain/available-day";
-import type { Slot } from "../domain/slot";
-import { api } from "./api";
+import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
+import type { Slot } from "~/features/appointment-form/domain/slot";
+import type { AppointmentDtoPost } from "~/features/appointments/domain/appointments-post.dto";
+import { api } from "../infra/api";
 export type GetAvailableDaysProps = {
 	serviceId: string;
 	staffId?: string;

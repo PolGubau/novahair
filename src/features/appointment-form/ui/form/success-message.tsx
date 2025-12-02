@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import type { AppointmentDtoPost } from "../../types/appointments-post.dto";
+import type { AppointmentDtoPost } from "../../../appointments/domain/appointments-post.dto";
 
 type Props = {
 	appointment: AppointmentDtoPost;

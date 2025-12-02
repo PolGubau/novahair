@@ -2,7 +2,7 @@
 
 import { ChevronsUpDown, Plus } from "lucide-react";
 import * as React from "react";
-
+import { Button } from "../../button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,12 +12,7 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "../../dropdown-menu";
-import {
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-	useSidebar,
-} from "../../sidebar";
+import { SidebarMenu, SidebarMenuItem, useSidebar } from "../../sidebar";
 
 export function TeamSwitcher({
 	teams,
@@ -40,7 +35,8 @@ export function TeamSwitcher({
 			<SidebarMenuItem>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<SidebarMenuButton
+						<Button
+							variant="link"
 							size="lg"
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
@@ -52,7 +48,7 @@ export function TeamSwitcher({
 								<span className="truncate text-xs">{activeTeam.plan}</span>
 							</div>
 							<ChevronsUpDown className="ml-auto" />
-						</SidebarMenuButton>
+						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent
 						className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"

@@ -11,7 +11,7 @@ import { Button } from "~/shared/ui/button";
 import { Drawer } from "~/shared/ui/drawer";
 import { AdminMain } from "~/shared/ui/layouts/admin/admin-main";
 
-export const Route = createFileRoute("/admin/general/appointments/")({
+export const Route = createFileRoute("/admin/appointments/table")({
 	component: RouteComponent,
 });
 
@@ -37,7 +37,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<AdminMain title={"services"} description={"manage_your_services"}>
+		<AdminMain title={"appointments"} description={"view_appointments"}>
 			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
 				<ServiceCreationForm
 					service={editing}

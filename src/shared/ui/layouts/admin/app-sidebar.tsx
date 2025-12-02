@@ -10,6 +10,7 @@ import {
 	Users,
 } from "lucide-react";
 import type * as React from "react";
+import type { ExistingRoute } from "~/features/admin/ui/page";
 import type { TranslationKey } from "~/shared/i18n/setup";
 import {
 	Sidebar,
@@ -29,13 +30,12 @@ export type Team = {
 };
 export type NavMainItem = {
 	title: TranslationKey;
-	url: string;
 	icon?: React.ComponentType;
 	isActive?: boolean;
 
 	items?: {
 		title: TranslationKey;
-		url: string;
+		url: ExistingRoute;
 	}[];
 };
 
@@ -62,65 +62,36 @@ const data: SidebarMenu = {
 			logo: GalleryVerticalEnd,
 			plan: "Enterprise",
 		},
-		{
-			name: "Barbería San Sadurní d'Anoia",
-			logo: AudioWaveform,
-			plan: "Startup",
-		},
-		{
-			name: "Salon de Belleza Cubelles",
-			logo: Command,
-			plan: "Free",
-		},
 	],
 	navMain: [
 		{
 			title: "management",
-			url: "#",
 			icon: SlidersHorizontal,
 			isActive: true,
 			items: [
 				{
 					title: "view_appointments",
-					url: "/admin/general/appointments",
+					url: "/admin/appointments/table",
 				},
 			],
 		},
 		{
 			title: "services",
-			url: "#",
 			icon: Database,
 			items: [
 				{
 					title: "your_services",
-					url: "/admin/services/",
+					url: "/admin/services",
 				},
 			],
 		},
 		{
 			title: "team",
-			url: "#",
 			icon: Users,
 			items: [
 				{
 					title: "team_members",
-					url: "/admin/team/members/",
-				},
-			],
-		},
-
-		{
-			title: "settings",
-			url: "#",
-			icon: Settings2,
-			items: [
-				{
-					title: "general",
-					url: "#",
-				},
-				{
-					title: "profile",
-					url: "#",
+					url: "/admin/team/members",
 				},
 			],
 		},
@@ -128,13 +99,20 @@ const data: SidebarMenu = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const pathname = window.location.pathname;
+	const itemsWithActive = data.navMain.map((item) => {
+		const isActive =
+			item.items?.some((subItem) => subItem.url === pathname) ?? false;
+		return { ...item, isActive };
+	});
+
 	return (
 		<Sidebar collapsible="icon" variant="sidebar" {...props}>
 			<SidebarHeader>
 				<TeamSwitcher teams={data.teams} />
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
+				<NavMain items={itemsWithActive} />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser user={data.user} />

@@ -1,4 +1,4 @@
-import type { AppointmentDtoPost } from "../types/appointments-post.dto";
+import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
 
 const STORAGE_KEY = "local-appointments";
 

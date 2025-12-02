@@ -17,8 +17,8 @@ import { Route as landingIndexRouteImport } from './routes/(landing)/index'
 import { Route as BookChooseServiceRouteImport } from './routes/book/choose-service'
 import { Route as BookServiceIdRouteImport } from './routes/book/$serviceId'
 import { Route as AdminServicesIndexRouteImport } from './routes/admin/services/index'
+import { Route as AdminAppointmentsTableRouteImport } from './routes/admin/appointments/table'
 import { Route as AdminTeamMembersIndexRouteImport } from './routes/admin/team/members/index'
-import { Route as AdminGeneralAppointmentsIndexRouteImport } from './routes/admin/general/appointments/index'
 
 const BookLayoutRoute = BookLayoutRouteImport.update({
   id: '/book',
@@ -59,17 +59,16 @@ const AdminServicesIndexRoute = AdminServicesIndexRouteImport.update({
   path: '/services/',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
+const AdminAppointmentsTableRoute = AdminAppointmentsTableRouteImport.update({
+  id: '/appointments/table',
+  path: '/appointments/table',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
 const AdminTeamMembersIndexRoute = AdminTeamMembersIndexRouteImport.update({
   id: '/team/members/',
   path: '/team/members/',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
-const AdminGeneralAppointmentsIndexRoute =
-  AdminGeneralAppointmentsIndexRouteImport.update({
-    id: '/general/appointments/',
-    path: '/general/appointments/',
-    getParentRoute: () => AdminLayoutRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/admin': typeof AdminLayoutRouteWithChildren
@@ -78,8 +77,8 @@ export interface FileRoutesByFullPath {
   '/book/choose-service': typeof BookChooseServiceRoute
   '/': typeof landingIndexRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/appointments/table': typeof AdminAppointmentsTableRoute
   '/admin/services': typeof AdminServicesIndexRoute
-  '/admin/general/appointments': typeof AdminGeneralAppointmentsIndexRoute
   '/admin/team/members': typeof AdminTeamMembersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -88,8 +87,8 @@ export interface FileRoutesByTo {
   '/book/choose-service': typeof BookChooseServiceRoute
   '/': typeof landingIndexRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/appointments/table': typeof AdminAppointmentsTableRoute
   '/admin/services': typeof AdminServicesIndexRoute
-  '/admin/general/appointments': typeof AdminGeneralAppointmentsIndexRoute
   '/admin/team/members': typeof AdminTeamMembersIndexRoute
 }
 export interface FileRoutesById {
@@ -101,8 +100,8 @@ export interface FileRoutesById {
   '/book/choose-service': typeof BookChooseServiceRoute
   '/(landing)/': typeof landingIndexRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/appointments/table': typeof AdminAppointmentsTableRoute
   '/admin/services/': typeof AdminServicesIndexRoute
-  '/admin/general/appointments/': typeof AdminGeneralAppointmentsIndexRoute
   '/admin/team/members/': typeof AdminTeamMembersIndexRoute
 }
 export interface FileRouteTypes {
@@ -114,8 +113,8 @@ export interface FileRouteTypes {
     | '/book/choose-service'
     | '/'
     | '/admin/'
+    | '/admin/appointments/table'
     | '/admin/services'
-    | '/admin/general/appointments'
     | '/admin/team/members'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -124,8 +123,8 @@ export interface FileRouteTypes {
     | '/book/choose-service'
     | '/'
     | '/admin'
+    | '/admin/appointments/table'
     | '/admin/services'
-    | '/admin/general/appointments'
     | '/admin/team/members'
   id:
     | '__root__'
@@ -136,8 +135,8 @@ export interface FileRouteTypes {
     | '/book/choose-service'
     | '/(landing)/'
     | '/admin/'
+    | '/admin/appointments/table'
     | '/admin/services/'
-    | '/admin/general/appointments/'
     | '/admin/team/members/'
   fileRoutesById: FileRoutesById
 }
@@ -205,18 +204,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminServicesIndexRouteImport
       parentRoute: typeof AdminLayoutRoute
     }
+    '/admin/appointments/table': {
+      id: '/admin/appointments/table'
+      path: '/appointments/table'
+      fullPath: '/admin/appointments/table'
+      preLoaderRoute: typeof AdminAppointmentsTableRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
     '/admin/team/members/': {
       id: '/admin/team/members/'
       path: '/team/members'
       fullPath: '/admin/team/members'
       preLoaderRoute: typeof AdminTeamMembersIndexRouteImport
-      parentRoute: typeof AdminLayoutRoute
-    }
-    '/admin/general/appointments/': {
-      id: '/admin/general/appointments/'
-      path: '/general/appointments'
-      fullPath: '/admin/general/appointments'
-      preLoaderRoute: typeof AdminGeneralAppointmentsIndexRouteImport
       parentRoute: typeof AdminLayoutRoute
     }
   }
@@ -236,15 +235,15 @@ const landingLayoutRouteWithChildren = landingLayoutRoute._addFileChildren(
 
 interface AdminLayoutRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminAppointmentsTableRoute: typeof AdminAppointmentsTableRoute
   AdminServicesIndexRoute: typeof AdminServicesIndexRoute
-  AdminGeneralAppointmentsIndexRoute: typeof AdminGeneralAppointmentsIndexRoute
   AdminTeamMembersIndexRoute: typeof AdminTeamMembersIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminAppointmentsTableRoute: AdminAppointmentsTableRoute,
   AdminServicesIndexRoute: AdminServicesIndexRoute,
-  AdminGeneralAppointmentsIndexRoute: AdminGeneralAppointmentsIndexRoute,
   AdminTeamMembersIndexRoute: AdminTeamMembersIndexRoute,
 }
 

@@ -16,6 +16,12 @@ import { cn } from "~/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
+import {
+	MiniCalendar,
+	MiniCalendarDay,
+	MiniCalendarDays,
+	MiniCalendarNavigation,
+} from "~/shared/ui/mini-calendar";
 
 export const Route = createFileRoute("/book/$serviceId")({
 	component: CalendarStep,
@@ -140,6 +146,7 @@ function CalendarStep() {
 						}
 					/>
 				</header>
+
 				<LoadingOverlay isLoading={isLoading}>
 					<Calendar
 						onSelectDate={setSelectedDay}

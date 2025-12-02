@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
 import { saveLocalAppointment } from "../infra/local-persistence";
 import type { BookAppointmentProps } from "../infra/repository";
 import { appointmentFormRepository } from "../infra/repository";
-import type { AppointmentDtoPost } from "../types/appointments-post.dto";
 
 type Params = {
 	serviceId: string;

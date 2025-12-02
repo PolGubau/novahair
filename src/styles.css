@@ -100,3 +100,13 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.card{
+  @apply bg-foreground/5 text-foreground/90 rounded-lg border border-foreground/10 p-4 shadow-sm flex flex-1 flex-col gap-2;
+
+  &.clickable{
+    @apply hover:bg-foreground/10 active:bg-foreground/20 transition-colors cursor-pointer;
+  }
+}
+
+ 

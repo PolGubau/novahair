@@ -43,7 +43,6 @@ export const useAvailableDays: UseAvailableDays = ({
 					serviceId,
 					from: start.toISOString(),
 					to: end.toISOString(),
-					// staffId: "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25",
 				}) || []
 			);
 		},

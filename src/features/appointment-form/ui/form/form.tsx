@@ -5,6 +5,7 @@ import { useSubmitAppointment } from "~/features/appointment-form/model/use-subm
 import { Route } from "~/routes/book/$serviceId";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
+import { MiniCalendar } from "~/shared/ui/mini-calendar";
 import { Textarea } from "~/shared/ui/textarea";
 import type { Slot } from "../../domain/slot";
 import { useFormValues } from "../../model/use-form-values";

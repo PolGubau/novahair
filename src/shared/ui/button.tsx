@@ -17,7 +17,7 @@ const buttonVariants = cva(
 					" bg-background shadow-xs hover:bg-foreground/10 border-foreground/20",
 				secondary: "bg-foreground text-background hover:bg-secondary/90",
 				ghost: "hover:bg-primary/10",
-				link: "text-primary underline-offset-4 hover:underline",
+				link: "text-foreground underline-offset-4 hover:underline",
 			},
 			size: {
 				md: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -52,6 +52,8 @@ function Button({
 	return (
 		<Comp
 			data-slot="button"
+			type={props.type || "button"}
+			disabled={props.disabled || loading}
 			className={cn(buttonVariants({ variant, size, className }))}
 			{...props}
 		>

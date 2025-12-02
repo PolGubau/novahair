@@ -1,8 +1,9 @@
 "use client";
 
+import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
-import { ChevronRight, type LucideIcon } from "lucide-react";
-import type { TranslationKey } from "~/shared/i18n/setup";
+import { ChevronRight } from "lucide-react";
+import { Button } from "../../button";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -12,10 +13,8 @@ import {
 	SidebarGroup,
 	SidebarGroupLabel,
 	SidebarMenu,
-	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarMenuSub,
-	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "../../sidebar";
 import type { NavMainItem } from "./app-sidebar";
@@ -34,21 +33,27 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 					>
 						<SidebarMenuItem>
 							<CollapsibleTrigger asChild>
-								<SidebarMenuButton tooltip={item.title}>
+								<Button
+									variant="ghost"
+									className="peer/menu-button flex w-full items-center gap-2"
+								>
 									{item.icon && <item.icon />}
 									<span>{t(item.title)}</span>
 									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-								</SidebarMenuButton>
+								</Button>
 							</CollapsibleTrigger>
 							<CollapsibleContent className="transition-all">
 								<SidebarMenuSub>
 									{item.items?.map((subItem) => (
 										<SidebarMenuSubItem key={subItem.title}>
-											<SidebarMenuSubButton asChild>
-												<a href={subItem.url}>
+											<Button variant="link" className="py-0 h-fit">
+												<Link
+													to={subItem.url as string}
+													className="flex w-full"
+												>
 													<span>{t(subItem.title)}</span>
-												</a>
-											</SidebarMenuSubButton>
+												</Link>
+											</Button>
 										</SidebarMenuSubItem>
 									))}
 								</SidebarMenuSub>

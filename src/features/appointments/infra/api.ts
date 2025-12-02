@@ -1,12 +1,12 @@
+import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
+import type { Slot } from "~/features/appointment-form/domain/slot";
+import type { AppointmentDtoPost } from "~/features/appointments/domain/appointments-post.dto";
 import { endpoints } from "~/shared/constants";
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
-import type { AvailableDay } from "../domain/available-day";
-import type { Slot } from "../domain/slot";
 import type {
 	BookAppointmentProps,
 	GetAvailableDaysProps,
 	GetSlotsProps,
-} from "./repository";
+} from "../models/repository";
 
 const { getAvailableDays, getSlots } = endpoints;
 
