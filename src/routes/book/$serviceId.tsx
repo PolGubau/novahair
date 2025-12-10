@@ -77,23 +77,25 @@ function CalendarStep() {
 	if (error) return `An error has occurred: ${error.message}`;
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
 	const parsedDate = selectedDay ? selectedDay.toLocaleDateString() : "";
-	
-	const handleCloseDialog = () => {
-		refetch();
-		navigate({
-			search: (old) => ({ ...old, selectedDayISO: undefined }),
-		});
-		setIsSuccessfullySent(false);
-	};
-	function setSelectedDay(date: Date) {
+
+	function updateParams(newIsoString: string | undefined) {
 		navigate({
 			search: (old) => ({
 				...old,
-				selectedDayISO: date.toISOString(),
+				selectedDayISO: newIsoString,
 			}),
 		});
 	}
-	
+
+	const handleCloseDialog = () => {
+		refetch();
+		updateParams(undefined);
+		setIsSuccessfullySent(false);
+	};
+	function setSelectedDay(date: Date) {
+		updateParams(date.toISOString());
+	}
+
 	return (
 		<main className="grid grid-rows-[auto_1fr]">
 			<Drawer
