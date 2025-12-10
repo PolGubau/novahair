@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import confetti from "canvas-confetti";
 import { t } from "i18next";
 import { useState } from "react";
@@ -16,15 +16,14 @@ import { cn } from "~/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
-import {
-	MiniCalendar,
-	MiniCalendarDay,
-	MiniCalendarDays,
-	MiniCalendarNavigation,
-} from "~/shared/ui/mini-calendar";
-
 export const Route = createFileRoute("/book/$serviceId")({
 	component: CalendarStep,
+	validateSearch: (search) => {
+		return {
+			selectedDayISO:
+				typeof search.selectedDay === "string" ? search.selectedDay : undefined,
+		};
+	},
 });
 
 function CalendarStep() {
@@ -43,7 +42,9 @@ function CalendarStep() {
 		currentDate,
 	});
 
-	const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+	const { selectedDayISO } = Route.useSearch();
+	const navigate = useNavigate({ from: Route.fullPath });
+
 	const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
 	const { fields } = useFormValues<FormValue>();
 
@@ -74,13 +75,25 @@ function CalendarStep() {
 	};
 
 	if (error) return `An error has occurred: ${error.message}`;
-	const parsedDate = selectedDay?.toLocaleDateString() ?? "";
-
+	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
+	const parsedDate = selectedDay ? selectedDay.toLocaleDateString() : "";
+	
 	const handleCloseDialog = () => {
 		refetch();
-		setSelectedDay(null);
+		navigate({
+			search: (old) => ({ ...old, selectedDayISO: undefined }),
+		});
 		setIsSuccessfullySent(false);
 	};
+	function setSelectedDay(date: Date) {
+		navigate({
+			search: (old) => ({
+				...old,
+				selectedDayISO: date.toISOString(),
+			}),
+		});
+	}
+	
 	return (
 		<main className="grid grid-rows-[auto_1fr]">
 			<Drawer
@@ -89,7 +102,7 @@ function CalendarStep() {
 					header: "md:px-8 pt-6",
 					body: "p-0",
 				}}
-				open={Boolean(selectedDay)}
+				open={Boolean(selectedDayISO)}
 				onClose={handleCloseDialog}
 				header={
 					<div className="border-foreground/10">
