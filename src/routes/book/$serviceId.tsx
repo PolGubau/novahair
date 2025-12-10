@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import confetti from "canvas-confetti";
 import { t } from "i18next";
 import { useState } from "react";
+import { z } from "zod";
 import { useAvailableDays } from "~/features/appointment-form/model/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/model/use-calendar-times";
 import { useFormValues } from "~/features/appointment-form/model/use-form-values";
@@ -16,16 +17,13 @@ import { cn } from "~/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
+
+const SearchSchema = z.object({
+	selectedDayISO: z.string().optional().nullable(),
+});
 export const Route = createFileRoute("/book/$serviceId")({
 	component: CalendarStep,
-	validateSearch: (search) => {
-		return {
-			selectedDayISO:
-				typeof search.selectedDayISO === "string"
-					? search.selectedDayISO
-					: undefined,
-		};
-	},
+	validateSearch: (search) => SearchSchema.parse(search),
 });
 
 function CalendarStep() {
@@ -80,18 +78,18 @@ function CalendarStep() {
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
 	const parsedDate = selectedDay ? selectedDay.toLocaleDateString() : "";
 
-	function updateParams(newIsoString: string | undefined) {
+	function updateParams(iso: string | null) {
 		navigate({
 			search: (old) => ({
 				...old,
-				selectedDayISO: newIsoString,
+				selectedDayISO: iso,
 			}),
 		});
 	}
 
 	const handleCloseDialog = () => {
 		refetch();
-		updateParams(undefined);
+		updateParams(null);
 		setIsSuccessfullySent(false);
 	};
 	function setSelectedDay(date: Date) {
