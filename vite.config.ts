@@ -30,9 +30,16 @@ const config = defineConfig({
       '/api': {
         target: 'https://api.gerardmartinez.es',
         changeOrigin: true,
+        secure: false,
         configure: (proxy, options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.log('proxy error', err);
+          });
           proxy.on('proxyReq', (proxyReq, req) => {
             console.debug('Proxying:', req.method, req.url, '→', options.target + proxyReq.path);
+          });
+          proxy.on('proxyRes', (proxyRes, req) => {
+            console.log('Response:', proxyRes.statusCode, req.url);
           });
         },
       },

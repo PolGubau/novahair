@@ -4,8 +4,8 @@ import type {
 } from "~/features/appointment-form/infra/repository";
 
 export const baseUrl = import.meta.env.DEV
-	? "/api"
-	: import.meta.env.VITE_BASE_URL || "https://api.gerardmartinez.es/api";
+	? "/server"
+	: import.meta.env.VITE_BASE_URL;
 
 export const constants = {
 	baseUrl,
@@ -20,37 +20,28 @@ const versions = {
 
 /**
  * Construye una URL con versión y query params.
- * Soporta rutas relativas (ej: /api en dev) y SSR.
+ * Soporta rutas relativas (ej: /server en dev).
  */
 export const buildUrl = (
 	path = "",
 	version = versions.v1,
 	params?: Record<string, string | undefined>,
 ) => {
-	// Usar baseUrl que tiene lógica DEV/prod correcta
-	const base = baseUrl;
+	// si baseUrl es relativo (/server), añadimos un origen temporal
+	const base = import.meta.env.VITE_BASE_URL;
 
-	// Construir path completo
-	const fullPath = `${base}/${version}/${path}`;
+	const url = new URL(`${base}/${version}/${path}`);
 
-	// Si no hay params, retornar path directamente
-	if (!params || Object.keys(params).length === 0) {
-		return fullPath;
+	if (params) {
+		Object.entries(params).forEach(([key, value]) => {
+			if (value) url.searchParams.append(key, value);
+		});
 	}
 
-	// Construir query string manualmente para evitar new URL() en SSR
-	const queryParams = Object.entries(params)
-		.filter(([_, value]) => value !== undefined && value !== null)
-		.map(
-			([key, value]) =>
-				`${encodeURIComponent(key)}=${encodeURIComponent(value as string)}`,
-		)
-		.join("&");
-
-	return queryParams ? `${fullPath}?${queryParams}` : fullPath;
+	return url.toString();
 };
 
-export const endpoints = {
+export const getEndpoints = () => ({
 	staff: buildUrl(`staff`),
 	list_staffs: buildUrl(`staff/tenant/${constants.tenantId}`),
 	services: buildUrl("services"),
@@ -70,4 +61,6 @@ export const endpoints = {
 		}),
 
 	bookAppointment: buildUrl(`tenants/${constants.tenantId}/appointments`),
-};
+});
+
+export const endpoints = getEndpoints();
