@@ -50,7 +50,8 @@ export const buildUrl = (
 	return queryParams ? `${fullPath}?${queryParams}` : fullPath;
 };
 
-export const endpoints = {
+// Usar función getter para evitar ejecución en module scope
+export const getEndpoints = () => ({
 	staff: buildUrl(`staff`),
 	list_staffs: buildUrl(`staff/tenant/${constants.tenantId}`),
 	services: buildUrl("services"),
@@ -70,4 +71,7 @@ export const endpoints = {
 		}),
 
 	bookAppointment: buildUrl(`tenants/${constants.tenantId}/appointments`),
-};
+});
+
+// Mantener retrocompatibilidad
+export const endpoints = getEndpoints();

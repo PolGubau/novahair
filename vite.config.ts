@@ -28,7 +28,7 @@ const config = defineConfig({
         changeOrigin: true,
         configure: (proxy, options) => {
           proxy.on('proxyReq', (proxyReq, req) => {
-            console.log('Proxying:', req.method, req.url, '→', options.target + proxyReq.path);
+            console.debug('Proxying:', req.method, req.url, '→', options.target + proxyReq.path);
           });
         },
       },
