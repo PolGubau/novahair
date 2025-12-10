@@ -15,7 +15,7 @@ type Response = {
 type UseSlots = (props: Props) => Response;
 
 export const useSlots: UseSlots = ({ serviceId, date, staffId }) => {
-	const from = date.toISOString().split("T")[0];
+	const from = date.toISOString();
 
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["slot", serviceId, staffId, from],
