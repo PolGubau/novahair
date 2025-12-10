@@ -5,7 +5,7 @@ import type {
 
 export const baseUrl = import.meta.env.DEV
 	? "/api"
-	: import.meta.env.VITE_BASE_URL;
+	: import.meta.env.VITE_BASE_URL || "https://api.gerardmartinez.es/api";
 
 export const constants = {
 	baseUrl,
@@ -50,8 +50,7 @@ export const buildUrl = (
 	return queryParams ? `${fullPath}?${queryParams}` : fullPath;
 };
 
-// Usar función getter para evitar ejecución en module scope
-export const getEndpoints = () => ({
+export const endpoints = {
 	staff: buildUrl(`staff`),
 	list_staffs: buildUrl(`staff/tenant/${constants.tenantId}`),
 	services: buildUrl("services"),
@@ -71,7 +70,4 @@ export const getEndpoints = () => ({
 		}),
 
 	bookAppointment: buildUrl(`tenants/${constants.tenantId}/appointments`),
-});
-
-// Mantener retrocompatibilidad
-export const endpoints = getEndpoints();
+};
