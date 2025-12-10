@@ -20,8 +20,12 @@ const config = defineConfig({
     }),
     viteReact(),
     nitro(),
-  ],
+  ],    
+  build: {
+    outDir: "dist",
+  },
   server: {
+
     proxy: {
       '/api': {
         target: 'https://api.gerardmartinez.es',
