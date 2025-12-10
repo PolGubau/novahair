@@ -21,7 +21,9 @@ export const Route = createFileRoute("/book/$serviceId")({
 	validateSearch: (search) => {
 		return {
 			selectedDayISO:
-				typeof search.selectedDay === "string" ? search.selectedDay : undefined,
+				typeof search.selectedDayISO === "string"
+					? search.selectedDayISO
+					: undefined,
 		};
 	},
 });

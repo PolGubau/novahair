@@ -83,6 +83,8 @@ function SidebarProvider({
 				_setOpen(openState);
 			}
 
+			if (typeof window === "undefined") return;
+
 			const array = document.cookie.split("; ");
 			const cookie = array.find((item) =>
 				item.trim().startsWith(SIDEBAR_COOKIE_NAME),

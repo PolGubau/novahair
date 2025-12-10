@@ -17,7 +17,7 @@ function isThisDayAvailable(date: Date, availableDays: AvailableDay[]) {
 		return availableDayDate.getTime() === targetDate.getTime() && available;
 	});
 }
-
+ 
 type CalendarProps = {
 	month: number;
 	year: number;

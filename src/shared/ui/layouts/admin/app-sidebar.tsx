@@ -9,7 +9,7 @@ import {
 	SlidersHorizontal,
 	Users,
 } from "lucide-react";
-import type * as React from "react";
+import * as React from "react";
 import type { ExistingRoute } from "~/features/admin/ui/page";
 import type { TranslationKey } from "~/shared/i18n/setup";
 import {
@@ -99,7 +99,14 @@ const data: SidebarMenu = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const pathname = window.location.pathname;
+	const [pathname, setPathname] = React.useState("");
+
+	React.useEffect(() => {
+		if (typeof window !== "undefined") {
+			setPathname(window.location.pathname);
+		}
+	}, []);
+
 	const itemsWithActive = data.navMain.map((item) => {
 		const isActive =
 			item.items?.some((subItem) => subItem.url === pathname) ?? false;
