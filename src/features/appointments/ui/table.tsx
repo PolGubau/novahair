@@ -6,15 +6,15 @@ import { Checkbox } from "~/shared/ui/checkbox";
 import { DataTable } from "~/shared/ui/data-table";
 import { IconButton } from "~/shared/ui/icon-button";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
-import type { Staff } from "../domain/appointment";
+import type { Appointment } from "../domain/appointments";
 
 export const getColumns = (options?: {
-	onEdit?: (s: Staff) => void;
-	onDelete?: (s: Staff) => void;
-}): ColumnDef<Staff>[] => {
+	onEdit?: (s: Appointment) => void;
+	onDelete?: (s: Appointment) => void;
+}): ColumnDef<Appointment>[] => {
 	const { onEdit, onDelete } = options || {};
 
-	const columns: ColumnDef<Staff>[] = [
+	const columns: ColumnDef<Appointment>[] = [
 		{
 			id: "select",
 			header: ({ table }) => (
@@ -97,7 +97,7 @@ export const getColumns = (options?: {
 							onClick={() => {
 								if (
 									window.confirm(
-										`¿Estás seguro que quieres borrar el servicio "${service.name}"?`,
+										`¿Estás seguro que quieres borrar la cita de "${service.customer.name}"?`,
 									)
 								) {
 									onDelete?.(service);
@@ -115,21 +115,21 @@ export const getColumns = (options?: {
 	return columns;
 };
 
-export const StaffTable = ({
-	staffs,
+export const AppointmentTable = ({
+	appointments,
 	isLoading,
 	onEdit,
 	onDelete,
 }: {
-	staffs: Staff[];
+	appointments: Appointment[];
 	isLoading: boolean;
-	onEdit?: (s: Staff) => void;
-	onDelete?: (s: Staff) => void;
+	onEdit?: (s: Appointment) => void;
+	onDelete?: (s: Appointment) => void;
 }) => {
 	const cols = getColumns({ onEdit, onDelete });
 	return (
 		<LoadingOverlay isLoading={isLoading}>
-			<DataTable data={staffs} columns={cols} />
+			<DataTable data={appointments} columns={cols} />
 		</LoadingOverlay>
 	);
 };

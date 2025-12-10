@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Slot } from "~/features/appointment-form/domain/slot";
-import { appointmentFormRepository } from "../models/repository";
+import { appointmentFormRepository } from "../infra/repository";
 
 type Props = {
 	serviceId: string;
 	staffId?: string;
-	currentDate: Date;
+	date: Date;
 };
 type Response = {
 	isLoading: boolean;
@@ -14,21 +14,18 @@ type Response = {
 };
 type UseSlots = (props: Props) => Response;
 
-export const useSlots: UseSlots = ({ serviceId, currentDate, staffId }) => {
-	/**
-	 * Get day in 'YYYY-MM-DD' format
-	 */
-	const day = currentDate.toISOString().split("T")[0];
+export const useSlots: UseSlots = ({ serviceId, date, staffId }) => {
+	const from = date.toISOString().split("T")[0];
 
 	const { isLoading, error, data } = useQuery({
-		queryKey: ["slot", serviceId, staffId, day],
+		queryKey: ["slot", serviceId, staffId, from],
 		staleTime: 1000 * 60 * 5, // 5 minutes
 		queryFn: () => {
 			return (
 				appointmentFormRepository.listSlots({
 					serviceId,
 					staffId,
-					day,
+					from,
 				}) || []
 			);
 		},

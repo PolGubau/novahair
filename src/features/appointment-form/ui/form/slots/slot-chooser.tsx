@@ -1,9 +1,9 @@
 import { t } from "i18next";
+import { useSlots } from "~/features/appointments/models/use-slots";
 import { Route } from "~/routes/book/$serviceId";
 import { labelClasses } from "~/shared/ui/label";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 import type { Slot } from "../../../domain/slot";
-import { useSlots } from "../../../model/use-slots";
 import { SlotList } from "./list";
 import { SlotListSkeleton } from "./list-skeleton";
 
@@ -23,7 +23,7 @@ export const SlotChooser = ({
 
 	const { isLoading, error, slots } = useSlots({
 		serviceId,
-		currentDate: date,
+		date,
 		staffId,
 	});
 	return (

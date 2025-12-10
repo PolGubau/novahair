@@ -1,5 +1,5 @@
-export interface AppointmentDtoPost {
- 	serviceId: string;
+export interface Appointment {
+	serviceId: string;
 	staffId: string | undefined;
 	customer: Customer;
 	startsAt: string;
@@ -7,7 +7,7 @@ export interface AppointmentDtoPost {
 }
 
 interface Customer {
- 	name: string;
+	name: string;
 	email: string;
 	phone: string;
 }

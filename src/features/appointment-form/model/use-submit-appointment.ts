@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
-import { saveLocalAppointment } from "../infra/local-persistence";
+import type { Appointment } from "../../appointments/domain/appointments";
+import { saveLocalAppointment } from "../../appointments/infra/local-persistence";
 import type { BookAppointmentProps } from "../infra/repository";
 import { appointmentFormRepository } from "../infra/repository";
 
@@ -36,30 +36,28 @@ export const useSubmitAppointment = (
 	const queryClient = useQueryClient();
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const mutation = useMutation<AppointmentDtoPost, Error, BookAppointmentProps>(
-		{
-			mutationFn: (props) => appointmentFormRepository.book(props),
-			onSuccess(data) {
-				try {
-					saveLocalAppointment(data);
-				} catch {
-					console.warn("Failed to persist appointment locally");
-				}
+	const mutation = useMutation<Appointment, Error, BookAppointmentProps>({
+		mutationFn: (props) => appointmentFormRepository.book(props),
+		onSuccess(data) {
+			try {
+				saveLocalAppointment(data);
+			} catch {
+				console.warn("Failed to persist appointment locally");
+			}
 
-				// Update react-query local cache so UI can react immediately
-				queryClient.setQueryData<AppointmentDtoPost[] | undefined>(
-					["local-appointments"],
-					(old) => [data].concat(old ?? []),
-				);
+			// Update react-query local cache so UI can react immediately
+			queryClient.setQueryData<Appointment[] | undefined>(
+				["local-appointments"],
+				(old) => [data].concat(old ?? []),
+			);
 
-				setIsSuccess(true);
-				params?.onSuccess?.();
-			},
-			onError() {
-				setIsSuccess(false);
-			},
+			setIsSuccess(true);
+			params?.onSuccess?.();
 		},
-	);
+		onError() {
+			setIsSuccess(false);
+		},
+	});
 
 	const handleSubmit = (
 		e: React.FormEvent<HTMLFormElement>,

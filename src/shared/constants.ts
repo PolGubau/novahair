@@ -53,11 +53,11 @@ export const endpoints = {
 			from: params.from,
 			to: params.to,
 		}),
-	getSlots: ({ serviceId, staffId, day }: GetSlotsProps) =>
+	getSlots: ({ serviceId, staffId, from }: GetSlotsProps) =>
 		buildUrl(`tenants/${constants.tenantId}/availability`, versions.v1, {
 			serviceId,
 			staffId,
-			day,
+			from,
 		}),
 
 	bookAppointment: buildUrl(`tenants/${constants.tenantId}/appointments`),

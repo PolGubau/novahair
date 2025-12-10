@@ -1,4 +1,4 @@
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
+import type { Appointment } from "../../appointments/domain/appointments";
 import type { AvailableDay } from "../domain/available-day";
 import type { Slot } from "../domain/slot";
 import { api } from "./api";
@@ -11,7 +11,7 @@ export type GetAvailableDaysProps = {
 export type GetSlotsProps = {
 	serviceId: string;
 	staffId?: string;
-	day: string;
+	from: string;
 };
 
 export type BookAppointmentProps = {
@@ -30,7 +30,7 @@ export type BookAppointmentProps = {
 export type AppointmentFormRepository = {
 	listAvailableDays: (props: GetAvailableDaysProps) => Promise<AvailableDay[]>;
 	listSlots: (props: GetSlotsProps) => Promise<Slot[]>;
-	book: (props: BookAppointmentProps) => Promise<AppointmentDtoPost>;
+	book: (props: BookAppointmentProps) => Promise<Appointment>;
 };
 
 export const appointmentFormRepository: AppointmentFormRepository = {

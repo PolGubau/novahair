@@ -1,12 +1,16 @@
 import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
 import type { Slot } from "~/features/appointment-form/domain/slot";
-import type { AppointmentDtoPost } from "~/features/appointments/domain/appointments-post.dto";
+import type { Appointment } from "~/features/appointments/domain/appointments";
 import { endpoints } from "~/shared/constants";
+import {
+	getLocalAppointments,
+	saveLocalAppointment,
+} from "./local-persistence";
 import type {
 	BookAppointmentProps,
 	GetAvailableDaysProps,
 	GetSlotsProps,
-} from "../models/repository";
+} from "./repository";
 
 const { getAvailableDays, getSlots } = endpoints;
 
@@ -36,7 +40,7 @@ export async function listSlots(props: GetSlotsProps) {
 }
 
 export async function bookAppointment(props: BookAppointmentProps) {
-	const body: AppointmentDtoPost = {
+	const body: Appointment = {
 		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
@@ -51,7 +55,7 @@ export async function bookAppointment(props: BookAppointmentProps) {
 	const url = endpoints.bookAppointment;
 	const stringifiedBody = JSON.stringify(body);
 
-	return genericFetch<AppointmentDtoPost>(url, {
+	return genericFetch<Appointment>(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -63,5 +67,7 @@ export async function bookAppointment(props: BookAppointmentProps) {
 export const api = {
 	listAvailableDays,
 	listSlots,
+	getLocalAppointments,
+	saveLocalAppointment,
 	bookAppointment,
 };

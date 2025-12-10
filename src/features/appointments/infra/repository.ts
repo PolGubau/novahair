@@ -1,7 +1,7 @@
 import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
 import type { Slot } from "~/features/appointment-form/domain/slot";
-import type { AppointmentDtoPost } from "~/features/appointments/domain/appointments-post.dto";
-import { api } from "../infra/api";
+import type { Appointment } from "~/features/appointments/domain/appointments";
+import { api } from "./api";
 export type GetAvailableDaysProps = {
 	serviceId: string;
 	staffId?: string;
@@ -11,7 +11,7 @@ export type GetAvailableDaysProps = {
 export type GetSlotsProps = {
 	serviceId: string;
 	staffId?: string;
-	day: string;
+	from: string;
 };
 
 export type BookAppointmentProps = {
@@ -29,12 +29,16 @@ export type BookAppointmentProps = {
 
 export type AppointmentFormRepository = {
 	listAvailableDays: (props: GetAvailableDaysProps) => Promise<AvailableDay[]>;
+	getLocal: () => Appointment[];
+	saveLocal: (appointment: Appointment) => void;
 	listSlots: (props: GetSlotsProps) => Promise<Slot[]>;
-	book: (props: BookAppointmentProps) => Promise<AppointmentDtoPost>;
+	book: (props: BookAppointmentProps) => Promise<Appointment>;
 };
 
 export const appointmentFormRepository: AppointmentFormRepository = {
 	listAvailableDays: api.listAvailableDays,
 	listSlots: api.listSlots,
 	book: api.bookAppointment,
+	getLocal: api.getLocalAppointments,
+	saveLocal: api.saveLocalAppointment,
 };

@@ -1,82 +1,29 @@
 import { t } from "i18next";
-import { useEffect, useState } from "react";
 import { useStaff } from "~/features/staff/models/use-staff";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
-import type { Staff, StaffCreate } from "../domain/appointment";
+import type { Appointment } from "../domain/appointments";
 
 export const AppointmentForm = ({
-	staff,
+	appointment,
 	onClose,
 }: {
-	staff?: Staff | null;
+	appointment?: Appointment | null;
 	onClose?: () => void;
 }) => {
-	const isEdit = Boolean(staff);
+	const isEdit = Boolean(appointment);
 	const { create, update } = useStaff();
-
-	const [values, setValues] = useState<StaffCreate>({
-		name: staff?.name ?? "",
-		color: staff?.color ?? "",
-		email: staff?.email ?? "",
-		phone: staff?.phone ?? "",
-	});
-
-	function handleChange(
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-	) {
-		const { name, value } = e.target;
-		setValues((prev) => ({
-			...prev,
-			[name]:
-				name === "priceCents" || name === "durationMin" ? Number(value) : value,
-		}));
-	}
-
-	const { name, email, phone, color } = values;
-
-	useEffect(() => {
-		if (staff) {
-			setValues({
-				name: staff.name,
-				email: staff.email ?? "",
-				phone: staff.phone ?? "",
-				color: staff.color ?? "",
-			});
-		}
-	}, [staff]);
-
-	const onSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		const payload: StaffCreate = {
-			name,
-			email,
-			phone,
-			color,
-		};
-
-		if (isEdit && staff) {
-			update.mutate(
-				{ id: staff.id, payload },
-				{ onSuccess: () => onClose?.() },
-			);
-		} else {
-			create.mutate(payload, { onSuccess: () => onClose?.() });
-		}
-	};
 
 	const saving = create.isPending || update.isPending;
 
 	return (
-		<form onSubmit={onSubmit} className="grid gap-4">
+		<form className="grid gap-4">
 			<div>
 				<Input
 					label={t("name")}
-					value={name}
 					name="name"
 					placeholder={t("staff_name_placeholder")}
 					required
-					onChange={handleChange}
 				/>
 			</div>
 
@@ -87,9 +34,7 @@ export const AppointmentForm = ({
 						required
 						type="text"
 						label={t("email")}
-						value={email}
 						name="email"
-						onChange={handleChange}
 					/>
 				</div>
 				<div>
@@ -98,20 +43,12 @@ export const AppointmentForm = ({
 						placeholder={t("staff_phone_placeholder")}
 						type="tel"
 						required
-						value={phone}
 						name="phone"
-						onChange={handleChange}
 					/>
 				</div>
 			</div>
 			<div>
-				<Input
-					label={t("color")}
-					value={color}
-					name="color"
-					type="color"
-					onChange={handleChange}
-				/>
+				<Input label={t("color")} name="color" type="color" />
 			</div>
 
 			<div className="flex gap-2 justify-end">

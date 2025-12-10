@@ -1,5 +1,5 @@
 import { endpoints } from "~/shared/constants";
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
+import type { Appointment } from "../../appointments/domain/appointments";
 import type { AvailableDay } from "../domain/available-day";
 import type { Slot } from "../domain/slot";
 import type {
@@ -36,7 +36,7 @@ export async function listSlots(props: GetSlotsProps) {
 }
 
 export async function bookAppointment(props: BookAppointmentProps) {
-	const body: AppointmentDtoPost = {
+	const body: Appointment = {
 		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
@@ -51,7 +51,7 @@ export async function bookAppointment(props: BookAppointmentProps) {
 	const url = endpoints.bookAppointment;
 	const stringifiedBody = JSON.stringify(body);
 
-	return genericFetch<AppointmentDtoPost>(url, {
+	return genericFetch<Appointment>(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

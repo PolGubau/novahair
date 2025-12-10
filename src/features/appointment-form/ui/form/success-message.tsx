@@ -1,8 +1,8 @@
 import { t } from "i18next";
-import type { AppointmentDtoPost } from "../../../appointments/domain/appointments-post.dto";
+import type { Appointment } from "../../../appointments/domain/appointments";
 
 type Props = {
-	appointment: AppointmentDtoPost;
+	appointment: Appointment;
 };
 
 export const SuccessMessage = ({ appointment }: Props) => {

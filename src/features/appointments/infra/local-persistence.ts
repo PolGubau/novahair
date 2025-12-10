@@ -1,11 +1,11 @@
-import type { AppointmentDtoPost } from "../../appointments/domain/appointments-post.dto";
+import type { Appointment } from "../domain/appointments";
 
 const STORAGE_KEY = "local-appointments";
 
-export function saveLocalAppointment(appointment: AppointmentDtoPost) {
+export function saveLocalAppointment(appointment: Appointment) {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
-		const arr: AppointmentDtoPost[] = raw ? JSON.parse(raw) : [];
+		const arr: Appointment[] = raw ? JSON.parse(raw) : [];
 		const next = [appointment].concat(arr);
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
 	} catch {
@@ -13,10 +13,10 @@ export function saveLocalAppointment(appointment: AppointmentDtoPost) {
 	}
 }
 
-export function getLocalAppointments(): AppointmentDtoPost[] {
+export function getLocalAppointments(): Appointment[] {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
-		return raw ? (JSON.parse(raw) as AppointmentDtoPost[]) : [];
+		return raw ? (JSON.parse(raw) as Appointment[]) : [];
 	} catch {
 		return [];
 	}
