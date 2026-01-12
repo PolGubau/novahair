@@ -21,3 +21,14 @@ export function getLocalAppointments(): Appointment[] {
 		return [];
 	}
 }
+
+export function deleteLocalAppointment(index: number) {
+	try {
+		const raw = localStorage.getItem(STORAGE_KEY);
+		const arr: Appointment[] = raw ? JSON.parse(raw) : [];
+		const next = arr.filter((_, i) => i !== index);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+	} catch {
+		// Ignore storage errors
+	}
+}

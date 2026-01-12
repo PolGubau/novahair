@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { cn } from "~/lib/cn";
-import { baseInputClasses } from "./input";
+import { inputTheme } from "./input";
 import { Label } from "./label";
 
 type Props = React.ComponentProps<"textarea"> & {
@@ -16,8 +16,8 @@ function Textarea({ className, label, ...props }: Props) {
 			<textarea
 				data-slot="textarea"
 				className={cn(
-					"field-sizing-content min-h-16 max-h-96 px-3 py-2",
-					baseInputClasses.base,
+					"field-sizing-content min-h-20 max-h-96 py-2 resize-none",
+					inputTheme,
 					className,
 				)}
 				{...props}

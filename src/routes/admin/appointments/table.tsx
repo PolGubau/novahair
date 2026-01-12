@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { t } from "i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
-import type { Service } from "~/features/services/domain/service";
-import { useService } from "~/features/services/model/use-service";
-import { useServices } from "~/features/services/model/use-services";
-import { ServiceCreationForm } from "~/features/services/ui/creation-form";
-import { ServiceTable } from "~/features/services/ui/table/service-table";
+import type { Appointment } from "~/features/appointments/domain/appointments";
+import { appointmentFormRepository } from "~/features/appointments/infra/repository";
+import { useLocalAppointments } from "~/features/appointments/models/use-local-appointments";
+import { AppointmentCreationForm } from "~/features/appointments/ui/creation-form";
+import { AppointmentTable } from "~/features/appointments/ui/table";
 import { Button } from "~/shared/ui/button";
 import { Drawer } from "~/shared/ui/drawer";
 import { AdminMain } from "~/shared/ui/layouts/admin/admin-main";
@@ -16,31 +16,38 @@ export const Route = createFileRoute("/admin/appointments/table")({
 });
 
 function RouteComponent() {
-	const { services, isLoading, refetch } = useServices();
-	const { remove } = useService();
+	const { appointments, isLoading } = useLocalAppointments();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
-	const [editing, setEditing] = useState<Service | null>(null);
+	const [editing, setEditing] = useState<Appointment | null>(null);
 
 	const openCreate = () => {
 		setEditing(null);
 		setIsFormOpened(true);
 	};
 
-	const openEdit = (s: Service) => {
-		setEditing(s);
+	const openEdit = (appointment: Appointment) => {
+		setEditing(appointment);
 		setIsFormOpened(true);
 	};
 
-	const handleDelete = (s: Service) => {
-		remove.mutate(s.id);
+	const handleDelete = (appointment: Appointment) => {
+		const index = appointments.findIndex(
+			(a) =>
+				a.customer.email === appointment.customer.email &&
+				a.startsAt === appointment.startsAt,
+		);
+		if (index !== -1) {
+			appointmentFormRepository.deleteLocal(index);
+			window.location.reload();
+		}
 	};
 
 	return (
-		<AdminMain title={"appointments"} description={"view_appointments"}>
+		<AdminMain title={"appointments"} description={"list_of_appointments"}>
 			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
-				<ServiceCreationForm
-					service={editing}
+				<AppointmentCreationForm
+					appointment={editing}
 					onClose={() => {
 						setIsFormOpened(false);
 						setEditing(null);
@@ -50,19 +57,22 @@ function RouteComponent() {
 			<nav className="flex gap-2 items-center">
 				<Button onClick={openCreate}>
 					<Plus />
-					{t("add_new_service")}
+					{t("create")}
 				</Button>
 
-				<Button onClick={() => refetch()} variant="ghost" className="group">
+				<Button
+					onClick={() => window.location.reload()}
+					variant="ghost"
+					className="group"
+				>
 					<div className="group-focus:rotate-90 transition-all">
 						<RefreshCcw />
 					</div>
-
-					{t("refresh_services")}
+					{t("refresh")}
 				</Button>
 			</nav>
-			<ServiceTable
-				services={services}
+			<AppointmentTable
+				appointments={appointments}
 				isLoading={isLoading}
 				onEdit={openEdit}
 				onDelete={handleDelete}

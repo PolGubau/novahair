@@ -32,7 +32,7 @@ export function DataTable<TData, TValue>({
 	});
 
 	return (
-		<div className="overflow-hidden rounded-md border border-foreground/10">
+		<div className="overflow-auto rounded-md border border-foreground/10">
 			<Table>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (

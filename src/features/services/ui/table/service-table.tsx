@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
 import { ArrowUpDown, Edit2, Trash } from "lucide-react";
 import i18n from "~/shared/i18n/setup";
+import { Avatar, AvatarFallback, AvatarImage } from "~/shared/ui/avatar";
 import { Button } from "~/shared/ui/button";
 import { Checkbox } from "~/shared/ui/checkbox";
 import { DataTable } from "~/shared/ui/data-table";
@@ -70,10 +71,20 @@ export const getColumns = (options?: {
 		{
 			accessorKey: "imageUrl",
 			header: () => {
-				return <span>{t("image_url")}</span>;
+				return <span>{t("image")}</span>;
 			},
 			cell: ({ row }) => (
-				<div className="lowercase">{row.getValue("imageUrl")}</div>
+				<div>
+					<Avatar className="rounded-md">
+						<AvatarImage
+							src={row.getValue("imageUrl")}
+							alt={row.getValue("name")}
+						/>
+						<AvatarFallback>
+							{JSON.stringify(row.getValue("name")).charAt(1).toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
+				</div>
 			),
 		},
 

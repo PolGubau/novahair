@@ -3,6 +3,7 @@ import type { Slot } from "~/features/appointment-form/domain/slot";
 import type { Appointment } from "~/features/appointments/domain/appointments";
 import { endpoints } from "~/shared/constants";
 import {
+	deleteLocalAppointment,
 	getLocalAppointments,
 	saveLocalAppointment,
 } from "./local-persistence";
@@ -69,5 +70,6 @@ export const api = {
 	listSlots,
 	getLocalAppointments,
 	saveLocalAppointment,
+	deleteLocalAppointment,
 	bookAppointment,
 };

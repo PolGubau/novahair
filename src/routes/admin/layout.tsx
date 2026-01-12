@@ -11,7 +11,7 @@ function BookComponent() {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<main className="w-full min-h-screen">
+			<main className="flex-1 min-h-screen overflow-x-hidden">
 				<header className="p-2 border-b border-foreground/20 flex items-center gap-2">
 					<SidebarTrigger />
 					<Link to="/admin">

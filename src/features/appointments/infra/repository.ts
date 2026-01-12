@@ -31,6 +31,7 @@ export type AppointmentFormRepository = {
 	listAvailableDays: (props: GetAvailableDaysProps) => Promise<AvailableDay[]>;
 	getLocal: () => Appointment[];
 	saveLocal: (appointment: Appointment) => void;
+	deleteLocal: (index: number) => void;
 	listSlots: (props: GetSlotsProps) => Promise<Slot[]>;
 	book: (props: BookAppointmentProps) => Promise<Appointment>;
 };
@@ -41,4 +42,5 @@ export const appointmentFormRepository: AppointmentFormRepository = {
 	book: api.bookAppointment,
 	getLocal: api.getLocalAppointments,
 	saveLocal: api.saveLocalAppointment,
+	deleteLocal: api.deleteLocalAppointment,
 };
