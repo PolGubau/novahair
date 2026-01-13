@@ -1,4 +1,4 @@
-import type { Appointment } from "../../appointments/domain/appointments";
+import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
 import type { AvailableDay } from "../domain/available-day";
 import type { Slot } from "../domain/slot";
 import { api } from "./api";
@@ -30,7 +30,7 @@ export type BookAppointmentProps = {
 export type AppointmentFormRepository = {
 	listAvailableDays: (props: GetAvailableDaysProps) => Promise<AvailableDay[]>;
 	listSlots: (props: GetSlotsProps) => Promise<Slot[]>;
-	book: (props: BookAppointmentProps) => Promise<Appointment>;
+	book: (props: BookAppointmentProps) => Promise<SummarizedAppointment>;
 };
 
 export const appointmentFormRepository: AppointmentFormRepository = {

@@ -61,6 +61,11 @@ export const getEndpoints = () => ({
 		}),
 
 	bookAppointment: buildUrl(`tenants/${constants.tenantId}/appointments`),
+	listAppointments: ({ from, to }: { from?: string; to?: string }) =>
+		buildUrl(`tenants/${constants.tenantId}/appointments`, versions.v1, {
+			from,
+			to,
+		}),
 });
 
 export const endpoints = getEndpoints();

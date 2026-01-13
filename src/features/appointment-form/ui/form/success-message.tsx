@@ -1,8 +1,8 @@
 import { t } from "i18next";
-import type { Appointment } from "../../../appointments/domain/appointments";
+import type { SummarizedAppointment } from "../../../appointments/domain/summarized-appointments";
 
 type Props = {
-	appointment: Appointment;
+	appointment: SummarizedAppointment;
 };
 
 export const SuccessMessage = ({ appointment }: Props) => {

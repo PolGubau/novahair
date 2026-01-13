@@ -8,5 +8,4 @@ export interface Service {
 	priceCents: number;
 	bufferBefore: number;
 	bufferAfter: number;
-	active: boolean;
 }

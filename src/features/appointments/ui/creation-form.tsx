@@ -7,14 +7,14 @@ import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
 import { Select } from "~/shared/ui/select";
 import { Textarea } from "~/shared/ui/textarea";
-import type { Appointment } from "../domain/appointments";
+import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { appointmentFormRepository } from "../infra/repository";
 
 export const AppointmentCreationForm = ({
 	appointment,
 	onClose,
 }: {
-	appointment?: Appointment | null;
+	appointment?: SummarizedAppointment | null;
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);
@@ -28,7 +28,7 @@ export const AppointmentCreationForm = ({
 		customerEmail: appointment?.customer.email ?? "",
 		customerPhone: appointment?.customer.phone ?? "",
 		startsAt: appointment?.startsAt ?? "",
-		notes: appointment?.notes ?? "",
+		notes: appointment?.notes ?? undefined,
 	});
 
 	function handleChange(
@@ -74,7 +74,7 @@ export const AppointmentCreationForm = ({
 
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		const newAppointment: Appointment = {
+		const newAppointment: SummarizedAppointment = {
 			serviceId,
 			staffId: staffId || undefined,
 			customer: {

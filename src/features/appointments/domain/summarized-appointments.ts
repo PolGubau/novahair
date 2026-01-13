@@ -1,4 +1,4 @@
-export interface Appointment {
+export interface SummarizedAppointment {
 	serviceId: string;
 	staffId: string | undefined;
 	customer: Customer;
@@ -6,7 +6,7 @@ export interface Appointment {
 	notes?: string;
 }
 
-interface Customer {
+export interface Customer {
 	name: string;
 	email: string;
 	phone: string;

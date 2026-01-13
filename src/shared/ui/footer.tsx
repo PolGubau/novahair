@@ -27,13 +27,13 @@ export const Footer = () => {
 						<div className="content-primitive content--bulletList">
 							<ul>
 								<li>
-									<p>{t("social_media.instagram")}</p>
+									<p>{t("instagram")}</p>
 								</li>
 								<li>
-									<p>{t("social_media.facebook")}</p>
+									<p>{t("facebook")}</p>
 								</li>
 								<li>
-									<p>{t("social_media.twitter")}</p>
+									<p>{t("twitter")}</p>
 								</li>
 							</ul>
 						</div>

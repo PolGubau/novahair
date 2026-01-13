@@ -1,5 +1,5 @@
 import { endpoints } from "~/shared/constants";
-import type { Appointment } from "../../appointments/domain/appointments";
+import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
 import type { AvailableDay } from "../domain/available-day";
 import type { Slot } from "../domain/slot";
 import type {
@@ -36,7 +36,7 @@ export async function listSlots(props: GetSlotsProps) {
 }
 
 export async function bookAppointment(props: BookAppointmentProps) {
-	const body: Appointment = {
+	const body: SummarizedAppointment = {
 		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
@@ -51,7 +51,7 @@ export async function bookAppointment(props: BookAppointmentProps) {
 	const url = endpoints.bookAppointment;
 	const stringifiedBody = JSON.stringify(body);
 
-	return genericFetch<Appointment>(url, {
+	return genericFetch<SummarizedAppointment>(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

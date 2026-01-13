@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Appointment } from "../domain/appointments";
+import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { appointmentFormRepository } from "../infra/repository";
 
 type Response = {
 	isLoading: boolean;
 	error: Error | null;
 	refetch: () => void;
-	appointments: Appointment[];
+	appointments: SummarizedAppointment[];
 };
 type UseLocalAppointments = () => Response;
 

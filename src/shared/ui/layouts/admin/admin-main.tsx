@@ -1,5 +1,5 @@
-import { t } from "i18next";
 import type React from "react";
+import { useTranslation } from "react-i18next";
 import type { TranslationKey } from "~/shared/i18n/setup";
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 };
 
 export const AdminMain = ({ title, description, children }: Props) => {
+	const { t } = useTranslation();
 	return (
 		<section className="p-6">
 			<h1 className="text-xl md:text-3xl">{t(title)}</h1>

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { Appointment } from "../../appointments/domain/appointments";
+import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
 import { saveLocalAppointment } from "../../appointments/infra/local-persistence";
 import type { BookAppointmentProps } from "../infra/repository";
 import { appointmentFormRepository } from "../infra/repository";
@@ -36,7 +36,11 @@ export const useSubmitAppointment = (
 	const queryClient = useQueryClient();
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const mutation = useMutation<Appointment, Error, BookAppointmentProps>({
+	const mutation = useMutation<
+		SummarizedAppointment,
+		Error,
+		BookAppointmentProps
+	>({
 		mutationFn: (props) => appointmentFormRepository.book(props),
 		onSuccess(data) {
 			try {
@@ -46,7 +50,7 @@ export const useSubmitAppointment = (
 			}
 
 			// Update react-query local cache so UI can react immediately
-			queryClient.setQueryData<Appointment[] | undefined>(
+			queryClient.setQueryData<SummarizedAppointment[] | undefined>(
 				["local-appointments"],
 				(old) => [data].concat(old ?? []),
 			);

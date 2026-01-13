@@ -1,7 +1,8 @@
 import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
 import type { Slot } from "~/features/appointment-form/domain/slot";
-import type { Appointment } from "~/features/appointments/domain/appointments";
+import type { SummarizedAppointment } from "~/features/appointments/domain/summarized-appointments";
 import { endpoints } from "~/shared/constants";
+import type { Appointment } from "../domain/appointment";
 import {
 	deleteLocalAppointment,
 	getLocalAppointments,
@@ -11,6 +12,7 @@ import type {
 	BookAppointmentProps,
 	GetAvailableDaysProps,
 	GetSlotsProps,
+	ListAppointments,
 } from "./repository";
 
 const { getAvailableDays, getSlots } = endpoints;
@@ -41,7 +43,7 @@ export async function listSlots(props: GetSlotsProps) {
 }
 
 export async function bookAppointment(props: BookAppointmentProps) {
-	const body: Appointment = {
+	const body: SummarizedAppointment = {
 		serviceId: props.serviceId,
 		staffId: props.staffId,
 		customer: {
@@ -56,7 +58,7 @@ export async function bookAppointment(props: BookAppointmentProps) {
 	const url = endpoints.bookAppointment;
 	const stringifiedBody = JSON.stringify(body);
 
-	return genericFetch<Appointment>(url, {
+	return genericFetch<SummarizedAppointment>(url, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -64,6 +66,10 @@ export async function bookAppointment(props: BookAppointmentProps) {
 		body: stringifiedBody,
 	});
 }
+export const listAppointments: ListAppointments = ({ from, to }) => {
+	const url = endpoints.listAppointments({ from, to });
+	return genericFetch<Appointment[]>(url) || [];
+};
 
 export const api = {
 	listAvailableDays,
@@ -72,4 +78,5 @@ export const api = {
 	saveLocalAppointment,
 	deleteLocalAppointment,
 	bookAppointment,
+	listAppointments,
 };

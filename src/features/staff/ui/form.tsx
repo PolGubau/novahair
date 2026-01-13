@@ -20,6 +20,7 @@ export const StaffForm = ({
 		color: staff?.color ?? "",
 		email: staff?.email ?? "",
 		phone: staff?.phone ?? "",
+		avatarUrl: staff?.avatarUrl ?? "",
 	});
 
 	function handleChange(
@@ -33,7 +34,7 @@ export const StaffForm = ({
 		}));
 	}
 
-	const { name, email, phone, color } = values;
+	const { name, email, phone, color, avatarUrl } = values;
 
 	useEffect(() => {
 		if (staff) {
@@ -42,6 +43,7 @@ export const StaffForm = ({
 				email: staff.email ?? "",
 				phone: staff.phone ?? "",
 				color: staff.color ?? "",
+				avatarUrl: staff.avatarUrl ?? "",
 			});
 		}
 	}, [staff]);
@@ -53,6 +55,7 @@ export const StaffForm = ({
 			email,
 			phone,
 			color,
+			avatarUrl,
 		};
 
 		if (isEdit && staff) {
@@ -80,7 +83,7 @@ export const StaffForm = ({
 				/>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4">
+			<fieldset className="grid grid-cols-2 gap-4">
 				<div>
 					<Input
 						placeholder={t("staff_email_placeholder")}
@@ -103,8 +106,8 @@ export const StaffForm = ({
 						onChange={handleChange}
 					/>
 				</div>
-			</div>
-			<div>
+			</fieldset>
+			<fieldset className="grid grid-cols-2 gap-4">
 				<Input
 					label={t("color")}
 					value={color}
@@ -112,7 +115,14 @@ export const StaffForm = ({
 					type="color"
 					onChange={handleChange}
 				/>
-			</div>
+				<Input
+					label={t("avatar_url")}
+					value={avatarUrl}
+					name="avatarUrl"
+					type="url"
+					onChange={handleChange}
+				/>
+			</fieldset>
 
 			<div className="flex gap-2 justify-end">
 				<Button

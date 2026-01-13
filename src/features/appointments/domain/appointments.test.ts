@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { Appointment } from "../domain/appointments";
+import type { SummarizedAppointment } from "./summarized-appointments";
 
 describe("Appointment Domain", () => {
 	it("should create a valid appointment object", () => {
-		const appointment: Appointment = {
+		const appointment: SummarizedAppointment = {
 			serviceId: "service-1",
 			staffId: "staff-1",
 			customer: {
@@ -21,7 +21,7 @@ describe("Appointment Domain", () => {
 	});
 
 	it("should validate appointment has required fields", () => {
-		const appointment: Appointment = {
+		const appointment: SummarizedAppointment = {
 			serviceId: "service-1",
 			staffId: "staff-1",
 			notes: "Cliente preferente",
@@ -38,7 +38,7 @@ describe("Appointment Domain", () => {
 	});
 
 	it("should handle optional fields correctly", () => {
-		const appointment: Appointment = {
+		const appointment: SummarizedAppointment = {
 			serviceId: "service-1",
 			staffId: undefined,
 			customer: {

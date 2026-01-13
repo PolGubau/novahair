@@ -10,6 +10,7 @@
 	"administration": "Administration",
 	"team": "Team",
 	"create_appointment_for_your_customers": "Create appointment for your customers",
+	"service": "Service",
 	"price": "Price",
 	"manage_team": "Manage your team",
 	"check_all_appointments": "Check all appointments",
@@ -27,6 +28,7 @@
 	"edit": "Edit",
 	"refresh_services": "Refresh services",
 	"general": "General",
+	"avatar_url": "Avatar URL",
 	"service_name_placeholder": "Haircut for...",
 	"service_description_placeholder": "Classic haircut style...",
 	"your_services": "Your services",
@@ -69,9 +71,12 @@
 	"seleccionar": "Select",
 	"choose_time_slot": "Choose a time slot",
 	"name_placeholder": "Jane Smith",
+	"date": "Date",
 	"loading": "Loading...",
 	"notes_placeholder": "Write any additional details here...",
 	"email_placeholder": "jane.smith@example.com",
+	"staff": "Staff",
+	"customer": "Customer",
 	"appointment_created_title": "Appointment created",
 	"appointment_created_details": "{{name}} — {{datetime}}",
 	"booking_error": "An error occurred: {{message}}",
@@ -93,13 +98,7 @@
 	"customer_email": "Customer email",
 	"customer_phone": "Customer phone",
 	"phone_placeholder": "123 456 789",
-	"social_media": {
-		"instagram": "Instagram",
-		"facebook": "Facebook",
-		"twitter": "Twitter"
-	},
-	"preloader": {
-		"status": "Loading",
-		"loading": "Loading"
-	}
+	"instagram": "Instagram",
+	"facebook": "Facebook",
+	"twitter": "Twitter"
 }

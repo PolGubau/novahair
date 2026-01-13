@@ -10,10 +10,15 @@
 	"manage_team": "Gestionar equipo",
 	"check_all_appointments": "Ver todas las citas",
 	"color": "Color",
+	"date": "Fecha",
+	"staff": "Personal",
+	"customer": "Cliente",
+	"service": "Servicio",
 	"staff_name_placeholder": "Juan Pérez",
 	"staff_email_placeholder": "juan.perez@example.com",
 	"staff_phone_placeholder": "+34 600 123 456",
 	"in_cents": "en céntimos",
+	"avatar_url": "URL del avatar",
 	"no_results": "No hay resultados.",
 	"image_url": "URL de la imagen",
 	"edit": "Editar",
@@ -93,13 +98,7 @@
 	"customer_email": "Email del cliente",
 	"customer_phone": "Teléfono del cliente",
 	"phone_placeholder": "123 456 789",
-	"social_media": {
-		"instagram": "Instagram",
-		"facebook": "Facebook",
-		"twitter": "Twitter"
-	},
-	"preloader": {
-		"status": "Cargando",
-		"loading": "Cargando"
-	}
+	"instagram": "Instagram",
+	"facebook": "Facebook",
+	"twitter": "Twitter"
 }

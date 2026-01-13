@@ -1,11 +1,11 @@
-import type { Appointment } from "../domain/appointments";
+import type { SummarizedAppointment } from "../domain/summarized-appointments";
 
 const STORAGE_KEY = "local-appointments";
 
-export function saveLocalAppointment(appointment: Appointment) {
+export function saveLocalAppointment(appointment: SummarizedAppointment) {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
-		const arr: Appointment[] = raw ? JSON.parse(raw) : [];
+		const arr: SummarizedAppointment[] = raw ? JSON.parse(raw) : [];
 		const next = [appointment].concat(arr);
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
 	} catch {
@@ -13,10 +13,10 @@ export function saveLocalAppointment(appointment: Appointment) {
 	}
 }
 
-export function getLocalAppointments(): Appointment[] {
+export function getLocalAppointments(): SummarizedAppointment[] {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
-		return raw ? (JSON.parse(raw) as Appointment[]) : [];
+		return raw ? (JSON.parse(raw) as SummarizedAppointment[]) : [];
 	} catch {
 		return [];
 	}
@@ -25,7 +25,7 @@ export function getLocalAppointments(): Appointment[] {
 export function deleteLocalAppointment(index: number) {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
-		const arr: Appointment[] = raw ? JSON.parse(raw) : [];
+		const arr: SummarizedAppointment[] = raw ? JSON.parse(raw) : [];
 		const next = arr.filter((_, i) => i !== index);
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
 	} catch {

@@ -1,6 +1,7 @@
 import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
 import type { Slot } from "~/features/appointment-form/domain/slot";
-import type { Appointment } from "~/features/appointments/domain/appointments";
+import type { SummarizedAppointment } from "~/features/appointments/domain/summarized-appointments";
+import type { Appointment } from "../domain/appointment";
 import { api } from "./api";
 export type GetAvailableDaysProps = {
 	serviceId: string;
@@ -27,16 +28,27 @@ export type BookAppointmentProps = {
 	end: string;
 };
 
+export type ListAppointmentsProps = {
+	from: string;
+	to: string;
+};
+
+export type ListAppointments = (
+	props: ListAppointmentsProps,
+) => Promise<Appointment[]>;
+
 export type AppointmentFormRepository = {
 	listAvailableDays: (props: GetAvailableDaysProps) => Promise<AvailableDay[]>;
-	getLocal: () => Appointment[];
-	saveLocal: (appointment: Appointment) => void;
+	getLocal: () => SummarizedAppointment[];
+	saveLocal: (appointment: SummarizedAppointment) => void;
 	deleteLocal: (index: number) => void;
 	listSlots: (props: GetSlotsProps) => Promise<Slot[]>;
-	book: (props: BookAppointmentProps) => Promise<Appointment>;
+	book: (props: BookAppointmentProps) => Promise<SummarizedAppointment>;
+	listAppointments: ListAppointments;
 };
 
 export const appointmentFormRepository: AppointmentFormRepository = {
+	listAppointments: api.listAppointments,
 	listAvailableDays: api.listAvailableDays,
 	listSlots: api.listSlots,
 	book: api.bookAppointment,

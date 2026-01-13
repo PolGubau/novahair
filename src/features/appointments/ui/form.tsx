@@ -2,13 +2,13 @@ import { t } from "i18next";
 import { useStaff } from "~/features/staff/models/use-staff";
 import { Button } from "~/shared/ui/button";
 import { Input } from "~/shared/ui/input";
-import type { Appointment } from "../domain/appointments";
+import type { SummarizedAppointment } from "../domain/summarized-appointments";
 
 export const AppointmentForm = ({
 	appointment,
 	onClose,
 }: {
-	appointment?: Appointment | null;
+	appointment?: SummarizedAppointment | null;
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);

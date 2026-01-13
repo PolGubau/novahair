@@ -10,6 +10,10 @@
 	"manage_team": "Gestionar equip",
 	"check_all_appointments": "Veure totes les cites",
 	"color": "Color",
+	"staff": "Personal",
+	"service": "Servei",
+  "customer": "Client",
+	"avatar_url": "URL de l'avatar",
 	"staff_name_placeholder": "Joan Pérez",
 	"staff_email_placeholder": "joan.perez@example.com",
 	"staff_phone_placeholder": "+34 600 123 456",
@@ -93,13 +97,7 @@
 	"customer_email": "Email del client",
 	"customer_phone": "Telèfon del client",
 	"phone_placeholder": "123 456 789",
-	"social_media": {
-		"instagram": "Instagram",
-		"facebook": "Facebook",
-		"twitter": "Twitter"
-	},
-	"preloader": {
-		"status": "Carregant",
-		"loading": "Carregant"
-	}
+	"instagram": "Instagram",
+	"facebook": "Facebook",
+	"twitter": "Twitter"
 }
