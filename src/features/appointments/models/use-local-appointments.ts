@@ -5,12 +5,13 @@ import { appointmentFormRepository } from "../infra/repository";
 type Response = {
 	isLoading: boolean;
 	error: Error | null;
+	refetch: () => void;
 	appointments: Appointment[];
 };
 type UseLocalAppointments = () => Response;
 
 export const useLocalAppointments: UseLocalAppointments = () => {
-	const { isLoading, error, data } = useQuery({
+	const { isLoading, error, data, refetch } = useQuery({
 		queryKey: ["local-appointment"],
 		staleTime: 1000 * 60 * 5, // 5 minutes
 		queryFn: () => {
@@ -19,5 +20,5 @@ export const useLocalAppointments: UseLocalAppointments = () => {
 	});
 
 	const appointments = data || [];
-	return { isLoading, error, appointments };
+	return { isLoading, error, appointments, refetch };
 };

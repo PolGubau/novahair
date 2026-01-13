@@ -2,7 +2,6 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 
@@ -18,11 +17,7 @@ import {
 	SheetTitle,
 } from "src/shared/ui/sheet";
 import { Skeleton } from "src/shared/ui/skeleton";
-import {
-	Tooltip,
-	type TooltipContent,
-	TooltipProvider,
-} from "src/shared/ui/tooltip";
+import { TooltipProvider } from "src/shared/ui/tooltip";
 import { cn } from "~/lib/cn";
 import { IconButton } from "./icon-button";
 

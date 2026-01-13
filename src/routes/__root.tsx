@@ -6,9 +6,7 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
-import gsap from "gsap";
 import ReactLenis from "lenis/react";
-import { useEffect } from "react";
 import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { Devtools } from "~/shared/ui/dev-tools";

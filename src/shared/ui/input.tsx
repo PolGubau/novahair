@@ -51,7 +51,7 @@ export const inputTheme = cn(
 	"pr-2 pl-3 py-1",
 	// Height
 	"data-[placeholder]:text-sm data-placeholder:text-foreground/70",
-	"data-[size=md]:h-11 data-[size=sm]:h-9 data-[size=xs]:h-7 data-[size=lg]:h-13 data-[size=xl]:h-15",
+	"data-[size=md]:h-9 data-[size=sm]:h-7 data-[size=xs]:h-5 data-[size=lg]:h-11 data-[size=xl]:h-13",
 
 	// Icon
 	"[&_svg]:pointer-events-none [&_svg:not([class*='text-'])]:text-foreground/80 [&_svg]:text-foreground [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",

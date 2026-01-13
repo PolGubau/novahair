@@ -16,7 +16,7 @@ export const Route = createFileRoute("/admin/appointments/table")({
 });
 
 function RouteComponent() {
-	const { appointments, isLoading } = useLocalAppointments();
+	const { appointments, isLoading, refetch } = useLocalAppointments();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
 	const [editing, setEditing] = useState<Appointment | null>(null);
@@ -39,13 +39,18 @@ function RouteComponent() {
 		);
 		if (index !== -1) {
 			appointmentFormRepository.deleteLocal(index);
-			window.location.reload();
+			refetch();
 		}
 	};
 
 	return (
 		<AdminMain title={"appointments"} description={"list_of_appointments"}>
-			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
+			<Drawer
+				open={isFormOpened}
+				onOpenChange={setIsFormOpened}
+				title="create_appointment"
+				description="create_appointment_for_your_customers"
+			>
 				<AppointmentCreationForm
 					appointment={editing}
 					onClose={() => {

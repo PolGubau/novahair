@@ -93,26 +93,29 @@ export const AppointmentCreationForm = ({
 
 	return (
 		<form onSubmit={onSubmit} className="grid gap-4">
-			<Select
-				label={"select_service"}
-				required
-				onChange={(value) => handleSelectChange("serviceId", value)}
-				options={services.map((s) => ({
-					label: s.name as TranslationKey,
-					value: s.id,
-				}))}
-				value={serviceId}
-			/>
+			<fieldset className="grid gap-4 border-b pb-4 md:grid-cols-2">
+				<Select
+					label={"select_service"}
+					required
+					onChange={(value) => handleSelectChange("serviceId", value)}
+					options={services.map((s) => ({
+						label: s.name as TranslationKey,
+						value: s.id,
+					}))}
+					value={serviceId}
+				/>
 
-			<Select
-				label={"select_staff"}
-				value={staffId || undefined}
-				onChange={(value) => handleSelectChange("staffId", value)}
-				options={staffs.map((s) => ({
-					label: s.name as TranslationKey,
-					value: s.id,
-				}))}
-			/>
+				<Select
+					label={"select_staff"}
+					value={staffId || undefined}
+					onChange={(value) => handleSelectChange("staffId", value)}
+					options={staffs.map((s) => ({
+						label: s.name as TranslationKey,
+						value: s.id,
+					}))}
+				/>
+			</fieldset>
+
 			<Input
 				label={t("name")}
 				value={customerName}

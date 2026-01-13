@@ -1,10 +1,14 @@
+import { t } from "i18next";
 import { Drawer as D, type DialogProps } from "vaul";
 import { cn } from "~/lib/cn";
+import type { TranslationKey } from "../i18n/setup";
 
 type Props = DialogProps & {
 	footer?: React.ReactNode;
 	className?: string;
 	header?: React.ReactNode;
+	title?: TranslationKey;
+	description?: TranslationKey;
 	classNames?: {
 		overlay?: string;
 		content?: string;
@@ -19,6 +23,8 @@ export const Drawer = ({
 	footer,
 	className,
 	header,
+	title,
+	description,
 	classNames,
 	...rest
 }: Props) => {
@@ -48,6 +54,16 @@ export const Drawer = ({
 						>
 							<D.Handle className={classNames?.handle} />
 							{header}
+							<div className="flex flex-col gap-1">
+								{title && (
+									<h2 className="text-2xl font-semibold text-foreground">
+										{t(title)}
+									</h2>
+								)}
+								{description && (
+									<p className="text-foreground/70 text-md">{t(description)}</p>
+								)}
+							</div>
 						</header>
 
 						<section

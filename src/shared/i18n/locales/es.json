@@ -5,6 +5,8 @@
 	"price": "Precio",
 	"administration": "Administración",
 	"delete": "Eliminar",
+	"create_appointment": "Reservar cita",
+	"create_appointment_for_your_customers": "Crear cita para tus clientes",
 	"manage_team": "Gestionar equipo",
 	"check_all_appointments": "Ver todas las citas",
 	"color": "Color",
