@@ -1,11 +1,8 @@
 "use client";
 
 import {
-	AudioWaveform,
-	Command,
 	Database,
 	GalleryVerticalEnd,
-	Settings2,
 	SlidersHorizontal,
 	Users,
 } from "lucide-react";

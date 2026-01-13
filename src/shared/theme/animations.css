@@ -1,10 +1,17 @@
- 
 @keyframes scaleUp {
-  from { scale: 0.9; border-radius: 300px; }
-  50% { scale: 1; border-radius: 30px; }
-  to { scale: 0.9; border-radius: 300px; }
+	from {
+		scale: 0.9;
+		border-radius: 300px;
+	}
+	50% {
+		scale: 1;
+		border-radius: 30px;
+	}
+	to {
+		scale: 0.9;
+		border-radius: 300px;
+	}
 }
-
 
 .scroll-scale-in {
 	/* Create View Timeline */

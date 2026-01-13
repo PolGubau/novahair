@@ -65,11 +65,7 @@ function RouteComponent() {
 					{t("create")}
 				</Button>
 
-				<Button
-					onClick={() => window.location.reload()}
-					variant="ghost"
-					className="group"
-				>
+				<Button onClick={() => refetch()} variant="ghost" className="group">
 					<div className="group-focus:rotate-90 transition-all">
 						<RefreshCcw />
 					</div>

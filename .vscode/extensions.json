@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"biomejs.biome",
+		"bradlc.vscode-tailwindcss",
+		"dbaeumer.vscode-eslint",
+		"christian-kohler.path-intellisense",
+		"usernamehw.errorlens",
+		"vitest.explorer",
+		"GitHub.copilot",
+		"GitHub.copilot-chat"
+	]
+}

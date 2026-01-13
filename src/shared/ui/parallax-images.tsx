@@ -6,7 +6,6 @@ import {
 	useScroll,
 	useTransform,
 } from "framer-motion";
-import Lenis from "lenis";
 import { useEffect, useRef, useState } from "react";
 
 const images = [

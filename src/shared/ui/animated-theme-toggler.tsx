@@ -1,7 +1,6 @@
 import { Moon, Sun } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { cn } from "~/lib/cn";
 import { IconButton } from "./icon-button";
 
 interface AnimatedThemeTogglerProps

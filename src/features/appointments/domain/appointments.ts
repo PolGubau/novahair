@@ -3,7 +3,7 @@ export interface Appointment {
 	staffId: string | undefined;
 	customer: Customer;
 	startsAt: string;
-	notes: string;
+	notes?: string;
 }
 
 interface Customer {

@@ -4,6 +4,6 @@
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
 
-.swiper-button-prev{
-  z-index: 99;
+.swiper-button-prev {
+	z-index: 99;
 }

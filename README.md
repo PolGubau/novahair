@@ -1,54 +1,206 @@
-Welcome to your new TanStack app! 
+# NOVAHAIR - Sistema de Gestión de Peluquería
 
-# Getting Started
+Sistema moderno de gestión de citas y servicios para peluquerías, construido con TanStack Router, React Query y Tailwind CSS.
 
-To run this application:
+## 🚀 Características
+
+- ✅ **Sistema de reservas online** - Los clientes pueden agendar citas fácilmente
+- ✅ **Panel de administración** - Gestión completa de citas, servicios y personal
+- ✅ **Diseño responsive** - Optimizado para móvil, tablet y escritorio
+- ✅ **Modo oscuro/claro** - Tema adaptable según preferencia del usuario
+- ✅ **Multiidioma** - Soporte para internacionalización con i18next
+- ✅ **Animaciones fluidas** - GSAP y Framer Motion para una UX superior
+- ✅ **Tipado estricto** - TypeScript para mayor seguridad y productividad
+
+## 📋 Requisitos Previos
+
+- Node.js >= 18
+- pnpm >= 8
+
+## 🛠️ Instalación
 
 ```bash
+# Instalar dependencias
 pnpm install
-pnpm start
+
+# Copiar variables de entorno
+cp .env.example .env.local
+
+# Iniciar en modo desarrollo
+pnpm dev
 ```
 
-# Building For Production
-
-To build this application for production:
+## 🎯 Scripts Disponibles
 
 ```bash
-pnpm build
+pnpm dev          # Inicia el servidor de desarrollo en puerto 3000
+pnpm build        # Compila el proyecto para producción
+pnpm serve        # Previsualiza la build de producción
+pnpm test         # Ejecuta los tests con Vitest
+pnpm coverage     # Genera reporte de cobertura de tests
+pnpm lint         # Ejecuta el linter (Biome + i18next)
+pnpm format       # Formatea el código con Biome
+pnpm check        # Ejecuta linter y formatter
 ```
 
-## Testing
+## 📁 Arquitectura del Proyecto
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+```
+src/
+├── features/          # Módulos por funcionalidad
+│   ├── appointments/  # Gestión de citas
+│   ├── services/      # Servicios de peluquería
+│   ├── staff/         # Personal
+│   └── ...
+├── routes/            # Rutas de TanStack Router
+├── shared/            # Código compartido
+│   ├── ui/            # Componentes UI reutilizables
+│   ├── hooks/         # Custom hooks
+│   ├── i18n/          # Configuración de idiomas
+│   └── types/         # Tipos compartidos
+└── lib/               # Utilidades y helpers
+```
+
+### Patrón de Arquitectura por Feature
+
+Cada feature sigue esta estructura:
+
+```
+feature/
+├── domain/      # Entidades y reglas de negocio
+├── infra/       # Capa de infraestructura (API, localStorage)
+├── model/       # Hooks y lógica de estado
+└── ui/          # Componentes de presentación
+```
+
+## 🎨 Stack Tecnológico
+
+### Core
+- **React 19** - Biblioteca UI
+- **TypeScript 5.7** - Tipado estático
+- **Vite 7** - Build tool y dev server
+
+### Routing & Estado
+- **TanStack Router** - Sistema de routing avanzado
+- **TanStack Query** - Manejo de estado del servidor
+- **React Router DevTools** - Debugging de rutas
+
+### UI & Styling
+- **Tailwind CSS 4** - Framework CSS utility-first
+- **Radix UI** - Componentes accesibles sin estilos
+- **Framer Motion** - Animaciones y transiciones
+- **GSAP** - Animaciones complejas
+- **Lucide React** - Iconos
+
+### Testing
+- **Vitest** - Test runner y framework
+- **Testing Library** - Utilities para testing de componentes
+- **jsdom** - Entorno DOM para tests
+
+### Calidad de Código
+- **Biome** - Linter y formatter moderno
+- **i18next** - Internacionalización
+
+## 🧪 Testing
 
 ```bash
+# Ejecutar todos los tests
 pnpm test
+
+# Tests en modo watch
+pnpm test --watch
+
+# Generar reporte de cobertura
+pnpm coverage
 ```
 
-## Styling
+## 🌐 Internacionalización
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+El proyecto usa `i18next` para multiidioma. Los archivos de traducción están en:
 
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
-
-```bash
-pnpm lint
-pnpm format
-pnpm check
+```
+src/shared/i18n/locales/
+├── es/
+│   └── translation.json
+└── en/
+    └── translation.json
 ```
 
+Para agregar una nueva traducción:
 
-## Shadcn
+```typescript
+import { t } from "i18next";
 
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
+// En tu componente
+<h1>{t("welcome_message")}</h1>
+```
+
+## 🎨 Componentes UI
+
+Este proyecto usa [Shadcn UI](https://ui.shadcn.com/). Para agregar componentes:
 
 ```bash
 pnpx shadcn@latest add button
+pnpx shadcn@latest add dialog
+# etc...
 ```
+
+## 🚀 Deploy en Producción
+
+### Vercel (Recomendado)
+
+```bash
+# Ya configurado en vercel.json
+vercel --prod
+```
+
+### Build Manual
+
+```bash
+pnpm build
+# Los archivos compilados estarán en dist/
+```
+
+## 🔒 Variables de Entorno
+
+Copia `.env.example` a `.env.local` y configura:
+
+```env
+VITE_APP_NAME=NOVAHAIR
+VITE_APP_URL=https://tu-dominio.com
+VITE_DEFAULT_LOCALE=es
+```
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add: nueva característica'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+### Convenciones de Commits
+
+- `Add:` Nueva funcionalidad
+- `Fix:` Corrección de bugs
+- `Update:` Actualización de código existente
+- `Remove:` Eliminación de código
+- `Docs:` Cambios en documentación
+- `Style:` Cambios de formato (no afectan lógica)
+- `Refactor:` Refactorización de código
+- `Test:` Agregar o modificar tests
+
+## 📝 Licencia
+
+Este proyecto es privado y confidencial.
+
+## 👨‍💻 Autor
+
+Destacat.cat - Pol Gubau Amores
+
+---
+
+¿Preguntas o problemas? Abre un issue en el repositorio.
 
 
 
