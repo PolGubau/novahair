@@ -12,7 +12,7 @@
     "coverage": "vitest run --coverage",
     "lint-i18n": "npx i18next-cli lint",
     "lint": "biome lint && pnpm lint-i18n",
-    "check": "biome check"
+    "check": "biome check --write"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",

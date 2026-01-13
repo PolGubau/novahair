@@ -38,6 +38,7 @@
 	"appointment_date": "Book appointment",
 	"unknown": "Unknown",
 	"create": "Create",
+	"select": "Select",
 	"price_in_cents": "Price (in cents)",
 	"save": "Save",
 	"cancel": "Cancel",
@@ -75,5 +76,30 @@
 	"appointment_created_details": "{{name}} — {{datetime}}",
 	"booking_error": "An error occurred: {{message}}",
 	"your_appointment_created_at": "Your appointment created at {{datetime}}",
-	"we_sent_email_confirmation": "We sent a confirmation email to {{email}}"
+	"we_sent_email_confirmation": "We sent a confirmation email to {{email}}",
+	"not_found": "404 - Not Found",
+	"error_occurred": "Something went wrong",
+	"error_message_default": "An unexpected error occurred",
+	"try_again": "Try again",
+	"back_to_home": "Back to home",
+	"error_details": "Error details (development only)",
+	"toggle_theme": "Toggle theme",
+	"admin_panel": "Admin Panel",
+	"select_all": "Select all",
+	"select_row": "Select row",
+	"add_team": "Add team",
+	"locations": "Locations",
+	"customer_name": "Customer name",
+	"customer_email": "Customer email",
+	"customer_phone": "Customer phone",
+	"phone_placeholder": "123 456 789",
+	"social_media": {
+		"instagram": "Instagram",
+		"facebook": "Facebook",
+		"twitter": "Twitter"
+	},
+	"preloader": {
+		"status": "Loading",
+		"loading": "Loading"
+	}
 }

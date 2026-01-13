@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { t } from "i18next";
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { Button } from "./button";
 
@@ -41,22 +42,22 @@ export class ErrorBoundary extends Component<Props, State> {
 					<div className="w-full max-w-md space-y-4 text-center">
 						<div className="space-y-2">
 							<h1 className="text-4xl font-bold tracking-tighter">
-								Algo salió mal
+								{t("error_occurred")}
 							</h1>
 							<p className="text-muted-foreground">
-								{this.state.error.message || "Ha ocurrido un error inesperado"}
+								{this.state.error.message || t("error_message_default")}
 							</p>
 						</div>
 						<div className="flex gap-2 justify-center">
-							<Button onClick={this.resetError}>Intentar de nuevo</Button>
+							<Button onClick={this.resetError}>{t("try_again")}</Button>
 							<Link to="/">
-								<Button variant="outline">Volver al inicio</Button>
+								<Button variant="outline">{t("back_to_home")}</Button>
 							</Link>
 						</div>
 						{import.meta.env.DEV && (
 							<details className="text-left text-sm">
 								<summary className="cursor-pointer text-muted-foreground hover:text-foreground">
-									Detalles del error (solo en desarrollo)
+									{t("error_details")}
 								</summary>
 								<pre className="mt-2 overflow-auto rounded-md bg-muted p-4">
 									{this.state.error.stack}

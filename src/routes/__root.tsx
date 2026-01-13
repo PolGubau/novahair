@@ -7,6 +7,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import ReactLenis from "lenis/react";
+import { useTranslation } from "react-i18next";
 import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { Devtools } from "~/shared/ui/dev-tools";
@@ -90,14 +91,20 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	}),
 
 	shellComponent: RootDocument,
-	notFoundComponent: () => <div>404 - Not Found</div>,
+	notFoundComponent: NotFound,
 });
+
+function NotFound() {
+	const { t } = useTranslation();
+	return <div>{t("not_found")}</div>;
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { isReady } = usePreloader();
+	const { i18n } = useTranslation();
 
 	return (
-		<html lang="en">
+		<html lang={i18n.language}>
 			<head>
 				<HeadContent />
 			</head>

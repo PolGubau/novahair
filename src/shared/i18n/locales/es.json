@@ -34,6 +34,7 @@
 	"cancel": "Cancelar",
 	"save": "Guardar",
 	"create": "Crear",
+	"select": "Seleccionar",
 	"general": "General",
 	"platform": "Plataforma",
 	"duration_in_minutes": "Duración (en minutos)",
@@ -75,5 +76,30 @@
 	"appointment_created_details": "{{name}} — {{datetime}}",
 	"booking_error": "Ha ocurrido un error: {{message}}",
 	"your_appointment_created_at": "Tu cita se ha creado para el {{datetime}}",
-	"we_sent_email_confirmation": "Hemos enviado un correo de confirmación a {{email}}"
+	"we_sent_email_confirmation": "Hemos enviado un correo de confirmación a {{email}}",
+	"not_found": "404 - Página no encontrada",
+	"error_occurred": "Algo salió mal",
+	"error_message_default": "Ha ocurrido un error inesperado",
+	"try_again": "Intentar de nuevo",
+	"back_to_home": "Volver al inicio",
+	"error_details": "Detalles del error (solo en desarrollo)",
+	"toggle_theme": "Cambiar tema",
+	"admin_panel": "Panel de administración",
+	"select_all": "Seleccionar todo",
+	"select_row": "Seleccionar fila",
+	"add_team": "Añadir equipo",
+	"locations": "Ubicaciones",
+	"customer_name": "Nombre del cliente",
+	"customer_email": "Email del cliente",
+	"customer_phone": "Teléfono del cliente",
+	"phone_placeholder": "123 456 789",
+	"social_media": {
+		"instagram": "Instagram",
+		"facebook": "Facebook",
+		"twitter": "Twitter"
+	},
+	"preloader": {
+		"status": "Cargando",
+		"loading": "Cargando"
+	}
 }

@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { copy } from "../data/copy";
 import { AnimatedThemeToggler } from "./animated-theme-toggler";
 
 export const Footer = () => {
+	const { t } = useTranslation();
 	return (
 		<footer className="flex flex-col max-w-7xl w-full mx-auto">
 			<div className="md:grid md:grid-cols-[auto,1fr]">
@@ -25,13 +27,13 @@ export const Footer = () => {
 						<div className="content-primitive content--bulletList">
 							<ul>
 								<li>
-									<p>Instagram</p>
+									<p>{t("social_media.instagram")}</p>
 								</li>
 								<li>
-									<p>Facebook</p>
+									<p>{t("social_media.facebook")}</p>
 								</li>
 								<li>
-									<p>Twitter</p>
+									<p>{t("social_media.twitter")}</p>
 								</li>
 							</ul>
 						</div>
