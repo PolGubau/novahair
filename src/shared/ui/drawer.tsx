@@ -1,6 +1,6 @@
 import { t } from "i18next";
 import { Drawer as D, type DialogProps } from "vaul";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import type { TranslationKey } from "../i18n/setup";
 
 type Props = DialogProps & {

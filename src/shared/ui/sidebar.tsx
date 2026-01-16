@@ -18,7 +18,7 @@ import {
 } from "src/shared/ui/sheet";
 import { Skeleton } from "src/shared/ui/skeleton";
 import { TooltipProvider } from "src/shared/ui/tooltip";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import { IconButton } from "./icon-button";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
@@ -87,12 +87,12 @@ function SidebarProvider({
 			const isOpen = cookie ? cookie.split("=")[1] === "true" : true;
 			if (isOpen === openState) return;
 
-			cookieStore.set({
-				name: SIDEBAR_COOKIE_NAME,
-				value: openState.toString(),
-				expires: SIDEBAR_COOKIE_MAX_AGE,
-				domain: window.location.hostname,
-			});
+			// cookieStore.set({
+			// 	name: SIDEBAR_COOKIE_NAME,
+			// 	value: openState.toString(),
+			// 	expires: SIDEBAR_COOKIE_MAX_AGE,
+			// 	domain: window.location.hostname,
+			// });
 		},
 		[setOpenProp, open],
 	);

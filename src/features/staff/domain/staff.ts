@@ -11,7 +11,8 @@ export interface Staff {
 export type StaffCreateDto = Pick<
 	Staff,
 	"name" | "email" | "phone" | "color" | "tenantId" | "avatarUrl"
-> & {
-	active: boolean;
-};
-export type StaffCreate = Pick<Staff, "name" | "email" | "phone" | "color" | "avatarUrl">;
+>;
+export type StaffCreate = Pick<
+	Staff,
+	"name" | "email" | "phone" | "color" | "avatarUrl"
+>;

@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import { Button, type ButtonProps } from "./button";
 import { Tooltip } from "./tooltip";
 

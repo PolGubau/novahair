@@ -20,15 +20,15 @@ function RouteComponent() {
 	const { remove } = useStaff();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
-	const [editing, setEditing] = useState<Staff | null>(null);
+	const [editingStaff, setEditingStaff] = useState<Staff | null>(null);
 
 	const openCreate = () => {
-		setEditing(null);
+		setEditingStaff(null);
 		setIsFormOpened(true);
 	};
 
 	const openEdit = (s: Staff) => {
-		setEditing(s);
+		setEditingStaff(s);
 		setIsFormOpened(true);
 	};
 
@@ -48,10 +48,10 @@ function RouteComponent() {
 				description="fill_the_form_to_add_a_new_staff_member"
 			>
 				<StaffForm
-					staff={editing}
+					staff={editingStaff}
 					onClose={() => {
 						setIsFormOpened(false);
-						setEditing(null);
+						setEditingStaff(null);
 					}}
 				/>
 			</Drawer>

@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import { Loader } from "./loader";
 
 type LoadingOverlayProps = {

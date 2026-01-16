@@ -13,7 +13,7 @@ import {
 } from "~/features/appointment-form/ui/form/form";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 import { Drawer } from "~/shared/ui/drawer";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";

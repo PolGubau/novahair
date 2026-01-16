@@ -13,7 +13,7 @@ import {
 	type ReactNode,
 	useContext,
 } from "react";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import { Button } from "./button";
 import { IconButton } from "./icon-button";
 

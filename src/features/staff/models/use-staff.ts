@@ -13,7 +13,6 @@ export const useStaff = () => {
 				color: payload.color,
 				email: payload.email,
 				phone: payload.phone,
-				active: true,
 				tenantId: constants.tenantId,
 			}),
 		onSuccess: () => {
@@ -29,7 +28,6 @@ export const useStaff = () => {
 				email: payload.email,
 				phone: payload.phone,
 				tenantId: constants.tenantId,
-				active: true,
 			}),
 		onSuccess: () => {
 			qc.invalidateQueries({ queryKey: ["staffs"] });

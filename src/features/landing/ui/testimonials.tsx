@@ -1,7 +1,7 @@
 import Avatar from "boring-avatars";
 import { t } from "i18next";
-import { cn } from "~/lib/cn";
 import { type Testimonial, testimonials } from "~/shared/data/testimonials";
+import { cn } from "~/shared/lib/cn";
 import { Marquee } from "~/shared/ui/marquee";
 
 export const TestimonialCard = ({

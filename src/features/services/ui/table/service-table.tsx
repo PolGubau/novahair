@@ -4,7 +4,7 @@ import { ArrowUpDown, Edit2, Trash } from "lucide-react";
 import i18n from "~/shared/i18n/setup";
 import { Avatar, AvatarFallback, AvatarImage } from "~/shared/ui/avatar";
 import { Button } from "~/shared/ui/button";
-import { Checkbox } from "~/shared/ui/checkbox";
+import { Checkbox } from "~/shared/ui/checkbox/checkbox";
 import { DataTable } from "~/shared/ui/data-table";
 import { IconButton } from "~/shared/ui/icon-button";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";

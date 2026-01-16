@@ -2,11 +2,12 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
 import { Edit2, Trash } from "lucide-react";
 import { Button } from "~/shared/ui/button";
-import { Checkbox } from "~/shared/ui/checkbox";
+import { Checkbox } from "~/shared/ui/checkbox/checkbox";
 import { DataTable } from "~/shared/ui/data-table";
 import { IconButton } from "~/shared/ui/icon-button";
 import { LoadingOverlay } from "~/shared/ui/loading-overlay";
 import type { Staff } from "../domain/staff";
+import { ServicesAssignedCell } from "./services-assigned-cell";
 
 export const getColumns = (options?: {
 	onEdit?: (s: Staff) => void;
@@ -75,6 +76,17 @@ export const getColumns = (options?: {
 						}}
 					/>
 				</div>
+			),
+		},
+		{
+			accessorKey: "services",
+			header: () => {
+				return <span>{t("services")}</span>;
+			},
+			cell: ({ row }) => (
+				<ServicesAssignedCell
+					assignedServiceIds={row.getValue("services") ?? []}
+				/>
 			),
 		},
 

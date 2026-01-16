@@ -2,7 +2,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { t } from "i18next";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { useId } from "react";
-import { cn } from "~/lib/cn";
+import { cn } from "~/shared/lib/cn";
 import type { TranslationKey } from "../i18n/setup";
 import type { Breakpoints } from "../types/common";
 import { inputTheme } from "./input";
