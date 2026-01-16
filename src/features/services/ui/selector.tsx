@@ -1,11 +1,14 @@
 import { t } from "i18next";
+import { ApiErrorFallback } from "~/shared/ui/api-error-fallback";
 import { useServices } from "../model/use-services";
 import { ServiceList, ServiceListSkeleton } from "./list/list";
 
 export const ServiceSelector = () => {
-	const { isLoading, error, services } = useServices();
+	const { isLoading, error, services, refetch } = useServices();
 
-	if (error) return `An error has occurred: ${error.message}`;
+	if (error) {
+		return <ApiErrorFallback error={error} reset={() => refetch()} />;
+	}
 
 	return (
 		<div className="flex flex-col gap-4">

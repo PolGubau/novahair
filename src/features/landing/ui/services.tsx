@@ -3,7 +3,13 @@ import { useServices } from "~/features/services/model/use-services";
 import { ServiceList } from "~/features/services/ui/list/list";
 
 export const Services = () => {
-	const { services } = useServices();
+	const { services, error, isLoading } = useServices();
+
+	// Si hay un error, no mostrar la sección
+	if (error || (!isLoading && services.length === 0)) {
+		return null;
+	}
+
 	return (
 		<section className="flex flex-col items-center gap-4 max-w-7xl w-full mx-auto px-4 min-h-[65vh] py-12">
 			<h2 className="text-4xl lg:text-6xl">{t("our_services")}</h2>
