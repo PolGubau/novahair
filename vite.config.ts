@@ -18,14 +18,13 @@ const config = defineConfig({
         routeToken: 'layout',
       }
     }),
-    viteReact(),
     nitro(),
-  ],    
+    viteReact(),
+  ],
   build: {
     outDir: "dist",
   },
   server: {
-
     proxy: {
       '/api': {
         target: 'https://api.gerardmartinez.es',
