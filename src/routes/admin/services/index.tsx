@@ -38,7 +38,7 @@ function RouteComponent() {
 
 	return (
 		<AdminMain title={"services"} description={"manage_your_services"}>
-			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
+			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened} title="add_new_service" description="fill_the_form_to_add_a_new_service">
 				<ServiceCreationForm
 					service={editing}
 					onClose={() => {

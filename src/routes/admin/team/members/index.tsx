@@ -41,7 +41,12 @@ function RouteComponent() {
 			title="team_members"
 			description="manage_your_team_and_schedules"
 		>
-			<Drawer open={isFormOpened} onOpenChange={setIsFormOpened}>
+			<Drawer
+				open={isFormOpened}
+				onOpenChange={setIsFormOpened}
+				title="add_new_staff"
+				description="fill_the_form_to_add_a_new_staff_member"
+			>
 				<StaffForm
 					staff={editing}
 					onClose={() => {
@@ -53,7 +58,7 @@ function RouteComponent() {
 			<nav className="flex gap-2 items-center">
 				<Button onClick={openCreate}>
 					<Plus />
-					{t("add_new_service")}
+					{t("add_new_staff")}
 				</Button>
 
 				<Button onClick={() => refetch()} variant="ghost" className="group">
