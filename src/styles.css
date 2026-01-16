@@ -2,7 +2,6 @@
 @import '@fontsource-variable/outfit';
 @import "./shared/theme/colors.css";
 @import "./shared/theme/animations.css";
-@plugin "tailwindcss-motion";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
