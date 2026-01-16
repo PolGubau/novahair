@@ -31,26 +31,20 @@ const columns = [
 		cell: (info) => info.getValue(),
 		header: () => <span>{t("service")}</span>,
 	}),
-	columnHelper.group({
-		id: "staff",
-		header: () => <span>{t("staff")}</span>,
-		columns: [
-			columnHelper.accessor("staff.name", {
-				id: "staffName",
-				cell: (info) => info.getValue(),
-				header: () => <span>{t("name")}</span>,
-			}),
-			columnHelper.accessor("staff.phone", {
-				id: "staffPhone",
-				cell: (info) => info.getValue(),
-				header: () => <span>{t("phone")}</span>,
-			}),
-		],
+	columnHelper.accessor("staff.name", {
+		id: "staffName",
+		cell: (info) => info.getValue(),
+		header: () => <span>{t("name")}</span>,
 	}),
 	columnHelper.accessor("customer.name", {
 		id: "customerName",
 		cell: (info) => info.getValue(),
-		header: () => <span>{t("customer")}</span>,
+		header: () => <span>{t("name")}</span>,
+	}),
+	columnHelper.accessor("customer.phone", {
+		id: "customerPhone",
+		cell: (info) => info.getValue(),
+		header: () => <span>{t("phone")}</span>,
 	}),
 ];
 
