@@ -4,7 +4,7 @@
 @import "./shared/theme/animations.css";
  @plugin "tailwindcss-motion";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 body {
   @apply m-0 font-sans antialiased bg-background text-foreground;

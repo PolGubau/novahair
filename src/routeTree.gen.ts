@@ -71,11 +71,11 @@ const AdminTeamMembersIndexRoute = AdminTeamMembersIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof landingIndexRoute
   '/admin': typeof AdminLayoutRouteWithChildren
   '/book': typeof BookLayoutRouteWithChildren
   '/book/$serviceId': typeof BookServiceIdRoute
   '/book/choose-service': typeof BookChooseServiceRoute
-  '/': typeof landingIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/appointments/table': typeof AdminAppointmentsTableRoute
   '/admin/services': typeof AdminServicesIndexRoute
@@ -107,11 +107,11 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/admin'
     | '/book'
     | '/book/$serviceId'
     | '/book/choose-service'
-    | '/'
     | '/admin/'
     | '/admin/appointments/table'
     | '/admin/services'
@@ -164,8 +164,8 @@ declare module '@tanstack/react-router' {
     }
     '/(landing)': {
       id: '/(landing)'
-      path: ''
-      fullPath: ''
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof landingLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -278,7 +278,6 @@ import type { getRouter } from './router.tsx'
 import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
   }
 }
