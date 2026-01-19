@@ -62,3 +62,5 @@ pnpm-debug.log*
 count.txt
 todos.json
 
+
+.vercel
