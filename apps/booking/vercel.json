@@ -1,7 +1,3 @@
 {
-	"buildCommand": "cd ../.. && pnpm install && pnpm build:booking",
-	"installCommand": "pnpm install",
-	"outputDirectory": "dist/client",
-	"framework": null,
-	"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+	"buildCommand": "cd ../.. && pnpm install && pnpm build:booking"
 }
