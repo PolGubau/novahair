@@ -1,4 +1,4 @@
-import { constants } from "@novahair/utils/constants";
+import { env } from "@novahair/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { serviceRepository } from "../api/repository";
 import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
@@ -16,8 +16,7 @@ export const useService = () => {
 				durationMin: payload.durationMin,
 				bufferBefore: payload.bufferBefore ?? 0,
 				bufferAfter: payload.bufferAfter ?? 0,
-				active: true,
-				tenantId: constants.tenantId,
+				tenantId: env.tenantId ?? "",
 			}),
 		onSuccess: () => {
 			qc.invalidateQueries({ queryKey: ["services"] });
@@ -40,8 +39,7 @@ export const useService = () => {
 				durationMin: payload.durationMin,
 				bufferBefore: payload.bufferBefore ?? 0,
 				bufferAfter: payload.bufferAfter ?? 0,
-				active: true,
-				tenantId: constants.tenantId,
+				tenantId: env.tenantId ?? "",
 			}),
 		onSuccess: () => {
 			qc.invalidateQueries({ queryKey: ["services"] });

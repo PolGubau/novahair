@@ -1,5 +1,4 @@
-import { genericFetch } from "~/features/appointment-form/infra/api";
-import { endpoints } from '@novahair/utils/constants";
+import { endpoints, genericFetch } from "@novahair/utils";
 import type { Service } from "../../services/domain/service";
 import type { ServiceRepository } from "./repository";
 
@@ -55,12 +54,6 @@ export async function deleteService(id: string) {
 		throw new Error(
 			`Error deleting service ${id}: ${res.status} ${res.statusText} - ${text}`,
 		);
-	}
-	// some APIs return no body on delete
-	try {
-		return (await res.json()) as { success?: boolean };
-	} catch {
-		return { success: true };
 	}
 }
 

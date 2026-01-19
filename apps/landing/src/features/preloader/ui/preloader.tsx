@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import { copy } from '~/data/copy";
-import { Loader } from '@novahair/ui/loader";
+import { copy } from "~/data/copy";
+import { Loader } from "@novahair/ui/loader";
 
 type Props = {
 	isReady: boolean;

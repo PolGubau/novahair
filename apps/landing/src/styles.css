@@ -1,20 +1,19 @@
-@import "tailwindcss" source("../../packages/ui/src/**/*.{ts,tsx}");
-@import '@fontsource-variable/outfit';
-@import '../../../packages/ui/src/theme/base.css';
-@import '../../../packages/ui/src/theme/colors.css';
-@import '../../../packages/ui/src/theme/animations.css';
+@import "tailwindcss";
+
+@import "@fontsource-variable/outfit";
+@import "../../../packages/ui/src/theme/colors.css";
+@import "../../../packages/ui/src/theme/animations.css";
+@import "../../../packages/ui/src/theme/base.css";
+@source "../../../packages/ui/src/**/*.tsx";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-  @apply m-0 font-sans antialiased bg-background text-foreground;
-  font-family: 'Outfit Variable', sans-serif;
-  scroll-timeline-name: --timeline;
+	@apply m-0 font-sans antialiased bg-background text-foreground;
+	font-family: "Outfit Variable", sans-serif;
+	scroll-timeline-name: --timeline;
 }
 
 @theme inline {
-  --font-sans: 'Outfit Variable', sans-serif;
+	--font-sans: "Outfit Variable", sans-serif;
 }
-
-
- 

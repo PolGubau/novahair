@@ -1,7 +1,7 @@
+import { Button } from "@novahair/ui/button";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ChevronRight } from "lucide-react";
-import { Button } from '@novahair/ui/button";
 import type { Service } from "../../domain/service";
 
 type Props = {
@@ -29,11 +29,7 @@ export const ServiceItem = ({ service }: Props) => {
 				</header>
 
 				<nav className="flex">
-					<Link
-						to="/$serviceId"
-						params={{ serviceId: service.id }}
-						className="mt-2"
-					>
+					<Link to="/" params={{ serviceId: service.id }} className="mt-2">
 						<Button>
 							{t("check_availability")}
 							<ChevronRight />

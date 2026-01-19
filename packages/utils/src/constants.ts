@@ -21,6 +21,15 @@ export const config = {
 
 // API Endpoints builders
 export const endpoints = {
+	// Services
+	getServices: `${config.baseUrl}/services`,
+	services: `${config.baseUrl}/services`,
+
+	// Staff
+	listStaffs: `${config.baseUrl}/staff`,
+	staff: `${config.baseUrl}/staff`,
+
+	// Available days and slots
 	getAvailableDays: (props: {
 		serviceId: string;
 		staffId?: string;
@@ -45,6 +54,7 @@ export const endpoints = {
 		return `${config.baseUrl}/slots?${params.toString()}`;
 	},
 
+	// Appointments
 	bookAppointment: `${config.baseUrl}/appointments`,
 
 	listAppointments: (props: { from: string; to: string }) => {

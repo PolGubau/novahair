@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@novahair/utils/lib/query-keys";
+import { useQuery } from "@tanstack/react-query";
 import { serviceRepository } from "../infra/repository";
 
 export const useServices = () => {

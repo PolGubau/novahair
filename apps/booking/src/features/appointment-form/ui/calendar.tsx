@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: Lo necesitamos */
 import { generateCalendarMatrix } from "@novahair/utils/lib/calendar";
 import { cn } from "@novahair/utils/lib/cn";
 import { getWeekdayNames } from "@novahair/utils/lib/get-weekday-names";
@@ -58,6 +57,7 @@ export const Calendar = ({
 			</thead>
 			<tbody>
 				{matrix.map((week, weekIndex) => (
+					// biome-ignore lint/suspicious/noArrayIndexKey: ok
 					<tr key={weekIndex}>
 						{week.map((cell, dayIndex) => {
 							const isToday =
@@ -65,6 +65,7 @@ export const Calendar = ({
 							const isAvailable =
 								cell.date && isThisDayAvailable(cell.date, availableDays);
 							return (
+								// biome-ignore lint/suspicious/noArrayIndexKey: ok
 								<td key={dayIndex} className="w-[14%]">
 									<button
 										disabled={!isAvailable}

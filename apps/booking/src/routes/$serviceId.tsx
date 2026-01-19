@@ -6,7 +6,10 @@ import { z } from "zod";
 import { useAvailableDays } from "~/features/appointment-form/hooks/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/hooks/use-calendar-times";
 import { useFormValues } from "~/features/appointment-form/hooks/use-form-values";
- 
+
+import { Drawer } from "@novahair/ui/drawer";
+import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { cn } from "@novahair/utils/lib/cn";
 import { Calendar, cellStyles } from "~/features/appointment-form/ui/calendar";
 import {
 	AppointmentForm,
@@ -14,10 +17,7 @@ import {
 } from "~/features/appointment-form/ui/form/form";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { cn } from "@novahair/utils/lib/cn";
-import { CalendarNav } from "@novahair/ui/calendar-nav";
-import { Drawer } from "@novahair/ui/drawer";
-import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { CalendarNav } from "~/shared/tenant/ui/calendar-nav";
 
 const SearchSchema = z.object({
 	selectedDayISO: z.string().optional().nullable(),
@@ -61,7 +61,7 @@ function CalendarStep() {
 				startVelocity: 60,
 				origin: { x: 0, y: 0.5 },
 				colors: colors,
-			})
+			});
 			confetti({
 				particleCount: 2,
 				angle: 120,
@@ -69,11 +69,11 @@ function CalendarStep() {
 				startVelocity: 60,
 				origin: { x: 1, y: 0.5 },
 				colors: colors,
-			})
+			});
 			requestAnimationFrame(frame);
-		}
+		};
 		frame();
-	}
+	};
 
 	if (error) return `An error has occurred: ${error.message}`;
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
@@ -85,14 +85,14 @@ function CalendarStep() {
 				...old,
 				selectedDayISO: iso,
 			}),
-		})
+		});
 	}
 
 	const handleCloseDialog = () => {
 		refetch();
 		updateParams(null);
 		setIsSuccessfullySent(false);
-	}
+	};
 	function setSelectedDay(date: Date) {
 		updateParams(date.toISOString());
 	}
@@ -123,7 +123,7 @@ function CalendarStep() {
 							<AppointmentForm
 								date={selectedDay}
 								onSuccess={() => {
-									triggerConfetti()
+									triggerConfetti();
 									setIsSuccessfullySent(true);
 								}}
 							/>
@@ -157,7 +157,7 @@ function CalendarStep() {
 								return (
 									year > today.getFullYear() ||
 									(year === today.getFullYear() && month > today.getMonth())
-								)
+								);
 							})()
 						}
 					/>
@@ -175,7 +175,7 @@ function CalendarStep() {
 					<li className="flex gap-2 items-center">
 						<div
 							className={cn("size-4 rounded-full border", cellStyles.available)}
-						></div>
+						/>
 						{t("available")}
 					</li>
 					<li className="flex gap-2 items-center">
@@ -184,11 +184,11 @@ function CalendarStep() {
 								"size-4 rounded-full border",
 								cellStyles.unavailable,
 							)}
-						></div>
+						/>
 						{t("no_available_hours")}
 					</li>
 				</ul>
 			</section>
 		</main>
-	)
+	);
 }
