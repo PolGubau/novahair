@@ -1,7 +1,7 @@
 {
-	"buildCommand": "cd ../.. && pnpm install && pnpm build --filter=@novahair/booking...",
+	"buildCommand": "cd ../.. && pnpm install && pnpm build:booking",
 	"installCommand": "pnpm install",
-	"outputDirectory": "dist",
+	"outputDirectory": "dist/client",
 	"framework": null,
 	"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
