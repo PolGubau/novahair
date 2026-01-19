@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/outfit';
+@import "@novahair/ui/theme/colors.css";
+@import "@novahair/ui/theme/animations.css";
+@import "@novahair/ui/theme/base.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  font-family: 'Outfit Variable', sans-serif;
+  scroll-timeline-name: --timeline;
+}
+
+ 

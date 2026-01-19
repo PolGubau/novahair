@@ -44,5 +44,10 @@
 	"testing.automaticallyOpenPeekView": "failureInVisibleDocument",
 	"vitest.enable": true,
 	"vitest.commandLine": "pnpm test",
-	"cSpell.words": ["NOVAHAIR", "peluqueria", "destacat"]
+	"cSpell.words": [
+		"destacat",
+		"novahair",
+		"NOVAHAIR",
+		"peluqueria"
+	]
 }

@@ -1,0 +1,7 @@
+{
+	"buildCommand": "cd ../.. && pnpm install && pnpm build --filter @novahair/admin",
+	"installCommand": "pnpm install",
+	"outputDirectory": "dist",
+	"framework": null,
+	"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
