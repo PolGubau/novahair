@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { constants } from "@novahair/utils/constants";
-import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { serviceRepository } from "../api/repository";
- 
+import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
+
 export const useService = () => {
 	const qc = useQueryClient();
 

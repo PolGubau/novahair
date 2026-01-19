@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { constants } from "@novahair/utils/constants";
-import type { StaffCreate } from "../domain/staff";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { staffRepository } from "../api/repository";
- 
+import type { StaffCreate } from "../domain/staff";
+
 export const useStaff = () => {
 	const qc = useQueryClient();
 

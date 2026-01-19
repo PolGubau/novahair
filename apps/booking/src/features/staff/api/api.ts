@@ -1,6 +1,6 @@
+import { endpoints } from "@novahair/utils/constants";
 import { genericFetch } from "~/features/appointment-form/api/api";
 import { getTenantId } from "~/shared/tenant";
-import { endpoints } from "@novahair/utils/constants";
 import type { Staff } from "../domain/staff";
 import type { StaffRepository } from "./repository";
 
@@ -16,12 +16,12 @@ export const getOne: StaffRepository["get"] = (id) => {
 export async function create(payload: Partial<Staff>) {
 	const url = baseUrl;
 	const tenantId = getTenantId();
-	
+
 	const headers: HeadersInit = { "Content-Type": "application/json" };
 	if (tenantId) {
 		headers["X-Tenant-ID"] = tenantId;
 	}
-	
+
 	const res = await fetch(url, {
 		method: "POST",
 		headers,
@@ -40,12 +40,12 @@ export async function update(id: string, payload: Partial<Staff>) {
 	// Backend may expect PUT/delete at /staffs/:id; we append to the getStaffs base
 	const url = `${baseUrl}/${id}`;
 	const tenantId = getTenantId();
-	
+
 	const headers: HeadersInit = { "Content-Type": "application/json" };
 	if (tenantId) {
 		headers["X-Tenant-ID"] = tenantId;
 	}
-	
+
 	const res = await fetch(url, {
 		method: "PUT",
 		headers,
@@ -63,12 +63,12 @@ export async function update(id: string, payload: Partial<Staff>) {
 export async function deleteService(id: string) {
 	const url = `${baseUrl}/${id}`;
 	const tenantId = getTenantId();
-	
+
 	const headers: HeadersInit = {};
 	if (tenantId) {
 		headers["X-Tenant-ID"] = tenantId;
 	}
-	
+
 	const res = await fetch(url, {
 		method: "DELETE",
 		headers,
