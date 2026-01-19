@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd ../.. && pnpm install && pnpm build --filter @novahair/landing",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

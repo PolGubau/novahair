@@ -18,3 +18,40 @@ export const config = {
 	tenantId: env.tenantId as string,
 	apiVersion: "v1",
 } as const;
+
+// API Endpoints builders
+export const endpoints = {
+	getAvailableDays: (props: {
+		serviceId: string;
+		staffId?: string;
+		from?: string;
+		to?: string;
+	}) => {
+		const params = new URLSearchParams({
+			serviceId: props.serviceId,
+			...(props.staffId && { staffId: props.staffId }),
+			...(props.from && { from: props.from }),
+			...(props.to && { to: props.to }),
+		});
+		return `${config.baseUrl}/available-days?${params.toString()}`;
+	},
+
+	getSlots: (props: { serviceId: string; staffId?: string; from: string }) => {
+		const params = new URLSearchParams({
+			serviceId: props.serviceId,
+			from: props.from,
+			...(props.staffId && { staffId: props.staffId }),
+		});
+		return `${config.baseUrl}/slots?${params.toString()}`;
+	},
+
+	bookAppointment: `${config.baseUrl}/appointments`,
+
+	listAppointments: (props: { from: string; to: string }) => {
+		const params = new URLSearchParams({
+			from: props.from,
+			to: props.to,
+		});
+		return `${config.baseUrl}/appointments?${params.toString()}`;
+	},
+} as const;

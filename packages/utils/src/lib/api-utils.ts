@@ -12,11 +12,11 @@ export function buildApiUrl(
 	const url = new URL(`${config.baseUrl}/${config.apiVersion}/${path}`);
 
 	if (params) {
-		Object.entries(params).forEach(([key, value]) => {
+		for (const [key, value] of Object.entries(params)) {
 			if (value !== undefined) {
 				url.searchParams.append(key, value);
 			}
-		});
+		}
 	}
 
 	return url.toString();

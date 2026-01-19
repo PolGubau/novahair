@@ -1,3 +1,7 @@
+import { Button } from "@novahair/ui/button";
+import { Drawer } from "@novahair/ui/drawer";
+import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
+import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
@@ -7,10 +11,6 @@ import { useStaff } from "~/features/staff/hooks/use-staff";
 import { useStaffs } from "~/features/staff/hooks/use-staffs";
 import { StaffForm } from "~/features/staff/ui/form";
 import { StaffTable } from "~/features/staff/ui/table";
-import { Button } from "@novahair/ui/button";
-import { Drawer } from "@novahair/ui/drawer";
-import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 
 export const Route = createFileRoute("/team/members/")({
 	component: RouteComponent,

@@ -1,8 +1,8 @@
+import { endpoints } from "@novahair/utils";
 import type { AvailableDay } from "~/features/appointment-form/domain/available-day";
 import type { Slot } from "~/features/appointment-form/domain/slot";
 import type { SummarizedAppointment } from "~/features/appointments/domain/summarized-appointments";
 import { getTenantId } from "~/shared/tenant";
-import { endpoints } from "~/shared/constants";
 import type { Appointment } from "../domain/appointment";
 import {
 	deleteLocalAppointment,
@@ -23,20 +23,20 @@ export async function genericFetch<ResponseType>(
 	options?: RequestInit,
 ): Promise<ResponseType> {
 	const tenantId = getTenantId();
-	
+
 	const headers: HeadersInit = {
 		...options?.headers,
 	};
-	
+
 	if (tenantId) {
 		(headers as Record<string, string>)["X-Tenant-ID"] = tenantId;
 	}
-	
+
 	const response = await fetch(url, {
 		...options,
 		headers,
 	});
-	
+
 	if (!response.ok) {
 		const errorBody = await response.text();
 		throw new Error(

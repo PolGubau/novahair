@@ -1,8 +1,8 @@
+import { IconButton } from "@novahair/ui/icon-button";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ChevronLeft } from "lucide-react";
-import { copy } from "~/shared/data/copy";
-import { IconButton } from "@novahair/ui/icon-button";
+import { copy } from "~/data/copy";
 
 export const AppointmentFormHeader = () => {
 	return (

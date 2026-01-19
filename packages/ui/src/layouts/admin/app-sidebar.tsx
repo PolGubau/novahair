@@ -1,5 +1,3 @@
-"use client";
-
 import type { TranslationKey } from "@novahair/utils/i18n/setup";
 import {
 	Database,
@@ -40,13 +38,13 @@ export type SidebarUser = {
 	email: string;
 	avatar?: string;
 };
-export type SidebarMenu = {
+export type SidebarMenuConfig = {
 	user: SidebarUser;
 	teams: Team[];
 	navMain: NavMainItem[];
 };
 
-const data: SidebarMenu = {
+const data: SidebarMenuConfig = {
 	user: {
 		name: "Admin",
 		email: "Site Administrator",

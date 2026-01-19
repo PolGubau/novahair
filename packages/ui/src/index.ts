@@ -20,10 +20,8 @@ export * from "./input";
 export * from "./label";
 export * from "./loader";
 export * from "./loading-overlay";
-export * from "./marquee";
 export * from "./masked-image";
 export * from "./mini-calendar";
-export * from "./parallax-images";
 export * from "./popover";
 export * from "./select";
 export * from "./separator";
@@ -33,7 +31,6 @@ export * from "./skeleton";
 export * from "./spinner";
 export * from "./switch";
 export * from "./table";
-export * from "./text-morph";
 export * from "./textarea";
 export * from "./tooltip";
 
