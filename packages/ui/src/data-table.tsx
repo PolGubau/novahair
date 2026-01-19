@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 import { t } from "i18next";
 import { useState } from "react";
-import { DebouncedInput } from "./debounded-input";
+import { DebouncedInput } from "./debounced-input";
 import { IconButton } from "./icon-button";
 import { Input } from "./input";
 import {
