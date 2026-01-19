@@ -17,7 +17,9 @@ const config = defineConfig({
 				routeToken: "layout",
 			},
 		}),
-		nitro(),
+		nitro({
+			preset: "vercel",
+		}),
 		viteReact(),
 	],
 	build: {
