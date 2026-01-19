@@ -1,8 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss" source("../../packages/ui/src/**/*.{ts,tsx}");
 @import '@fontsource-variable/outfit';
-@import '@novahair/ui/theme/base.css';
-@import '@novahair/ui/theme/colors.css';
-@import '@novahair/ui/theme/animations.css';
+@import '../../../packages/ui/src/theme/base.css';
+@import '../../../packages/ui/src/theme/colors.css';
+@import '../../../packages/ui/src/theme/animations.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
