@@ -9,17 +9,20 @@ export function buildApiUrl(
 	path: string,
 	params?: Record<string, string | undefined>,
 ): string {
-	const url = new URL(`${config.baseUrl}/${config.apiVersion}/${path}`);
+	const basePath = `${config.baseUrl}/${config.apiVersion}/${path}`;
 
-	if (params) {
-		for (const [key, value] of Object.entries(params)) {
-			if (value !== undefined) {
-				url.searchParams.append(key, value);
-			}
+	if (!params || Object.keys(params).length === 0) {
+		return basePath;
+	}
+
+	const searchParams = new URLSearchParams();
+	for (const [key, value] of Object.entries(params)) {
+		if (value !== undefined) {
+			searchParams.append(key, value);
 		}
 	}
 
-	return url.toString();
+	return `${basePath}?${searchParams.toString()}`;
 }
 
 /**

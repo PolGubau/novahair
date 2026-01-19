@@ -1,18 +1,17 @@
 import {
 	type Column,
 	type ColumnDef,
+	type PaginationState,
+	type RowData,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
-	type PaginationState,
-	type RowData,
 	useReactTable,
 } from "@tanstack/react-table";
 import { t } from "i18next";
 import { useState } from "react";
-import { Button } from "./button";
 import { DebouncedInput } from "./debounded-input";
 import { IconButton } from "./icon-button";
 import { Input } from "./input";
@@ -66,8 +65,7 @@ export function DataTable<TData, TValue>({
 								const isLeafColumn = header.subHeaders.length === 0;
 								return (
 									<TableHead key={header.id}>
-										<Button
-											variant="ghost"
+										<div
 											{...{
 												className:
 													isLeafColumn && header.column.getCanSort()
@@ -92,7 +90,7 @@ export function DataTable<TData, TValue>({
 													}[header.column.getIsSorted() as string] ?? null}{" "}
 												</span>
 											)}
-										</Button>
+										</div>
 										{/* Solo mostrar filtros en columnas leaf (no en grupos) */}
 										{!header.isPlaceholder &&
 										header.column.getCanFilter() &&
@@ -194,6 +192,7 @@ export function DataTable<TData, TValue>({
 	);
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: Any data
 function Filter({ column }: { column: Column<any, unknown> }) {
 	const columnFilterValue = column.getFilterValue();
 	const { filterVariant } = column.columnDef.meta ?? {};
@@ -208,7 +207,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 					onChange={(value) =>
 						column.setFilterValue((old: [number, number]) => [value, old?.[1]])
 					}
-					placeholder={`Min`}
+					placeholder={"Min"}
 					className="w-24 border shadow rounded"
 				/>
 				<DebouncedInput
@@ -217,7 +216,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 					onChange={(value) =>
 						column.setFilterValue((old: [number, number]) => [old?.[0], value])
 					}
-					placeholder={`Max`}
+					placeholder={"Max"}
 					className="w-24 border shadow rounded"
 				/>
 			</div>
@@ -246,7 +245,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 			size="sm"
 			className="w-36 border shadow rounded"
 			onChange={(e) => column.setFilterValue(e.target.value)}
-			placeholder={`Search...`}
+			placeholder={"Search..."}
 			type="search"
 			value={(columnFilterValue ?? "") as string}
 		/>
