@@ -15,6 +15,9 @@ const config = defineConfig({
 			router: {
 				routeToken: "layout",
 			},
+			deployment: {
+				preset: "vercel-static",
+			},
 		}),
 		viteReact(),
 	],
