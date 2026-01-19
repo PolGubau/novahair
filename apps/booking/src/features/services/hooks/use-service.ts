@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { constants } from '@novahair/utils/constants";
+import { constants } from "@novahair/utils/constants";
 import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
 import { serviceRepository } from "../api/repository";
  

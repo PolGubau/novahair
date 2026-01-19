@@ -1,6 +1,6 @@
 import { genericFetch } from "~/features/appointment-form/api/api";
 import { getTenantId } from "~/shared/tenant";
-import { endpoints } from '@novahair/utils/constants";
+import { endpoints } from "@novahair/utils/constants";
 import type { Staff } from "../domain/staff";
 import type { StaffRepository } from "./repository";
 
