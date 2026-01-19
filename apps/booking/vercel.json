@@ -1,5 +1,5 @@
 {
-	"buildCommand": "cd ../.. && pnpm install && pnpm build --filter @novahair/booking",
+	"buildCommand": "cd ../.. && pnpm install && pnpm build --filter=@novahair/booking...",
 	"installCommand": "pnpm install",
 	"outputDirectory": "dist",
 	"framework": null,
