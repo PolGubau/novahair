@@ -1,6 +1,7 @@
 {
 	"buildCommand": "cd ../.. && pnpm install && pnpm build:landing",
 	"installCommand": "pnpm install",
+	"outputDirectory": "dist/client",
 	"framework": null,
 	"rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
