@@ -1,10 +1,10 @@
-import { Link } from "@tanstack/react-router";
-import type { PropsWithChildren } from "react";
-import { useTranslation } from "react-i18next";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { AppSidebar } from "@novahair/ui/layouts/admin/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@novahair/ui/sidebar";
+import { Link } from "@tanstack/react-router";
+import type { PropsWithChildren } from "react";
+import { useTranslation } from "react-i18next";
 
 export function MainLayout({ children }: PropsWithChildren) {
 	const { t } = useTranslation();
