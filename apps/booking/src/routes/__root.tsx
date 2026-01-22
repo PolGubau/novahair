@@ -14,7 +14,7 @@ import { MainLayout } from "~/app/layouts/main";
 import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { TenantGuard } from "~/shared/tenant";
-import appCss from "../styles.css?url";
+import "../styles.css";
 import "../shared/i18n/setup";
 
 interface MyRouterContext {
@@ -91,16 +91,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			{
 				name: "robots",
 				content: "index, follow",
-			},
-		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-			{
-				rel: "icon",
-				href: "/favicon.svg",
 			},
 		],
 	}),
