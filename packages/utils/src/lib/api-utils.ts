@@ -9,10 +9,10 @@ export function buildApiUrl(
 	path: string,
 	params?: Record<string, string | undefined>,
 ): string {
-	const basePath = `${config.baseUrl}/${config.apiVersion}/${path}`;
+	const fullPath = `${basePath}/${path}`;
 
 	if (!params || Object.keys(params).length === 0) {
-		return basePath;
+		return fullPath;
 	}
 
 	const searchParams = new URLSearchParams();
@@ -22,7 +22,7 @@ export function buildApiUrl(
 		}
 	}
 
-	return `${basePath}?${searchParams.toString()}`;
+	return `${fullPath}?${searchParams.toString()}`;
 }
 
 /**
@@ -32,5 +32,8 @@ export function buildTenantUrl(
 	resource: string,
 	params?: Record<string, string | undefined>,
 ): string {
-	return buildApiUrl(`tenants/${config.tenantId}/${resource}`, params);
+	return buildApiUrl(`${tenantPath}/${resource}`, params);
 }
+
+export const tenantPath = `tenants/${config.tenantId}`;
+export const basePath = `${config.baseUrl}/${config.apiVersion}`;

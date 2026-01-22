@@ -1,4 +1,4 @@
-import { buildApiUrl, buildTenantUrl } from "@novahair/utils/lib/api-utils";
+import { buildApiUrl, tenantPath } from "@novahair/utils/lib/api-utils";
 import { genericFetch } from "@novahair/utils/lib/generic-fetch";
 import type { AbstractRepository } from "@novahair/utils/types/common";
 import type { Staff, StaffCreateDto } from "../domain/staff";
@@ -7,7 +7,7 @@ export type StaffRepository = AbstractRepository<Staff, StaffCreateDto>;
 
 export const staffRepository: StaffRepository = {
 	list: async () => {
-		return genericFetch<Staff[]>(buildTenantUrl("staff"));
+		return genericFetch<Staff[]>(buildApiUrl(`staff/${tenantPath}`));
 	},
 
 	get: async (id) => {

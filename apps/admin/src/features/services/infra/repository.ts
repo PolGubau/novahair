@@ -1,4 +1,4 @@
-import { buildApiUrl, buildTenantUrl } from "@novahair/utils/lib/api-utils";
+import { buildApiUrl, buildTenantUrl, tenantPath } from "@novahair/utils/lib/api-utils";
 import { genericFetch } from "@novahair/utils/lib/generic-fetch";
 import type { Service } from "../../services/domain/service";
 import type { ServiceCreateDTO } from "../domain/service.create.dto";
@@ -13,11 +13,11 @@ export type ServiceRepository = {
 
 export const serviceRepository: ServiceRepository = {
 	list: async () => {
-		return genericFetch<Service[]>(buildTenantUrl("services"));
+		return genericFetch<Service[]>(buildApiUrl(`services/${tenantPath}`));
 	},
 
 	get: async (id) => {
-		return genericFetch<Service>(buildTenantUrl(`services/${id}`));
+		return genericFetch<Service>(buildApiUrl(`services/${id}`));
 	},
 
 	create: async (payload) => {
