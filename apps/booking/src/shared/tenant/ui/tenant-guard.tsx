@@ -21,15 +21,15 @@ export function TenantGuard({ children }: TenantGuardProps) {
 		tenantId,
 	});
 
-	// Set localStorage if tenant is in URL and not already stored
+	// Set localStorage if tenant is in URL and different from stored
 	useEffect(() => {
 		if (
 			search.tenant &&
 			typeof window !== "undefined" &&
-			!localStorage.getItem("tenantId")
+			localStorage.getItem("tenantId") !== search.tenant
 		) {
 			console.log(
-				"Setting tenantId in localStorage from TenantGuard:",
+				"Updating tenantId in localStorage from TenantGuard:",
 				search.tenant,
 			);
 			localStorage.setItem("tenantId", search.tenant);
