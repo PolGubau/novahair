@@ -1,6 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
@@ -15,10 +16,8 @@ const config = defineConfig({
 			router: {
 				routeToken: "layout",
 			},
-			deployment: {
-				preset: "vercel-static",
-			},
 		}),
+		nitro(),
 		viteReact(),
 	],
 	build: {
@@ -27,7 +26,7 @@ const config = defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://api.gerardmartinez.es",
+				target: "https://api.gerardmartinez.es/api",
 				changeOrigin: true,
 				secure: false,
 				configure: (proxy, options) => {

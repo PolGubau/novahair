@@ -1,10 +1,11 @@
 /// <reference types="vite/client" />
 
+import { Devtools } from "@novahair/ui/dev-tools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
-	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
+	createRootRouteWithContext,
 } from "@tanstack/react-router";
 import ReactLenis from "lenis/react";
 import { useTranslation } from "react-i18next";
@@ -12,9 +13,9 @@ import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
-import { Devtools } from "@novahair/ui/dev-tools";
- import appCss from "../styles.css?url";
 import { TenantGuard } from "~/shared/tenant";
+import appCss from "../styles.css?url";
+import "../shared/i18n/setup";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -128,7 +129,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					<TenantGuard>
 						<MainLayout>{children}</MainLayout>
 					</TenantGuard>
- 				</ReactLenis>
+				</ReactLenis>
 				<Devtools />
 				<Scripts />
 			</body>

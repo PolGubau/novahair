@@ -1,8 +1,8 @@
+import { labelClasses } from "@novahair/ui/label";
+import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { t } from "i18next";
 import { useSlots } from "~/features/appointments/hooks/use-slots";
 import { Route } from "~/routes/$serviceId";
-import { labelClasses } from "@novahair/ui/label";
-import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import type { Slot } from "../../../domain/slot";
 import { SlotList } from "./list";
 import { SlotListSkeleton } from "./list-skeleton";

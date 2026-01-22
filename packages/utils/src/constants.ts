@@ -14,10 +14,7 @@ if (!env.isDev && !env.baseUrl) {
 }
 
 export const config = {
-	baseUrl:
-		env.isDev && !env.isSSR
-			? "/api"
-			: env.baseUrl || "https://api.gerardmartinez.es",
+	baseUrl: env.baseUrl,
 	tenantId: env.tenantId as string,
 	apiVersion: "v1",
 } as const;
@@ -25,9 +22,9 @@ export const config = {
 /**
  * Base path for API requests
  * @example "/api/v1" in development
- * @example "https://api.gerardmartinez.es/v1" in production
+ * @example "https://api.gerardmartinez.es/api/v1" in production
  */
-export const basePath = `${config.baseUrl}/${config.apiVersion}`;
+export const basePath = `${config.baseUrl}/api/${config.apiVersion}`;
 
 // API Endpoints builders
 export const endpoints = {
