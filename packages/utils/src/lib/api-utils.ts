@@ -35,5 +35,5 @@ export function buildTenantUrl(
 	return buildApiUrl(`${tenantPath}/${resource}`, params);
 }
 
-export const tenantPath = `tenants/${config.tenantId}`;
+export const tenantPath = `tenant/${config.tenantId}`;
 export const basePath = `${config.baseUrl}/${config.apiVersion}`;
