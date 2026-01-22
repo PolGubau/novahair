@@ -6,6 +6,7 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
+import "../shared/i18n/setup";
 import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import { Devtools } from "@novahair/ui/dev-tools";
