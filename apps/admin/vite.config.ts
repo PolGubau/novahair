@@ -26,7 +26,7 @@ const config = defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://api.gerardmartinez.es/api",
+				target: "https://api.gerardmartinez.es",
 				changeOrigin: true,
 				secure: false,
 				configure: (proxy, options) => {
