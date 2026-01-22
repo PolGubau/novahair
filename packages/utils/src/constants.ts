@@ -14,7 +14,7 @@ if (!env.isDev && !env.baseUrl) {
 }
 
 export const config = {
-	baseUrl: env.isDev ? "/server" : env.baseUrl,
+	baseUrl: env.isDev ? "/api" : env.baseUrl,
 	tenantId: env.tenantId as string,
 	apiVersion: "v1",
 } as const;
