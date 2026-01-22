@@ -1,14 +1,14 @@
-import type { ColumnDef } from "@tanstack/react-table";
-import { t } from "i18next";
-import { ArrowUpDown, Edit2, Trash } from "lucide-react";
-import i18n from "@novahair/utils/i18n/setup";
+import type { Service } from "@novahair/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import type { Service } from "../../domain/service";
+import i18n from "@novahair/utils/i18n/setup";
+import type { ColumnDef } from "@tanstack/react-table";
+import { t } from "i18next";
+import { ArrowUpDown, Edit2, Trash } from "lucide-react";
 
 export const getColumns = (options?: {
 	onEdit?: (s: Service) => void;

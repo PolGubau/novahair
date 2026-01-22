@@ -1,4 +1,4 @@
-import type { Staff } from "~/features/staff/domain/staff";
+import type { Staff } from "@novahair/client";
 
 export interface Slot {
 	staff: Staff[];

@@ -7,7 +7,7 @@ import { DataTable } from "@novahair/ui/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import type { Staff } from "../domain/staff";
+import type { Staff } from "@novahair/client";
 import { ServicesAssignedCell } from "./services-assigned-cell";
 
 export const getColumns = (options?: {

@@ -1,7 +1,7 @@
 import { buildApiUrl, tenantPath } from "@novahair/utils/lib/api-utils";
 import { genericFetch } from "@novahair/utils/lib/generic-fetch";
 import type { AbstractRepository } from "@novahair/utils/types/common";
-import type { Staff, StaffCreateDto } from "@novahair/client";
+import type { Staff, StaffCreateDto } from "../domain/staff";
 
 export type StaffRepository = AbstractRepository<Staff, StaffCreateDto>;
 

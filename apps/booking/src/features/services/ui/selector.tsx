@@ -1,7 +1,7 @@
-import { t } from "i18next";
+import { useServices } from "@novahair/client";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
- import { ServiceList, ServiceListSkeleton } from "./list/list";
-import { useServices } from "../hooks/use-services";
+import { t } from "i18next";
+import { ServiceList, ServiceListSkeleton } from "./list/list";
 
 export const ServiceSelector = () => {
 	const { isLoading, error, services, refetch } = useServices();

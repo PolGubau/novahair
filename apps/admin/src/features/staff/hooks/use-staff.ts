@@ -1,6 +1,6 @@
 import { config } from "@novahair/utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { StaffCreate } from "../domain/staff";
+import type { StaffCreate } from "@novahair/client";
 import { staffRepository } from "../infra/repository";
 
 export const useStaff = () => {

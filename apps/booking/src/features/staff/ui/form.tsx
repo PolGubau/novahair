@@ -1,10 +1,9 @@
-import { t } from "i18next";
-import { useEffect, useState } from "react";
+import { type Staff, type StaffCreate, useStaff } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
-import type { Staff, StaffCreate } from "../domain/staff";
-import { useStaff } from "../hooks/use-staff";
- 
+import { t } from "i18next";
+import { useEffect, useState } from "react";
+
 export const StaffForm = ({
 	staff,
 	onClose,

@@ -9,7 +9,7 @@ import { DataTable } from "@novahair/ui/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import type { Service } from "../../domain/service";
+import type { Service } from "@novahair/client";
 
 export const getColumns = (options?: {
 	onEdit?: (s: Service) => void;

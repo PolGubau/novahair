@@ -1,4 +1,4 @@
-import type { Service } from "../../domain/service";
+import type { Service } from "@novahair/client";
 import { ServiceItem } from "./item";
 import { ServiceItemSkeleton } from "./item-skeleton";
 

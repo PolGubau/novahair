@@ -28,10 +28,7 @@ const rootSearchSchema = z.object({
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	validateSearch: rootSearchSchema,
-	beforeLoad: ({ search }) => {
-		// Tenant is now handled in TenantGuard
-		console.log("beforeLoad search:", search);
-	},
+
 	head: () => ({
 		meta: [
 			{

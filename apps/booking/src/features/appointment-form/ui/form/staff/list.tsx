@@ -1,9 +1,9 @@
+import type { Staff } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { labelClasses } from "@novahair/ui/label";
 import Avatar from "boring-avatars";
 import { t } from "i18next";
 import { ArrowUp } from "lucide-react";
-import type { Staff } from "~/features/staff/domain/staff";
 
 type Props = {
 	staffs: Staff[];

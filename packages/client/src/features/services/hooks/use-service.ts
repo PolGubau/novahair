@@ -1,7 +1,7 @@
+import type { EditableServiceCreateDTO } from "@novahair/client";
 import { config } from "@novahair/utils/constants";
 import { useRepositoryMutation } from "@novahair/utils/hooks/use-repository-mutation";
 import { queryKeys } from "@novahair/utils/lib/query-keys";
-import type { EditableServiceCreateDTO } from "@novahair/client";
 import { serviceRepository } from "../infra/repository";
 
 // Helper para convertir payload editable a DTO completo

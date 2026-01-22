@@ -1,8 +1,8 @@
+import type { Service } from "@novahair/client";
+import { Button } from "@novahair/ui/button";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ChevronRight } from "lucide-react";
-import { Button } from "@novahair/ui/button";
-import type { Service } from "../../domain/service";
 
 type Props = {
 	service: Service;

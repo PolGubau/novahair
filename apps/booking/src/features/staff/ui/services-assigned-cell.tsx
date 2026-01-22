@@ -1,9 +1,9 @@
-import { Edit2 } from "lucide-react";
-import { useState } from "react";
-import { useServices } from "~/features/services/hooks/use-services";
+import { useServices } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { CheckboxChip } from "@novahair/ui/checkbox/chip";
 import { Popover } from "@novahair/ui/popover";
+import { Edit2 } from "lucide-react";
+import { useState } from "react";
 
 type ServicesAssignedCellProps = {
 	assignedServiceIds: string[];

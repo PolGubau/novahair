@@ -12,6 +12,7 @@
 		}
 	},
 	"scripts": {
+		"build": "tsc",
 		"lint": "biome lint",
 		"format": "biome format",
 		"check": "biome check --write",
@@ -31,6 +32,7 @@
 		"vitest": "^3.2.4"
 	},
 	"dependencies": {
+		"@novahair/utils": "workspace:*",
 		"@tanstack/react-query": "^5.90.19"
 	}
 }

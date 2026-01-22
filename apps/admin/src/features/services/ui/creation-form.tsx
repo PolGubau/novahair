@@ -4,8 +4,7 @@ import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
-import type { Service } from "../domain/service";
-import type { EditableServiceCreateDTO } from "../domain/service.create.dto";
+import type { Service, EditableServiceCreateDTO } from "@novahair/client";
 import { useService } from "../hooks/use-service";
 
 export const ServiceCreationForm = ({

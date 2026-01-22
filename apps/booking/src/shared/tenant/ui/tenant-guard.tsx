@@ -1,4 +1,4 @@
-import { useSearch } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { TenantError } from "./tenant-error";
@@ -8,7 +8,8 @@ interface TenantGuardProps {
 }
 
 export function TenantGuard({ children }: TenantGuardProps) {
-	const search = useSearch({ from: "__root__" });
+	const routerState = useRouterState();
+	const search = routerState.location.search as { tenant?: string };
 	// Check URL param first, then localStorage
 	const tenantId =
 		search.tenant ||

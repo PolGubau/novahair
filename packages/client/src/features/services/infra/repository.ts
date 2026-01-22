@@ -1,6 +1,7 @@
 import { buildApiUrl, tenantPath } from "@novahair/utils/lib/api-utils";
 import { genericFetch } from "@novahair/utils/lib/generic-fetch";
-import type { Service, ServiceCreateDTO } from "@novahair/client";
+import type { Service } from "../domain/service";
+import type { ServiceCreateDTO } from "../domain/service.create.dto";
 
 export type ServiceRepository = {
 	list: () => Promise<Service[]>;

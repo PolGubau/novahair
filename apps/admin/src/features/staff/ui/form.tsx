@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
-import type { Staff, StaffCreate } from "../domain/staff";
+import type { Staff, StaffCreate } from "@novahair/client";
 import { useStaff } from "../hooks/use-staff";
 
 export const StaffForm = ({
