@@ -1,4 +1,4 @@
-import { config } from "../constants";
+import { basePath, config } from "../constants";
 
 /**
  * Construye una URL completa para el API
@@ -36,4 +36,3 @@ export function buildTenantUrl(
 }
 
 export const tenantPath = `tenants/${config.tenantId}`;
-export const basePath = `${config.baseUrl}/${config.apiVersion}`;

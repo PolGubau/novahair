@@ -48,7 +48,6 @@ const data: SidebarMenuConfig = {
 	user: {
 		name: "Admin",
 		email: "Site Administrator",
-		avatar: "/avatars/shadcn.jpg",
 	},
 	teams: [
 		{

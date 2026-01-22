@@ -14,20 +14,30 @@ if (!env.isDev && !env.baseUrl) {
 }
 
 export const config = {
-	baseUrl: env.isDev ? "/api" : env.baseUrl,
+	baseUrl:
+		env.isDev && !env.isSSR
+			? "/api"
+			: env.baseUrl || "https://api.gerardmartinez.es",
 	tenantId: env.tenantId as string,
 	apiVersion: "v1",
 } as const;
 
+/**
+ * Base path for API requests
+ * @example "/api/v1" in development
+ * @example "https://api.gerardmartinez.es/v1" in production
+ */
+export const basePath = `${config.baseUrl}/${config.apiVersion}`;
+
 // API Endpoints builders
 export const endpoints = {
 	// Services
-	getServices: `${config.baseUrl}/services`,
-	services: `${config.baseUrl}/services`,
+	getServices: `${basePath}/services`,
+	services: `${basePath}/services`,
 
 	// Staff
-	listStaffs: `${config.baseUrl}/staff`,
-	staff: `${config.baseUrl}/staff`,
+	listStaffs: `${basePath}/staff`,
+	staff: `${basePath}/staff`,
 
 	// Available days and slots
 	getAvailableDays: (props: {
@@ -42,7 +52,7 @@ export const endpoints = {
 			...(props.from && { from: props.from }),
 			...(props.to && { to: props.to }),
 		});
-		return `${config.baseUrl}/available-days?${params.toString()}`;
+		return `${basePath}/available-days?${params.toString()}`;
 	},
 
 	getSlots: (props: { serviceId: string; staffId?: string; from: string }) => {
@@ -51,17 +61,17 @@ export const endpoints = {
 			from: props.from,
 			...(props.staffId && { staffId: props.staffId }),
 		});
-		return `${config.baseUrl}/slots?${params.toString()}`;
+		return `${basePath}/slots?${params.toString()}`;
 	},
 
 	// Appointments
-	bookAppointment: `${config.baseUrl}/appointments`,
+	bookAppointment: `${basePath}/appointments`,
 
 	listAppointments: (props: { from: string; to: string }) => {
 		const params = new URLSearchParams({
 			from: props.from,
 			to: props.to,
 		});
-		return `${config.baseUrl}/appointments?${params.toString()}`;
+		return `${basePath}/appointments?${params.toString()}`;
 	},
 } as const;
