@@ -1,4 +1,8 @@
-import { buildApiUrl, buildTenantUrl, tenantPath } from "@novahair/utils/lib/api-utils";
+import {
+	buildApiUrl,
+	buildTenantUrl,
+	tenantPath,
+} from "@novahair/utils/lib/api-utils";
 import { genericFetch } from "@novahair/utils/lib/generic-fetch";
 import type { Service } from "../../services/domain/service";
 import type { ServiceCreateDTO } from "../domain/service.create.dto";
