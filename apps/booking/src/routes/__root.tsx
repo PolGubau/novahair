@@ -29,10 +29,8 @@ const rootSearchSchema = z.object({
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	validateSearch: rootSearchSchema,
 	beforeLoad: ({ search }) => {
-		// If tenant is in URL, save it to localStorage for the session
-		if (search.tenant && typeof window !== "undefined") {
-			localStorage.setItem("tenantId", search.tenant);
-		}
+		// Tenant is now handled in TenantGuard
+		console.log("beforeLoad search:", search);
 	},
 	head: () => ({
 		meta: [

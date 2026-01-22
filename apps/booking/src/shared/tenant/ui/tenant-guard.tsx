@@ -1,4 +1,6 @@
+import { useSearch } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 import { TenantError } from "./tenant-error";
 
 interface TenantGuardProps {
@@ -6,11 +8,34 @@ interface TenantGuardProps {
 }
 
 export function TenantGuard({ children }: TenantGuardProps) {
-	// Check localStorage (set by beforeLoad when URL had tenant param)
-	const storedTenantId =
-		typeof window !== "undefined" ? localStorage.getItem("tenantId") : null;
+	const search = useSearch({ from: "__root__" });
+	// Check URL param first, then localStorage
+	const tenantId =
+		search.tenant ||
+		(typeof window !== "undefined" ? localStorage.getItem("tenantId") : null);
+	console.log("TenantGuard:", {
+		searchTenant: search.tenant,
+		localStorageTenant:
+			typeof window !== "undefined" ? localStorage.getItem("tenantId") : null,
+		tenantId,
+	});
 
-	if (!storedTenantId) {
+	// Set localStorage if tenant is in URL and not already stored
+	useEffect(() => {
+		if (
+			search.tenant &&
+			typeof window !== "undefined" &&
+			!localStorage.getItem("tenantId")
+		) {
+			console.log(
+				"Setting tenantId in localStorage from TenantGuard:",
+				search.tenant,
+			);
+			localStorage.setItem("tenantId", search.tenant);
+		}
+	}, [search.tenant]);
+
+	if (!tenantId) {
 		return <TenantError />;
 	}
 
