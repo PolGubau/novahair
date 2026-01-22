@@ -1,3 +1,4 @@
+import { config } from "../constants";
 import { ApiError } from "./api-error";
 
 export async function genericFetch<ResponseType>(
@@ -5,7 +6,14 @@ export async function genericFetch<ResponseType>(
 	options?: RequestInit,
 ): Promise<ResponseType> {
 	try {
-		const response = await fetch(url, options);
+		const defaultOptions: RequestInit = {
+			headers: {
+				"X-Tenant-ID": config.tenantId,
+				...options?.headers,
+			},
+			...options,
+		};
+		const response = await fetch(url, defaultOptions);
 
 		if (!response.ok) {
 			const errorText = await response.text().catch(() => "");
