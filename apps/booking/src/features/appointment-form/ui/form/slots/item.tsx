@@ -1,8 +1,8 @@
-import type { Slot } from "~/features/appointment-form/domain/slot";
+import type { AvailabilitySlot } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 
 type Props = {
-	slot: Slot;
+	slot: AvailabilitySlot;
 	isSelected: boolean;
 	onSelect: () => void;
 };

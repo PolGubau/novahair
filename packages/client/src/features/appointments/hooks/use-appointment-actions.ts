@@ -11,9 +11,6 @@ export const useAppointmentActions = (tenantId: string) => {
 	const create = useMutation({
 		mutationFn: (data: CreateAppointmentDto) =>
 			appointmentsRepository.create(tenantId, data),
-		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["appointments", tenantId] });
-		},
 	});
 
 	const updateStatus = useMutation({

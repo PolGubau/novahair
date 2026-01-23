@@ -1,3 +1,4 @@
+import type { ISODate } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 import type { AvailabilityDay } from "../domain/day";
 import { availabilityRepository } from "../infra/repository";
@@ -5,8 +6,8 @@ import { availabilityRepository } from "../infra/repository";
 type Props = {
 	tenantId: string;
 	serviceId: string;
-	from: string;
-	to: string;
+	from: ISODate;
+	to: ISODate;
 };
 type Response = {
 	isLoading: boolean;

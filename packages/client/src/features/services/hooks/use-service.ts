@@ -1,43 +1,19 @@
-import type { EditableServiceCreateDTO } from "@novahair/client";
-import { config } from "@novahair/utils/constants";
-import { useRepositoryMutation } from "@novahair/utils/hooks/use-repository-mutation";
-import { queryKeys } from "@novahair/utils/lib/query-keys";
+import { useQuery } from "@tanstack/react-query";
+import type { Service } from "../domain/service";
 import { serviceRepository } from "../infra/repository";
 
-// Helper para convertir payload editable a DTO completo
-const toServiceDTO = (payload: EditableServiceCreateDTO) => ({
-	name: payload.name,
-	imageUrl: payload.imageUrl,
-	description: payload.description,
-	priceCents: payload.priceCents,
-	durationMin: payload.durationMin,
-	bufferBefore: payload.bufferBefore ?? 0,
-	bufferAfter: payload.bufferAfter ?? 0,
-	active: true,
-	tenantId: config.tenantId,
-});
+/**
+ * Hook to fetch a single service by ID
+ * @param id - The ID of the service
+ * @returns Object containing loading state, error, service data, and refetch function
+ */
+export const useService = (id: Service["id"]) => {
+	const { isLoading, error, data, refetch } = useQuery({
+		queryKey: ["service", id],
+		staleTime: 1000 * 60 * 30, // 30 minutes
+		queryFn: () => serviceRepository.get(id),
+		enabled: !!id,
+	});
 
-export const useService = () => {
-	const create = useRepositoryMutation(
-		(payload: EditableServiceCreateDTO) =>
-			serviceRepository.create(toServiceDTO(payload)),
-		queryKeys.services.all,
-	);
-
-	const update = useRepositoryMutation(
-		({ id, payload }: { id: string; payload: EditableServiceCreateDTO }) =>
-			serviceRepository.update(id, toServiceDTO(payload)),
-		queryKeys.services.all,
-	);
-
-	const remove = useRepositoryMutation(
-		(id: string) => serviceRepository.delete(id),
-		queryKeys.services.all,
-	);
-
-	return {
-		create,
-		update,
-		remove,
-	};
+	return { isLoading, error, service: data, refetch };
 };

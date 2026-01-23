@@ -1,16 +1,16 @@
+import type { AvailabilitySlot } from "@novahair/client";
+import { Button } from "@novahair/ui/button";
+import { Input } from "@novahair/ui/input";
+import { Textarea } from "@novahair/ui/textarea";
 import { t } from "i18next";
 import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useSubmitAppointment } from "~/features/appointment-form/hooks/use-submit-appointment";
 import { Route } from "~/routes/$serviceId";
-import { Button } from "@novahair/ui/button";
-import { Input } from "@novahair/ui/input";
-import { Textarea } from "@novahair/ui/textarea";
-import type { Slot } from "../../domain/slot";
- import { ErrorMessage } from "./error-message";
+import { useFormValues } from "../../hooks/use-form-values";
+import { ErrorMessage } from "./error-message";
 import { SlotChooser } from "./slots/slot-chooser";
 import { StaffSelector } from "./staff/list";
-import { useFormValues } from "../../hooks/use-form-values";
 
 type AppointmentFormProps = {
 	date: Date;
@@ -27,10 +27,9 @@ export type FormValue = {
 export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
-	const defaultStaffId = "7ff1d62e-7188-4e93-b7c6-ac7ca9cc7d25";
-	const [chosenSlot, setChosenSlot] = useState<Slot | null>(null);
+	const [chosenSlot, setChosenSlot] = useState<AvailabilitySlot | null>(null);
 
-	const [staffId, setStaffId] = useState<string | undefined>(defaultStaffId);
+	const [staffId, setStaffId] = useState<string | null>(null);
 	const formRef = useRef<HTMLFormElement | null>(null);
 
 	const serviceId = Route.useParams().serviceId;
@@ -57,7 +56,7 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 					return;
 				}
 
-				handleSubmit(e, chosenSlot.start, chosenSlot.end);
+				handleSubmit(e, chosenSlot.start);
 			}}
 		>
 			<section className="flex flex-col px-4 md:px-8 gap-4">

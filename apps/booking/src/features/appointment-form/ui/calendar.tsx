@@ -1,13 +1,13 @@
+import type { AvailabilityDay } from "@novahair/client";
 import { generateCalendarMatrix } from "@novahair/utils/lib/calendar";
 import { cn } from "@novahair/utils/lib/cn";
 import { getWeekdayNames } from "@novahair/utils/lib/get-weekday-names";
-import type { AvailableDay } from "../domain/available-day";
 
 function getOnlyDate(date: Date) {
 	return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
-function isThisDayAvailable(date: Date, availableDays: AvailableDay[]) {
+function isThisDayAvailable(date: Date, availableDays: AvailabilityDay[]) {
 	// 1. search that day in availableDays
 	// 2. check the isAvailable property
 	const targetDate = getOnlyDate(date);
@@ -21,7 +21,7 @@ type CalendarProps = {
 	month: number;
 	year: number;
 	onSelectDate: (date: Date) => void;
-	availableDays: AvailableDay[];
+	availableDays: AvailabilityDay[];
 };
 export const Calendar = ({
 	onSelectDate,

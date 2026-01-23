@@ -1,30 +1,49 @@
-import type { AbstractRepository } from "@novahair/utils";
-import { config } from "@novahair/utils/constants";
-import { client } from "../../../api";
+import { buildApiUrl, genericFetch } from "@novahair/utils";
+import { toService } from "../../..";
+import type { ServiceDto } from "../../../types";
 import type { Service } from "../domain/service";
 import type { ServiceCreateDTO } from "../domain/service.create.dto";
 
-export type ServiceRepository = AbstractRepository<Service, ServiceCreateDTO>;
+export type ServiceRepository = {
+	list: (tenantId: string) => Promise<Service[]>;
+	get: (id: string) => Promise<Service>;
+	create: (data: ServiceCreateDTO) => Promise<Service>;
+	update: (id: string, data: ServiceCreateDTO) => Promise<Service>;
+	delete: (id: string) => Promise<void>;
+};
 
 export const serviceRepository: ServiceRepository = {
-	list: async () => {
-		return client.services.list(config.tenantId);
+	list: async (tenantId) => {
+		const dto = await genericFetch<ServiceDto[]>(
+			buildApiUrl(`services/tenants/${tenantId}`),
+		);
+		return dto.map(toService);
 	},
 
 	get: async (id) => {
-		return client.services.get(id);
+		const dto = await genericFetch<ServiceDto>(buildApiUrl(`services/${id}`));
+		return toService(dto);
 	},
 
-	create: async (payload) => {
-		return client.services.create(payload);
+	create: async (data) => {
+		const dto = await genericFetch<ServiceDto>(buildApiUrl("services"), {
+			method: "POST",
+			body: JSON.stringify(data),
+		});
+		return toService(dto);
 	},
 
-	update: async (id, payload) => {
-		await client.services.update(id, payload);
-		return client.services.get(id); // Re-fetch
+	update: async (id, data) => {
+		const dto = await genericFetch<ServiceDto>(buildApiUrl(`services/${id}`), {
+			method: "PUT",
+			body: JSON.stringify(data),
+		});
+		return toService(dto);
 	},
 
 	delete: async (id) => {
-		await client.services.delete(id);
+		await genericFetch(buildApiUrl(`services/${id}`), {
+			method: "DELETE",
+		});
 	},
 };

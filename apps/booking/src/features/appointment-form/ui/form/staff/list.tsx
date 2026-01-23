@@ -7,8 +7,8 @@ import { ArrowUp } from "lucide-react";
 
 type Props = {
 	staffs: Staff[];
-	selectedStaffId?: string;
-	onSelectStaff?: (staffId: string) => void;
+	selectedStaffId: string | null;
+	onSelectStaff: (staffId: string) => void;
 };
 export const StaffSelector = ({
 	staffs,
@@ -28,7 +28,7 @@ export const StaffSelector = ({
 					staffs.map((staff) => {
 						const isSelected = selectedStaffId === staff.id;
 						function handleSelect() {
-							onSelectStaff?.(staff.id);
+							onSelectStaff(staff.id);
 						}
 
 						return (

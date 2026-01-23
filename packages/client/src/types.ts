@@ -1,5 +1,6 @@
 // Auto-generated DTOs from BACKEND.json
 
+import type { ISODate } from "@novahair/utils";
 import type { Staff } from "./features/staff";
 
 export type TenantDto = {
@@ -22,7 +23,9 @@ export type ServiceDto = {
 	id: string;
 	tenantId: string;
 	name: string;
+	description: string | null;
 	durationMin: number;
+	imageUrl: string | null;
 	priceCents: number;
 	bufferBefore: number;
 	bufferAfter: number;
@@ -43,13 +46,13 @@ export type AppointmentStatusDto =
 
 export type AppointmentDto = {
 	id: string;
-	tenantId: string;
-	serviceId: string;
-	staffId: string;
+	staff: StaffDto;
 	customer: CustomerDto;
-	startsAt: string;
+	notes: string | null;
+	service: ServiceDto;
+	startAt: ISODate;
+	endsAt: ISODate;
 	status: AppointmentStatusDto;
-	notes: string;
 };
 
 export type WorkingHoursDto = {
@@ -67,8 +70,8 @@ export type ScheduleDto = {
 
 export type AvailabilitySlotDto = {
 	staff: Staff[];
-	start: string;
-	end: string;
+	start: ISODate;
+	end: ISODate;
 	startLocal: string;
 	endLocal: string;
 };
@@ -92,18 +95,8 @@ export type CreateStaffDto = {
 
 export type UpdateStaffDto = CreateStaffDto;
 
-export type CreateServiceDto = {
-	tenantId: string;
-	name: string;
-	durationMin: number;
-	priceCents: number;
-	bufferBefore: number;
-	bufferAfter: number;
-};
-
-export type UpdateServiceDto = CreateServiceDto;
-
 export type CreateAppointmentDto = {
+	tenantId: string;
 	serviceId: string;
 	staffId: string | null;
 	customer: {
@@ -111,7 +104,7 @@ export type CreateAppointmentDto = {
 		email: string;
 		phone: string;
 	};
-	startsAt: string;
+	startAt: string;
 	notes: string;
 };
 

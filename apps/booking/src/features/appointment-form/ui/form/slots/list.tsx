@@ -1,10 +1,10 @@
-import type { Slot } from "~/features/appointment-form/domain/slot";
+import type { AvailabilitySlot } from "@novahair/client";
 import { SlotItem } from "./item";
 
 type Props = {
-	slots: Slot[];
-	selectedSlot: Slot | null;
-	onChange: (slot: Slot) => void;
+	slots: AvailabilitySlot[];
+	selectedSlot: AvailabilitySlot | null;
+	onChange: (slot: AvailabilitySlot) => void;
 };
 export const SlotList = ({ slots, selectedSlot, onChange }: Props) => {
 	return (

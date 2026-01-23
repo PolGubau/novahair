@@ -1,10 +1,11 @@
 import { useServices } from "@novahair/client";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
+import { config } from "@novahair/utils";
 import { t } from "i18next";
 import { ServiceList, ServiceListSkeleton } from "./list/list";
 
 export const ServiceSelector = () => {
-	const { isLoading, error, services, refetch } = useServices();
+	const { isLoading, error, services, refetch } = useServices(config.tenantId);
 
 	if (error) {
 		return <ApiErrorFallback error={error} reset={() => refetch()} />;

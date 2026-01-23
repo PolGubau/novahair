@@ -11,7 +11,7 @@ export type AvailabilityRepository = {
 	) => Promise<AvailabilitySlot[]>;
 	getDays: (
 		tenantId: string,
-		params: { serviceId: string; staffId?: string; from: string; to: string },
+		params: { serviceId: string; staffId?: string; from: ISODate; to: ISODate },
 	) => Promise<AvailabilityDay[]>;
 };
 

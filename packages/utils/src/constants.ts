@@ -16,10 +16,6 @@ if (!env.isDev && !env.baseUrl) {
 export const config = {
 	baseUrl: env.baseUrl,
 	get tenantId(): string {
-		if (typeof window !== "undefined") {
-			const stored = localStorage.getItem("tenantId");
-			if (stored) return stored;
-		}
 		return env.tenantId as string;
 	},
 	apiVersion: "v1",

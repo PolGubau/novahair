@@ -1,8 +1,12 @@
+import { type ISODate, toISODate } from "@novahair/utils";
+
 type MonthBoundaries = {
 	/** First day of the month (UTC) */
 	start: Date;
 	/** Last day of the month (UTC) */
 	end: Date;
+	startIso: ISODate;
+	endIso: ISODate;
 };
 
 /**
@@ -23,5 +27,7 @@ export const getMonthBoundaries = (date: Date): MonthBoundaries => {
 	// Start of next month in UTC minus 1 ms
 	const end = new Date(Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1);
 
-	return { start, end };
+	const startIso = toISODate(start);
+	const endIso = toISODate(end);
+	return { start, end, startIso, endIso };
 };

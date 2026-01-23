@@ -7,7 +7,6 @@ export interface ServiceCreateDTO {
 	priceCents: number;
 	bufferBefore: number;
 	bufferAfter: number;
-	active: boolean;
 }
 
 export interface EditableServiceCreateDTO

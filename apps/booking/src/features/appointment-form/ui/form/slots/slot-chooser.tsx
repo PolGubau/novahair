@@ -1,17 +1,17 @@
+import { type AvailabilitySlot, useSlots } from "@novahair/client";
 import { labelClasses } from "@novahair/ui/label";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { config } from "@novahair/utils";
 import { t } from "i18next";
-import { useSlots } from "~/features/appointments/hooks/use-slots";
 import { Route } from "~/routes/$serviceId";
-import type { Slot } from "../../../domain/slot";
 import { SlotList } from "./list";
 import { SlotListSkeleton } from "./list-skeleton";
 
 type SlotChooserProps = {
 	date: Date;
-	staffId?: string;
-	selectedSlot: Slot | null;
-	onChange: (slot: Slot) => void;
+	staffId: string | null;
+	selectedSlot: AvailabilitySlot | null;
+	onChange: (slot: AvailabilitySlot) => void;
 };
 export const SlotChooser = ({
 	date,
@@ -20,11 +20,12 @@ export const SlotChooser = ({
 	onChange,
 }: SlotChooserProps) => {
 	const serviceId = Route.useParams().serviceId;
-
+	const tenantId = config.tenantId;
 	const { isLoading, error, slots } = useSlots({
 		serviceId,
+		tenantId,
 		date,
-		staffId,
+		staffId: staffId || undefined,
 	});
 	return (
 		<div className="flex flex-col gap-1">

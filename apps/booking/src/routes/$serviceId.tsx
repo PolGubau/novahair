@@ -3,12 +3,13 @@ import confetti from "canvas-confetti";
 import { t } from "i18next";
 import { useState } from "react";
 import { z } from "zod";
-import { useAvailableDays } from "~/features/appointment-form/hooks/use-available-days";
 import { useCalendarTimes } from "~/features/appointment-form/hooks/use-calendar-times";
 import { useFormValues } from "~/features/appointment-form/hooks/use-form-values";
 
+import { useAvailableDays } from "@novahair/client";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { config } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";
 import { Calendar, cellStyles } from "~/features/appointment-form/ui/calendar";
 import {
@@ -16,6 +17,7 @@ import {
 	type FormValue,
 } from "~/features/appointment-form/ui/form/form";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
+import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
 import { CalendarNav } from "~/shared/tenant/ui/calendar-nav";
 
@@ -37,10 +39,13 @@ function CalendarStep() {
 		month,
 		year,
 	} = useCalendarTimes();
+	const { startIso, endIso } = getMonthBoundaries(currentDate);
 
 	const { isLoading, error, days, refetch } = useAvailableDays({
 		serviceId,
-		currentDate,
+		tenantId: config.tenantId,
+		from: startIso,
+		to: endIso,
 	});
 
 	const { selectedDayISO } = Route.useSearch();

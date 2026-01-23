@@ -1,11 +1,8 @@
-import {
-	type EditableServiceCreateDTO,
-	type Service,
-	useService,
-} from "@novahair/client";
+import type { EditableServiceCreateDTO, Service } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
+import { config } from "@novahair/utils";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 
@@ -17,7 +14,7 @@ export const ServiceCreationForm = ({
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(service);
-	const { create, update } = useService();
+	const { create, update } = useServiceActions(config.tenantId);
 
 	const [values, setValues] = useState<EditableServiceCreateDTO>({
 		name: service?.name ?? "",

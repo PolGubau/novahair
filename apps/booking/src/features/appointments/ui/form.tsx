@@ -1,18 +1,17 @@
+import { type Appointment, useStaffActions } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { t } from "i18next";
-import type { SummarizedAppointment } from "../domain/summarized-appointments";
-import { useStaff } from "@novahair/client";
 
 export const AppointmentForm = ({
 	appointment,
 	onClose,
 }: {
-	appointment?: SummarizedAppointment | null;
+	appointment?: Appointment | null;
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);
-	const { create, update } = useStaff();
+	const { create, update } = useStaffActions();
 
 	const saving = create.isPending || update.isPending;
 

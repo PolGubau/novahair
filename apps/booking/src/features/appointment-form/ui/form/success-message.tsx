@@ -1,12 +1,12 @@
+import type { Appointment } from "@novahair/client";
 import { t } from "i18next";
-import type { SummarizedAppointment } from "../../../appointments/domain/summarized-appointments";
 
 type Props = {
-	appointment: SummarizedAppointment;
+	appointment: Appointment;
 };
 
 export const SuccessMessage = ({ appointment }: Props) => {
-	const datetime = new Date(appointment.startsAt).toLocaleString();
+	const datetime = new Date(appointment.startAt).toLocaleString();
 	const detailsDefault = `${appointment.customer.name} — ${datetime}`;
 
 	return (

@@ -1,25 +1,21 @@
-import { client } from "@novahair/client";
-import { config } from "@novahair/utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+	type Appointment,
+	type CreateAppointment,
+	appointmentsRepository,
+} from "@novahair/client";
+import { type ISODate, config } from "@novahair/utils";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { saveLocalAppointment } from "../../appointments/api/local-persistence";
-import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
-import type { BookAppointmentProps } from "../api/repository";
-import { appointmentFormRepository } from "../api/repository";
 
 type Params = {
 	serviceId: string;
 	onSuccess?: () => void;
-	staffId: string | undefined;
+	staffId: string | null;
 };
 type UseSubmitAppointmentResult = {
 	isLoading: boolean;
 	error: Error | null;
-	handleSubmit: (
-		e: React.FormEvent<HTMLFormElement>,
-		start: string,
-		end: string,
-	) => void;
+	handleSubmit: (e: React.FormEvent<HTMLFormElement>, startAt: ISODate) => void;
 	isSuccess: boolean;
 };
 
@@ -35,28 +31,12 @@ type UseSubmitAppointmentResult = {
 export const useSubmitAppointment = (
 	params: Params | null,
 ): UseSubmitAppointmentResult => {
-	const queryClient = useQueryClient();
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const mutation = useMutation<
-		SummarizedAppointment,
-		Error,
-		BookAppointmentProps
-	>({
-		mutationFn: (props) => client.appointments.create(config.tenantId, props),
-		onSuccess(data) {
-			try {
-				saveLocalAppointment(data);
-			} catch {
-				console.warn("Failed to persist appointment locally");
-			}
-
-			// Update react-query local cache so UI can react immediately
-			queryClient.setQueryData<SummarizedAppointment[] | undefined>(
-				["local-appointments"],
-				(old) => [data].concat(old ?? []),
-			);
-
+	const mutation = useMutation<Appointment, Error, CreateAppointment>({
+		mutationFn: (props) =>
+			appointmentsRepository.create(config.tenantId, props),
+		onSuccess() {
 			setIsSuccess(true);
 			params?.onSuccess?.();
 		},
@@ -67,8 +47,7 @@ export const useSubmitAppointment = (
 
 	const handleSubmit = (
 		e: React.FormEvent<HTMLFormElement>,
-		start: string,
-		end: string,
+		startAt: ISODate,
 	) => {
 		e.preventDefault();
 		if (!params) {
@@ -84,17 +63,17 @@ export const useSubmitAppointment = (
 		const phone = (fd.get("phone") as string) || "";
 		const notes = (fd.get("notes") as string) || "";
 
-		const payload: BookAppointmentProps = {
+		const payload: CreateAppointment = {
+			tenantId: config.tenantId,
 			serviceId: params.serviceId,
-			staffId: params.staffId ?? undefined,
+			staffId: params.staffId ?? null,
 			customer: {
 				name,
 				email,
 				phone,
 			},
 			notes,
-			start,
-			end,
+			startAt,
 		};
 
 		mutation.mutate(payload);

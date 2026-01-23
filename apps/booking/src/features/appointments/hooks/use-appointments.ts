@@ -1,7 +1,7 @@
+import { type Appointment, appointmentsRepository } from "@novahair/client";
+import { config } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import type { Appointment } from "../domain/appointment";
-import { appointmentFormRepository } from "../api/repository";
 
 type Response = {
 	isLoading: boolean;
@@ -16,6 +16,7 @@ type Response = {
 type UseAppointments = () => Response;
 
 export const useAppointments: UseAppointments = () => {
+	const tenantId = config.tenantId;
 	const [from, setFrom] = useState<string>(new Date().toISOString());
 
 	// default -> two months from now
@@ -28,10 +29,10 @@ export const useAppointments: UseAppointments = () => {
 		queryKey: ["appointments", from, to],
 		staleTime: 1000 * 60 * 5, // 5 minutes
 		queryFn: () => {
-			return appointmentFormRepository.listAppointments({ from, to }) || [];
+			return appointmentsRepository.list(tenantId, { from, to }) || [];
 		},
 	});
 
-	const appointments = data || [];
+	const appointments: Appointment[] = data || [];
 	return { isLoading, error, appointments, refetch, from, to, setFrom, setTo };
 };

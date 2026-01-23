@@ -1,32 +1,31 @@
-import { t } from "i18next";
-import { useEffect, useState } from "react";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { type Appointment, useServices, useStaffs } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { Select } from "@novahair/ui/select";
 import { Textarea } from "@novahair/ui/textarea";
-import type { SummarizedAppointment } from "../domain/summarized-appointments";
-import { appointmentFormRepository } from "../api/repository";
-import { useServices, useStaffs } from "@novahair/client";
- 
+import { config } from "@novahair/utils";
+import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { t } from "i18next";
+import { useEffect, useState } from "react";
+
 export const AppointmentCreationForm = ({
 	appointment,
 	onClose,
 }: {
-	appointment?: SummarizedAppointment | null;
+	appointment?: Appointment | null;
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);
-	const { services } = useServices();
-	const { staffs } = useStaffs();
+	const { services } = useServices(config.tenantId);
+	const { staffs } = useStaffs(config.tenantId);
 
 	const [values, setValues] = useState({
-		serviceId: appointment?.serviceId ?? "",
-		staffId: appointment?.staffId ?? "",
+		serviceId: appointment?.service.id ?? "",
+		staffId: appointment?.staff.id ?? "",
 		customerName: appointment?.customer.name ?? "",
 		customerEmail: appointment?.customer.email ?? "",
 		customerPhone: appointment?.customer.phone ?? "",
-		startsAt: appointment?.startsAt ?? "",
+		startsAt: appointment?.startAt ?? "",
 		notes: appointment?.notes ?? undefined,
 	});
 
@@ -60,32 +59,20 @@ export const AppointmentCreationForm = ({
 	useEffect(() => {
 		if (appointment) {
 			setValues({
-				serviceId: appointment.serviceId,
-				staffId: appointment.staffId ?? "",
+				serviceId: appointment.service.id,
+				staffId: appointment.staff.id ?? "",
 				customerName: appointment.customer.name,
 				customerEmail: appointment.customer.email,
 				customerPhone: appointment.customer.phone,
-				startsAt: appointment.startsAt,
-				notes: appointment.notes,
+				startsAt: appointment.startAt,
+				notes: appointment.notes ?? undefined,
 			});
 		}
 	}, [appointment]);
 
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		const newAppointment: SummarizedAppointment = {
-			serviceId,
-			staffId: staffId || undefined,
-			customer: {
-				name: customerName,
-				email: customerEmail,
-				phone: customerPhone,
-			},
-			startsAt,
-			notes,
-		};
 
-		appointmentFormRepository.saveLocal(newAppointment);
 		onClose?.();
 		window.location.reload();
 	};

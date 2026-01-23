@@ -5,7 +5,7 @@ export const useAppointment = (tenantId: string, id: string) => {
 	const { isLoading, error, data, refetch } = useQuery({
 		queryKey: ["appointment", tenantId, id],
 		staleTime: 1000 * 60 * 5, // 5 minutes
-		queryFn: () => appointmentsRepository.getById(tenantId, id),
+		queryFn: () => appointmentsRepository.get(tenantId, id),
 		enabled: !!id,
 	});
 

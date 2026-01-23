@@ -8,11 +8,11 @@ import type {
 import type { Appointment } from "../domain/appointment";
 
 export type AppointmentsRepository = {
-	getAll: (
+	list: (
 		tenantId: string,
 		params?: { from?: string; to?: string },
 	) => Promise<Appointment[]>;
-	getById: (tenantId: string, id: string) => Promise<Appointment>;
+	get: (tenantId: string, id: string) => Promise<Appointment>;
 	create: (
 		tenantId: string,
 		data: CreateAppointmentDto,
@@ -26,14 +26,14 @@ export type AppointmentsRepository = {
 };
 
 export const appointmentsRepository: AppointmentsRepository = {
-	getAll: async (tenantId, params) => {
+	list: async (tenantId, params) => {
 		const dto = await genericFetch<AppointmentDto[]>(
 			buildApiUrl(`tenants/${tenantId}/appointments`, params),
 		);
 		return dto.map(toAppointment);
 	},
 
-	getById: async (tenantId, id) => {
+	get: async (tenantId, id) => {
 		const dto = await genericFetch<AppointmentDto>(
 			buildApiUrl(`tenants/${tenantId}/appointments/${id}`),
 		);
