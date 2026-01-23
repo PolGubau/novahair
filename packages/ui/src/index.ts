@@ -8,7 +8,7 @@ export * from "./button";
 export * from "./checkbox/checkbox";
 export * from "./checkbox/chip";
 export * from "./collapsible";
-export * from "./data-table";
+export * from "./data-table/data-table";
 export * from "./debounced-input";
 export * from "./dev-tools";
 export * from "./drawer";

@@ -13,7 +13,7 @@ export function MainLayout({ children }: PropsWithChildren) {
 		<ErrorBoundary>
 			<SidebarProvider>
 				<AppSidebar />
-				<main className="flex-1 min-h-screen overflow-x-hidden">
+				<main className="flex-1 flex flex-col overflow-hidden">
 					<header className="p-2 border-b border-foreground/20 flex items-center gap-2">
 						<SidebarTrigger />
 						<Link to="/">
@@ -22,7 +22,9 @@ export function MainLayout({ children }: PropsWithChildren) {
 							</Button>
 						</Link>
 					</header>
-					<ErrorBoundary>{children}</ErrorBoundary>
+					<ErrorBoundary>
+						<div className="flex-1 overflow-y-auto">{children}</div>
+					</ErrorBoundary>
 				</main>
 			</SidebarProvider>
 		</ErrorBoundary>

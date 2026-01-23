@@ -1,10 +1,11 @@
-import { cva } from "class-variance-authority";
 import { cn } from "@novahair/utils/lib/cn";
+import { cva } from "class-variance-authority";
 import { Button, type ButtonProps } from "./button";
 import { Tooltip } from "./tooltip";
 
 export type IconButtonProps = ButtonProps & {
 	label?: string;
+	icon?: React.ReactNode;
 };
 
 const iconButtonVariants = cva("aspect-square rounded-full", {
@@ -25,6 +26,7 @@ export function IconButton({
 	variant = "secondary",
 	asChild = false,
 	size,
+	icon,
 	...props
 }: IconButtonProps) {
 	return (
@@ -37,7 +39,7 @@ export function IconButton({
 				asChild={asChild}
 				{...props}
 			>
-				{props.children}
+				{icon ?? props.children}
 			</Button>
 		</Tooltip>
 	);

@@ -1,8 +1,8 @@
-import { createColumnHelper } from "@tanstack/react-table";
-import { t } from "i18next";
-import { DataTable } from "@novahair/ui/data-table";
+import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { createColumnHelper } from "@tanstack/react-table";
+import { t } from "i18next";
 import type { Appointment } from "../domain/appointment";
 
 function formatDate(dateString: string) {

@@ -1,6 +1,6 @@
+import type { TranslationKey } from "@novahair/utils/i18n/setup";
 import type React from "react";
 import { useTranslation } from "react-i18next";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
 
 type Props = {
 	title: TranslationKey;
@@ -11,10 +11,12 @@ type Props = {
 export const AdminMain = ({ title, description, children }: Props) => {
 	const { t } = useTranslation();
 	return (
-		<section className="p-6">
-			<h1 className="text-xl md:text-3xl">{t(title)}</h1>
-			<p className="text-foreground/70">{t(description)}</p>
-			<div className="mt-10 flex gap-4 flex-col">{children}</div>
+		<section className="p-5 gap-6 flex flex-col h-full">
+			<header>
+				<h1 className="text-xl md:text-2xl">{t(title)}</h1>
+				<p className="text-foreground/70">{t(description)}</p>
+			</header>
+			<div className="flex gap-4 flex-col h-full">{children}</div>
 		</section>
 	);
 };

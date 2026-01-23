@@ -2,21 +2,17 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { initReactI18next } from "react-i18next";
-import ca from "./locales/ca.json" with { type: "json" };
-import en from "./locales/en.json" with { type: "json" };
-import es from "./locales/es.json" with { type: "json" };
+import commonEn from "./locales/en.json" with { type: "json" };
+import commonEs from "./locales/es.json" with { type: "json" };
 
 export const defaultNS = "common";
 
 export const resources = {
 	en: {
-		common: en,
+		common: commonEn,
 	},
 	es: {
-		common: es,
-	},
-	ca: {
-		common: ca,
+		common: commonEs,
 	},
 } as const;
 
@@ -27,15 +23,15 @@ declare module "i18next" {
 	}
 }
 
-export type TranslationKey = keyof typeof en;
+export type TranslationKey = keyof typeof commonEn;
 
-const keys = Object.keys(en) as (keyof typeof en)[];
+const keys = Object.keys(commonEn) as (keyof typeof commonEn)[];
 export const translationKeys = keys.reduce(
 	(acc, key) => {
 		acc[key] = key;
 		return acc;
 	},
-	{} as Record<keyof typeof en, keyof typeof en>,
+	{} as Record<keyof typeof commonEn, keyof typeof commonEn>,
 );
 
 i18n

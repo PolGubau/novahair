@@ -1,3 +1,4 @@
+import { cn } from "@novahair/utils";
 import {
 	type Column,
 	type ColumnDef,
@@ -11,10 +12,12 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import { t } from "i18next";
+import { FilterIcon } from "lucide-react";
 import { useState } from "react";
-import { DebouncedInput } from "./debounced-input";
-import { IconButton } from "./icon-button";
-import { Input } from "./input";
+import { DebouncedInput } from "../debounced-input";
+import { IconButton } from "../icon-button";
+import { Input } from "../input";
+import { Popover } from "../popover";
 import {
 	Table,
 	TableBody,
@@ -22,7 +25,7 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "./table";
+} from "../table";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -56,9 +59,9 @@ export function DataTable<TData, TValue>({
 	});
 
 	return (
-		<div className="overflow-auto rounded-md border border-foreground/10">
+		<div className="overflow-auto rounded-md h-full divide-y border border-foreground/10 grid grid-rows-[1fr_auto]">
 			<Table>
-				<TableHeader>
+				<TableHeader className="border-b  border-foreground/10 bg-foreground/2">
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map((header) => {
@@ -66,11 +69,15 @@ export function DataTable<TData, TValue>({
 								return (
 									<TableHead key={header.id}>
 										<div
+											className={cn(
+												"flex items-center gap-2 py-2",
+												isLeafColumn ? "justify-between" : "justify-center",
+												{
+													"cursor-pointer select-none":
+														isLeafColumn && header.column.getCanSort(),
+												},
+											)}
 											{...{
-												className:
-													isLeafColumn && header.column.getCanSort()
-														? "cursor-pointer select-none"
-														: "",
 												onClick: isLeafColumn
 													? header.column.getToggleSortingHandler()
 													: undefined,
@@ -94,12 +101,21 @@ export function DataTable<TData, TValue>({
 										{/* Solo mostrar filtros en columnas leaf (no en grupos) */}
 										{!header.isPlaceholder &&
 										header.column.getCanFilter() &&
-										isLeafColumn ? (
-											<div>
-												{header.column.columnDef.meta?.filterVariant !==
-													"null" && <Filter column={header.column} />}
-											</div>
-										) : null}
+										isLeafColumn
+											? header.column.columnDef.meta?.filterVariant !==
+													"null" && (
+													<Popover
+														trigger={
+															<IconButton size="sm" icon={<FilterIcon />} />
+														}
+													>
+														<div className="flex justify-between">
+															<strong>{t("filter")}</strong>
+															<Filter column={header.column} />
+														</div>
+													</Popover>
+												)
+											: null}
 									</TableHead>
 								);
 							})}
@@ -129,66 +145,73 @@ export function DataTable<TData, TValue>({
 					)}
 				</TableBody>
 			</Table>
-			<div className="flex items-center gap-2">
-				<IconButton
-					onClick={() => table.setPageIndex(0)}
-					disabled={!table.getCanPreviousPage()}
-				>
-					{"<<"}
-				</IconButton>
-				<IconButton
-					onClick={() => table.previousPage()}
-					disabled={!table.getCanPreviousPage()}
-				>
-					{"<"}
-				</IconButton>
-				<IconButton
-					onClick={() => table.nextPage()}
-					disabled={!table.getCanNextPage()}
-				>
-					{">"}
-				</IconButton>
-				<IconButton
-					onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-					disabled={!table.getCanNextPage()}
-				>
-					{">>"}
-				</IconButton>
-				<span className="flex items-center gap-1">
-					<div>Page</div>
-					<strong>
-						{table.getState().pagination.pageIndex + 1} of{" "}
-						{table.getPageCount()}
-					</strong>
-				</span>
-				<span className="flex items-center gap-1">
-					| Go to page:
-					<input
-						type="number"
-						min="1"
-						max={table.getPageCount()}
-						defaultValue={table.getState().pagination.pageIndex + 1}
+			<footer className="flex max-lg:flex-col lg:items-center lg:justify-between p-4">
+				<div className="flex items-center gap-1">
+					<IconButton
+						size="sm"
+						onClick={() => table.setPageIndex(0)}
+						disabled={!table.getCanPreviousPage()}
+					>
+						{"<<"}
+					</IconButton>
+					<IconButton
+						size="sm"
+						onClick={() => table.previousPage()}
+						disabled={!table.getCanPreviousPage()}
+					>
+						{"<"}
+					</IconButton>
+					<IconButton
+						size="sm"
+						onClick={() => table.nextPage()}
+						disabled={!table.getCanNextPage()}
+					>
+						{">"}
+					</IconButton>
+					<IconButton
+						size="sm"
+						onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+						disabled={!table.getCanNextPage()}
+					>
+						{">>"}
+					</IconButton>
+					<span className="flex items-center gap-1">
+						<div>Page</div>
+						<strong>
+							{table.getState().pagination.pageIndex + 1} of{" "}
+							{table.getPageCount()}
+						</strong>
+					</span>
+					{/* <span className="flex items-center gap-1">
+						Go to page:
+						<input
+							type="number"
+							min="1"
+							max={table.getPageCount()}
+							defaultValue={table.getState().pagination.pageIndex + 1}
+							onChange={(e) => {
+								const page = e.target.value ? Number(e.target.value) - 1 : 0;
+								table.setPageIndex(page);
+							}}
+							className="border p-1 rounded w-16"
+						/>
+					</span>
+					<select
+						value={table.getState().pagination.pageSize}
 						onChange={(e) => {
-							const page = e.target.value ? Number(e.target.value) - 1 : 0;
-							table.setPageIndex(page);
+							table.setPageSize(Number(e.target.value));
 						}}
-						className="border p-1 rounded w-16"
-					/>
-				</span>
-				<select
-					value={table.getState().pagination.pageSize}
-					onChange={(e) => {
-						table.setPageSize(Number(e.target.value));
-					}}
-				>
-					{[10, 20, 30, 40, 50].map((pageSize) => (
-						<option key={pageSize} value={pageSize}>
-							Show {pageSize}
-						</option>
-					))}
-				</select>
-			</div>
-			<div>{table.getRowModel().rows.length} Rows</div>
+					>
+						{[10, 20, 30, 40, 50].map((pageSize) => (
+							<option key={pageSize} value={pageSize}>
+								Show {pageSize}
+							</option>
+						))}
+					</select> */}
+				</div>
+
+				<div>{table.getRowModel().rows.length} Rows</div>
+			</footer>
 		</div>
 	);
 }

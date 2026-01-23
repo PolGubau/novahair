@@ -1,16 +1,16 @@
+import { useServiceActions, useServices } from "@novahair/client";
+import { Button } from "@novahair/ui/button";
+import { Drawer } from "@novahair/ui/drawer";
+import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
+import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
+import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Service } from "~/features/services/domain/service";
-import { useService } from "~/features/services/hooks/use-service";
-import { useServices } from "~/features/services/hooks/use-services";
 import { ServiceCreationForm } from "~/features/services/ui/creation-form";
 import { ServiceTable } from "~/features/services/ui/table/service-table";
-import { Button } from "@novahair/ui/button";
-import { Drawer } from "@novahair/ui/drawer";
-import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 
 export const Route = createFileRoute("/services/")({
 	component: RouteComponent,
@@ -18,8 +18,8 @@ export const Route = createFileRoute("/services/")({
 
 function RouteComponent() {
 	const { t } = useTranslation();
-	const { services, isLoading, refetch } = useServices();
-	const { remove } = useService();
+	const { services, isLoading, refetch } = useServices(config.tenantId);
+	const { remove } = useServiceActions(config.tenantId);
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
 	const [editing, setEditing] = useState<Service | null>(null);

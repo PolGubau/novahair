@@ -6,7 +6,9 @@ import { PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 
 import { useIsMobile } from "@novahair/utils/hooks/use-mobile";
+import { cn } from "@novahair/utils/lib/cn";
 import type { Button } from "./button";
+import { IconButton } from "./icon-button";
 import { Input } from "./input";
 import { Separator } from "./separator";
 import {
@@ -18,8 +20,6 @@ import {
 } from "./sheet";
 import { Skeleton } from "./skeleton";
 import { TooltipProvider } from "./tooltip";
-import { cn } from "@novahair/utils/lib/cn";
-import { IconButton } from "./icon-button";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 

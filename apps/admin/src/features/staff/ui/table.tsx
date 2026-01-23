@@ -1,7 +1,7 @@
 import type { Staff } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
-import { DataTable } from "@novahair/ui/data-table";
+import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
