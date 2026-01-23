@@ -1,48 +1,13 @@
-import { config } from "@novahair/utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { StaffCreate } from "../domain/staff";
+import { useQuery } from "@tanstack/react-query";
 import { staffRepository } from "../infra/repository";
-export const useStaff = () => {
-	const qc = useQueryClient();
 
-	const create = useMutation({
-		mutationFn: (payload: StaffCreate) =>
-			staffRepository.create({
-				name: payload.name,
-				color: payload.color,
-				email: payload.email,
-				phone: payload.phone,
-				tenantId: config.tenantId,
-			}),
-		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["staffs"] });
-		},
+export const useStaff = (tenantId: string, id: string) => {
+	const { isLoading, error, data, refetch } = useQuery({
+		queryKey: ["staff", tenantId, id],
+		staleTime: 1000 * 60 * 30, // 30 minutes
+		queryFn: () => staffRepository.get(id),
+		enabled: !!id,
 	});
 
-	const update = useMutation({
-		mutationFn: ({ id, payload }: { id: string; payload: StaffCreate }) =>
-			staffRepository.update(id, {
-				name: payload.name,
-				color: payload.color,
-				email: payload.email,
-				phone: payload.phone,
-				tenantId: config.tenantId,
-			}),
-		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["staffs"] });
-		},
-	});
-
-	const remove = useMutation({
-		mutationFn: (id: string) => staffRepository.delete(id),
-		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["staffs"] });
-		},
-	});
-
-	return {
-		create,
-		update,
-		remove,
-	};
+	return { isLoading, error, staff: data, refetch };
 };

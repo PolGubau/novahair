@@ -1,7 +1,9 @@
+import { client } from "@novahair/client";
+import { config } from "@novahair/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
 import { saveLocalAppointment } from "../../appointments/api/local-persistence";
+import type { SummarizedAppointment } from "../../appointments/domain/summarized-appointments";
 import type { BookAppointmentProps } from "../api/repository";
 import { appointmentFormRepository } from "../api/repository";
 
@@ -41,7 +43,7 @@ export const useSubmitAppointment = (
 		Error,
 		BookAppointmentProps
 	>({
-		mutationFn: (props) => appointmentFormRepository.book(props),
+		mutationFn: (props) => client.appointments.create(config.tenantId, props),
 		onSuccess(data) {
 			try {
 				saveLocalAppointment(data);

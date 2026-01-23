@@ -1,8 +1,9 @@
-import { endpoints, genericFetch } from "@novahair/utils";
+import { buildApiUrl, genericFetch } from "@novahair/utils";
 import type { Service } from "../../services/domain/service";
 import type { ServiceRepository } from "./repository";
 
-const { getServices, services } = endpoints;
+const getServices = buildApiUrl("services");
+const services = buildApiUrl("services");
 
 export async function list() {
 	return genericFetch<Service[]>(getServices) || [];

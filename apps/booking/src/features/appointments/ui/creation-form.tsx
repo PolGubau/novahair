@@ -1,7 +1,5 @@
 import { t } from "i18next";
 import { useEffect, useState } from "react";
-import { useServices } from "~/features/services/hooks/use-services";
-import { useStaffs } from "~/features/staff/hooks/use-staffs";
 import type { TranslationKey } from "@novahair/utils/i18n/setup";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
@@ -9,6 +7,7 @@ import { Select } from "@novahair/ui/select";
 import { Textarea } from "@novahair/ui/textarea";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { appointmentFormRepository } from "../api/repository";
+import { useServices, useStaffs } from "@novahair/client";
  
 export const AppointmentCreationForm = ({
 	appointment,

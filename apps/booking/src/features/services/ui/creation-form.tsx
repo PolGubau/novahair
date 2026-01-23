@@ -1,10 +1,13 @@
-import type { EditableServiceCreateDTO, Service } from "@novahair/client";
+import {
+	type EditableServiceCreateDTO,
+	type Service,
+	useService,
+} from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
-import { useService } from "../hooks/use-service";
 
 export const ServiceCreationForm = ({
 	service,

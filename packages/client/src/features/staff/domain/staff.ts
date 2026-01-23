@@ -2,7 +2,7 @@ export interface Staff {
 	id: string;
 	tenantId: string;
 	name: string;
-	avatarUrl?: string;
+	avatarUrl: string | null;
 	email: string;
 	phone: string;
 	color: string;

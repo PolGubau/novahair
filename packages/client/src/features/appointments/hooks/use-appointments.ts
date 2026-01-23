@@ -1,0 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
+import { appointmentsRepository } from "../infra/repository";
+
+export const useAppointments = (
+	tenantId: string,
+	params?: { from?: string; to?: string },
+) => {
+	const { isLoading, error, data, refetch } = useQuery({
+		queryKey: ["appointments", tenantId, params],
+		staleTime: 1000 * 60 * 5, // 5 minutes
+		queryFn: () => appointmentsRepository.getAll(tenantId, params),
+	});
+	const appointments = data || [];
+
+	return { isLoading, error, appointments, refetch };
+};

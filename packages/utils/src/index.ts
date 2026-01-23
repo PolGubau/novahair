@@ -11,6 +11,7 @@ export * from "./lib/api-error";
 export * from "./lib/api-utils";
 export * from "./lib/calendar";
 export * from "./lib/cn";
+export * from "./lib/dates/iso";
 export * from "./lib/env";
 export * from "./lib/generic-fetch";
 export * from "./lib/get-strict-context";

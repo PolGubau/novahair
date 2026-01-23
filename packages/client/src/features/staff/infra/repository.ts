@@ -1,36 +1,45 @@
-import { buildApiUrl, tenantPath } from "@novahair/utils/lib/api-utils";
-import { genericFetch } from "@novahair/utils/lib/generic-fetch";
+import { buildApiUrl, genericFetch } from "@novahair/utils";
 import type { AbstractRepository } from "@novahair/utils/types/common";
+import { toStaff } from "../../../mappers";
+import type { StaffDto, UpdateStaffDto } from "../../../types";
 import type { Staff, StaffCreateDto } from "../domain/staff";
 
-export type StaffRepository = AbstractRepository<Staff, StaffCreateDto>;
+export type StaffRepository = Omit<
+	AbstractRepository<Staff, StaffCreateDto, UpdateStaffDto>,
+	"list"
+> & {
+	list: (tenantId: string) => Promise<Staff[]>;
+};
 
 export const staffRepository: StaffRepository = {
-	list: async () => {
-		return genericFetch<Staff[]>(buildApiUrl(`staff/${tenantPath}`));
+	list: async (tenantId) => {
+		const dtos = await genericFetch<StaffDto[]>(
+			buildApiUrl(`staff/tenant/${tenantId}`),
+		);
+		return dtos.map(toStaff);
 	},
 
 	get: async (id) => {
-		return genericFetch<Staff>(buildApiUrl(`staff/${id}`));
+		const dto = await genericFetch<StaffDto>(buildApiUrl(`staff/${id}`));
+		return toStaff(dto);
 	},
 
-	create: async (payload) => {
-		return genericFetch<Staff>(buildApiUrl("staff"), {
+	create: async (data) => {
+		const dto = await genericFetch<StaffDto>(buildApiUrl("staff"), {
 			method: "POST",
+			body: JSON.stringify(data),
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
 		});
+		return toStaff(dto);
 	},
 
-	update: async (id, payload) => {
-		return genericFetch<Staff>(buildApiUrl(`staff/${id}`), {
+	update: async (id, data) =>
+		genericFetch(buildApiUrl(`staff/${id}`), {
 			method: "PUT",
+			body: JSON.stringify(data),
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
-		});
-	},
+		}),
 
-	delete: async (id) => {
-		await genericFetch(buildApiUrl(`staff/${id}`), { method: "DELETE" });
-	},
+	delete: (id) =>
+		genericFetch(buildApiUrl(`staff/${id}`), { method: "DELETE" }),
 };

@@ -1,6 +1,8 @@
+import { client } from "@novahair/client";
+import { config } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
-import type { AvailableDay } from "../domain/available-day";
 import { appointmentFormRepository } from "../api/repository";
+import type { AvailableDay } from "../domain/available-day";
 import { getMonthBoundaries } from "../utils/get-month-boundaries";
 
 type Props = {
@@ -26,20 +28,8 @@ export const useAvailableDays: UseAvailableDays = ({
 		queryFn: () => {
 			const { start, end } = getMonthBoundaries(currentDate);
 
-			// start should be the first day of the month at 00:00:00 BUT if today is after that, use today
-			// let adjustedStart = start;
-			// const today = new Date();
-			// if (today > start) {
-			// 	adjustedStart = new Date(
-			// 		today.getFullYear(),
-			// 		today.getMonth(),
-			// 		today.getDate(),
-			// 	);
-			// }
-
-			// console.log("Fetching boundaries for", currentDate, start, end);
 			return (
-				appointmentFormRepository.listAvailableDays({
+				client.availability.getDays(config.tenantId, {
 					serviceId,
 					from: start.toISOString(),
 					to: end.toISOString(),

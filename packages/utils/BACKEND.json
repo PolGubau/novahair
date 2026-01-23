@@ -1,0 +1,939 @@
+{
+  "workspace": "ULTIMATE CALENDAR",
+  "environments": [
+    {
+      "name": "PRODUCTION",
+      "variables": [
+        { "key": "baseUrl", "type": "string", "description": "Base URL del servidor" },
+        { "key": "tenantId", "type": "uuid", "description": "ID del tenant activo" },
+        { "key": "staffId", "type": "uuid", "description": "ID del miembro del staff" },
+        { "key": "serviceId", "type": "uuid", "description": "ID del servicio" }
+      ]
+    },
+    {
+      "name": "LOCAL",
+      "variables": [
+        { "key": "baseUrl", "type": "string", "defaultValue": "http://localhost:8080" },
+        { "key": "tenantId", "type": "uuid" },
+        { "key": "staffId", "type": "uuid" },
+        { "key": "serviceId", "type": "uuid" }
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "name": "TenantController API",
+      "description": "Gestión de tenants (organizaciones/negocios)",
+      "requests": [
+        {
+          "name": "List all tenants",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants",
+          "pathParams": [],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "id": "uuid",
+                "name": "string",
+                "slug": "string"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get tenant by ID",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "id": "uuid",
+              "name": "string",
+              "slug": "string"
+            }
+          }
+        },
+        {
+          "name": "Create tenant",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/tenants",
+          "pathParams": [],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "name": "string",
+              "slug": "string"
+            }
+          },
+          "response": {
+            "status": 201,
+            "schema": {
+              "id": "uuid",
+              "name": "string",
+              "slug": "string"
+            }
+          }
+        },
+        {
+          "name": "Update tenant",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "name": "string",
+              "slug": "string"
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "id": "uuid",
+              "name": "string",
+              "slug": "string"
+            }
+          }
+        },
+        {
+          "name": "Delete tenant",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    },
+    {
+      "name": "StaffController API",
+      "description": "Gestión de miembros del staff",
+      "requests": [
+        {
+          "name": "List staff by tenant",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/staff/tenant/:tenantId",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "id": "uuid",
+                "tenantId": "uuid",
+                "name": "string",
+                "email": "string",
+                "phone": "string",
+                "color": "string",
+                "avatarUrl": "string|null",
+                "active": "boolean"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get staff by ID",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/staff/{{staffId}}",
+          "pathParams": [
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "id": "uuid",
+              "tenantId": "uuid",
+              "name": "string",
+              "email": "string",
+              "phone": "string",
+              "color": "string",
+              "avatarUrl": "string|null",
+              "active": "boolean"
+            }
+          }
+        },
+        {
+          "name": "Create staff",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/staff",
+          "pathParams": [],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "tenantId": "uuid",
+              "name": "string",
+              "email": "string",
+              "phone": "string",
+              "color": "string",
+              "avatarUrl": "string|null",
+              "active": "boolean"
+            }
+          },
+          "response": {
+            "status": 201,
+            "schema": {
+              "id": "uuid",
+              "tenantId": "uuid",
+              "name": "string",
+              "email": "string",
+              "phone": "string",
+              "color": "string",
+              "avatarUrl": "string|null",
+              "active": "boolean"
+            }
+          }
+        },
+        {
+          "name": "Update staff",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/staff/{{staffId}}",
+          "pathParams": [
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "tenantId": "uuid",
+              "name": "string",
+              "email": "string",
+              "phone": "string",
+              "color": "string",
+              "avatarUrl": "string|null",
+              "active": "boolean"
+            }
+          },
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Delete staff",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/staff/:id",
+          "pathParams": [
+            { "key": "id", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    },
+    {
+      "name": "ServiceController API",
+      "description": "Gestión de servicios ofrecidos",
+      "requests": [
+        {
+          "name": "List services by tenant",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/services/tenant/{{tenantId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "id": "uuid",
+                "tenantId": "uuid",
+                "name": "string",
+                "durationMin": "number",
+                "priceCents": "number",
+                "bufferBefore": "number",
+                "bufferAfter": "number",
+                "active": "boolean"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get service by ID",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/services/{{serviceId}}",
+          "pathParams": [
+            { "key": "serviceId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "id": "uuid",
+              "tenantId": "uuid",
+              "name": "string",
+              "durationMin": "number",
+              "priceCents": "number",
+              "bufferBefore": "number",
+              "bufferAfter": "number",
+              "active": "boolean"
+            }
+          }
+        },
+        {
+          "name": "Create service",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/services",
+          "pathParams": [],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "tenantId": "uuid",
+              "name": "string",
+              "durationMin": "number",
+              "priceCents": "number",
+              "bufferBefore": "number",
+              "bufferAfter": "number",
+              "active": "boolean"
+            }
+          },
+          "response": {
+            "status": 201
+          }
+        },
+        {
+          "name": "Update service",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/services/{{serviceId}}",
+          "pathParams": [
+            { "key": "serviceId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "tenantId": "uuid",
+              "name": "string",
+              "durationMin": "number",
+              "priceCents": "number",
+              "bufferBefore": "number",
+              "bufferAfter": "number",
+              "active": "boolean"
+            }
+          },
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Delete service",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/services/{{serviceId}}",
+          "pathParams": [
+            { "key": "serviceId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    },
+    {
+      "name": "AppointmentController API",
+      "description": "Gestión de citas",
+      "requests": [
+        {
+          "name": "List appointments",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/appointments",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [
+            { "key": "from", "type": "string", "format": "date-time", "required": false },
+            { "key": "to", "type": "string", "format": "date-time", "required": false }
+          ],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "id": "uuid",
+                "tenantId": "uuid",
+                "serviceId": "uuid",
+                "staffId": "uuid",
+                "customer": "Customer",
+                "startsAt": "string (date-time)",
+                "status": "AppointmentStatus",
+                "notes": "string"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get appointment by ID",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/appointments/{{appointmentId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "appointmentId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Create appointment",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/appointments",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "serviceId": "uuid",
+              "staffId": "uuid",
+              "customer": {
+                "name": "string",
+                "email": "string",
+                "phone": "string"
+              },
+              "startsAt": "string (date-time)",
+              "notes": "string"
+            }
+          },
+          "response": {
+            "status": 201
+          }
+        },
+        {
+          "name": "Update appointment status",
+          "method": "PATCH",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/appointments/{{appointmentId}}/status",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "appointmentId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "status": "AppointmentStatus"
+            }
+          },
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Delete appointment",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/appointments/{{appointmentId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "appointmentId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    },
+    {
+      "name": "StaffAssignmentController API",
+      "description": "Asignación de servicios a staff",
+      "requests": [
+        {
+          "name": "List services assigned to staff",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/services",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": "uuid"
+            }
+          }
+        },
+        {
+          "name": "Assign service to staff",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/services",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "type": "array",
+              "items": "uuid (serviceId)"
+            }
+          },
+          "response": {
+            "status": 204
+          }
+        },
+        {
+          "name": "Unassign service from staff",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/services/{{serviceId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" },
+            { "key": "serviceId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff Schedule API",
+      "description": "Gestión de horarios específicos del staff",
+      "requests": [
+        {
+          "name": "List schedule for a staff member",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/schedule",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "startTime": "string (date-time)",
+                "endTime": "string (date-time)"
+              }
+            }
+          }
+        },
+        {
+          "name": "Assign schedule to a staff member",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/schedule",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "type": "array",
+              "items": {
+                "startTime": "string (date-time)",
+                "endTime": "string (date-time)"
+              }
+            }
+          },
+          "response": {
+            "status": 204,
+            "errors": [
+              { "status": 400, "description": "Invalid request" },
+              { "status": 404, "description": "Tenant or staff not found" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "WorkingHoursController API",
+      "description": "Gestión de horarios laborales semanales",
+      "requests": [
+        {
+          "name": "List working hours by staff",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/staff/{{staffId}}/working-hours",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "staffId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "id": "uuid",
+                "staffId": "uuid",
+                "weekday": "number (0-6)",
+                "startTime": "string (HH:mm:ss)",
+                "endTime": "string (HH:mm:ss)"
+              }
+            }
+          }
+        },
+        {
+          "name": "Create working hours",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/working-hours",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "staffId": "uuid",
+              "weekday": "number (0-6)",
+              "startTime": "string (HH:mm:ss)",
+              "endTime": "string (HH:mm:ss)"
+            }
+          },
+          "response": {
+            "status": 201
+          }
+        },
+        {
+          "name": "Update working hours",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/working-hours/{{workingHoursId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "workingHoursId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "staffId": "uuid",
+              "weekday": "number (0-6)",
+              "startTime": "string (HH:mm:ss)",
+              "endTime": "string (HH:mm:ss)"
+            }
+          },
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Delete working hours",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/working-hours/{{workingHoursId}}",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "workingHoursId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204,
+            "errors": [
+              { "status": 404, "description": "Not found" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AvailabilityController API",
+      "description": "Consulta de disponibilidad para reservas",
+      "requests": [
+        {
+          "name": "Get availability slots",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/availability",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [
+            { "key": "serviceId", "type": "uuid", "required": true },
+            { "key": "staffId", "type": "uuid", "required": false },
+            { "key": "from", "type": "string", "format": "date-time", "required": true }
+          ],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": {
+                "startTime": "string (date-time)",
+                "endTime": "string (date-time)"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get availability days",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/{{tenantId}}/availability/days",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [
+            { "key": "serviceId", "type": "uuid", "required": true },
+            { "key": "staffId", "type": "uuid", "required": false },
+            { "key": "from", "type": "string", "format": "date-time", "required": true },
+            { "key": "to", "type": "string", "format": "date-time", "required": true }
+          ],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "array",
+              "items": "string (date)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ultimate Calendar API",
+      "description": "API principal completa para gestión de calendario (incluye todos los endpoints anteriores más customers)",
+      "additionalRequests": [
+        {
+          "name": "List all customers for a tenant",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/:tenantId/customers",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Get a customer by ID",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/v1/tenants/:tenantId/customers/:id",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "id", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Create a new customer",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/v1/tenants/:tenantId/customers",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "name": "string",
+              "email": "string",
+              "phone": "string"
+            }
+          },
+          "response": {
+            "status": 201
+          }
+        },
+        {
+          "name": "Update a customer",
+          "method": "PUT",
+          "url": "{{baseUrl}}/api/v1/tenants/:tenantId/customers/:id",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "id", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "type": "json",
+            "schema": {
+              "name": "string",
+              "email": "string",
+              "phone": "string"
+            }
+          },
+          "response": {
+            "status": 200
+          }
+        },
+        {
+          "name": "Delete a customer",
+          "method": "DELETE",
+          "url": "{{baseUrl}}/api/v1/tenants/:tenantId/customers/:id",
+          "pathParams": [
+            { "key": "tenantId", "type": "uuid" },
+            { "key": "id", "type": "uuid" }
+          ],
+          "queryParams": [],
+          "headers": [],
+          "body": null,
+          "response": {
+            "status": 204
+          }
+        }
+      ]
+    }
+  ],
+  "types": {
+    "Tenant": {
+      "id": "uuid",
+      "name": "string",
+      "slug": "string"
+    },
+    "Staff": {
+      "id": "uuid",
+      "tenantId": "uuid",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "color": "string (hex)",
+      "avatarUrl": "string|null",
+      "active": "boolean"
+    },
+    "Service": {
+      "id": "uuid",
+      "tenantId": "uuid",
+      "name": "string",
+      "durationMin": "number",
+      "priceCents": "number",
+      "bufferBefore": "number",
+      "bufferAfter": "number",
+      "active": "boolean"
+    },
+    "Customer": {
+      "id": "uuid",
+      "name": "string",
+      "email": "string",
+      "phone": "string"
+    },
+    "Appointment": {
+      "id": "uuid",
+      "tenantId": "uuid",
+      "serviceId": "uuid",
+      "staffId": "uuid",
+      "customer": "Customer",
+      "startsAt": "string (date-time)",
+      "status": "AppointmentStatus",
+      "notes": "string"
+    },
+    "AppointmentStatus": "enum(PENDING|CONFIRMED|CANCELLED|COMPLETED)",
+    "WorkingHours": {
+      "id": "uuid",
+      "staffId": "uuid",
+      "weekday": "number (0-6)",
+      "startTime": "string (HH:mm:ss)",
+      "endTime": "string (HH:mm:ss)"
+    },
+    "Schedule": {
+      "startTime": "string (date-time)",
+      "endTime": "string (date-time)"
+    },
+    "AvailabilitySlot": {
+      "startTime": "string (date-time)",
+      "endTime": "string (date-time)"
+    }
+  }
+}

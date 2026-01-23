@@ -1,8 +1,8 @@
-import { t } from "i18next";
-import { useStaff } from "~/features/staff/hooks/use-staff";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
+import { t } from "i18next";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
+import { useStaff } from "@novahair/client";
 
 export const AppointmentForm = ({
 	appointment,
