@@ -9,22 +9,6 @@ export interface TenantConfig {
 }
 
 /**
- * Hook to get tenant ID from localStorage
- * The tenant must have been set via URL param on initial load
- */
-export function useTenantId(): string | null {
-	// Check localStorage (set by __root beforeLoad)
-	if (typeof window !== "undefined") {
-		const storedTenantId = localStorage.getItem("tenantId");
-		if (storedTenantId) {
-			return storedTenantId;
-		}
-	}
-
-	return null;
-}
-
-/**
  * Get tenant ID synchronously (for non-React contexts like API calls)
  * Reads from localStorage which was set via URL param on initial load
  * Note: Cannot access URL params outside of React components

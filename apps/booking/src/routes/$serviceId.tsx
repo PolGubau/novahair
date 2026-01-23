@@ -19,7 +19,7 @@ import {
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { CalendarNav } from "~/shared/tenant/ui/calendar-nav";
+import { CalendarNav } from "~/shared/ui/calendar-nav";
 
 const SearchSchema = z.object({
 	selectedDayISO: z.string().optional().nullable(),

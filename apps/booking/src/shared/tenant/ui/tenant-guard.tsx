@@ -1,25 +1,46 @@
 import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { TenantProvider, useTenantId } from "../context";
 import { TenantError } from "./tenant-error";
 
 interface TenantGuardProps {
 	children: ReactNode;
 }
 
+function TenantGuardInner({ children }: TenantGuardProps) {
+	const { tenantId } = useTenantId();
+
+	if (!tenantId) {
+		return <TenantError />;
+	}
+
+	return <>{children}</>;
+}
+
 export function TenantGuard({ children }: TenantGuardProps) {
 	const routerState = useRouterState();
 	const search = routerState.location.search as { tenant?: string };
+
 	// Check URL param first, then localStorage
-	const tenantId =
-		search.tenant ||
-		(typeof window !== "undefined" ? localStorage.getItem("tenantId") : null);
-	console.log("TenantGuard:", {
-		searchTenant: search.tenant,
-		localStorageTenant:
-			typeof window !== "undefined" ? localStorage.getItem("tenantId") : null,
-		tenantId,
-	});
+	const initialTenantId = useMemo(() => {
+		return (
+			search.tenant ||
+			(typeof window !== "undefined" ? localStorage.getItem("tenantId") : null)
+		);
+	}, [search.tenant]);
+
+	return (
+		<TenantProvider initialTenantId={initialTenantId}>
+			<TenantGuardLogic>{children}</TenantGuardLogic>
+		</TenantProvider>
+	);
+}
+
+function TenantGuardLogic({ children }: TenantGuardProps) {
+	const routerState = useRouterState();
+	const { setTenantId } = useTenantId();
+	const search = routerState.location.search as { tenant?: string };
 
 	// Set localStorage if tenant is in URL and different from stored
 	useEffect(() => {
@@ -32,13 +53,9 @@ export function TenantGuard({ children }: TenantGuardProps) {
 				"Updating tenantId in localStorage from TenantGuard:",
 				search.tenant,
 			);
-			localStorage.setItem("tenantId", search.tenant);
+			setTenantId(search.tenant);
 		}
-	}, [search.tenant]);
+	}, [search.tenant, setTenantId]);
 
-	if (!tenantId) {
-		return <TenantError />;
-	}
-
-	return <>{children}</>;
+	return <TenantGuardInner>{children}</TenantGuardInner>;
 }
