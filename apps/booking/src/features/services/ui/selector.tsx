@@ -1,8 +1,7 @@
 import { useServices } from "@novahair/client";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
-import { config } from "@novahair/utils";
-import { useTenantId } from "~/shared/tenant";
 import { t } from "i18next";
+import { useTenantId } from "~/shared/tenant";
 import { ServiceList, ServiceListSkeleton } from "./list/list";
 
 export const ServiceSelector = () => {

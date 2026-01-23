@@ -1,10 +1,15 @@
-import type { EditableServiceCreateDTO, Service } from "@novahair/client";
+import {
+	type EditableServiceCreateDTO,
+	type Service,
+	type ServiceCreateDTO,
+	useServiceActions,
+} from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
-import { config } from "@novahair/utils";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTenantId } from "~/shared/tenant";
 
 export const ServiceCreationForm = ({
 	service,
@@ -14,7 +19,8 @@ export const ServiceCreationForm = ({
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(service);
-	const { create, update } = useServiceActions(config.tenantId);
+	const tenantId = useTenantId();
+	const { create, update } = useServiceActions(tenantId);
 
 	const [values, setValues] = useState<EditableServiceCreateDTO>({
 		name: service?.name ?? "",
@@ -55,8 +61,9 @@ export const ServiceCreationForm = ({
 
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		const payload: EditableServiceCreateDTO = {
+		const payload: ServiceCreateDTO = {
 			name,
+			tenantId,
 			description,
 			imageUrl,
 			priceCents,
@@ -67,7 +74,7 @@ export const ServiceCreationForm = ({
 
 		if (isEdit && service) {
 			update.mutate(
-				{ id: service.id, payload },
+				{ id: service.id, data: payload },
 				{ onSuccess: () => onClose?.() },
 			);
 		} else {

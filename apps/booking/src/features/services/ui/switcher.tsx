@@ -4,11 +4,13 @@ import { config } from "@novahair/utils";
 import type { TranslationKey } from "@novahair/utils/i18n/setup";
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "~/routes/$serviceId";
+import { useTenantId } from "~/shared/tenant";
 
 export const ServiceSwitcher = () => {
 	const navigate = useNavigate({ from: "/$serviceId" });
+	const tenantId = useTenantId();
 
-	const { services } = useServices(config.tenantId);
+	const { services } = useServices(tenantId);
 	const selectedServiceId = Route.useParams().serviceId;
 
 	const handleChange = (value: string) => {

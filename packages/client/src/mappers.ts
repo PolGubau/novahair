@@ -32,8 +32,8 @@ export function toService(dto: ServiceDto): Service {
 		id: dto.id,
 		tenantId: dto.tenantId,
 		name: dto.name,
-		description: null, // Not in DTO, default to null
-		imageUrl: null, // Not in DTO, default to null
+		description: dto.description,
+		imageUrl: dto.imageUrl,
 		durationMin: dto.durationMin,
 		priceCents: dto.priceCents,
 		bufferBefore: dto.bufferBefore,

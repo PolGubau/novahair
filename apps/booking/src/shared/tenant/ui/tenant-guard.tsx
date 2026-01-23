@@ -1,7 +1,7 @@
 import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useEffect, useMemo } from "react";
-import { TenantProvider, useTenantId } from "../context";
+import { TenantProvider, useTenant } from "../context";
 import { TenantError } from "./tenant-error";
 
 interface TenantGuardProps {
@@ -9,7 +9,7 @@ interface TenantGuardProps {
 }
 
 function TenantGuardInner({ children }: TenantGuardProps) {
-	const { tenantId } = useTenantId();
+	const { tenantId } = useTenant();
 
 	if (!tenantId) {
 		return <TenantError />;
@@ -39,7 +39,7 @@ export function TenantGuard({ children }: TenantGuardProps) {
 
 function TenantGuardLogic({ children }: TenantGuardProps) {
 	const routerState = useRouterState();
-	const { setTenantId } = useTenantId();
+	const { setTenantId } = useTenant();
 	const search = routerState.location.search as { tenant?: string };
 
 	// Set localStorage if tenant is in URL and different from stored

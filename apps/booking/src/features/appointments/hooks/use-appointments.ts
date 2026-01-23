@@ -2,6 +2,7 @@ import { type Appointment, appointmentsRepository } from "@novahair/client";
 import { config } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useTenantId } from "~/shared/tenant";
 
 type Response = {
 	isLoading: boolean;
@@ -16,7 +17,7 @@ type Response = {
 type UseAppointments = () => Response;
 
 export const useAppointments: UseAppointments = () => {
-	const tenantId = config.tenantId;
+	const tenantId = useTenantId();
 	const [from, setFrom] = useState<string>(new Date().toISOString());
 
 	// default -> two months from now

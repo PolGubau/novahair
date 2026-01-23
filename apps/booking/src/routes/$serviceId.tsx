@@ -19,6 +19,7 @@ import {
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
+import { useTenantId } from "~/shared/tenant";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 
 const SearchSchema = z.object({
@@ -31,6 +32,7 @@ export const Route = createFileRoute("/$serviceId")({
 
 function CalendarStep() {
 	const serviceId = Route.useParams().serviceId;
+	const tenantId = useTenantId();
 	const {
 		goNextMonth,
 		formattedDate,
@@ -43,7 +45,7 @@ function CalendarStep() {
 
 	const { isLoading, error, days, refetch } = useAvailableDays({
 		serviceId,
-		tenantId: config.tenantId,
+		tenantId,
 		from: startIso,
 		to: endIso,
 	});

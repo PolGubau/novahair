@@ -19,6 +19,7 @@ export * from "./features/customers/hooks/use-customers";
 export * from "./features/customers/infra/repository";
 export * from "./features/services/domain/service.create.dto";
 export * from "./features/services/domain/service";
+export * from "./features/services/hooks/use-service-actions";
 export * from "./features/services/hooks/use-service";
 export * from "./features/services/hooks/use-services";
 export * from "./features/services/infra/repository";

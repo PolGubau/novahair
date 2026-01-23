@@ -6,6 +6,7 @@ import {
 import { type ISODate, config } from "@novahair/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useTenantId } from "~/shared/tenant";
 
 type Params = {
 	serviceId: string;
@@ -32,10 +33,10 @@ export const useSubmitAppointment = (
 	params: Params | null,
 ): UseSubmitAppointmentResult => {
 	const [isSuccess, setIsSuccess] = useState(false);
+	const tenantId = useTenantId();
 
 	const mutation = useMutation<Appointment, Error, CreateAppointment>({
-		mutationFn: (props) =>
-			appointmentsRepository.create(config.tenantId, props),
+		mutationFn: (props) => appointmentsRepository.create(tenantId, props),
 		onSuccess() {
 			setIsSuccess(true);
 			params?.onSuccess?.();
@@ -64,7 +65,7 @@ export const useSubmitAppointment = (
 		const notes = (fd.get("notes") as string) || "";
 
 		const payload: CreateAppointment = {
-			tenantId: config.tenantId,
+			tenantId,
 			serviceId: params.serviceId,
 			staffId: params.staffId ?? null,
 			customer: {
