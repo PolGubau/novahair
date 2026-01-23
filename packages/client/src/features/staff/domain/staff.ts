@@ -1,3 +1,5 @@
+import type { Service } from "../../services";
+
 export interface Staff {
 	id: string;
 	tenantId: string;
@@ -6,6 +8,7 @@ export interface Staff {
 	email: string;
 	phone: string;
 	color: string;
+	services: Service[];
 }
 
 export type StaffCreateDto = Pick<

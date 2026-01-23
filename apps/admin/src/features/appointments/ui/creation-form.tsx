@@ -1,13 +1,13 @@
-import { t } from "i18next";
-import { useEffect, useState } from "react";
-import { useServices } from "~/features/services/hooks/use-services";
-import { useStaffs } from "~/features/staff/hooks/use-staffs";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { useServices, useStaffs } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import { Select } from "@novahair/ui/select";
 import { Textarea } from "@novahair/ui/textarea";
+import { config } from "@novahair/utils";
+import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { t } from "i18next";
+import { useEffect, useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { appointmentRepository } from "../infra/repository";
 
@@ -19,8 +19,8 @@ export const AppointmentCreationForm = ({
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);
-	const { services } = useServices();
-	const { staffs } = useStaffs();
+	const { services } = useServices(config.tenantId);
+	const { staffs } = useStaffs(config.tenantId);
 
 	const [values, setValues] = useState({
 		serviceId: appointment?.serviceId ?? "",

@@ -21,6 +21,7 @@ export function toStaff(dto: StaffDto): Staff {
 		tenantId: dto.tenantId,
 		name: dto.name,
 		email: dto.email,
+		services: dto.services.map(toService),
 		phone: dto.phone,
 		color: dto.color,
 		avatarUrl: dto.avatarUrl || null,

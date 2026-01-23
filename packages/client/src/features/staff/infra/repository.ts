@@ -14,7 +14,7 @@ export type StaffRepository = Omit<
 export const staffRepository: StaffRepository = {
 	list: async (tenantId) => {
 		const dtos = await genericFetch<StaffDto[]>(
-			buildApiUrl(`staff/tenant/${tenantId}`),
+			buildApiUrl(`staff/tenants/${tenantId}`),
 		);
 		return dtos.map(toStaff);
 	},

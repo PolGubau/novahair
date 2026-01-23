@@ -31,7 +31,7 @@ interface DataTableProps<TData, TValue> {
 declare module "@tanstack/react-table" {
 	//allows us to define custom properties for our columns
 	interface ColumnMeta<TData extends RowData, TValue> {
-		filterVariant?: "text" | "range" | "select" | "date";
+		filterVariant?: "text" | "range" | "select" | "date" | "null";
 	}
 }
 export function DataTable<TData, TValue>({
@@ -96,7 +96,8 @@ export function DataTable<TData, TValue>({
 										header.column.getCanFilter() &&
 										isLeafColumn ? (
 											<div>
-												<Filter column={header.column} />
+												{header.column.columnDef.meta?.filterVariant !==
+													"null" && <Filter column={header.column} />}
 											</div>
 										) : null}
 									</TableHead>

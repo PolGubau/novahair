@@ -14,6 +14,7 @@ export type StaffDto = {
 	tenantId: string;
 	name: string;
 	email: string;
+	services: ServiceDto[];
 	phone: string;
 	color: string;
 	avatarUrl: string | null;

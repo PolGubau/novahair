@@ -1,9 +1,10 @@
-import { Edit2 } from "lucide-react";
-import { useState } from "react";
-import { useServices } from "~/features/services/hooks/use-services";
+import { useServices } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { CheckboxChip } from "@novahair/ui/checkbox/chip";
 import { Popover } from "@novahair/ui/popover";
+import { config } from "@novahair/utils";
+import { Edit2 } from "lucide-react";
+import { useState } from "react";
 
 type ServicesAssignedCellProps = {
 	assignedServiceIds: string[];
@@ -11,7 +12,7 @@ type ServicesAssignedCellProps = {
 export const ServicesAssignedCell = ({
 	assignedServiceIds = [],
 }: ServicesAssignedCellProps) => {
-	const { services } = useServices();
+	const { services } = useServices(config.tenantId);
 	const [updatedAssigned, setUpdatedAssigned] =
 		useState<string[]>(assignedServiceIds);
 

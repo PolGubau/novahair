@@ -1,13 +1,13 @@
-import type { ColumnDef } from "@tanstack/react-table";
-import { t } from "i18next";
-import { Edit2, Trash } from "lucide-react";
+import type { Staff } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import type { Staff } from "@novahair/client";
+import type { ColumnDef } from "@tanstack/react-table";
+import { t } from "i18next";
+import { Edit2, Trash } from "lucide-react";
 import { ServicesAssignedCell } from "./services-assigned-cell";
 
 export const getColumns = (options?: {
@@ -81,25 +81,27 @@ export const getColumns = (options?: {
 		},
 		{
 			accessorKey: "services",
+			meta: {
+				filterVariant: "null",
+			},
 			header: () => {
 				return <span>{t("services")}</span>;
 			},
-			cell: ({ row }) => (
-				<ServicesAssignedCell
-					assignedServiceIds={row.getValue("services") ?? []}
-				/>
-			),
+			cell: ({ row }) => {
+				console.log(row.getValue("services"));
+				return <ServicesAssignedCell assignedServiceIds={[]} />;
+			},
 		},
 
 		{
 			id: "actions",
 			enableHiding: false,
 			cell: ({ row }) => {
-				const service = row.original;
+				const staff = row.original;
 
 				return (
 					<div className="flex items-center justify-end gap-2">
-						<Button variant="ghost" size="sm" onClick={() => onEdit?.(service)}>
+						<Button variant="ghost" size="sm" onClick={() => onEdit?.(staff)}>
 							<Edit2 />
 							{t("edit")}
 						</Button>
@@ -110,10 +112,10 @@ export const getColumns = (options?: {
 							onClick={() => {
 								if (
 									window.confirm(
-										`¿Estás seguro que quieres borrar el servicio "${service.name}"?`,
+										`¿Estás seguro que quieres borrar el staff "${staff.name}"?`,
 									)
 								) {
-									onDelete?.(service);
+									onDelete?.(staff);
 								}
 							}}
 						>

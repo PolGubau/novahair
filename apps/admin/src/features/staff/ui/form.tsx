@@ -1,10 +1,13 @@
-import { t } from "i18next";
-import { useEffect, useState } from "react";
+import {
+	type Staff,
+	type StaffCreate,
+	useStaffActions,
+} from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
-import type { Staff, StaffCreate } from "@novahair/client";
-import { useStaff } from "../hooks/use-staff";
+import { t } from "i18next";
+import { useEffect, useState } from "react";
 
 export const StaffForm = ({
 	staff,
@@ -14,7 +17,7 @@ export const StaffForm = ({
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(staff);
-	const { create, update } = useStaff();
+	const { create, update } = useStaffActions();
 
 	const [values, setValues] = useState<StaffCreate>({
 		name: staff?.name ?? "",
@@ -119,7 +122,7 @@ export const StaffForm = ({
 					/>
 					<Input
 						label={t("avatar_url")}
-						value={avatarUrl}
+						value={avatarUrl ?? undefined}
 						name="avatarUrl"
 						type="url"
 						onChange={handleChange}

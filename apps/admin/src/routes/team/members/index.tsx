@@ -1,14 +1,13 @@
+import { type Staff, useStaffActions, useStaffs } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
+import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Staff } from "~/features/staff/domain/staff";
-import { useStaff } from "~/features/staff/hooks/use-staff";
-import { useStaffs } from "~/features/staff/hooks/use-staffs";
 import { StaffForm } from "~/features/staff/ui/form";
 import { StaffTable } from "~/features/staff/ui/table";
 
@@ -18,8 +17,8 @@ export const Route = createFileRoute("/team/members/")({
 
 function RouteComponent() {
 	const { t } = useTranslation();
-	const { staffs, isLoading, refetch } = useStaffs();
-	const { remove } = useStaff();
+	const { staffs, isLoading, refetch } = useStaffs(config.tenantId);
+	const { remove } = useStaffActions();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
 	const [editingStaff, setEditingStaff] = useState<Staff | null>(null);
