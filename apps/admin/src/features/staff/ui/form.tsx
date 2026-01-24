@@ -3,6 +3,12 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+	getInitial,
+} from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
@@ -111,8 +117,7 @@ export const StaffForm = ({
 							onChange={handleChange}
 						/>
 					</div>
-				</fieldset>
-				<fieldset className="grid grid-cols-2 gap-4">
+
 					<Input
 						label={t("color")}
 						value={color}
@@ -120,13 +125,20 @@ export const StaffForm = ({
 						type="color"
 						onChange={handleChange}
 					/>
-					<Input
-						label={t("avatar_url")}
-						value={avatarUrl ?? undefined}
-						name="avatarUrl"
-						type="url"
-						onChange={handleChange}
-					/>
+					<div className="grid gap-2 grid-cols-[1fr_auto] items-end">
+						<Input
+							label={t("avatar_url")}
+							value={avatarUrl ?? undefined}
+							name="avatarUrl"
+							placeholder="https://example.com/avatar.jpg"
+							type="url"
+							onChange={handleChange}
+						/>
+						<Avatar className="size-9">
+							<AvatarImage src={avatarUrl ?? ""} alt={t("image_url")} />
+							<AvatarFallback>{getInitial(values.name)}</AvatarFallback>
+						</Avatar>
+					</div>
 				</fieldset>
 
 				<div className="flex gap-2 justify-end">

@@ -1,5 +1,10 @@
 import type { Service } from "@novahair/client";
-import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+	getInitial,
+} from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table/data-table";
@@ -55,7 +60,17 @@ export const getColumns = (options?: {
 				);
 			},
 			cell: ({ row }) => (
-				<div className="lowercase">{row.getValue("name")}</div>
+				<div className="items-center flex gap-2">
+					<Avatar>
+						<AvatarImage
+							src={row.original.imageUrl ?? ""}
+							alt={row.getValue("name")}
+						/>
+						<AvatarFallback>{getInitial(row.getValue("name"))}</AvatarFallback>
+					</Avatar>
+
+					{row.getValue("name")}
+				</div>
 			),
 		},
 
@@ -66,26 +81,6 @@ export const getColumns = (options?: {
 			},
 			cell: ({ row }) => (
 				<div className="lowercase">{row.getValue("description")}</div>
-			),
-		},
-
-		{
-			accessorKey: "imageUrl",
-			header: () => {
-				return <span>{t("image")}</span>;
-			},
-			cell: ({ row }) => (
-				<div>
-					<Avatar className="rounded-md">
-						<AvatarImage
-							src={row.getValue("imageUrl")}
-							alt={row.getValue("name")}
-						/>
-						<AvatarFallback>
-							{JSON.stringify(row.getValue("name")).charAt(1).toUpperCase()}
-						</AvatarFallback>
-					</Avatar>
-				</div>
 			),
 		},
 

@@ -68,54 +68,61 @@ export function DataTable<TData, TValue>({
 								const isLeafColumn = header.subHeaders.length === 0;
 								return (
 									<TableHead key={header.id}>
-										<div
-											className={cn(
-												"flex items-center gap-2 py-2",
-												isLeafColumn ? "justify-between" : "justify-center",
-												{
-													"cursor-pointer select-none":
-														isLeafColumn && header.column.getCanSort(),
-												},
-											)}
-											{...{
-												onClick: isLeafColumn
-													? header.column.getToggleSortingHandler()
-													: undefined,
-											}}
-										>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.header,
-														header.getContext(),
-													)}
-											{isLeafColumn && (
-												<span>
-													{{
-														asc: "↑",
-														desc: "↓",
-													}[header.column.getIsSorted() as string] ?? null}{" "}
-												</span>
-											)}
+										<div className="flex items-center gap-2">
+											<div
+												className={cn(
+													"flex items-center gap-2 py-2",
+													isLeafColumn ? "justify-between" : "justify-center",
+													{
+														"cursor-pointer select-none":
+															isLeafColumn && header.column.getCanSort(),
+													},
+												)}
+												{...{
+													onClick: isLeafColumn
+														? header.column.getToggleSortingHandler()
+														: undefined,
+												}}
+											>
+												{header.isPlaceholder
+													? null
+													: flexRender(
+															header.column.columnDef.header,
+															header.getContext(),
+														)}
+												{isLeafColumn && (
+													<span>
+														{{
+															asc: "↑",
+															desc: "↓",
+														}[header.column.getIsSorted() as string] ??
+															null}{" "}
+													</span>
+												)}
+											</div>
+											{/* Solo mostrar filtros en columnas leaf (no en grupos) */}
+											{!header.isPlaceholder &&
+											header.column.getCanFilter() &&
+											isLeafColumn
+												? header.column.columnDef.meta?.filterVariant !==
+														"null" && (
+														<Popover
+															trigger={
+																<IconButton
+																	size="sm"
+																	variant="ghost"
+																	icon={<FilterIcon className="size-4" />}
+																/>
+															}
+														>
+															<div className="flex justify-between">
+																<strong>{t("filter")}</strong>
+																<Filter column={header.column} />
+															</div>
+														</Popover>
+													)
+												: null}
 										</div>
-										{/* Solo mostrar filtros en columnas leaf (no en grupos) */}
-										{!header.isPlaceholder &&
-										header.column.getCanFilter() &&
-										isLeafColumn
-											? header.column.columnDef.meta?.filterVariant !==
-													"null" && (
-													<Popover
-														trigger={
-															<IconButton size="sm" icon={<FilterIcon />} />
-														}
-													>
-														<div className="flex justify-between">
-															<strong>{t("filter")}</strong>
-															<Filter column={header.column} />
-														</div>
-													</Popover>
-												)
-											: null}
 									</TableHead>
 								);
 							})}

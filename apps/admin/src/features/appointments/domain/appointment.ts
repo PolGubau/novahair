@@ -1,5 +1,4 @@
-import type { Service } from "~/features/services/domain/service";
-import type { Staff } from "~/features/staff/domain/staff";
+import type { Service, Staff } from "@novahair/client";
 import type {
 	Customer,
 	SummarizedAppointment,

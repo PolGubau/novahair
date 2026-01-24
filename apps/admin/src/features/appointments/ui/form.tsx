@@ -1,8 +1,8 @@
-import { t } from "i18next";
-import { useStaff } from "~/features/staff/hooks/use-staff";
+import { useStaffActions } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
+import { t } from "i18next";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 
 export const AppointmentForm = ({
@@ -13,7 +13,7 @@ export const AppointmentForm = ({
 	onClose?: () => void;
 }) => {
 	const isEdit = Boolean(appointment);
-	const { create, update } = useStaff();
+	const { create, update } = useStaffActions();
 
 	const saving = create.isPending || update.isPending;
 

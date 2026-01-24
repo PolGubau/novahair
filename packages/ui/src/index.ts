@@ -5,6 +5,7 @@ export * from "./animated-theme-toggler";
 export * from "./api-error-fallback";
 export * from "./avatar";
 export * from "./button";
+export * from "./copy-button";
 export * from "./checkbox/checkbox";
 export * from "./checkbox/chip";
 export * from "./collapsible";

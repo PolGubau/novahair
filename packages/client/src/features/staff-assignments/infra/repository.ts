@@ -29,6 +29,9 @@ export const staffAssignmentsRepository: StaffAssignmentsRepository = {
 			buildApiUrl(`tenants/${tenantId}/staff/${staffId}/services`),
 			{
 				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify(data),
 			},
 		);

@@ -1,4 +1,5 @@
 import type { Staff } from "@novahair/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table/data-table";
@@ -45,7 +46,21 @@ export const getColumns = (options?: {
 			header: () => {
 				return <span>{t("name")}</span>;
 			},
-			cell: ({ row }) => <div>{row.getValue("name")}</div>,
+			cell: ({ row }) => (
+				<div className="flex gap-2 items-center">
+					<Avatar>
+						<AvatarImage
+							src={row.original.avatarUrl ?? ""}
+							alt={t("image_url")}
+							className=""
+						/>
+						<AvatarFallback>
+							{row.original.name.charAt(0).toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
+					{row.getValue("name")}
+				</div>
+			),
 		},
 
 		{
@@ -88,8 +103,13 @@ export const getColumns = (options?: {
 				return <span>{t("services")}</span>;
 			},
 			cell: ({ row }) => {
-				console.log(row.getValue("services"));
-				return <ServicesAssignedCell assignedServiceIds={[]} />;
+				const services = row.getValue("services") as Staff["services"];
+				return (
+					<ServicesAssignedCell
+						staffId={row.original.id}
+						assignedServiceIds={services.map((s) => s.id)}
+					/>
+				);
 			},
 		},
 

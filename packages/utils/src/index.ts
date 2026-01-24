@@ -3,6 +3,7 @@
  */
 
 export * from "./constants";
+export * from "./hooks/use-clipboard";
 export * from "./hooks/use-controlled-state";
 export * from "./hooks/use-mobile";
 export * from "./hooks/use-repository-mutation";

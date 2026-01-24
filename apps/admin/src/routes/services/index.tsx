@@ -1,4 +1,4 @@
-import { useServiceActions, useServices } from "@novahair/client";
+import { type Service, useServiceActions, useServices } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
@@ -8,9 +8,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Service } from "~/features/services/domain/service";
-import { ServiceCreationForm } from "~/features/services/ui/creation-form";
-import { ServiceTable } from "~/features/services/ui/table/service-table";
+import { ServiceCreationForm } from "~/features/services/ui/form";
+import { ServiceTable } from "~/features/services/ui/table";
 
 export const Route = createFileRoute("/services/")({
 	component: RouteComponent,

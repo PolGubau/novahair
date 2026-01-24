@@ -4,6 +4,12 @@ import {
 	type ServiceCreateDTO,
 	useServiceActions,
 } from "@novahair/client";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+	getInitial,
+} from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
@@ -24,10 +30,10 @@ export const ServiceCreationForm = ({
 
 	const [values, setValues] = useState<EditableServiceCreateDTO>({
 		name: service?.name ?? "",
-		bufferAfter: 0,
-		bufferBefore: 0,
+		bufferAfter: service?.bufferAfter ?? 0,
+		bufferBefore: service?.bufferBefore ?? 0,
 		description: service?.description ?? "",
-		priceCents: service?.priceCents ?? 0,
+		priceCents: service?.priceCents ?? 1000,
 		durationMin: service?.durationMin ?? 30,
 		imageUrl: service?.imageUrl ?? "",
 	});
@@ -104,36 +110,41 @@ export const ServiceCreationForm = ({
 					onChange={handleChange}
 				/>
 
-				<Input
-					label={t("image_url")}
-					value={imageUrl}
-					name="imageUrl"
-					type="url"
-					required
-					onChange={handleChange}
-				/>
+				<div className="grid grid-cols-[1fr_auto] gap-2 items-end">
+					<Input
+						label={t("image_url")}
+						value={imageUrl}
+						placeholder="https://example.com/image.jpg"
+						name="imageUrl"
+						type="url"
+						required
+						onChange={handleChange}
+					/>
+					<Avatar className="size-9">
+						<AvatarImage src={imageUrl ?? ""} alt={t("image_url")} />
+						<AvatarFallback>{getInitial(values.name)}</AvatarFallback>
+					</Avatar>
+				</div>
 				<div className="grid grid-cols-2 gap-4">
-					<div>
-						<Input
-							placeholder="5000"
-							required
-							type="number"
-							label={t("price_in_cents")}
-							value={priceCents}
-							name="priceCents"
-							onChange={handleChange}
-						/>
-					</div>
-					<div>
-						<Input
-							label={t("duration_in_minutes")}
-							placeholder="30"
-							type="number"
-							value={durationMin}
-							name="durationMin"
-							onChange={handleChange}
-						/>
-					</div>
+					<Input
+						placeholder="5000"
+						required
+						type="number"
+						label={t("price_in_cents")}
+						value={priceCents}
+						name="priceCents"
+						onChange={handleChange}
+					/>
+
+					<Input
+						label={t("duration_in_minutes")}
+						placeholder="30"
+						required
+						type="number"
+						value={durationMin}
+						name="durationMin"
+						onChange={handleChange}
+					/>
 				</div>
 				<div className="flex gap-2 justify-end">
 					<Button
