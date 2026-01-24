@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as AppointmentsTableRouteImport } from './routes/appointments/table'
+import { Route as TeamSchedulesIndexRouteImport } from './routes/team/schedules/index'
 import { Route as TeamMembersIndexRouteImport } from './routes/team/members/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const AppointmentsTableRoute = AppointmentsTableRouteImport.update({
   path: '/appointments/table',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamSchedulesIndexRoute = TeamSchedulesIndexRouteImport.update({
+  id: '/team/schedules/',
+  path: '/team/schedules/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamMembersIndexRoute = TeamMembersIndexRouteImport.update({
   id: '/team/members/',
   path: '/team/members/',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/appointments/table': typeof AppointmentsTableRoute
   '/services': typeof ServicesIndexRoute
   '/team/members': typeof TeamMembersIndexRoute
+  '/team/schedules': typeof TeamSchedulesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/appointments/table': typeof AppointmentsTableRoute
   '/services': typeof ServicesIndexRoute
   '/team/members': typeof TeamMembersIndexRoute
+  '/team/schedules': typeof TeamSchedulesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,30 @@ export interface FileRoutesById {
   '/appointments/table': typeof AppointmentsTableRoute
   '/services/': typeof ServicesIndexRoute
   '/team/members/': typeof TeamMembersIndexRoute
+  '/team/schedules/': typeof TeamSchedulesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/appointments/table' | '/services' | '/team/members'
+  fullPaths:
+    | '/'
+    | '/appointments/table'
+    | '/services'
+    | '/team/members'
+    | '/team/schedules'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/appointments/table' | '/services' | '/team/members'
-  id: '__root__' | '/' | '/appointments/table' | '/services/' | '/team/members/'
+  to:
+    | '/'
+    | '/appointments/table'
+    | '/services'
+    | '/team/members'
+    | '/team/schedules'
+  id:
+    | '__root__'
+    | '/'
+    | '/appointments/table'
+    | '/services/'
+    | '/team/members/'
+    | '/team/schedules/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +92,7 @@ export interface RootRouteChildren {
   AppointmentsTableRoute: typeof AppointmentsTableRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   TeamMembersIndexRoute: typeof TeamMembersIndexRoute
+  TeamSchedulesIndexRoute: typeof TeamSchedulesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppointmentsTableRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/team/schedules/': {
+      id: '/team/schedules/'
+      path: '/team/schedules'
+      fullPath: '/team/schedules'
+      preLoaderRoute: typeof TeamSchedulesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team/members/': {
       id: '/team/members/'
       path: '/team/members'
@@ -107,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppointmentsTableRoute: AppointmentsTableRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   TeamMembersIndexRoute: TeamMembersIndexRoute,
+  TeamSchedulesIndexRoute: TeamSchedulesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -86,6 +86,10 @@ const data: SidebarMenuConfig = {
 					title: "team_members",
 					url: "/team/members",
 				},
+				{
+					title: "schedules",
+					url: "/team/schedules",
+				},
 			],
 		},
 	],

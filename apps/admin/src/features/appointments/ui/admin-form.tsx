@@ -1,9 +1,9 @@
-import { t } from "i18next";
-import { Plus, RefreshCcw } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { Input } from "@novahair/ui/input";
+import { t } from "i18next";
+import { Plus, RefreshCcw } from "lucide-react";
+import { useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { useAppointments } from "../hooks/use-appointments";
 import AppointmentCreationForm from "./creation-form";

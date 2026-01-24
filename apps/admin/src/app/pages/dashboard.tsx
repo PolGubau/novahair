@@ -1,6 +1,6 @@
+import type { ExistingRoute } from "@novahair/utils/types/common";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
-import type { ExistingRoute } from "@novahair/utils/types/common";
 
 type QuickLink = {
 	name: string;

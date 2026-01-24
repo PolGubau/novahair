@@ -1,6 +1,6 @@
-import { useId } from "react";
 import { cn } from "@novahair/utils/lib/cn";
 import type { Breakpoints } from "@novahair/utils/types/common";
+import { useId } from "react";
 import { Label } from "./label";
 
 type Props = Omit<React.ComponentProps<"input">, "size"> & {
@@ -50,7 +50,7 @@ export const inputTheme = cn(
 	// Padding
 	"pr-2 pl-3 py-1",
 	// Height
-	"data-[placeholder]:text-sm data-placeholder:text-foreground/70",
+	"data-placeholder:text-sm data-placeholder:text-foreground/70",
 	"data-[size=md]:h-9 data-[size=sm]:h-7 data-[size=xs]:h-5 data-[size=lg]:h-11 data-[size=xl]:h-13",
 
 	// Icon

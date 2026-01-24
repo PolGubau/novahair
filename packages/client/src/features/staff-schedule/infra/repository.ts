@@ -24,7 +24,8 @@ export const staffScheduleRepository: StaffScheduleRepository = {
 		await genericFetch(
 			buildApiUrl(`tenants/${tenantId}/staff/${staffId}/schedule`),
 			{
-				method: "POST",
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(data),
 			},
 		);

@@ -1,6 +1,6 @@
+import { queryKeys } from "@novahair/utils/lib/query-keys";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryKeys } from "@novahair/utils/lib/query-keys";
 import type { Appointment } from "../domain/appointment";
 import { appointmentRepository } from "../infra/repository";
 

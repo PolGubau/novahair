@@ -4,9 +4,9 @@ import "@novahair/utils/i18n/setup";
 import { Devtools } from "@novahair/ui/dev-tools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
+	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
-	createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
