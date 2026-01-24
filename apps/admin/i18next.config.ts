@@ -1,6 +1,6 @@
 import { defineConfig } from "i18next-cli";
 export default defineConfig({
-	locales: ["en", "es", "ca"],
+	locales: ["en", "es"],
 	types: {
 		input: ["src/shared/i18n/locales/en.json"],
 		output: "src/types/i18next.d.ts",

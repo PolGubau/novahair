@@ -1,14 +1,19 @@
-// UI Components
+/**
+ * This barrel file is auto-generated. Do not edit.
+ */
+
 export * from "./accordion";
 export * from "./alert";
 export * from "./animated-theme-toggler";
 export * from "./api-error-fallback";
 export * from "./avatar";
 export * from "./button";
-export * from "./copy-button";
 export * from "./checkbox/checkbox";
 export * from "./checkbox/chip";
+export * from "./checkbox/context";
+export * from "./checkbox/types";
 export * from "./collapsible";
+export * from "./copy-button";
 export * from "./data-table/data-table";
 export * from "./debounced-input";
 export * from "./dev-tools";
@@ -19,6 +24,11 @@ export * from "./feature-error-boundary";
 export * from "./icon-button";
 export * from "./input";
 export * from "./label";
+export * from "./layouts/admin/admin-main";
+export * from "./layouts/admin/app-sidebar";
+export * from "./layouts/admin/location-switcher";
+export * from "./layouts/admin/nav-main";
+export * from "./layouts/admin/nav-user";
 export * from "./loader";
 export * from "./loading-overlay";
 export * from "./masked-image";
@@ -34,10 +44,3 @@ export * from "./switch";
 export * from "./table";
 export * from "./textarea";
 export * from "./tooltip";
-
-// Layouts
-export * from "./layouts/admin/admin-main";
-export * from "./layouts/admin/app-sidebar";
-export * from "./layouts/admin/location-switcher";
-export * from "./layouts/admin/nav-main";
-export * from "./layouts/admin/nav-user";

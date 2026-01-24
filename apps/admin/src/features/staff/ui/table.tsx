@@ -1,11 +1,12 @@
 import type { Staff } from "@novahair/client";
+import { Checkbox, CopyButton } from "@novahair/ui";
 import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
-import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { Link } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
 import { Edit2, Trash } from "lucide-react";
@@ -68,7 +69,17 @@ export const getColumns = (options?: {
 			header: () => {
 				return <span>{t("email")}</span>;
 			},
-			cell: ({ row }) => <div>{row.getValue("email")}</div>,
+			cell: ({ row }) => (
+				<div className="flex gap-2 items-center group">
+					{row.getValue("email")}
+					<CopyButton
+						text={row.getValue("email")}
+						size="sm"
+						variant="ghost"
+						className="opacity-0 group-hover:opacity-100 transition-opacity"
+					/>
+				</div>
+			),
 		},
 
 		{
