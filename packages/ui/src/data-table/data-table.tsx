@@ -153,40 +153,45 @@ export function DataTable<TData, TValue>({
 				</TableBody>
 			</Table>
 			<footer className="flex max-lg:flex-col lg:items-center lg:justify-between p-4">
-				<div className="flex items-center gap-1">
-					<IconButton
-						size="sm"
-						onClick={() => table.setPageIndex(0)}
-						disabled={!table.getCanPreviousPage()}
-					>
-						{"<<"}
-					</IconButton>
-					<IconButton
-						size="sm"
-						onClick={() => table.previousPage()}
-						disabled={!table.getCanPreviousPage()}
-					>
-						{"<"}
-					</IconButton>
-					<IconButton
-						size="sm"
-						onClick={() => table.nextPage()}
-						disabled={!table.getCanNextPage()}
-					>
-						{">"}
-					</IconButton>
-					<IconButton
-						size="sm"
-						onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-						disabled={!table.getCanNextPage()}
-					>
-						{">>"}
-					</IconButton>
+				<div className="flex items-center gap-4">
+					<div className="flex gap-1">
+						<IconButton
+							size="sm"
+							onClick={() => table.setPageIndex(0)}
+							disabled={!table.getCanPreviousPage()}
+						>
+							{"<<"}
+						</IconButton>
+						<IconButton
+							size="sm"
+							onClick={() => table.previousPage()}
+							disabled={!table.getCanPreviousPage()}
+						>
+							{"<"}
+						</IconButton>
+						<IconButton
+							size="sm"
+							onClick={() => table.nextPage()}
+							disabled={!table.getCanNextPage()}
+						>
+							{">"}
+						</IconButton>
+						<IconButton
+							size="sm"
+							onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+							disabled={!table.getCanNextPage()}
+						>
+							{">>"}
+						</IconButton>{" "}
+					</div>
+
 					<span className="flex items-center gap-1">
-						<div>Page</div>
+						<div>{t("page")}</div>
 						<strong>
-							{table.getState().pagination.pageIndex + 1} of{" "}
-							{table.getPageCount()}
+							{t("x_of_y", {
+								x: table.getState().pagination.pageIndex + 1,
+								y: table.getPageCount(),
+							})}
 						</strong>
 					</span>
 					{/* <span className="flex items-center gap-1">
@@ -217,7 +222,9 @@ export function DataTable<TData, TValue>({
 					</select> */}
 				</div>
 
-				<div>{table.getRowModel().rows.length} Rows</div>
+				<div>
+					{table.getRowModel().rows.length} {t("rows")}
+				</div>
 			</footer>
 		</div>
 	);

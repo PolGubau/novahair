@@ -9,7 +9,7 @@ import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { Link } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
-import { Edit2, Trash } from "lucide-react";
+import { Edit2, Phone, Trash } from "lucide-react";
 import { ServicesAssignedCell } from "./services-assigned-cell";
 
 export const getColumns = (options?: {
@@ -87,7 +87,25 @@ export const getColumns = (options?: {
 			header: () => {
 				return <span>{t("phone")}</span>;
 			},
-			cell: ({ row }) => <div>{row.getValue("phone")}</div>,
+			cell: ({ row }) => (
+				<div className="flex gap-2 items-center group">
+					{row.getValue("phone")}
+					<a
+						href={`tel:${row.getValue("phone")}`}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<IconButton
+							variant="ghost"
+							size="sm"
+							label={t("call")}
+							className="opacity-0 group-hover:opacity-100 transition-opacity"
+						>
+							<Phone />
+						</IconButton>
+					</a>
+				</div>
+			),
 		},
 		{
 			accessorKey: "color",
