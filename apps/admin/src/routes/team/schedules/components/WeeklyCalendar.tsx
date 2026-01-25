@@ -1,6 +1,7 @@
 import { Button } from "@novahair/ui";
+import i18n from "@novahair/utils/i18n/setup";
 import { format, isSameDay } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Schedule {
 	staff: string;
@@ -23,20 +24,48 @@ interface WeeklyCalendarProps {
 	) => void;
 }
 
-const PIXELS_PER_MINUTE = 0.5; // 0.5 pixel per minute, total 720px height
-const DAY_HEIGHT = 24 * 60 * PIXELS_PER_MINUTE; // 24 hours * 60 minutes * 0.5
+const START_HOUR = 6;
+const END_HOUR = 22;
+const HOURS_COUNT = END_HOUR - START_HOUR;
+
+// Hook para calcular height disponible y pixels por minuto
+function useCalendarSizing() {
+	const [dimensions, setDimensions] = useState({
+		height: 400, // fallback mínimo
+		pixelsPerMinute: 0.5,
+	});
+
+	useEffect(() => {
+		const calculateDimensions = () => {
+			// Estimar height disponible (viewport - header/footer aproximado)
+			const windowHeight = window.innerHeight;
+			const estimatedHeaderFooter = 220; // px aproximados para header, footer, padding
+			const availableHeight = Math.max(
+				100,
+				windowHeight - estimatedHeaderFooter,
+			);
+
+			// Calcular pixels por minuto para ocupar todo el height disponible
+			const totalMinutes = HOURS_COUNT * 60;
+			const pixelsPerMinute = availableHeight / totalMinutes;
+
+			setDimensions({
+				height: availableHeight,
+				pixelsPerMinute: Math.max(0.3, Math.min(1.5, pixelsPerMinute)), // límites razonables
+			});
+		};
+
+		calculateDimensions();
+		window.addEventListener("resize", calculateDimensions);
+		return () => window.removeEventListener("resize", calculateDimensions);
+	}, []);
+
+	return dimensions;
+}
 
 function getMinutesFromMidnight(time: string): number {
 	const [hours, minutes] = time.split(":").map(Number);
 	return hours * 60 + minutes;
-}
-
-function formatTime(minutes: number): string {
-	// Round to nearest 15-minute interval
-	const roundedMinutes = Math.round(minutes / 15) * 15;
-	const hours = Math.floor(roundedMinutes / 60);
-	const mins = roundedMinutes % 60;
-	return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
 }
 
 function getSchedulePosition(sortedSchedules: Schedule[], index: number) {
@@ -59,6 +88,15 @@ function getSchedulePosition(sortedSchedules: Schedule[], index: number) {
 		width: `${100 / totalColumns}%`,
 	};
 }
+
+function weekDayLabel(date: Date, locale = "en-US") {
+	return new Intl.DateTimeFormat(locale, { weekday: "short" }).format(date);
+}
+function dayLabel(date: Date, locale = "en-US") {
+	return new Intl.DateTimeFormat(locale, {
+		day: "numeric",
+	}).format(date);
+}
 export function WeeklyCalendar({
 	weekDays,
 	selectedDates,
@@ -66,159 +104,69 @@ export function WeeklyCalendar({
 	getSchedulesForDay,
 	isLoading,
 	colorMap,
-	onScheduleDrag,
 }: WeeklyCalendarProps) {
-	const [draggedSchedule, setDraggedSchedule] = useState<{
-		schedule: Schedule;
-		originalDate: Date;
-		dragOffset: { x: number; y: number };
-		isResizing: "top" | "bottom" | null;
-		originalStart: string;
-		originalEnd: string;
-	} | null>(null);
-
-	const handleDragStart = (
-		e: React.DragEvent,
-		schedule: Schedule,
-		day: Date,
-	) => {
-		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-		const y = e.clientY - rect.top;
-		const height = rect.height;
-
-		// Check if dragging near top or bottom border (within 20% of height)
-		const resizeThreshold = height * 0.2;
-		const isNearTop = y <= resizeThreshold;
-		const isNearBottom = y >= height - resizeThreshold;
-
-		e.dataTransfer.effectAllowed = "move";
-		setDraggedSchedule({
-			schedule,
-			originalDate: day,
-			dragOffset: { x: e.clientX - rect.left, y: e.clientY - rect.top },
-			isResizing: isNearTop ? "top" : isNearBottom ? "bottom" : null,
-			originalStart: schedule.start,
-			originalEnd: schedule.end,
-		});
-	};
-
-	const handleDragOver = (e: React.DragEvent) => {
-		e.preventDefault();
-		if (draggedSchedule?.isResizing) {
-			e.dataTransfer.dropEffect = "none";
-		} else {
-			e.dataTransfer.dropEffect = "move";
-		}
-	};
-
-	const handleDrop = (e: React.DragEvent, targetDay: Date) => {
-		e.preventDefault();
-		if (!draggedSchedule || !onScheduleDrag) return;
-
-		const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-		const y = e.clientY - rect.top;
-		const minutes = Math.round(y / PIXELS_PER_MINUTE);
-		const clampedMinutes = Math.max(0, Math.min(1440, minutes));
-
-		let newStart: string;
-		let newEnd: string;
-		let finalDate: Date;
-
-		if (draggedSchedule.isResizing === "top") {
-			// Resizing from top - change start time
-			newStart = formatTime(clampedMinutes);
-			newEnd = draggedSchedule.originalEnd;
-			finalDate = draggedSchedule.originalDate;
-		} else if (draggedSchedule.isResizing === "bottom") {
-			// Resizing from bottom - change end time
-			newStart = draggedSchedule.originalStart;
-			newEnd = formatTime(clampedMinutes);
-			finalDate = draggedSchedule.originalDate;
-		} else {
-			// Moving the entire schedule
-			const duration =
-				getMinutesFromMidnight(draggedSchedule.schedule.end) -
-				getMinutesFromMidnight(draggedSchedule.schedule.start);
-			newStart = formatTime(clampedMinutes);
-			newEnd = formatTime(clampedMinutes + duration);
-			finalDate = targetDay;
-		}
-
-		// Only call if times are valid
-		const startMinutes = getMinutesFromMidnight(newStart);
-		const endMinutes = getMinutesFromMidnight(newEnd);
-		if (startMinutes < endMinutes) {
-			onScheduleDrag(
-				{
-					...draggedSchedule.schedule,
-					originalDate: draggedSchedule.originalDate,
-				},
-				finalDate,
-				newStart,
-				newEnd,
-			);
-		}
-
-		setDraggedSchedule(null);
-	};
-
-	const handleDragEnd = () => {
-		setDraggedSchedule(null);
-	};
+	const { height: DAY_HEIGHT, pixelsPerMinute: PIXELS_PER_MINUTE } =
+		useCalendarSizing();
 	return (
-		<div className="flex w-full overflow-x-auto gap-0 border rounded-xl">
+		<ul className="flex w-full overflow-x-auto gap-0 border rounded-xl divide-x divide-foreground/5">
 			{weekDays.map((day) => {
 				const schedules = getSchedulesForDay(day);
 				return (
-					<div
+					<li
 						key={day.toISOString()}
-						className={`flex-1 min-w-36 overflow-hidden rounded-lg p-2 ${isSameDay(day, new Date()) ? "bg-yellow-100" : ""}`}
+						className={`flex-1 min-w-36 overflow-hidden ${weekDays.indexOf(day) === 0 ? "pl-10" : ""} ${isSameDay(day, new Date()) ? "bg-foreground/5" : ""}`}
 						style={{ height: `${DAY_HEIGHT + 40}px` }} // extra for header
 						data-day={day.toISOString()}
-						onDragOver={handleDragOver}
-						onDrop={(e) => handleDrop(e, day)}
 					>
-						<div className="text-center mb-2">
-							<div className="font-semibold">{format(day, "EEEE")}</div>
-							<div className="text-sm text-gray-500">
-								{format(day, "d MMM")}
+						<Button
+							data-selected={selectedDates.some((d) => isSameDay(d, day))}
+							className="p-2 rounded-none h-fit flex flex-col w-full data-[selected=true]:bg-primary/20 border-none"
+							variant="ghost"
+							size="sm"
+							onClick={() => toggleDate(day)}
+							disabled={isLoading}
+						>
+							<div className="flex flex-col items-center">
+								<span className="text-sm text-foreground/60 capitalize">
+									{weekDayLabel(day, i18n.language)}
+								</span>
+								<h2 className="font-semibold capitalize">
+									{dayLabel(day, i18n.language)}
+								</h2>
 							</div>
-							<Button
-								variant={
-									selectedDates.some((d) => isSameDay(d, day))
-										? "primary"
-										: "outline"
-								}
-								size="sm"
-								className="mt-1"
-								onClick={() => toggleDate(day)}
-								disabled={isLoading}
-							>
-								{selectedDates.some((d) => isSameDay(d, day))
-									? "Seleccionado"
-									: "Seleccionar"}
-							</Button>
-						</div>
+						</Button>
 						<div
 							className="relative border-t"
 							style={{ height: `${DAY_HEIGHT}px` }}
 						>
 							{/* Hour lines */}
-							{Array.from({ length: 24 }, (_, hour) => (
-								<div
-									// biome-ignore lint/suspicious/noArrayIndexKey: key
-									key={hour}
-									className="absolute w-full border-t border-foreground/10"
-									style={{ top: `${hour * 60 * PIXELS_PER_MINUTE}px` }}
-								>
-									{/* Hour labels only on first column */}
-									{weekDays.indexOf(day) === 0 && (
-										<span className="absolute -left-8 -top-2 text-xs text-muted-foreground">
-											{hour === 0 ? "00:00" : `${hour}:00`}
-										</span>
-									)}
-								</div>
-							))}
+							{Array.from({ length: HOURS_COUNT }, (_, i) => {
+								const hour = i + START_HOUR;
+								function formatHourLabel(hour: number, locale = "en-US") {
+									const date = new Date();
+									date.setHours(hour, 0, 0, 0);
+
+									return new Intl.DateTimeFormat(locale, {
+										hour: "numeric",
+										hour12: false,
+									}).format(date);
+								}
+								return (
+									<div
+										// biome-ignore lint/suspicious/noArrayIndexKey: key
+										key={hour}
+										className="absolute w-full border-t border-foreground/10"
+										style={{ top: `${i * 60 * PIXELS_PER_MINUTE}px` }}
+									>
+										{/* Hour labels only on first column */}
+										{weekDays.indexOf(day) === 0 && (
+											<span className="absolute -left-8 -top-2 text-xs text-muted-foreground">
+												{formatHourLabel(hour, i18n.language)}
+											</span>
+										)}
+									</div>
+								);
+							})}
 							{isLoading ? (
 								<div className="absolute inset-0 flex items-center justify-center">
 									<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
@@ -231,9 +179,12 @@ export function WeeklyCalendar({
 									return sortedSchedules.map((schedule, index) => {
 										const startMinutes = getMinutesFromMidnight(schedule.start);
 										const endMinutes = getMinutesFromMidnight(schedule.end);
-										const top = startMinutes * PIXELS_PER_MINUTE;
+										const adjustedStart = startMinutes - START_HOUR * 60;
+										const adjustedEnd = endMinutes - START_HOUR * 60;
+										const top = Math.max(0, adjustedStart) * PIXELS_PER_MINUTE;
 										const height =
-											(endMinutes - startMinutes) * PIXELS_PER_MINUTE;
+											Math.max(0, adjustedEnd - adjustedStart) *
+											PIXELS_PER_MINUTE;
 										const position = getSchedulePosition(
 											sortedSchedules,
 											index,
@@ -243,28 +194,14 @@ export function WeeklyCalendar({
 											<div
 												// biome-ignore lint/suspicious/noArrayIndexKey: key
 												key={index}
-												className={`absolute ${bgColor} text-white p-1 rounded text-xs overflow-hidden select-none ${
-													draggedSchedule?.schedule === schedule
-														? "opacity-50"
-														: ""
-												}`}
+												className={`absolute ${bgColor} text-white p-1 rounded text-xs overflow-hidden select-none`}
 												style={{
 													top: `${top}px`,
 													height: `${height}px`,
 													...position,
-													cursor:
-														draggedSchedule?.schedule === schedule
-															? draggedSchedule.isResizing === "top"
-																? "ns-resize"
-																: draggedSchedule.isResizing === "bottom"
-																	? "ns-resize"
-																	: "move"
-															: "move",
 												}}
 												title={`${schedule.staff}: ${schedule.start} - ${schedule.end}`}
 												draggable
-												onDragStart={(e) => handleDragStart(e, schedule, day)}
-												onDragEnd={handleDragEnd}
 											>
 												<div className="font-medium truncate">
 													{schedule.staff}
@@ -278,9 +215,9 @@ export function WeeklyCalendar({
 								})()
 							)}
 						</div>
-					</div>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 }

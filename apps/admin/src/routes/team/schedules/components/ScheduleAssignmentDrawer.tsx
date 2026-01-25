@@ -1,5 +1,6 @@
 import { Button, Checkbox } from "@novahair/ui";
 import { Drawer } from "@novahair/ui/drawer";
+import { t } from "i18next";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AddScheduleForm } from "./add-schedule-form/add-schedule-form";
@@ -25,10 +26,10 @@ export function ScheduleAssignmentDrawer({
 		<>
 			<Button
 				onClick={() => setIsDrawerOpen(true)}
-				// disabled={!selectedDates.length}
+				disabled={!selectedDays.length}
 			>
 				<Plus className="size-4" />
-				Añadir Horarios
+				<span className="max-md:hidden">{t("add_schedules")}</span>
 			</Button>
 			<Drawer
 				open={isDrawerOpen}

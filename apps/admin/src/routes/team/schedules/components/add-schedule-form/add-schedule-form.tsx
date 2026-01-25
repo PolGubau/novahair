@@ -7,6 +7,7 @@ import type { TimeSlot } from "../ScheduleAssignmentDrawer";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
 import { TimeSlotArray } from "./time-slot-array";
+import { t } from "i18next";
 
 type Props = {
 	onSuccess?: () => void;
@@ -42,7 +43,7 @@ export function AddScheduleForm({
 					!selectedStaffs.length || !timeSlots.some((s) => s.start && s.end)
 				}
 			>
-				Asignar
+				{t("assign_schedule")}
 			</Button>
 		</div>
 	);

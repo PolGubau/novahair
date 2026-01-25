@@ -17,7 +17,7 @@ export const AdminMain = ({
 }: Props) => {
 	const { t } = useTranslation();
 	return (
-		<section className="p-5 gap-6 flex flex-col h-full">
+		<section className="p-4 gap-6 flex flex-col h-full">
 			<header className="flex justify-between items-center mb-4">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-xl md:text-2xl">{t(title)}</h1>

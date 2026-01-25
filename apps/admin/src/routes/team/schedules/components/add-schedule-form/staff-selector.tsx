@@ -1,13 +1,19 @@
 import { type Staff, useStaffs } from "@novahair/client";
-import { Checkbox, CheckboxChip } from "@novahair/ui";
-import { config } from "@novahair/utils";
+import { CheckboxChip } from "@novahair/ui";
+import { type TranslationKey, config } from "@novahair/utils";
+import { t } from "i18next";
 
 type Props = {
+	label?: TranslationKey;
 	selectedStaffs: Staff[];
 	onChange: (staffs: Staff[]) => void;
 };
 
-export function StaffSelector({ selectedStaffs, onChange }: Props) {
+export function StaffSelector({
+	selectedStaffs,
+	onChange,
+	label = "select_staff",
+}: Props) {
 	const { staffs } = useStaffs(config.tenantId);
 
 	const toggleStaff = (staff: Staff) => {
@@ -20,7 +26,7 @@ export function StaffSelector({ selectedStaffs, onChange }: Props) {
 
 	return (
 		<div>
-			<h3 className="text-lg font-semibold mb-2">Seleccionar Empleados</h3>
+			<h3 className="text-lg font-semibold mb-2">{t(label)}</h3>
 			<ul className="gap-2 grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
 				{staffs?.map((staff) => (
 					<li key={staff.id} className="flex items-center space-x-2">
@@ -32,7 +38,7 @@ export function StaffSelector({ selectedStaffs, onChange }: Props) {
 							checked={selectedStaffs.some((s) => s.id === staff.id)}
 							onCheckedChange={() => toggleStaff(staff)}
 						/>
- 					</li>
+					</li>
 				))}
 			</ul>
 		</div>

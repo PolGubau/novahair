@@ -1,19 +1,18 @@
-import { Checkbox } from "@novahair/ui";
+import type { Staff } from "@novahair/client";
 import { Loader } from "@novahair/ui/loader";
+import { StaffSelector } from "./add-schedule-form/staff-selector";
 
-interface StaffFilterSidebarProps {
-	staffs: { id: string; name: string }[] | undefined;
-	filteredStaffs: string[];
-	setFilteredStaffs: (staffs: string[]) => void;
+interface StaffFilterProps {
+	filteredStaffs: Staff[];
+	setFilteredStaffs: (staffs: Staff[]) => void;
 	isLoading: boolean;
 }
 
-export function StaffFilterSidebar({
-	staffs,
+export function StaffFilter({
 	filteredStaffs,
 	setFilteredStaffs,
 	isLoading,
-}: StaffFilterSidebarProps) {
+}: StaffFilterProps) {
 	if (isLoading) {
 		return (
 			<div className="w-64 p-4 border-r">
@@ -24,27 +23,10 @@ export function StaffFilterSidebar({
 
 	return (
 		<section className="">
-			<h3 className="font-semibold mb-2">Filtrar Trabajadores</h3>
-			<div className="space-y-2">
-				{staffs?.map((staff) => (
-					<div key={staff.id} className="flex items-center space-x-2">
-						<Checkbox
-							id={`filter-${staff.id}`}
-							checked={filteredStaffs.includes(staff.id)}
-							onCheckedChange={(checked) => {
-								if (checked) {
-									setFilteredStaffs([...filteredStaffs, staff.id]);
-								} else {
-									setFilteredStaffs(
-										filteredStaffs.filter((id) => id !== staff.id),
-									);
-								}
-							}}
-						/>
-						<label htmlFor={`filter-${staff.id}`}>{staff.name}</label>
-					</div>
-				))}
-			</div>
+			<StaffSelector
+				selectedStaffs={filteredStaffs}
+				onChange={setFilteredStaffs}
+			/>
 		</section>
 	);
 }
