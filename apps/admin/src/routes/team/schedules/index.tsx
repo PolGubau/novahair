@@ -221,6 +221,7 @@ function RouteComponent() {
 
 			// Create updated schedules array with IDs
 			const updatedSchedules = currentSchedules.map((s) => ({
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 				id: (s as any).id || crypto.randomUUID(),
 				startTime: s.startTime,
 				endTime: s.endTime,
