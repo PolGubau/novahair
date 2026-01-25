@@ -1,7 +1,7 @@
 import { useServices, useStaffAssignmentActions } from "@novahair/client";
+import { Popover } from "@novahair/ui";
 import { Button } from "@novahair/ui/button";
 import { CheckboxChip } from "@novahair/ui/checkbox/chip";
-import { Popover } from "@novahair/ui/popover";
 import { config } from "@novahair/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { t } from "i18next";

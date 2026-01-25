@@ -4,6 +4,7 @@ import type * as React from "react";
 
 import { cn } from "@novahair/utils/lib/cn";
 import { Loader } from "./loader";
+import { Ripple } from "./ripple/ripple";
 
 const buttonVariants = cva(
 	"group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none border focus-visible:border-2 focus-visible:border-foreground aria-invalid:ring-error/20 dark:aria-invalid:ring-error/40 aria-invalid:border-error border-transparent cursor-pointer",
@@ -58,6 +59,8 @@ function Button({
 			{...props}
 		>
 			{loading && <Loader hasLabel={false} className={cn("size-4")} />}
+			<Ripple />
+
 			{props.children}
 		</Comp>
 	);

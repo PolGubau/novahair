@@ -65,6 +65,7 @@ export type WorkingHoursDto = {
 };
 
 export type ScheduleDto = {
+	id: string;
 	startTime: string;
 	endTime: string;
 };
@@ -124,7 +125,8 @@ export type UpdateWorkingHoursDto = CreateWorkingHoursDto;
 
 export type AssignServicesToStaffDto = { serviceIds: string[] };
 
-export type CreateScheduleDto = ScheduleDto[];
+export type CreateScheduleDto = Omit<ScheduleDto, "id">;
+export type UpdateScheduleDto = ScheduleDto;
 
 export type CreateCustomerDto = {
 	name: string;

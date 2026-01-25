@@ -17,7 +17,7 @@ import { useState } from "react";
 import { DebouncedInput } from "../debounced-input";
 import { IconButton } from "../icon-button";
 import { Input } from "../input";
-import { Popover } from "../popover";
+import { Popover } from "../popover/popover";
 import {
 	Table,
 	TableBody,

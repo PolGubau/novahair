@@ -1,11 +1,11 @@
-import { motion, type SVGMotionProps } from "motion/react";
-import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { useControlledState } from "@novahair/utils";
+import { type SVGMotionProps, motion } from "motion/react";
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { CheckboxProvider, useCheckbox } from "./context";
 import type { CheckedState } from "./types";
 
 // CheckboxPrimitive Props + extra props
-type CheckboxProps = {
+type CheckboxRootProps = {
 	checked?: CheckedState;
 	defaultChecked?: CheckedState;
 	name?: string;
@@ -23,7 +23,7 @@ function CheckboxRoot({
 	name,
 	value,
 	...props
-}: CheckboxProps) {
+}: CheckboxRootProps) {
 	const [isChecked, setIsChecked] = useControlledState({
 		value: checked,
 		defaultValue: defaultChecked,
@@ -120,5 +120,5 @@ export {
 	CheckboxIndicator,
 	CheckboxRoot,
 	type CheckboxIndicatorProps,
-	type CheckboxProps,
+	type CheckboxRootProps,
 };

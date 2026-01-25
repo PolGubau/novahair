@@ -39,7 +39,7 @@ export const Drawer = ({
 				/>
 				<D.Content
 					className={cn(
-						"h-fit fixed flex justify-center bottom-0 left-0 right-0 mx-auto md:max-w-[90vw] outline-none z-30",
+						"h-fit fixed flex justify-center bottom-0 left-0 right-0 mx-auto md:max-w-[90vw] outline-none z-50",
 						classNames?.content,
 					)}
 				>

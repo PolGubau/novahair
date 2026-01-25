@@ -1,6 +1,6 @@
 import { Button, Input } from "@novahair/ui";
 import { Plus, X } from "lucide-react";
-import type { TimeSlot } from "../ScheduleAssignmentDrawer";
+import type { TimeSlot } from "../schedule-assignment-drawer";
 
 type Props = {
 	timeSlots: TimeSlot[];

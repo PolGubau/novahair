@@ -1,4 +1,5 @@
 import {
+	type Schedule,
 	type Staff,
 	staffScheduleRepository,
 	useStaffs,
@@ -14,19 +15,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
 import { Filter } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { ScheduleAssignmentDrawer } from "./components/ScheduleAssignmentDrawer";
-import { StaffFilter } from "./components/StaffFilterSidebar";
-import { WeekNavigation } from "./components/WeekNavigation";
-import { WeeklyCalendar } from "./components/WeeklyCalendar";
+import {
+	ScheduleAssignmentDrawer,
+	StaffFilter,
+	WeekNavigation,
+	WeeklyCalendar,
+} from "~/features/schedules";
 
 export const Route = createFileRoute("/team/schedules/")({
 	component: RouteComponent,
 });
-
-type Schedule = {
-	startTime: string;
-	endTime: string;
-};
 
 function RouteComponent() {
 	const {
@@ -36,18 +34,7 @@ function RouteComponent() {
 	} = useStaffs(config.tenantId);
 	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
 	const colorMap = useMemo(() => {
-		const colors = [
-			"bg-blue-500",
-			"bg-green-500",
-			"bg-red-500",
-			"bg-yellow-500",
-			"bg-purple-500",
-			"bg-pink-500",
-			"bg-indigo-500",
-		];
-		return Object.fromEntries(
-			staffs?.map((s, i) => [s.name, colors[i % colors.length]]) || [],
-		);
+		return Object.fromEntries(staffs?.map((s) => [s.name, s.color]) || []);
 	}, [staffs]);
 
 	const staffSchedules = useQueries({
@@ -89,7 +76,12 @@ function RouteComponent() {
 	};
 
 	const getSchedulesForDay = (date: Date) => {
-		const schedules: { staff: string; start: string; end: string }[] = [];
+		const schedules: {
+			id: string;
+			staff: string;
+			start: string;
+			end: string;
+		}[] = [];
 		for (const [index, query] of staffSchedules.entries()) {
 			if (
 				query.data &&
@@ -101,6 +93,7 @@ function RouteComponent() {
 					const startDate = parseISO(schedule.startTime);
 					if (isSameDay(startDate, date)) {
 						schedules.push({
+							id: schedule.id,
 							staff: staff.name,
 							start: format(startDate, "HH:mm"),
 							end: format(parseISO(schedule.endTime), "HH:mm"),
@@ -164,6 +157,11 @@ function RouteComponent() {
 						getSchedulesForDay={getSchedulesForDay}
 						isLoading={isSchedulesLoading}
 						colorMap={colorMap}
+						staffs={staffs || []}
+						onScheduleUpdate={(updatedSchedule) => {
+							// Aquí iría la lógica para actualizar el horario
+							console.log("Updated schedule:", updatedSchedule);
+						}}
 					/>
 				</div>
 

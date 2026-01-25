@@ -1,9 +1,9 @@
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@novahair/utils/lib/cn";
+import { type VariantProps, cva } from "class-variance-authority";
 import {
 	CheckboxIndicator as CheckboxIndicatorPrimitive,
 	CheckboxRoot as CheckboxPrimitive,
-	type CheckboxProps as CheckboxPrimitiveProps,
+	type CheckboxRootProps as CheckboxPrimitiveProps,
 } from "./primitives";
 
 const checkboxVariants = cva(

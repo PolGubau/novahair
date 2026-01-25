@@ -1,13 +1,11 @@
 import type { Staff } from "@novahair/client";
 import { Button } from "@novahair/ui";
-import i18n from "@novahair/utils/i18n/setup";
+import { t } from "i18next";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import type { TimeSlot } from "../ScheduleAssignmentDrawer";
+import type { TimeSlot } from "../schedule-assignment-drawer";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
 import { TimeSlotArray } from "./time-slot-array";
-import { t } from "i18next";
 
 type Props = {
 	onSuccess?: () => void;

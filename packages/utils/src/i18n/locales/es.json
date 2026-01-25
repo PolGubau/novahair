@@ -13,6 +13,7 @@
 	"schedules": "Horarios",
 	"copy": "Copiar",
 	"call": "Llamar",
+	"[staff]_turn_at_[date]": "Turno de {{staff}} a las {{date}}",
 	"copied": "¡Copiado!",
 	"manage_your_team_schedules": "Gestiona los horarios de tu equipo",
 	"rows": "filas",

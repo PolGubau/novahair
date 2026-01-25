@@ -78,6 +78,7 @@
 	"name_placeholder": "Jane Smith",
 	"date": "Date",
 	"loading": "Loading...",
+	"[staff]_turn_at_[date]": "{{staff}}'s turn at {{date}}",
 	"schedules": "Schedules",
 	"notes_placeholder": "Write any additional details here...",
 	"email_placeholder": "jane.smith@example.com",
