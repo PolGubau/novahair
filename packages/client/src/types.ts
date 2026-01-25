@@ -122,7 +122,7 @@ export type CreateWorkingHoursDto = {
 
 export type UpdateWorkingHoursDto = CreateWorkingHoursDto;
 
-export type AssignServicesToStaffDto = string[];
+export type AssignServicesToStaffDto = { serviceIds: string[] };
 
 export type CreateScheduleDto = ScheduleDto[];
 

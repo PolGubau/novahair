@@ -1,13 +1,14 @@
 import { staffScheduleRepository, useStaffs } from "@novahair/client";
-import { Button } from "@novahair/ui";
+import { Drawer, IconButton } from "@novahair/ui";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { Loader } from "@novahair/ui/loader";
 import { config } from "@novahair/utils";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
+import { Filter } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ScheduleAssignmentDrawer } from "./components/ScheduleAssignmentDrawer";
 import { StaffFilterSidebar } from "./components/StaffFilterSidebar";
@@ -39,8 +40,7 @@ function RouteComponent() {
 		isLoading: staffsLoading,
 		error: staffsError,
 	} = useStaffs(config.tenantId);
-	const queryClient = useQueryClient();
-
+	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
 	const colorMap = useMemo(() => {
 		const colors = [
 			"bg-blue-500",
@@ -68,29 +68,8 @@ function RouteComponent() {
 
 	const isSchedulesLoading = staffSchedules.some((q) => q.isLoading);
 
-	const assignMutation = useMutation({
-		mutationFn: ({
-			staffId,
-			data,
-		}: {
-			staffId: string;
-			data: { startTime: string; endTime: string }[];
-		}) => staffScheduleRepository.assign(config.tenantId, staffId, data),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["staff-schedule"] });
-		},
-		onError: (error) => {
-			console.error("Error assigning schedule:", error);
-			// TODO: Show toast or error message
-		},
-	});
-
 	const [selectedDates, setSelectedDates] = useState<Date[]>([]);
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-	const [drawerStaff, setDrawerStaff] = useState<string[]>([]);
-	const [drawerTimeSlots, setDrawerTimeSlots] = useState<TimeSlot[]>([
-		{ start: "", end: "" },
-	]);
+
 	const [filteredStaffs, setFilteredStaffs] = useState<string[]>([]);
 
 	useEffect(() => {
@@ -113,28 +92,6 @@ function RouteComponent() {
 				? prev.filter((d) => !isSameDay(d, date))
 				: [...prev, date],
 		);
-	};
-
-	const handleAssign = () => {
-		const schedules = [];
-		for (const date of selectedDates) {
-			for (const slot of drawerTimeSlots.filter((s) => s.start && s.end)) {
-				const dateStr = format(date, "yyyy-MM-dd");
-				schedules.push({
-					startTime: new Date(`${dateStr}T${slot.start}:00`).toISOString(),
-					endTime: new Date(`${dateStr}T${slot.end}:00`).toISOString(),
-				});
-			}
-		}
-
-		// For each selected staff, assign the schedules
-		for (const staffId of drawerStaff) {
-			assignMutation.mutate({ staffId, data: schedules });
-		}
-		setIsDrawerOpen(false);
-		setDrawerStaff([]);
-		setDrawerTimeSlots([{ start: "", end: "" }]);
-		setSelectedDates([]);
 	};
 
 	const getSchedulesForDay = (date: Date) => {
@@ -293,53 +250,51 @@ function RouteComponent() {
 
 	return (
 		<FeatureErrorBoundary featureName="Team Schedules">
-			<AdminMain title="schedules" description="manage_your_team_schedules">
-				<div className="flex">
+			<AdminMain
+				title="schedules"
+				description="manage_your_team_schedules"
+				rightContent={
+					<div className="flex gap-1">
+						<IconButton
+							icon={<Filter />}
+							onClick={() => setIsFiltersDrawerOpen(true)}
+						/>
+
+						<ScheduleAssignmentDrawer
+							selectedDays={selectedDates}
+							setSelectedDays={setSelectedDates}
+						/>
+					</div>
+				}
+			>
+				<div className="flex-1 space-y-4 p-4">
+					<WeekNavigation
+						currentWeekStart={currentWeekStart}
+						setCurrentWeekStart={setCurrentWeekStart}
+					/>
+
+					<WeeklyCalendar
+						weekDays={weekDays}
+						selectedDates={selectedDates}
+						toggleDate={toggleDate}
+						getSchedulesForDay={getSchedulesForDay}
+						isLoading={isSchedulesLoading}
+						colorMap={colorMap}
+						onScheduleDrag={handleScheduleDrag}
+					/>
+				</div>
+
+				<Drawer
+					open={isFiltersDrawerOpen}
+					onClose={() => setIsFiltersDrawerOpen(false)}
+				>
 					<StaffFilterSidebar
 						staffs={staffs}
 						filteredStaffs={filteredStaffs}
 						setFilteredStaffs={setFilteredStaffs}
 						isLoading={staffsLoading}
 					/>
-					<div className="flex-1 space-y-4 p-4">
-						<div className="flex justify-between items-center">
-							<h2 className="text-xl font-semibold">Calendario Semanal</h2>
-							<Button
-								onClick={() => setIsDrawerOpen(true)}
-								disabled={!selectedDates.length}
-							>
-								Añadir Horarios
-							</Button>
-						</div>
-
-						<WeekNavigation
-							currentWeekStart={currentWeekStart}
-							setCurrentWeekStart={setCurrentWeekStart}
-						/>
-
-						<WeeklyCalendar
-							weekDays={weekDays}
-							selectedDates={selectedDates}
-							toggleDate={toggleDate}
-							getSchedulesForDay={getSchedulesForDay}
-							isLoading={isSchedulesLoading}
-							colorMap={colorMap}
-							onScheduleDrag={handleScheduleDrag}
-						/>
-					</div>
-				</div>
-
-				<ScheduleAssignmentDrawer
-					isDrawerOpen={isDrawerOpen}
-					setIsDrawerOpen={setIsDrawerOpen}
-					staffs={staffs}
-					drawerStaff={drawerStaff}
-					setDrawerStaff={setDrawerStaff}
-					drawerTimeSlots={drawerTimeSlots}
-					setDrawerTimeSlots={setDrawerTimeSlots}
-					handleAssign={handleAssign}
-					isAssigning={assignMutation.isPending}
-				/>
+				</Drawer>
 			</AdminMain>
 		</FeatureErrorBoundary>
 	);

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@novahair/utils/lib/cn";
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { addDays, format, isSameDay, isToday } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -7,13 +8,12 @@ import { Slot } from "radix-ui";
 import {
 	type ButtonHTMLAttributes,
 	type ComponentProps,
-	createContext,
 	type HTMLAttributes,
 	type MouseEventHandler,
 	type ReactNode,
+	createContext,
 	useContext,
 } from "react";
-import { cn } from "@novahair/utils/lib/cn";
 import { Button } from "./button";
 import { IconButton } from "./icon-button";
 
@@ -115,7 +115,7 @@ export const MiniCalendar = ({
 		<MiniCalendarContext.Provider value={contextValue}>
 			<div
 				className={cn(
-					"flex items-center gap-2 rounded-lg border border-foreground/20 bg-background p-2 w-fit",
+					"flex items-center gap-1 rounded-lg border border-foreground/20 bg-background p-2 w-fit",
 					className,
 				)}
 				{...props}

@@ -23,8 +23,8 @@ export function StaffFilterSidebar({
 	}
 
 	return (
-		<div className="w-64 p-4 border-r">
-			<h3 className="text-lg font-semibold mb-2">Filtrar Trabajadores</h3>
+		<section className="">
+			<h3 className="font-semibold mb-2">Filtrar Trabajadores</h3>
 			<div className="space-y-2">
 				{staffs?.map((staff) => (
 					<div key={staff.id} className="flex items-center space-x-2">
@@ -45,6 +45,6 @@ export function StaffFilterSidebar({
 					</div>
 				))}
 			</div>
-		</div>
+		</section>
 	);
 }

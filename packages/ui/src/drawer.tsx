@@ -1,7 +1,7 @@
+import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { cn } from "@novahair/utils/lib/cn";
 import { t } from "i18next";
 import { Drawer as D, type DialogProps } from "vaul";
-import { cn } from "@novahair/utils/lib/cn";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
 
 type Props = DialogProps & {
 	footer?: React.ReactNode;
@@ -33,13 +33,13 @@ export const Drawer = ({
 			<D.Portal>
 				<D.Overlay
 					className={cn(
-						"fixed inset-0 bg-foreground/50 backdrop-blur-xs z-40",
+						"fixed inset-0 bg-foreground/50 backdrop-blur-xs z-20",
 						classNames?.overlay,
 					)}
 				/>
 				<D.Content
 					className={cn(
-						"h-fit fixed flex justify-center bottom-0 left-0 right-0 mx-auto md:max-w-[90vw] outline-none z-50",
+						"h-fit fixed flex justify-center bottom-0 left-0 right-0 mx-auto md:max-w-[90vw] outline-none z-30",
 						classNames?.content,
 					)}
 				>

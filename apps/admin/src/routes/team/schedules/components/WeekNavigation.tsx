@@ -1,4 +1,4 @@
-import { Button } from "@novahair/ui";
+import { Button, IconButton } from "@novahair/ui";
 import { addDays, format, startOfWeek } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -12,30 +12,30 @@ export function WeekNavigation({
 	setCurrentWeekStart,
 }: WeekNavigationProps) {
 	return (
-		<div className="flex justify-center items-center space-x-4 mb-4">
-			<Button
-				variant="outline"
-				onClick={() => setCurrentWeekStart(addDays(currentWeekStart, -7))}
-			>
-				<ChevronLeft className="h-4 w-4" />
-			</Button>
+		<div className="flex justify-between items-center space-x-4 mb-2">
 			<span className="text-lg font-medium">
 				{format(currentWeekStart, "MMM yyyy")}
 			</span>
-			<Button
-				variant="outline"
-				onClick={() => setCurrentWeekStart(addDays(currentWeekStart, 7))}
-			>
-				<ChevronRight className="h-4 w-4" />
-			</Button>
-			<Button
-				variant="outline"
-				onClick={() =>
-					setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }))
-				}
-			>
-				Hoy
-			</Button>
+			<div className="flex gap-1">
+				<Button
+					variant="outline"
+					onClick={() =>
+						setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }))
+					}
+				>
+					Hoy
+				</Button>
+				<IconButton
+					icon={<ChevronLeft />}
+					variant="outline"
+					onClick={() => setCurrentWeekStart(addDays(currentWeekStart, -7))}
+				/>
+				<IconButton
+					icon={<ChevronRight />}
+					variant="outline"
+					onClick={() => setCurrentWeekStart(addDays(currentWeekStart, 7))}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { Link } from "@tanstack/react-router";
 import {
 	Database,
 	GalleryVerticalEnd,
@@ -113,7 +114,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar collapsible="icon" variant="sidebar" {...props}>
 			<SidebarHeader>
-				<TeamSwitcher teams={data.teams} />
+				<Link to="/">
+					<div className="size-6 bg-foreground rounded-full flex justify-center items-center text-background">
+						A
+					</div>
+				</Link>
+				{/* <TeamSwitcher teams={data.teams} /> */}
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={itemsWithActive} />

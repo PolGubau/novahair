@@ -21,14 +21,17 @@ export const ServicesAssignedCell = ({
 	const { assign } = useStaffAssignmentActions(config.tenantId, staffId);
 
 	function handleAssignServices() {
-		assign.mutate(updatedAssigned, {
-			onSuccess: () => {
-				qc.invalidateQueries({
-					queryKey: ["staffs", config.tenantId],
-				});
-				setOpen(false);
+		assign.mutate(
+			{ serviceIds: updatedAssigned },
+			{
+				onSuccess: () => {
+					qc.invalidateQueries({
+						queryKey: ["staffs", config.tenantId],
+					});
+					setOpen(false);
+				},
 			},
-		});
+		);
 	}
 
 	const [updatedAssigned, setUpdatedAssigned] =

@@ -24,7 +24,7 @@ interface WeeklyCalendarProps {
 }
 
 const PIXELS_PER_MINUTE = 0.5; // 0.5 pixel per minute, total 720px height
-const DAY_HEIGHT = 720; // 24 hours * 60 minutes * 0.5
+const DAY_HEIGHT = 24 * 60 * PIXELS_PER_MINUTE; // 24 hours * 60 minutes * 0.5
 
 function getMinutesFromMidnight(time: string): number {
 	const [hours, minutes] = time.split(":").map(Number);
@@ -166,13 +166,13 @@ export function WeeklyCalendar({
 		setDraggedSchedule(null);
 	};
 	return (
-		<div className="grid grid-cols-7 gap-4">
+		<div className="flex w-full overflow-x-auto gap-0 border rounded-xl">
 			{weekDays.map((day) => {
 				const schedules = getSchedulesForDay(day);
 				return (
 					<div
 						key={day.toISOString()}
-						className={`border rounded-lg p-2 ${isSameDay(day, new Date()) ? "bg-yellow-100" : ""}`}
+						className={`flex-1 min-w-36 overflow-hidden rounded-lg p-2 ${isSameDay(day, new Date()) ? "bg-yellow-100" : ""}`}
 						style={{ height: `${DAY_HEIGHT + 40}px` }} // extra for header
 						data-day={day.toISOString()}
 						onDragOver={handleDragOver}
@@ -208,12 +208,15 @@ export function WeeklyCalendar({
 								<div
 									// biome-ignore lint/suspicious/noArrayIndexKey: key
 									key={hour}
-									className="absolute w-full border-t border-gray-300"
+									className="absolute w-full border-t border-foreground/10"
 									style={{ top: `${hour * 60 * PIXELS_PER_MINUTE}px` }}
 								>
-									<span className="absolute -left-8 -top-2 text-xs text-gray-500">
-										{hour}:00
-									</span>
+									{/* Hour labels only on first column */}
+									{weekDays.indexOf(day) === 0 && (
+										<span className="absolute -left-8 -top-2 text-xs text-muted-foreground">
+											{hour === 0 ? "00:00" : `${hour}:00`}
+										</span>
+									)}
 								</div>
 							))}
 							{isLoading ? (
