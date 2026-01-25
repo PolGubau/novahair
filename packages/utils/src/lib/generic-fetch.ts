@@ -8,7 +8,7 @@ export async function genericFetch<ResponseType>(
 	try {
 		const defaultOptions: RequestInit = {
 			headers: {
-				"X-Tenant-ID": config.tenantId,
+				...(config.tenantId && { "X-Tenant-ID": config.tenantId }),
 				...options?.headers,
 			},
 			...options,

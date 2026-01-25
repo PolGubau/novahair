@@ -2,3 +2,6 @@ node_modules
 .output
 .nitro
 dist
+
+
+.env

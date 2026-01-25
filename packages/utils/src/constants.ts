@@ -1,12 +1,7 @@
 import { env } from "./lib/env";
 
 // Validación de variables de entorno
-if (!env.tenantId) {
-	throw new Error(
-		"Missing VITE_TENANT_ID environment variable. Please check your .env file.",
-	);
-}
-
+// Note: VITE_TENANT_ID is optional as tenant is dynamic
 if (!env.isDev && !env.baseUrl) {
 	throw new Error(
 		"Missing VITE_BASE_URL environment variable for production build.",
@@ -16,7 +11,7 @@ if (!env.isDev && !env.baseUrl) {
 export const config = {
 	baseUrl: env.baseUrl,
 	get tenantId(): string {
-		return env.tenantId as string;
+		return env.tenantId || "";
 	},
 	apiVersion: "v1",
 } as const;

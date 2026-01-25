@@ -15,7 +15,7 @@ import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { TenantGuard } from "~/shared/tenant";
 import "../styles.css";
-import "../shared/i18n/setup";
+import "@novahair/utils/i18n/setup";
 
 interface MyRouterContext {
 	queryClient: QueryClient;

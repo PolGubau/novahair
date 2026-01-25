@@ -34,12 +34,26 @@ type Schedule = {
 };
 
 function RouteComponent() {
-	const { staffs, isLoading: staffsLoading, error: staffsError } = useStaffs(config.tenantId);
+	const {
+		staffs,
+		isLoading: staffsLoading,
+		error: staffsError,
+	} = useStaffs(config.tenantId);
 	const queryClient = useQueryClient();
 
 	const colorMap = useMemo(() => {
-		const colors = ['bg-blue-500', 'bg-green-500', 'bg-red-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500', 'bg-indigo-500'];
-		return Object.fromEntries(staffs?.map((s, i) => [s.name, colors[i % colors.length]]) || []);
+		const colors = [
+			"bg-blue-500",
+			"bg-green-500",
+			"bg-red-500",
+			"bg-yellow-500",
+			"bg-purple-500",
+			"bg-pink-500",
+			"bg-indigo-500",
+		];
+		return Object.fromEntries(
+			staffs?.map((s, i) => [s.name, colors[i % colors.length]]) || [],
+		);
 	}, [staffs]);
 
 	const staffSchedules = useQueries({
@@ -52,7 +66,7 @@ function RouteComponent() {
 			})) || [],
 	});
 
-	const isSchedulesLoading = staffSchedules.some(q => q.isLoading);
+	const isSchedulesLoading = staffSchedules.some((q) => q.isLoading);
 
 	const assignMutation = useMutation({
 		mutationFn: ({
@@ -144,37 +158,60 @@ function RouteComponent() {
 	};
 
 	const handleScheduleDrag = async (
-		schedule: { staff: string; start: string; end: string } & { originalDate: Date },
+		schedule: { staff: string; start: string; end: string } & {
+			originalDate: Date;
+		},
 		newDate: Date,
 		newStart: string,
 		newEnd: string,
 	) => {
 		try {
-			console.log("handleScheduleDrag called with:", { schedule, newDate, newStart, newEnd });
+			console.log("handleScheduleDrag called with:", {
+				schedule,
+				newDate,
+				newStart,
+				newEnd,
+			});
 
 			// Find the staff ID
-			const staff = staffs?.find(s => s.name === schedule.staff);
+			const staff = staffs?.find((s) => s.name === schedule.staff);
 			if (!staff) {
-				console.error("Staff not found:", schedule.staff, "available staffs:", staffs?.map(s => s.name));
+				console.error(
+					"Staff not found:",
+					schedule.staff,
+					"available staffs:",
+					staffs?.map((s) => s.name),
+				);
 				return;
 			}
 
 			// Get current schedules for this staff
-			const staffIndex = staffs.findIndex(s => s.id === staff.id);
-			const currentSchedules = staffSchedules[staffIndex]?.data as Schedule[] || [];
+			const staffIndex = staffs.findIndex((s) => s.id === staff.id);
+			const currentSchedules =
+				(staffSchedules[staffIndex]?.data as Schedule[]) || [];
 			console.log("Raw currentSchedules:", currentSchedules);
-			console.log("Type of first schedule:", typeof currentSchedules[0], currentSchedules[0]);
-			console.log("Current schedules for staff:", staff.name, JSON.stringify(currentSchedules, null, 2));
+			console.log(
+				"Type of first schedule:",
+				typeof currentSchedules[0],
+				currentSchedules[0],
+			);
+			console.log(
+				"Current schedules for staff:",
+				staff.name,
+				JSON.stringify(currentSchedules, null, 2),
+			);
 
 			// Find the schedule to update by matching date and time
-			const scheduleToUpdateIndex = currentSchedules.findIndex(s => {
+			const scheduleToUpdateIndex = currentSchedules.findIndex((s) => {
 				const startDate = parseISO(s.startTime);
 				const endDate = parseISO(s.endTime);
 				const scheduleDate = schedule.originalDate;
-				
-				return isSameDay(startDate, scheduleDate) &&
-					   format(startDate, "HH:mm") === schedule.start &&
-					   format(endDate, "HH:mm") === schedule.end;
+
+				return (
+					isSameDay(startDate, scheduleDate) &&
+					format(startDate, "HH:mm") === schedule.start &&
+					format(endDate, "HH:mm") === schedule.end
+				);
 			});
 
 			if (scheduleToUpdateIndex === -1) {
@@ -183,25 +220,27 @@ function RouteComponent() {
 			}
 
 			// Create updated schedules array with IDs
-			const updatedSchedules = currentSchedules.map(s => ({
+			const updatedSchedules = currentSchedules.map((s) => ({
 				id: (s as any).id || crypto.randomUUID(),
 				startTime: s.startTime,
 				endTime: s.endTime,
 			}));
-			
+
 			// Remove the old schedule
-			const scheduleToRemoveIndex = updatedSchedules.findIndex(s => {
+			const scheduleToRemoveIndex = updatedSchedules.findIndex((s) => {
 				const startDate = parseISO(s.startTime);
 				const endDate = parseISO(s.endTime);
-				return isSameDay(startDate, schedule.originalDate) &&
-					   format(startDate, "HH:mm") === schedule.start &&
-					   format(endDate, "HH:mm") === schedule.end;
+				return (
+					isSameDay(startDate, schedule.originalDate) &&
+					format(startDate, "HH:mm") === schedule.start &&
+					format(endDate, "HH:mm") === schedule.end
+				);
 			});
-			
+
 			if (scheduleToRemoveIndex !== -1) {
 				updatedSchedules.splice(scheduleToRemoveIndex, 1);
 			}
-			
+
 			// Add the new schedule
 			const newDateStr = format(newDate, "yyyy-MM-dd");
 			updatedSchedules.push({
@@ -218,8 +257,14 @@ function RouteComponent() {
 				}
 			}
 
-			console.log("Sending updated schedules:", JSON.stringify(updatedSchedules, null, 2));
-			await assignMutation.mutateAsync({ staffId: staff.id, data: updatedSchedules });
+			console.log(
+				"Sending updated schedules:",
+				JSON.stringify(updatedSchedules, null, 2),
+			);
+			await assignMutation.mutateAsync({
+				staffId: staff.id,
+				data: updatedSchedules,
+			});
 		} catch (error) {
 			console.error("Error in handleScheduleDrag:", error);
 		}
