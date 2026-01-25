@@ -2,8 +2,8 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { initReactI18next } from "react-i18next";
-import commonEn from "./locales/en.json" with { type: "json" };
-import commonEs from "./locales/es.json" with { type: "json" };
+import commonEn from "./locales/en.json";
+import commonEs from "./locales/es.json";
 
 export const defaultNS = "common";
 
@@ -34,18 +34,21 @@ export const translationKeys = keys.reduce(
 	{} as Record<keyof typeof commonEn, keyof typeof commonEn>,
 );
 
-i18n
-	.use(LanguageDetector)
-	.use(initReactI18next)
-	.init({
-		debug: false,
-		defaultNS,
-		fallbackLng: "en",
+i18n.use(initReactI18next);
 
-		interpolation: {
-			escapeValue: false, // not needed for react as it escapes by default
-		},
-		resources,
-	});
+if (typeof window !== "undefined") {
+	i18n.use(LanguageDetector);
+}
+
+i18n.init({
+	debug: false,
+	defaultNS,
+	fallbackLng: "en",
+
+	interpolation: {
+		escapeValue: false, // not needed for react as it escapes by default
+	},
+	resources,
+});
 
 export default i18n;
