@@ -17,6 +17,8 @@
 	"use_these_controls_to_filter_the_data": "Use these controls to filter the data",
 	"time_slots": "Time Slots",
 	"add_time_slot": "Add time slot",
+	"start_hour": "Start Hour",
+	"end_hour": "End Hour",
 	"manage_your_team_schedules": "Manage your team schedules",
 	"book_another_appointment": "Book another appointment",
 	"your_appointment_created_x": "Your appointment created at {{dateTime}}",

@@ -1,8 +1,7 @@
 import type { Staff } from "@novahair/client";
-import { Button } from "@novahair/ui/button";
+import { Button,Avatar } from "@novahair/ui";
 import { labelClasses } from "@novahair/ui/label";
-import Avatar from "boring-avatars";
-import { t } from "i18next";
+ import { t } from "i18next";
 import { ArrowUp } from "lucide-react";
 
 type Props = {
@@ -18,7 +17,7 @@ export const StaffSelector = ({
 	return (
 		<div className="flex flex-col gap-1 min-h-16">
 			<h3 className={labelClasses.base}>{t("select_staff")}</h3>
-			<ul className="flex flex-wrap">
+			<ul className="flex flex-wrap gap-2 items-center">
 				{!staffs.length ? (
 					<div className="flex gap-2 items-center">
 						<p>{t("select_first_time_slot")}</p>
@@ -36,13 +35,10 @@ export const StaffSelector = ({
 								<Button
 									type="button"
 									variant={isSelected ? "secondary" : "outline"}
-									onClick={handleSelect}
+									onClick={handleSelect} 
+									className="pl-2"
 								>
-									<Avatar
-										size={24}
-										name={staff.name ?? "Unknown"}
-										variant="beam"
-									/>
+									<Avatar alt={staff.name ?? "Unknown"} size="sm" src={staff.avatarUrl ?? ""} />
 									<span>{staff.name ?? t("unknown")}</span>
 								</Button>
 							</li>

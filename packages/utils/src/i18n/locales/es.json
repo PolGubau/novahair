@@ -57,6 +57,8 @@
 	"manage_your_team_and_schedules": "Gestiona tu equipo y horarios",
 	"management": "Gestión",
 	"team": "Equipo",
+	"end_hour": "Hora Fin",
+	"start_hour": "Hora Inicio",
 	"check_availability": "Comprobar disponibilidad",
 	"we_sent_email_confirmation": "Hemos enviado un correo de confirmación a {{email}}",
 	"book_another_appointment": "Reservar otra cita",
