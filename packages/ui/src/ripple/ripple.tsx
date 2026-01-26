@@ -1,4 +1,9 @@
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Not needed here */
+// biome-ignore-all lint/correctness/useExhaustiveDependencies: Not needed here
+// biome-ignore-all lint/correctness/useExhaustiveDependencies: Not needed here
+// biome-ignore-all lint/correctness/useExhaustiveDependencies: Not needed
+
+import { cn } from "@novahair/utils";
 import "./ripple.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -333,7 +338,7 @@ export const Ripple = ({
 		stateRef.current = State.INACTIVE;
 
 		const animation = growAnimationRef.current;
-		let pressAnimationPlayState = Infinity;
+		let pressAnimationPlayState = Number.POSITIVE_INFINITY;
 
 		if (typeof animation?.currentTime === "number")
 			pressAnimationPlayState = animation.currentTime;
@@ -452,13 +457,13 @@ export const Ripple = ({
 	return (
 		<div
 			ref={elementRef}
-			className={`ripple${className ? ` ${className}` : ""}`}
+			className={cn("ripple", className)}
 			style={style}
 			aria-hidden="true"
 		>
 			<div
 				ref={surfaceRef}
-				className={`ripple-surface${hovered ? " --hover" : ""}${pressed ? " --press" : ""}`}
+				className={`ripple-surface ${hovered ? " --hover" : ""} ${pressed ? " --press" : ""}`}
 			/>
 		</div>
 	);

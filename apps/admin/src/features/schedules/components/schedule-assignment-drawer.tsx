@@ -38,6 +38,7 @@ export function ScheduleAssignmentDrawer({
 				description={"manage_your_team_schedules"}
 			>
 				<AddScheduleForm
+					onCancel={() => setIsDrawerOpen(false)}
 					onSuccess={() => setIsDrawerOpen(false)}
 					selectedDays={selectedDays}
 					setSelectedDays={setSelectedDays}

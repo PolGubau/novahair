@@ -21,6 +21,10 @@ import {
 	WeekNavigation,
 	WeeklyCalendar,
 } from "~/features/schedules";
+import {
+	END_HOUR,
+	START_HOUR,
+} from "~/features/schedules/components/calendar/constants";
 
 export const Route = createFileRoute("/team/schedules/")({
 	component: RouteComponent,
@@ -151,6 +155,8 @@ function RouteComponent() {
 					/>
 
 					<WeeklyCalendar
+						startHour={START_HOUR}
+						endHour={END_HOUR}
 						weekDays={weekDays}
 						selectedDates={selectedDates}
 						toggleDate={toggleDate}
@@ -158,10 +164,6 @@ function RouteComponent() {
 						isLoading={isSchedulesLoading}
 						colorMap={colorMap}
 						staffs={staffs || []}
-						onScheduleUpdate={(updatedSchedule) => {
-							// Aquí iría la lógica para actualizar el horario
-							console.log("Updated schedule:", updatedSchedule);
-						}}
 					/>
 				</div>
 

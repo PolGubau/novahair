@@ -1,9 +1,15 @@
 import {
-	ScheduleDto,
 	type UpdateScheduleDto,
 	useStaffScheduleActions,
 } from "@novahair/client";
-import { Button, Drawer, Popover } from "@novahair/ui";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+	Button,
+	Drawer,
+	getInitial,
+} from "@novahair/ui";
 import { type TranslationKey, config } from "@novahair/utils";
 import { t } from "i18next";
 import { useState } from "react";
@@ -96,7 +102,7 @@ export function ScheduleEvent({
 			</Drawer>
 			<Button
 				className={
-					"text-left absolute text-white p-1 border border-background rounded text-xs overflow-hidden select-none cursor-pointer hover:opacity-80 transition-opacity"
+					"text-left absolute text-white p-1 border border-background rounded-lg text-sm overflow-hidden select-none cursor-pointer hover:opacity-80 transition-opacity font-normal"
 				}
 				style={{
 					backgroundColor: bgColor,
@@ -108,8 +114,14 @@ export function ScheduleEvent({
 				onClick={() => setIsDrawerOpen(true)}
 			>
 				<div className="h-full w-full flex p-2 flex-col">
-					<div className="font-medium truncate">{schedule.staff}</div>
-					<div className="truncate">
+					<div className="truncate flex items-center gap-2 mb-1">
+						<Avatar className="size-6">
+							<AvatarImage src={schedule.staff ?? ""} alt={t("image_url")} />
+							<AvatarFallback>{getInitial(schedule.staff)}</AvatarFallback>
+						</Avatar>
+						<span className="">{schedule.staff}</span>
+					</div>
+					<div className="truncate text-xs">
 						{schedule.start} - {schedule.end}
 					</div>
 				</div>

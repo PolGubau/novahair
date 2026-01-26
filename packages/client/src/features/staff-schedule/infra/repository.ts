@@ -12,7 +12,7 @@ export type StaffScheduleRepository = {
 	create: (
 		tenantId: string,
 		staffId: string,
-		data: CreateScheduleDto,
+		data: CreateScheduleDto[],
 	) => Promise<void>;
 	update: (
 		tenantId: string,

@@ -17,11 +17,13 @@ export const useStaffScheduleActions = (tenantId: Tenant["id"]) => {
 			qc.invalidateQueries({ queryKey: ["staff-schedule", tenantId] });
 		},
 	});
+
+	type CreateParams = {
+		data: CreateScheduleDto[];
+		staffId: Staff["id"]; 
+	};
 	const create = useMutation({
-		mutationFn: ({
-			data,
-			staffId,
-		}: { data: CreateScheduleDto; staffId: Staff["id"] }) =>
+		mutationFn: ({ staffId, data }: CreateParams) =>
 			staffScheduleRepository.create(tenantId, staffId, data),
 		onSuccess: () => {
 			qc.invalidateQueries({ queryKey: ["staff-schedule", tenantId] });

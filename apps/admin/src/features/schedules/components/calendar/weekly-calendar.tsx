@@ -13,6 +13,8 @@ export interface Schedule {
 interface WeeklyCalendarProps {
 	weekDays: Date[];
 	selectedDates: Date[];
+	startHour: number;
+	endHour: number;
 	toggleDate: (date: Date) => void;
 	getSchedulesForDay: (date: Date) => Schedule[];
 	isLoading: boolean;
@@ -21,19 +23,15 @@ interface WeeklyCalendarProps {
 	onScheduleUpdate?: (updatedSchedule: Schedule) => void;
 }
 
-const START_HOUR = 8;
-const END_HOUR = 20;
-const HOURS_COUNT = END_HOUR - START_HOUR;
-
 // Hook para calcular height disponible y pixels por minuto
-function useCalendarSizing() {
+function useCalendarSizing(end: number) {
 	const [dimensions, setDimensions] = useState({
 		height: 400, // fallback mínimo
 		pixelsPerMinute: 0.5,
 	});
 
 	useEffect(() => {
-		const calculateDimensions = () => {
+		const calculateDimensions = (end: number) => {
 			// Estimar height disponible (viewport - header/footer aproximado)
 			const windowHeight = window.innerHeight;
 			const estimatedHeaderFooter = 220; // px aproximados para header, footer, padding
@@ -43,7 +41,7 @@ function useCalendarSizing() {
 			);
 
 			// Calcular pixels por minuto para ocupar todo el height disponible
-			const totalMinutes = HOURS_COUNT * 60;
+			const totalMinutes = end * 60;
 			const pixelsPerMinute = availableHeight / totalMinutes;
 
 			setDimensions({
@@ -52,10 +50,11 @@ function useCalendarSizing() {
 			});
 		};
 
-		calculateDimensions();
-		window.addEventListener("resize", calculateDimensions);
-		return () => window.removeEventListener("resize", calculateDimensions);
-	}, []);
+		calculateDimensions(end);
+		window.addEventListener("resize", () => calculateDimensions(end));
+		return () =>
+			window.removeEventListener("resize", () => calculateDimensions(end));
+	}, [end]);
 
 	return dimensions;
 }
@@ -67,10 +66,12 @@ export function WeeklyCalendar({
 	getSchedulesForDay,
 	isLoading,
 	colorMap,
+	endHour,
+	startHour,
 	onScheduleUpdate,
 }: WeeklyCalendarProps) {
 	const { height: DAY_HEIGHT, pixelsPerMinute: PIXELS_PER_MINUTE } =
-		useCalendarSizing();
+		useCalendarSizing(endHour - startHour);
 	const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
 
 	const handleEditSchedule = (schedule: Schedule) => {
@@ -89,6 +90,8 @@ export function WeeklyCalendar({
 			<ul className="flex w-full overflow-x-auto gap-0 border rounded-xl divide-x divide-foreground/5">
 				{weekDays.map((day) => (
 					<CalendarDay
+						endHour={endHour}
+						startHour={startHour}
 						key={day.toISOString()}
 						day={day}
 						schedules={getSchedulesForDay(day)}

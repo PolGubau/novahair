@@ -16,6 +16,8 @@ type CalendarDayProps = {
 	pixelsPerMinute: number;
 	isFirstDay: boolean;
 	onEditSchedule: (schedule: Schedule) => void;
+	startHour: number;
+	endHour: number;
 };
 
 function weekDayLabel(date: Date, locale = "en-US") {
@@ -38,6 +40,8 @@ export function CalendarDay({
 	dayHeight,
 	pixelsPerMinute,
 	isFirstDay,
+	startHour,
+	endHour
 }: CalendarDayProps) {
 	return (
 		<li
@@ -61,8 +65,8 @@ export function CalendarDay({
 			</Button>
 			<div className="relative border-t" style={{ height: `${dayHeight}px` }}>
 				<HourLines
-					hoursCount={12}
-					startHour={8}
+					hoursCount={endHour - startHour}
+					startHour={startHour}
 					pixelsPerMinute={pixelsPerMinute}
 					isFirstDay={isFirstDay}
 				/>
