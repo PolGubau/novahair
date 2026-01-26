@@ -133,6 +133,7 @@ function RouteComponent() {
 				rightContent={
 					<div className="flex gap-1">
 						<IconButton
+							variant="outline"
 							icon={<Filter />}
 							onClick={() => setIsFiltersDrawerOpen(true)}
 						/>

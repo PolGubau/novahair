@@ -32,6 +32,11 @@ export function EditSchedule({
 
 	if (!schedule || !editedSchedule) return null;
 
+	const startDate = new Date(editedSchedule.start);
+	const endDate = new Date(editedSchedule.end);
+	const startTime = `${startDate.getHours().toString().padStart(2, "0")}:${startDate.getMinutes().toString().padStart(2, "0")}`;
+	const endTime = `${endDate.getHours().toString().padStart(2, "0")}:${endDate.getMinutes().toString().padStart(2, "0")}`;
+
 	const handleSave = () => {
 		if (editedSchedule) {
 			updateSchedule(editedSchedule);
@@ -60,7 +65,7 @@ export function EditSchedule({
 					<Input
 						id="start"
 						type="time"
-						value={editedSchedule.start.substring(11, 16)}
+						value={startTime}
 						onChange={(e) => {
 							const time = e.target.value;
 							setEditedSchedule({
@@ -75,7 +80,7 @@ export function EditSchedule({
 					<Input
 						id="end"
 						type="time"
-						value={editedSchedule.end.substring(11, 16)}
+						value={endTime}
 						onChange={(e) => {
 							const time = e.target.value;
 							setEditedSchedule({

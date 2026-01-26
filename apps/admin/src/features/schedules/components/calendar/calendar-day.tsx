@@ -1,4 +1,4 @@
-import { Button } from "@novahair/ui";
+import { Button, Loader } from "@novahair/ui";
 import i18n from "@novahair/utils/i18n/setup";
 import { isSameDay } from "date-fns";
 import { ScheduleEvent } from "./event/schedule-event";
@@ -69,7 +69,7 @@ export function CalendarDay({
 				/>
 				{isLoading ? (
 					<div className="absolute inset-0 flex items-center justify-center">
-						<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+						<Loader />
 					</div>
 				) : (
 					schedules.map((schedule, index) => (
