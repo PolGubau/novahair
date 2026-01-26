@@ -10,7 +10,6 @@ import {
 } from "@tanstack/react-router";
 import { I18nextProvider } from "react-i18next";
 import { useTranslation } from "react-i18next";
-import i18n from "@novahair/utils/i18n/setup";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
