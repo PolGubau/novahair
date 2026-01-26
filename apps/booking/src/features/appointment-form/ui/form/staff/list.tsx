@@ -1,7 +1,7 @@
 import type { Staff } from "@novahair/client";
-import { Button,Avatar } from "@novahair/ui";
+import { Avatar, Button } from "@novahair/ui";
 import { labelClasses } from "@novahair/ui/label";
- import { t } from "i18next";
+import { t } from "i18next";
 import { ArrowUp } from "lucide-react";
 
 type Props = {
@@ -35,10 +35,14 @@ export const StaffSelector = ({
 								<Button
 									type="button"
 									variant={isSelected ? "secondary" : "outline"}
-									onClick={handleSelect} 
+									onClick={handleSelect}
 									className="pl-2"
 								>
-									<Avatar alt={staff.name ?? "Unknown"} size="sm" src={staff.avatarUrl ?? ""} />
+									<Avatar
+										alt={staff.name ?? "Unknown"}
+										size="sm"
+										src={staff.avatarUrl ?? ""}
+									/>
 									<span>{staff.name ?? t("unknown")}</span>
 								</Button>
 							</li>

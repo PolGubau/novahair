@@ -34,33 +34,32 @@ export const translationKeys = keys.reduce(
 	{} as Record<keyof typeof commonEn, keyof typeof commonEn>,
 );
 
-i18n.use(initReactI18next);
-
-if (typeof window !== "undefined") {
-	i18n.use(LanguageDetector);
-}
-
 let i18nPromise: Promise<void>;
 
-i18n.init({
-	debug: false,
-	defaultNS,
-	fallbackLng: "en",
+i18n
+	.use(initReactI18next)
+	.use(LanguageDetector)
+	.init(
+		{
+			debug: false,
+			defaultNS,
+			fallbackLng: "en",
 
-	interpolation: {
-		escapeValue: false, // not needed for react as it escapes by default
-	
-	},
-	resources,
-}, (err, t) => {
-	if (err) {
-		console.error('i18n initialization error:', err);
-		i18nPromise = Promise.reject(err);
-	} else {
-		console.log('i18n initialized successfully');
-		i18nPromise = Promise.resolve();
-	}
-});
+			interpolation: {
+				escapeValue: false, // not needed for react as it escapes by default
+			},
+			resources,
+		},
+		(err) => {
+			if (err) {
+				console.error("i18n initialization error:", err);
+				i18nPromise = Promise.reject(err);
+			} else {
+				console.log("i18n initialized successfully");
+				i18nPromise = Promise.resolve();
+			}
+		},
+	);
 
 export { i18nPromise };
 export default i18n;

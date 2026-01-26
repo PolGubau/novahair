@@ -1,33 +1,32 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
-import "@novahair/utils/i18n/setup";
-import { i18nPromise } from "@novahair/utils/i18n/setup";
 import { queryClientDefaultOptions } from "@novahair/utils";
-import { DefaultOptions, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "@novahair/utils/i18n/setup";
 import {
-	createRootRouteWithContext,
+	type DefaultOptions,
+	QueryClient,
+	QueryClientProvider,
+} from "@tanstack/react-query";
+import {
 	HeadContent,
 	Scripts,
+	createRootRouteWithContext,
 } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
 import "../styles.css";
-
-interface MyRouterContext {
-	// QueryClient is now created in RootDocument
-}
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({
 	tenant: z.string().optional(),
 });
 
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext()({
 	validateSearch: rootSearchSchema,
 
 	head: () => ({
@@ -101,39 +100,13 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const [isI18nReady, setIsI18nReady] = useState(false);
-
- 	const queryClient = useMemo(() => new QueryClient({
-		defaultOptions: queryClientDefaultOptions as DefaultOptions,
-	}), []);
-
-	useEffect(() => {
-		const initI18n = async () => {
-			try {
-				await i18nPromise;
-				console.log('i18n promise resolved');
-				setIsI18nReady(true);
-			} catch (err) {
-				console.error('i18n init failed:', err);
-			}
-		};
-
-		initI18n();
-	}, []);
-
-	if (!isI18nReady) {
-		return (
-			<html>
-				<head>
-					<HeadContent />
-				</head>
-				<body>
-					<div>Loading...</div>
-					<Scripts />
-				</body>
-			</html>
-		);
-	}
+	const queryClient = useMemo(
+		() =>
+			new QueryClient({
+				defaultOptions: queryClientDefaultOptions as DefaultOptions,
+			}),
+		[],
+	);
 
 	return (
 		<html lang={i18n.language}>
