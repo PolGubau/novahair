@@ -2,6 +2,7 @@
 
 import { Devtools } from "@novahair/ui/dev-tools";
 import "@novahair/utils/i18n/setup";
+import { i18nPromise } from "@novahair/utils/i18n/setup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
@@ -135,22 +136,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	});
 
 	useEffect(() => {
-		const handleInitialized = () => {
-			console.log('i18n initialized event fired');
-			setIsI18nReady(true);
+		const initI18n = async () => {
+			try {
+				await i18nPromise;
+				console.log('i18n promise resolved');
+				setIsI18nReady(true);
+			} catch (err) {
+				console.error('i18n init failed:', err);
+			}
 		};
 
-		if (i18n.isInitialized) {
-			console.log('i18n already initialized');
-			setIsI18nReady(true);
-		} else {
-			console.log('Waiting for i18n initialized event');
-			i18n.on('initialized', handleInitialized);
-		}
-
-		return () => {
-			i18n.off('initialized', handleInitialized);
-		};
+		initI18n();
 	}, []);
 
 	if (!isI18nReady) {
