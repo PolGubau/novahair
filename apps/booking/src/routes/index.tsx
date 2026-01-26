@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
 				params: { serviceId: search.service },
 			});
 		}
-		
+
 		// Otherwise, show service selector
 		throw redirect({
 			to: "/choose-service",

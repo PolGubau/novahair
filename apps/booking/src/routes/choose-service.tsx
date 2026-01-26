@@ -10,5 +10,5 @@ function RouteComponent() {
 		<section className="flex flex-col gap-4 p-4 ">
 			<ServiceSelector />
 		</section>
-	)
+	);
 }

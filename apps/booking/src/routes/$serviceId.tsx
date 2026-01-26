@@ -1,3 +1,8 @@
+import { useAvailableDays } from "@novahair/client";
+import { Drawer } from "@novahair/ui/drawer";
+import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import i18n, { TranslationKey } from "@novahair/utils/i18n/setup";
+import { cn } from "@novahair/utils/lib/cn";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import confetti from "canvas-confetti";
 import { t } from "i18next";
@@ -5,12 +10,6 @@ import { useState } from "react";
 import { z } from "zod";
 import { useCalendarTimes } from "~/features/appointment-form/hooks/use-calendar-times";
 import { useFormValues } from "~/features/appointment-form/hooks/use-form-values";
-
-import { useAvailableDays } from "@novahair/client";
-import { Drawer } from "@novahair/ui/drawer";
-import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import { config } from "@novahair/utils";
-import { cn } from "@novahair/utils/lib/cn";
 import { Calendar, cellStyles } from "~/features/appointment-form/ui/calendar";
 import {
 	AppointmentForm,
@@ -84,7 +83,18 @@ function CalendarStep() {
 
 	if (error) return `An error has occurred: ${error.message}`;
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
-	const parsedDate = selectedDay ? selectedDay.toLocaleDateString() : "";
+
+	function getLabelledDate(date: Date) {
+		return new Intl.DateTimeFormat(i18n.language, {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+		}).format(date);
+	}
+
+	const parsedDate = selectedDay ? getLabelledDate(selectedDay) : "";
 
 	function updateParams(iso: string | null) {
 		navigate({
@@ -114,15 +124,10 @@ function CalendarStep() {
 				}}
 				open={Boolean(selectedDayISO)}
 				onClose={handleCloseDialog}
-				header={
-					<div className="border-foreground/10">
-						<h2 className="text-lg md:text-2xl font-medium">
-							{t("appointment_date", {
-								date: parsedDate,
-							})}
-						</h2>
-					</div>
-				}
+				title={t("appointment_date", {
+					date: parsedDate,
+				}) as TranslationKey}
+				 
 			>
 				<section className="">
 					{!isSuccessfullySent ? (

@@ -98,6 +98,6 @@ export const Calendar = ({
 
 export const cellStyles = {
 	available:
-		"bg-primary/5 hover:bg-primary/10 focus:bg-primary/20 cursor-pointer",
+		"bg-primary/10 hover:bg-primary/20 focus:bg-primary/30 cursor-pointer",
 	unavailable: "bg-foreground/0 text-foreground/50 cursor-not-allowed",
 };

@@ -108,6 +108,12 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 					className="min-h-18 max-h-96"
 				/>
 			</section>
+			{error &&
+				<div className="px-4 md:px-8">
+					<ErrorMessage error={error} />
+				</div>
+			}
+				
 			<nav className="sticky bottom-0 p-4 md:p-8 bg-background/50 backdrop-blur-sm justify-end flex rounded-xl">
 				<Button
 					loading={isLoading}
@@ -117,7 +123,6 @@ export const AppointmentForm = ({ date, onSuccess }: AppointmentFormProps) => {
 					{t("book_appointment")}
 					<Send className="size-4" />
 				</Button>
-				{error && <ErrorMessage error={error} />}
 			</nav>
 		</form>
 	);

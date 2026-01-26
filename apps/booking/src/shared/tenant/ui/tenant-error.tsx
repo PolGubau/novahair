@@ -17,7 +17,6 @@ export function TenantError() {
 					</code>
 				</div>
 
-
 				<p className="text-xs text-muted">
 					Si eres el administrador, contacta con soporte técnico.
 				</p>

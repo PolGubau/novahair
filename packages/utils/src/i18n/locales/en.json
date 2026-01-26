@@ -19,7 +19,7 @@
 	"add_time_slot": "Add time slot",
 	"manage_your_team_schedules": "Manage your team schedules",
 	"book_another_appointment": "Book another appointment",
-	"your_appointment_created_at": "Your appointment created at {{date}}",
+	"your_appointment_created_x": "Your appointment created at {{dateTime}}",
 	"assigned_services": "Assigned Services",
 	"x_services_assigned": "{{count}} services assigned",
 	"appointment_created_title": "Appointment created",

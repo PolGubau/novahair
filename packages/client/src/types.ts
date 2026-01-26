@@ -106,7 +106,7 @@ export type CreateAppointmentDto = {
 		email: string;
 		phone: string;
 	};
-	startAt: string;
+	startsAt: string;
 	notes: string;
 };
 

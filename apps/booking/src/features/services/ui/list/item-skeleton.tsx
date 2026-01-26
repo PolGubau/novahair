@@ -1,6 +1,6 @@
+import { Button } from "@novahair/ui/button";
 import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@novahair/ui/button";
 
 export const ServiceItemSkeleton = () => {
 	const { t } = useTranslation();

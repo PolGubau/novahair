@@ -1,6 +1,6 @@
+import { Button } from "@novahair/ui/button";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
-import { Button } from "@novahair/ui/button";
 
 type SuccessAppointmentProps = {
 	date: string;
@@ -16,7 +16,7 @@ export const SuccessAppointment = ({
 		<section className="flex flex-col justify-center gap-6 p-4 md:p-8">
 			<header className="flex flex-col justify-center gap-1">
 				<h2 className="text-2xl font-bold">
-					{t("your_appointment_created_at", { datetime: date })}
+					{t("your_appointment_created_x", { dateTime:date })}
 				</h2>
 				<p>{t("we_sent_email_confirmation", { email })}</p>
 			</header>

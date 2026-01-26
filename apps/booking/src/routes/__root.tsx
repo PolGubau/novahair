@@ -4,9 +4,9 @@ import { Devtools } from "@novahair/ui/dev-tools";
 import "@novahair/utils/i18n/setup";
 import type { QueryClient } from "@tanstack/react-query";
 import {
+	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
-	createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
@@ -97,7 +97,7 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
- 	const { i18n } = useTranslation();
+	const { i18n } = useTranslation();
 
 	return (
 		<html lang={i18n.language}>
@@ -105,10 +105,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
- 					<TenantGuard>
-						<MainLayout>{children}</MainLayout>
-					</TenantGuard>
- 				<Devtools />
+				<TenantGuard>
+					<MainLayout>{children}</MainLayout>
+				</TenantGuard>
+				<Devtools />
 				<Scripts />
 			</body>
 		</html>

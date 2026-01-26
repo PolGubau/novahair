@@ -60,7 +60,7 @@
 	"check_availability": "Comprobar disponibilidad",
 	"we_sent_email_confirmation": "Hemos enviado un correo de confirmación a {{email}}",
 	"book_another_appointment": "Reservar otra cita",
-	"your_appointment_created_at": "Tu cita ha sido creada para {{date}}",
+	"your_appointment_created_x": "Tu cita ha sido creada para el {{dateTime}}",
 	"appointment_created_title": "Cita creada",
 	"book_appointment": "Reservar cita",
 	"booking_error": "Error al crear la cita. {{message}}",

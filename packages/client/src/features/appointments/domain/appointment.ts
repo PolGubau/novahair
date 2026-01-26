@@ -25,10 +25,10 @@ export type CreateAppointment = {
 	serviceId: string;
 	staffId: string | null;
 	customer: {
-		name: string;
+ 		name: string;
 		email: string;
 		phone: string;
 	};
-	startAt: ISODate;
+	startsAt: ISODate;
 	notes: string;
 };

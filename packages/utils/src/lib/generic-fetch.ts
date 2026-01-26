@@ -8,7 +8,11 @@ export async function genericFetch<ResponseType>(
 	try {
 		const defaultOptions: RequestInit = {
 			headers: {
+				// JSON by default
+				"Content-Type": "application/json",
+				// Add tenant ID header if available
 				...(config.tenantId && { "X-Tenant-ID": config.tenantId }),
+
 				...options?.headers,
 			},
 			...options,

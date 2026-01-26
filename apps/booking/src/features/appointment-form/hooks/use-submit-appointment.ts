@@ -1,9 +1,9 @@
 import {
 	type Appointment,
-	type CreateAppointment,
 	appointmentsRepository,
+	type CreateAppointment,
 } from "@novahair/client";
-import { type ISODate, config } from "@novahair/utils";
+import { config, type ISODate } from "@novahair/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTenantId } from "~/shared/tenant";
@@ -48,7 +48,7 @@ export const useSubmitAppointment = (
 
 	const handleSubmit = (
 		e: React.FormEvent<HTMLFormElement>,
-		startAt: ISODate,
+		startsAt: ISODate,
 	) => {
 		e.preventDefault();
 		if (!params) {
@@ -69,12 +69,12 @@ export const useSubmitAppointment = (
 			serviceId: params.serviceId,
 			staffId: params.staffId ?? null,
 			customer: {
-				name,
+ 				name,
 				email,
 				phone,
 			},
 			notes,
-			startAt,
+			startsAt,
 		};
 
 		mutation.mutate(payload);

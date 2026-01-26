@@ -12,20 +12,26 @@ const TenantContext = createContext<TenantContextType | undefined>(undefined);
 export function TenantProvider({
 	children,
 	initialTenantId,
-}: { children: ReactNode; initialTenantId?: string | null }) {
-	const [tenantId, setTenantIdState] = useState<string | null>(
-		initialTenantId || null,
-	);
+}: {
+	children: ReactNode;
+	initialTenantId?: string | null;
+}) {
+	const [tenantId, setTenantIdState] = useState<string | null>(() => {
+		// Initialize from initialTenantId or localStorage immediately
+		return initialTenantId || getTenantId();
+	});
 
 	useEffect(() => {
-		// Initialize from localStorage on mount if not provided
+		// Update from localStorage if initialTenantId changes
 		if (!initialTenantId) {
 			const stored = getTenantId();
-			if (stored) {
+			if (stored && stored !== tenantId) {
 				setTenantIdState(stored);
 			}
+		} else if (initialTenantId !== tenantId) {
+			setTenantIdState(initialTenantId);
 		}
-	}, [initialTenantId]);
+	}, [initialTenantId, tenantId]);
 
 	const updateTenantId = (id: string) => {
 		setTenantIdState(id);
