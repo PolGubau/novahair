@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 import { IconButton } from "./icon-button";
 
 interface AnimatedThemeTogglerProps
@@ -16,7 +16,7 @@ export const AnimatedThemeToggler = ({
 }: AnimatedThemeTogglerProps) => {
 	const [isDark, setIsDark] = useState(false);
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const { t } = useTranslation();
+	;
 
 	useEffect(() => {
 		const updateTheme = () => {

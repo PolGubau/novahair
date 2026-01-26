@@ -8,11 +8,12 @@ import {
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
 import ReactLenis from "lenis/react";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
+import i18n from "@novahair/utils/i18n/setup";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -95,13 +96,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function NotFound() {
-	const { t } = useTranslation();
+	;
 	return <div>{t("not_found")}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { isReady } = usePreloader();
-	const { i18n } = useTranslation();
 
 	return (
 		<html lang={i18n.language}>

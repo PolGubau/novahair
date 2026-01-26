@@ -1,6 +1,6 @@
 import { useClipboard } from "@novahair/utils/hooks/use-clipboard";
 import { Check, Copy } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 import type { ButtonProps } from "./button";
 import { IconButton } from "./icon-button";
 
@@ -10,7 +10,7 @@ interface CopyButtonProps extends Omit<ButtonProps, "onClick" | "children"> {
 
 export const CopyButton = ({ text, ...props }: CopyButtonProps) => {
 	const { copyToClipboard, isCopied } = useClipboard();
-	const { t } = useTranslation();
+	;
 	const handleCopy = () => {
 		copyToClipboard(text);
 	};

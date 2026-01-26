@@ -5,10 +5,10 @@ import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
+import { t } from "i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { ServiceCreationForm } from "~/features/services/ui/form";
+ import { ServiceCreationForm } from "~/features/services/ui/form";
 import { ServiceTable } from "~/features/services/ui/table";
 
 export const Route = createFileRoute("/services/")({
@@ -16,8 +16,7 @@ export const Route = createFileRoute("/services/")({
 });
 
 function RouteComponent() {
-	const { t } = useTranslation();
-	const { services, isLoading, refetch } = useServices(config.tenantId);
+ 	const { services, isLoading, refetch } = useServices(config.tenantId);
 	const { remove } = useServiceActions(config.tenantId);
 
 	const [isFormOpened, setIsFormOpened] = useState(false);

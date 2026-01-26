@@ -38,12 +38,12 @@ let i18nPromise: Promise<void>;
 
 i18n
 	.use(initReactI18next)
-	// .use(LanguageDetector)
+	.use(LanguageDetector)
 	.init(
 		{
 			debug: false,
 			defaultNS,
-			fallbackLng: "en",
+			fallbackLng: "es",
 
 			interpolation: {
 				escapeValue: false, // not needed for react as it escapes by default

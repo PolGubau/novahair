@@ -1,9 +1,9 @@
 import { Button } from "@novahair/ui/button";
 import { ChevronRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 export const ServiceItemSkeleton = () => {
-	const { t } = useTranslation();
+	;
 	return (
 		<li className="rounded-2xl overflow-hidden shadow bg-foreground/3 gap-1 md:gap-4 grid grid-cols-[1fr_2fr] items-center">
 			<div className="bg-foreground/10 w-full grid place-items-center h-44" />

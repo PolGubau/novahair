@@ -3,20 +3,22 @@
 import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
 import "@novahair/utils/i18n/setup";
-import { i18nPromise } from "@novahair/utils/i18n/setup";
-import i18n from "@novahair/utils/i18n/setup";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
+import i18n from "@novahair/utils/i18n/setup";
+import { i18nPromise } from "@novahair/utils/i18n/setup";
 
 export const Route = createRootRouteWithContext()({
+	loader: async () => {
+		await i18nPromise;
+	},
 	head: () => ({
 		meta: [
 			{
@@ -93,13 +95,11 @@ export const Route = createRootRouteWithContext()({
 });
 
 function NotFound() {
-	const { t } = useTranslation();
-	return <div>{t("not_found")}</div>;
+ 	return <div>{("not_found")}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const [isI18nReady, setIsI18nReady] = useState(false);
-
+ 
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(
 		() =>
@@ -108,35 +108,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			}),
 		[],
 	);
-
-	useEffect(() => {
-		const initI18n = async () => {
-			try {
-				await i18nPromise;
-				console.log("i18n promise resolved");
-				setIsI18nReady(true);
-			} catch (err) {
-				console.error("i18n init failed:", err);
-			}
-		};
-
-		initI18n();
-	}, []);
-
-	if (!isI18nReady) {
-		return (
-			<html lang={i18n.language}>
-				<head>
-					<HeadContent />
-				</head>
-				<body>
-					<div>Loading...</div>
-					<Scripts />
-				</body>
-			</html>
-		);
-	}
-
+  
 	return (
 		<html lang={i18n.language}>
 			<head>

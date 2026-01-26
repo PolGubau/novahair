@@ -3,6 +3,7 @@
 import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
 import "@novahair/utils/i18n/setup";
+import i18n from "@novahair/utils/i18n/setup";
 import {
 	type DefaultOptions,
 	QueryClient,
@@ -13,13 +14,12 @@ import {
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
- import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+import { useMemo } from "react";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
 import "../styles.css";
-import i18n from "@novahair/utils/i18n/setup";
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({
@@ -95,7 +95,7 @@ export const Route = createRootRouteWithContext()({
 });
 
 function NotFound() {
-	const { t } = useTranslation();
+	;
 	return <div>{t("not_found")}</div>;
 }
 
