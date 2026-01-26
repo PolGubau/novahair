@@ -13,9 +13,6 @@ const config = defineConfig({
 		}),
 		tailwindcss(),
 		tanstackStart({
-			spa: {
-				enabled: true,
-			},
 			router: {
 				routeToken: "layout",
 			},

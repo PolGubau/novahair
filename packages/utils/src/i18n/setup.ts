@@ -53,8 +53,4 @@ i18n
 		resources,
 	});
 
-export const setSSRLanguage = createIsomorphicFn().server(async () => {
-	const language = getCookie;
-});
-
 export default i18n;

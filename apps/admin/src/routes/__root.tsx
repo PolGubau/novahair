@@ -2,15 +2,15 @@
 
 import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
-import "@novahair/utils/i18n/setup";
-import i18n from "@novahair/utils/i18n/setup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
+	useRouter,
 } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/setup";
 import appCss from "../styles.css?url";
@@ -97,10 +97,23 @@ export const Route = createRootRouteWithContext<{
 });
 
 function NotFound() {
-	return <div>{"not_found"}</div>;
+	const { t } = useTranslation();
+	return <div>{t("not_found")}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { i18n } = useTranslation();
+	const router = useRouter();
+	useEffect(() => {
+		const handler = () => {
+			router.invalidate();
+		};
+		i18n.on("languageChanged", handler);
+		return () => {
+			i18n.off("languageChanged", handler);
+		};
+	}, [i18n, router]);
+
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(
 		() =>
@@ -111,7 +124,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	);
 
 	return (
-		<html lang={i18n.language}>
+		<html lang={i18n.language} suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>

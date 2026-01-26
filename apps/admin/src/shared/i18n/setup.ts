@@ -18,12 +18,7 @@ export const resources = {
 	},
 } as const;
 
-declare module "i18next" {
-	interface CustomTypeOptions {
-		defaultNS: typeof defaultNS;
-		resources: typeof resources.en;
-	}
-}
+
 
 export type TranslationKey = keyof typeof commonEn;
 
