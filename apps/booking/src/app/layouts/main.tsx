@@ -1,12 +1,10 @@
-import { AppointmentFormHeader } from "~/features/appointment-form/ui/layout/header";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col max-w-7xl w-full mx-auto">
-      <AppointmentFormHeader />
-      <main>
+       <main>
         <ErrorBoundary
           fallback={(error, reset) => (
             <ApiErrorFallback

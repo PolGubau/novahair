@@ -54,7 +54,7 @@ export function AvatarFallback({
 }
 
 export type AvatarComponent = AvatarRootProps & {
- 	src: string;
+ 	src: string|undefined;
 	alt: string;
 	imageProps?: AvatarImageProps
 	fallbackProps?: AvatarFallbackProps

@@ -8,6 +8,15 @@ export const ServiceSelector = () => {
 	const tenantId = useTenantId();
 	const { isLoading, error, services, refetch } = useServices(tenantId);
 
+	if (isLoading) {
+		return (
+			<div className="flex flex-col gap-4">
+				<h1 className="text-4xl mb-4">{t("elige_servicio")}</h1>
+				<ServiceListSkeleton />
+			</div>
+		);
+	}
+
 	if (error) {
 		return <ApiErrorFallback error={error} reset={() => refetch()} />;
 	}
@@ -15,11 +24,7 @@ export const ServiceSelector = () => {
 	return (
 		<div className="flex flex-col gap-4">
 			<h1 className="text-4xl mb-4">{t("elige_servicio")}</h1>
-			{isLoading ? (
-				<ServiceListSkeleton />
-			) : (
-				<ServiceList services={services} />
-			)}
+			<ServiceList services={services} />
 		</div>
 	);
 };

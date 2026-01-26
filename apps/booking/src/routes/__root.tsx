@@ -1,21 +1,18 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
+import "@novahair/utils/i18n/setup";
 import type { QueryClient } from "@tanstack/react-query";
 import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
-import ReactLenis from "lenis/react";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
-import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
-import { Preloader } from "~/features/preloader/ui/preloader";
 import { TenantGuard } from "~/shared/tenant";
 import "../styles.css";
-import "@novahair/utils/i18n/setup";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -100,8 +97,7 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { isReady } = usePreloader();
-	const { i18n } = useTranslation();
+ 	const { i18n } = useTranslation();
 
 	return (
 		<html lang={i18n.language}>
@@ -109,13 +105,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ReactLenis root>
-					<Preloader isReady={isReady} />
-					<TenantGuard>
+ 					<TenantGuard>
 						<MainLayout>{children}</MainLayout>
 					</TenantGuard>
-				</ReactLenis>
-				<Devtools />
+ 				<Devtools />
 				<Scripts />
 			</body>
 		</html>
