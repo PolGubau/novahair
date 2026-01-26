@@ -9,6 +9,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 import { useEffect, useState } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
@@ -97,7 +98,6 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { i18n } = useTranslation();
 	const [isI18nReady, setIsI18nReady] = useState(false);
 
 	// Create QueryClient with default configuration
@@ -145,7 +145,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			};
 			checkInitialized();
 		}
-	}, [i18n]);
+	}, []);
 
 	if (!isI18nReady) {
 		return (

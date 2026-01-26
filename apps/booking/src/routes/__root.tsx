@@ -9,6 +9,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
@@ -98,7 +99,6 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { i18n } = useTranslation();
 	const [isI18nReady, setIsI18nReady] = useState(false);
 
 	// Create QueryClient with the same configuration as in root-provider
@@ -149,7 +149,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			};
 			checkInitialized();
 		}
-	}, [i18n]);
+	}, []);
 
 	if (!isI18nReady) {
 		return (
