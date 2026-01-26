@@ -11,7 +11,7 @@ import {
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
@@ -113,10 +113,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		const initI18n = async () => {
 			try {
 				await i18nPromise;
-				console.log('i18n promise resolved');
+				console.log("i18n promise resolved");
 				setIsI18nReady(true);
 			} catch (err) {
-				console.error('i18n init failed:', err);
+				console.error("i18n init failed:", err);
 			}
 		};
 
