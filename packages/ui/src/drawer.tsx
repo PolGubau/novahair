@@ -1,6 +1,6 @@
 import type { TranslationKey } from "@novahair/utils/i18n/setup";
 import { cn } from "@novahair/utils/lib/cn";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Drawer as D, type DialogProps } from "vaul";
 
 type Props = DialogProps & {
@@ -28,6 +28,7 @@ export const Drawer = ({
 	classNames,
 	...rest
 }: Props) => {
+	const { t } = useTranslation();
 	return (
 		<D.Root {...rest}>
 			<D.Portal>
@@ -56,12 +57,14 @@ export const Drawer = ({
 							{header}
 							<div className="flex flex-col gap-1">
 								{title && (
-									<h2 className="text-2xl font-semibold text-foreground">
+									<D.Title className="text-2xl font-semibold text-foreground">
 										{t(title)}
-									</h2>
+									</D.Title>
 								)}
 								{description && (
-									<p className="text-foreground/70 text-md">{t(description)}</p>
+									<D.Description className="text-foreground/70 text-md">
+										{t(description)}
+									</D.Description>
 								)}
 							</div>
 						</header>

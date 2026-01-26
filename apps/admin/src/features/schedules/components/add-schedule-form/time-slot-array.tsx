@@ -1,14 +1,21 @@
+import type { CreateScheduleDto } from "@novahair/client";
 import { Button, Input } from "@novahair/ui";
+import type { ISODate } from "@novahair/utils";
+import { t } from "i18next";
 import { Plus, X } from "lucide-react";
-import type { TimeSlot } from "../schedule-assignment-drawer";
 
 type Props = {
-	timeSlots: TimeSlot[];
-	setTimeSlots: (slots: TimeSlot[]) => void;
+	timeSlots: CreateScheduleDto[];
+	setTimeSlots: (slots: CreateScheduleDto[]) => void;
 };
 export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 	const addTimeSlot = () => {
-		setTimeSlots([...timeSlots, { start: "", end: "" }]);
+		const slots: CreateScheduleDto[] = [...timeSlots];
+		slots.push({
+			startTime: undefined as unknown as ISODate,
+			endTime: undefined as unknown as ISODate,
+		});
+		setTimeSlots(slots);
 	};
 
 	const removeTimeSlot = (index: number) => {
@@ -17,7 +24,7 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 
 	const updateTimeSlot = (
 		index: number,
-		field: "start" | "end",
+		field: "startTime" | "endTime",
 		value: string,
 	) => {
 		setTimeSlots(
@@ -28,23 +35,25 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 	};
 	return (
 		<div>
-			<h3 className="text-lg font-semibold mb-2">Horarios</h3>
+			<h3 className="text-lg font-semibold mb-2">{t("time_slots")}</h3>
 			<div className="space-y-2">
 				{timeSlots.map((slot, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: key
 					<div key={index} className="flex items-center space-x-2">
 						<Input
 							type="time"
-							value={slot.start}
-							onChange={(e) => updateTimeSlot(index, "start", e.target.value)}
-							placeholder="Inicio"
+							value={slot.startTime}
+							onChange={(e) =>
+								updateTimeSlot(index, "startTime", e.target.value)
+							}
+							placeholder={t("start")}
 						/>
-						<span>a</span>
+						<span>{t("to")}</span>
 						<Input
 							type="time"
-							value={slot.end}
-							onChange={(e) => updateTimeSlot(index, "end", e.target.value)}
-							placeholder="Fin"
+							value={slot.endTime}
+							onChange={(e) => updateTimeSlot(index, "endTime", e.target.value)}
+							placeholder={t("end")}
 						/>
 						{timeSlots.length > 1 && (
 							<Button
@@ -59,7 +68,7 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 				))}
 				<Button variant="outline" onClick={addTimeSlot}>
 					<Plus className="h-4 w-4 mr-2" />
-					Agregar Horario
+					{t("add_time_slot")}
 				</Button>
 			</div>
 		</div>

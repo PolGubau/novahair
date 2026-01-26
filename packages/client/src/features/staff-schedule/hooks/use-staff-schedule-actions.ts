@@ -11,7 +11,7 @@ export const useStaffScheduleActions = (tenantId: Tenant["id"]) => {
 		mutationFn: ({
 			data,
 			staffId,
-		}: { data: UpdateScheduleDto; staffId: Staff["id"] }) =>
+		}: { data: UpdateScheduleDto[]; staffId: Staff["id"] }) =>
 			staffScheduleRepository.update(tenantId, staffId, data),
 		onSuccess: () => {
 			qc.invalidateQueries({ queryKey: ["staff-schedule", tenantId] });
@@ -20,7 +20,7 @@ export const useStaffScheduleActions = (tenantId: Tenant["id"]) => {
 
 	type CreateParams = {
 		data: CreateScheduleDto[];
-		staffId: Staff["id"]; 
+		staffId: Staff["id"];
 	};
 	const create = useMutation({
 		mutationFn: ({ staffId, data }: CreateParams) =>

@@ -1,15 +1,9 @@
-import { Button, Checkbox } from "@novahair/ui";
+import { Button } from "@novahair/ui";
 import { Drawer } from "@novahair/ui/drawer";
 import { t } from "i18next";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { AddScheduleForm } from "./add-schedule-form/add-schedule-form";
-import { TimeSlotArray } from "./add-schedule-form/time-slot-array";
-
-export type TimeSlot = {
-	start: string;
-	end: string;
-};
 
 interface ScheduleAssignmentDrawerProps {
 	selectedDays: Date[];

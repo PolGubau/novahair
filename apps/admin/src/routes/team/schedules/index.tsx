@@ -9,7 +9,7 @@ import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { Loader } from "@novahair/ui/loader";
-import { config } from "@novahair/utils";
+import { type ISODate, config } from "@novahair/utils";
 import { useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
@@ -37,9 +37,6 @@ function RouteComponent() {
 		error: staffsError,
 	} = useStaffs(config.tenantId);
 	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
-	const colorMap = useMemo(() => {
-		return Object.fromEntries(staffs?.map((s) => [s.name, s.color]) || []);
-	}, [staffs]);
 
 	const staffSchedules = useQueries({
 		queries:
@@ -82,9 +79,9 @@ function RouteComponent() {
 	const getSchedulesForDay = (date: Date) => {
 		const schedules: {
 			id: string;
-			staff: string;
-			start: string;
-			end: string;
+			staff: Staff;
+			start: ISODate;
+			end: ISODate;
 		}[] = [];
 		for (const [index, query] of staffSchedules.entries()) {
 			if (
@@ -94,13 +91,12 @@ function RouteComponent() {
 			) {
 				const staff = staffs[index];
 				for (const schedule of query.data as Schedule[]) {
-					const startDate = parseISO(schedule.startTime);
-					if (isSameDay(startDate, date)) {
+					if (isSameDay(parseISO(schedule.startTime), date)) {
 						schedules.push({
 							id: schedule.id,
-							staff: staff.name,
-							start: format(startDate, "HH:mm"),
-							end: format(parseISO(schedule.endTime), "HH:mm"),
+							staff,
+							start: schedule.startTime,
+							end: schedule.endTime,
 						});
 					}
 				}
@@ -162,13 +158,13 @@ function RouteComponent() {
 						toggleDate={toggleDate}
 						getSchedulesForDay={getSchedulesForDay}
 						isLoading={isSchedulesLoading}
-						colorMap={colorMap}
 						staffs={staffs || []}
 					/>
 				</div>
 
 				<Drawer
 					title="filter"
+					description="customize_your_schedule_view"
 					open={isFiltersDrawerOpen}
 					onClose={() => setIsFiltersDrawerOpen(false)}
 				>

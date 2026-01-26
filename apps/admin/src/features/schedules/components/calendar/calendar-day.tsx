@@ -1,8 +1,8 @@
 import { Button } from "@novahair/ui";
 import i18n from "@novahair/utils/i18n/setup";
 import { isSameDay } from "date-fns";
+import { ScheduleEvent } from "./event/schedule-event";
 import { HourLines } from "./hour-lines";
-import { ScheduleEvent } from "./schedule-event";
 import type { Schedule } from "./weekly-calendar";
 
 type CalendarDayProps = {
@@ -11,11 +11,9 @@ type CalendarDayProps = {
 	selectedDates: Date[];
 	toggleDate: (date: Date) => void;
 	isLoading: boolean;
-	colorMap: Record<string, string>;
 	dayHeight: number;
 	pixelsPerMinute: number;
 	isFirstDay: boolean;
-	onEditSchedule: (schedule: Schedule) => void;
 	startHour: number;
 	endHour: number;
 };
@@ -36,12 +34,11 @@ export function CalendarDay({
 	selectedDates,
 	toggleDate,
 	isLoading,
-	colorMap,
 	dayHeight,
 	pixelsPerMinute,
 	isFirstDay,
 	startHour,
-	endHour
+	endHour,
 }: CalendarDayProps) {
 	return (
 		<li
@@ -77,13 +74,13 @@ export function CalendarDay({
 				) : (
 					schedules.map((schedule, index) => (
 						<ScheduleEvent
-							key={`${schedule.staff}-${schedule.start}-${schedule.end}-${index}`}
+							day={day}
+							key={`${schedule.staff.name}-${schedule.start}-${schedule.end}-${index}`}
 							schedule={schedule}
 							index={index}
 							schedules={schedules}
-							colorMap={colorMap}
 							pixelsPerMinute={pixelsPerMinute}
-							startHour={8}
+							startHour={startHour}
 						/>
 					))
 				)}

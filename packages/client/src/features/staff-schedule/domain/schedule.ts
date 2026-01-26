@@ -1,5 +1,7 @@
+import type { ISODate } from "@novahair/utils";
+
 export interface Schedule {
-	startTime: string;
-	endTime: string;
+	startTime: ISODate;
+	endTime: ISODate;
 	id: string;
 }

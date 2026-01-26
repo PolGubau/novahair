@@ -17,7 +17,7 @@ export type StaffScheduleRepository = {
 	update: (
 		tenantId: string,
 		staffId: string,
-		data: UpdateScheduleDto,
+		data: UpdateScheduleDto[],
 	) => Promise<void>;
 };
 

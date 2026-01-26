@@ -22,3 +22,35 @@ export const formatISODate = (
 	const date = parseISODate(isoDate);
 	return date.toLocaleString(locale, options);
 };
+
+/**
+ * Combines a date and a time string (HH:MM) into a single Date object.
+ * @param date Date object representing the date.
+ * @param time Time string in HH:MM format.
+ * @returns An object containing the new Date and its ISODate representation.
+ */
+export const combineDateTime = (
+	date: Date,
+	time: string,
+): {
+	newDate: Date;
+	iso: ISODate;
+} => {
+	const [hours, minutes] = time.split(":").map(Number);
+	const newDate = new Date(date);
+	newDate.setHours(hours, minutes, 0, 0);
+	const iso = toISODate(newDate);
+	return { newDate, iso };
+};
+
+export function getTime(
+	isoDate: ISODate,
+): [string, { hours: number; minutes: number }] {
+	const date = parseISODate(isoDate);
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const label = `${hours.toString().padStart(2, "0")}:${minutes
+		.toString()
+		.padStart(2, "0")}`;
+	return [label, { hours, minutes }];
+}

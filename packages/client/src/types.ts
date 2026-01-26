@@ -66,8 +66,8 @@ export type WorkingHoursDto = {
 
 export type ScheduleDto = {
 	id: string;
-	startTime: string;
-	endTime: string;
+	startTime: ISODate;
+	endTime: ISODate;
 };
 
 export type AvailabilitySlotDto = {

@@ -1,13 +1,13 @@
 import type { Staff } from "@novahair/client";
+import type { ISODate } from "@novahair/utils";
 import { useEffect, useState } from "react";
 import { CalendarDay } from "./calendar-day";
-import { EditSchedule } from "./edit-schedule-dialog";
 
 export interface Schedule {
 	id: string;
-	staff: string;
-	start: string;
-	end: string;
+	staff: Staff;
+	start: ISODate;
+	end: ISODate;
 }
 
 interface WeeklyCalendarProps {
@@ -18,9 +18,7 @@ interface WeeklyCalendarProps {
 	toggleDate: (date: Date) => void;
 	getSchedulesForDay: (date: Date) => Schedule[];
 	isLoading: boolean;
-	colorMap: Record<string, string>;
 	staffs: Staff[];
-	onScheduleUpdate?: (updatedSchedule: Schedule) => void;
 }
 
 // Hook para calcular height disponible y pixels por minuto
@@ -65,25 +63,11 @@ export function WeeklyCalendar({
 	toggleDate,
 	getSchedulesForDay,
 	isLoading,
-	colorMap,
 	endHour,
 	startHour,
-	onScheduleUpdate,
 }: WeeklyCalendarProps) {
 	const { height: DAY_HEIGHT, pixelsPerMinute: PIXELS_PER_MINUTE } =
 		useCalendarSizing(endHour - startHour);
-	const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
-
-	const handleEditSchedule = (schedule: Schedule) => {
-		setEditingSchedule(schedule);
-	};
-
-	const handleSaveSchedule = (updatedSchedule: Schedule) => {
-		// Aquí iría la lógica para guardar el horario actualizado
-		// Por ahora, solo llamamos al callback si existe
-		onScheduleUpdate?.(updatedSchedule);
-		setEditingSchedule(null);
-	};
 
 	return (
 		<>
@@ -98,19 +82,12 @@ export function WeeklyCalendar({
 						selectedDates={selectedDates}
 						toggleDate={toggleDate}
 						isLoading={isLoading}
-						colorMap={colorMap}
 						dayHeight={DAY_HEIGHT}
 						pixelsPerMinute={PIXELS_PER_MINUTE}
 						isFirstDay={weekDays.indexOf(day) === 0}
-						onEditSchedule={handleEditSchedule}
 					/>
 				))}
 			</ul>
-			<EditSchedule
-				schedule={editingSchedule}
-				onSave={handleSaveSchedule}
-				onClose={() => setEditingSchedule(null)}
-			/>
 		</>
 	);
 }

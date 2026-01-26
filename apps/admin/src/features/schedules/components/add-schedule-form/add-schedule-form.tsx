@@ -4,10 +4,9 @@ import {
 	useStaffScheduleActions,
 } from "@novahair/client";
 import { Button } from "@novahair/ui";
-import { config } from "@novahair/utils";
+import { combineDateTime, config } from "@novahair/utils";
 import { t } from "i18next";
 import { useState } from "react";
-import type { TimeSlot } from "../schedule-assignment-drawer";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
 import { TimeSlotArray } from "./time-slot-array";
@@ -29,16 +28,11 @@ export function AddScheduleForm({
 	const { mutate, isPending } = create;
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		const combineDateTime = (date: Date, time: string): Date => {
-			const [hours, minutes] = time.split(":").map(Number);
-			const newDate = new Date(date);
-			newDate.setHours(hours, minutes, 0, 0);
-			return newDate;
-		};
+
 		const newTimeSlots: CreateScheduleDto[] = selectedDays.flatMap((day) =>
 			timeSlots.map((slot) => ({
-				startTime: combineDateTime(day, slot.start).toISOString(),
-				endTime: combineDateTime(day, slot.end).toISOString(),
+				startTime: combineDateTime(day, slot.startTime).iso,
+				endTime: combineDateTime(day, slot.endTime).iso,
 			})),
 		);
 
@@ -54,7 +48,7 @@ export function AddScheduleForm({
 	};
 
 	const [selectedStaffs, setSelectedStaffs] = useState<Staff[]>([]);
-	const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
+	const [timeSlots, setTimeSlots] = useState<CreateScheduleDto[]>([]);
 	return (
 		<form className="space-y-6" onSubmit={handleSubmit}>
 			<SelectedDaysArray days={selectedDays} setDays={setSelectedDays} />
@@ -74,7 +68,7 @@ export function AddScheduleForm({
 					disabled={
 						isPending ||
 						!selectedStaffs.length ||
-						!timeSlots.some((s) => s.start && s.end)
+						!timeSlots.some((s) => s.startTime && s.endTime)
 					}
 				>
 					{t("assign_schedule")}
