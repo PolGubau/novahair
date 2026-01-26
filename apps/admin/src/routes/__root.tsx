@@ -6,16 +6,15 @@ import "@novahair/utils/i18n/setup";
 import i18n from "@novahair/utils/i18n/setup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
+	createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
 
- 
 export const Route = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
@@ -98,28 +97,15 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	// const [isI18nReady, setIsI18nReady] = useState(false);
-
 	// Create QueryClient with default configuration
-	const queryClient = useMemo(() => new QueryClient({
-		defaultOptions: queryClientDefaultOptions,
-	}), []);
+	const queryClient = useMemo(
+		() =>
+			new QueryClient({
+				defaultOptions: queryClientDefaultOptions,
+			}),
+		[],
+	);
 
-	// useEffect(() => {
-	// 	const initI18n = async () => {
-	// 		try {
-	// 			await i18nPromise;
-	// 			console.log('i18n promise resolved');
-	// 			setIsI18nReady(true);
-	// 		} catch (err) {
-	// 			console.error('i18n init failed:', err);
-	// 		}
-	// 	};
-
-	// 	initI18n();
-	// }, []);
-
-  
 	return (
 		<html lang={i18n.language}>
 			<head>
