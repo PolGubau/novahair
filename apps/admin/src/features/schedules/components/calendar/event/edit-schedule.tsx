@@ -76,7 +76,7 @@ export function EditSchedule({
 					/>
 				</div>
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
- 					<Input
+					<Input
 						id={endId}
 						label={t("end_hour")}
 						type="time"

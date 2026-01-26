@@ -3,13 +3,8 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
-import { STAFF_COLORSCOSelect } from "@novahair/ui";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-	getInitial,
-} from "@novahair/ui/avatar";
+import { STAFF_COLORS, Select } from "@novahair/ui";
+import { Avatar } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
