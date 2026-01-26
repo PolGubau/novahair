@@ -7,7 +7,7 @@ import { Input } from "@novahair/ui/input";
 import { Label } from "@novahair/ui/label";
 import { combineDateTime, config } from "@novahair/utils";
 import { t } from "i18next";
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { Schedule } from "../weekly-calendar";
 
 type EditScheduleProps = {
@@ -29,6 +29,7 @@ export function EditSchedule({
 	const [editedSchedule, setEditedSchedule] = useState<Schedule | null>(
 		schedule,
 	);
+	const endId = useId();
 
 	if (!schedule || !editedSchedule) return null;
 
@@ -76,7 +77,7 @@ export function EditSchedule({
 				</div>
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
  					<Input
-						id="end"
+						id={endId}
 						label={t("end_hour")}
 						type="time"
 						value={endTime}

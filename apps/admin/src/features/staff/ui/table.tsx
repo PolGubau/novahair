@@ -1,6 +1,6 @@
 import type { Staff } from "@novahair/client";
-import { Checkbox, CopyButton, LabelWithCopy, PhoneCell } from "@novahair/ui";
-import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
+import { Checkbox, LabelWithCopy, PhoneCell } from "@novahair/ui";
+import { Avatar } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
@@ -8,7 +8,7 @@ import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import type { ColumnDef } from "@tanstack/react-table";
 import { t } from "i18next";
-import { Edit2, Phone, Trash } from "lucide-react";
+import { Edit2, Trash } from "lucide-react";
 import { ServicesAssignedCell } from "./services-assigned-cell";
 
 export const getColumns = (options?: {

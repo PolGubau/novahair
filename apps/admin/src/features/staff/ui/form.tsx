@@ -3,7 +3,7 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
-import { Select, STAFF_COLORS } from "@novahair/ui";
+import { STAFF_COLORSCOSelect } from "@novahair/ui";
 import {
 	Avatar,
 	AvatarFallback,

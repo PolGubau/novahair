@@ -125,7 +125,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 	if (!isI18nReady) {
 		return (
-			<html>
+			<html lang={i18n.language}>
 				<head>
 					<HeadContent />
 				</head>
