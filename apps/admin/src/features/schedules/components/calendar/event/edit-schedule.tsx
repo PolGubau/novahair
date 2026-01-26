@@ -61,9 +61,8 @@ export function EditSchedule({
 			<h2 className="text-lg font-semibold mb-4">Editar Horario</h2>
 			<div className="space-y-4">
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
-					<Label label="Hora Inicio" />
 					<Input
-						id="start"
+						label={t("start_hour")}
 						type="time"
 						value={startTime}
 						onChange={(e) => {
@@ -76,9 +75,9 @@ export function EditSchedule({
 					/>
 				</div>
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
-					<Label label="Hora Fin" />
-					<Input
+ 					<Input
 						id="end"
+						label={t("end_hour")}
 						type="time"
 						value={endTime}
 						onChange={(e) => {

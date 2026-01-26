@@ -61,8 +61,11 @@ export const getColumns = (options?: {
 			},
 			cell: ({ row }) => (
 				<div className="items-center flex gap-2">
-					<Avatar src={row.original.imageUrl ?? ""} alt={row.getValue("name")} />
- 
+					<Avatar
+						src={row.original.imageUrl ?? ""}
+						alt={row.getValue("name")}
+					/>
+
 					{row.getValue("name")}
 				</div>
 			),

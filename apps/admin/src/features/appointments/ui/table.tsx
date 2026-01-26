@@ -35,7 +35,12 @@ const columns = [
 	}),
 	columnHelper.accessor("staff.name", {
 		id: "staffName",
-		cell: (info) => <StaffChip name={info.getValue()} avatarUrl={info.row.original.staff.avatarUrl} />,
+		cell: (info) => (
+			<StaffChip
+				name={info.getValue()}
+				avatarUrl={info.row.original.staff.avatarUrl}
+			/>
+		),
 		header: () => <span>{t("name")}</span>,
 	}),
 	columnHelper.accessor("customer.name", {

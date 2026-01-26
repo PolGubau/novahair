@@ -7,9 +7,9 @@ import {
 	getInitial,
 } from "@novahair/ui";
 import {
-	type TranslationKey,
 	getTime,
 	parseISODate,
+	type TranslationKey,
 	toISODate,
 } from "@novahair/utils";
 import { t } from "i18next";
@@ -115,9 +115,12 @@ export function ScheduleEvent({
 			>
 				<div className="h-full w-full flex p-1 flex-col">
 					<div className="truncate flex items-center gap-2 mb-1">
-						<Avatar size="sm"		src={schedule.staff.avatarUrl ?? ""}
-								alt={schedule.staff.name} />
-						 
+						<Avatar
+							size="sm"
+							src={schedule.staff.avatarUrl ?? ""}
+							alt={schedule.staff.name}
+						/>
+
 						<span className="">{schedule.staff.name}</span>
 					</div>
 					<div className="truncate text-xs text-background/80">

@@ -3,7 +3,7 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
-import { STAFF_COLORS, Select } from "@novahair/ui";
+import { Select, STAFF_COLORS } from "@novahair/ui";
 import {
 	Avatar,
 	AvatarFallback,
@@ -149,7 +149,11 @@ export const StaffForm = ({
 							type="url"
 							onChange={handleChange}
 						/>
-						<Avatar className="size-9"src={avatarUrl ?? ""} alt={values.name} />
+						<Avatar
+							className="size-9"
+							src={avatarUrl ?? ""}
+							alt={values.name}
+						/>
 					</div>
 				</fieldset>
 

@@ -48,7 +48,7 @@ export const getColumns = (options?: {
 			},
 			cell: ({ row }) => (
 				<div className="flex gap-2 items-center">
-					<Avatar	src={row.original.avatarUrl ?? ""} alt={t("image_url")} />
+					<Avatar src={row.original.avatarUrl ?? ""} alt={t("image_url")} />
 					{row.getValue("name")}
 				</div>
 			),
@@ -59,9 +59,7 @@ export const getColumns = (options?: {
 			header: () => {
 				return <span>{t("email")}</span>;
 			},
-			cell: ({ row }) => (
-				<LabelWithCopy label={row.getValue("email")} />
-			),
+			cell: ({ row }) => <LabelWithCopy label={row.getValue("email")} />,
 		},
 
 		{

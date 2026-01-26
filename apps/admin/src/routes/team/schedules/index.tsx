@@ -9,7 +9,7 @@ import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { Loader } from "@novahair/ui/loader";
-import { type ISODate, config } from "@novahair/utils";
+import { config, type ISODate } from "@novahair/utils";
 import { useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { addDays, format, isSameDay, parseISO, startOfWeek } from "date-fns";
@@ -18,8 +18,8 @@ import { useEffect, useMemo, useState } from "react";
 import {
 	ScheduleAssignmentDrawer,
 	StaffFilter,
-	WeekNavigation,
 	WeeklyCalendar,
+	WeekNavigation,
 } from "~/features/schedules";
 import {
 	END_HOUR,

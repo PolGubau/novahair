@@ -1,6 +1,6 @@
 import { type Staff, useStaffs } from "@novahair/client";
 import { CheckboxChip } from "@novahair/ui";
-import { type TranslationKey, config } from "@novahair/utils";
+import { config, type TranslationKey } from "@novahair/utils";
 import { t } from "i18next";
 
 type Props = {
