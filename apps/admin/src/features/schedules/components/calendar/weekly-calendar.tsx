@@ -1,7 +1,8 @@
 import type { Staff } from "@novahair/client";
 import type { ISODate } from "@novahair/utils";
-import { useEffect, useState } from "react";
 import { CalendarDay } from "./calendar-day";
+import { CalendarSkeleton } from "./components/calendar-skeleton";
+import { useCalendarSizing } from "./hooks/use-calendar-sizing";
 
 export interface Schedule {
 	id: string;
@@ -21,42 +22,6 @@ interface WeeklyCalendarProps {
 	staffs: Staff[];
 }
 
-// Hook para calcular height disponible y pixels por minuto
-function useCalendarSizing(end: number) {
-	const [dimensions, setDimensions] = useState({
-		height: 400, // fallback mínimo
-		pixelsPerMinute: 0.5,
-	});
-
-	useEffect(() => {
-		const calculateDimensions = (end: number) => {
-			// Estimar height disponible (viewport - header/footer aproximado)
-			const windowHeight = window.innerHeight;
-			const estimatedHeaderFooter = 220; // px aproximados para header, footer, padding
-			const availableHeight = Math.max(
-				100,
-				windowHeight - estimatedHeaderFooter,
-			);
-
-			// Calcular pixels por minuto para ocupar todo el height disponible
-			const totalMinutes = end * 60;
-			const pixelsPerMinute = availableHeight / totalMinutes;
-
-			setDimensions({
-				height: availableHeight,
-				pixelsPerMinute: Math.max(0.3, Math.min(1.5, pixelsPerMinute)), // límites razonables
-			});
-		};
-
-		calculateDimensions(end);
-		window.addEventListener("resize", () => calculateDimensions(end));
-		return () =>
-			window.removeEventListener("resize", () => calculateDimensions(end));
-	}, [end]);
-
-	return dimensions;
-}
-
 export function WeeklyCalendar({
 	weekDays,
 	selectedDates,
@@ -68,6 +33,10 @@ export function WeeklyCalendar({
 }: WeeklyCalendarProps) {
 	const { height: DAY_HEIGHT, pixelsPerMinute: PIXELS_PER_MINUTE } =
 		useCalendarSizing(endHour - startHour);
+
+	if (isLoading) {
+		return <CalendarSkeleton weekDays={weekDays} />;
+	}
 
 	return (
 		<>
