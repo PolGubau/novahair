@@ -8,8 +8,8 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
-import { I18nextProvider } from "react-i18next";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
@@ -98,8 +98,7 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { i18n } = useTranslation();
-
+ 
 	// Create QueryClient with the same configuration as in root-provider
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -140,11 +139,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<QueryClientProvider client={queryClient}>
-					<I18nextProvider i18n={i18n}>
-						<TenantGuard>
-							<MainLayout>{children}</MainLayout>
-						</TenantGuard>
-					</I18nextProvider>
+					<TenantGuard>
+						<MainLayout>{children}</MainLayout>
+					</TenantGuard>
 				</QueryClientProvider>
 				<Devtools />
 				<Scripts />

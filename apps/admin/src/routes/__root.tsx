@@ -2,14 +2,14 @@
 
 import "@novahair/utils/i18n/setup";
 import { Devtools } from "@novahair/ui/dev-tools";
-import i18n from "@novahair/utils/i18n/setup";
+import i18n from "i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
-import { I18nextProvider, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
 
@@ -97,8 +97,7 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { i18n } = useTranslation();
-
+ 
 	// Create QueryClient with default configuration
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -136,9 +135,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<QueryClientProvider client={queryClient}>
-					<I18nextProvider i18n={i18n}>
-						<MainLayout>{children}</MainLayout>
-					</I18nextProvider>
+					<MainLayout>{children}</MainLayout>
 				</QueryClientProvider>
 				<Devtools />
 				<Scripts />
