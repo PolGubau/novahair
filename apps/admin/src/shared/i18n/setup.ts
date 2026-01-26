@@ -1,6 +1,8 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+import { createIsomorphicFn } from "@tanstack/react-start";
+import { getCookie } from "@tanstack/react-start/server";
 import { initReactI18next } from "react-i18next";
 import commonEn from "./locales/en.json";
 import commonEs from "./locales/es.json";
@@ -34,6 +36,7 @@ export const translationKeys = keys.reduce(
 	{} as Record<keyof typeof commonEn, keyof typeof commonEn>,
 );
 
+const cookieName = "novahair_i18n";
 i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
@@ -44,7 +47,7 @@ i18n
 		supportedLngs: ["en", "es"],
 		detection: {
 			order: ["cookie"],
-			lookupCookie: "novahair_i18n",
+			lookupCookie: cookieName,
 			caches: ["cookie"],
 			cookieMinutes: 60 * 24 * 365, // 1 year
 		},
@@ -54,7 +57,8 @@ i18n
 	});
 
 export const setSSRLanguage = createIsomorphicFn().server(async () => {
-	const language = getCookie;
+	const language = getCookie(cookieName);
+	await i18n.changeLanguage(language || "en");
 });
 
 export default i18n;

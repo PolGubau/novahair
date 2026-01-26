@@ -3,7 +3,8 @@
 import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
 import "@novahair/utils/i18n/setup";
- import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import i18n from "@novahair/utils/i18n/setup";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	HeadContent,
 	Scripts,
@@ -11,11 +12,15 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import { MainLayout } from "~/app/layouts/main";
+import { setSSRLanguage } from "~/shared/i18n/setup";
 import appCss from "../styles.css?url";
-import i18n from "@novahair/utils/i18n/setup";
-import { i18nPromise } from "@novahair/utils/i18n/setup";
 
-export const Route = createRootRouteWithContext()({
+export const Route = createRootRouteWithContext<{
+	queryClient: QueryClient;
+}>()({
+	beforeLoad: async () => {
+		await setSSRLanguage();
+	},
 	head: () => ({
 		meta: [
 			{
@@ -92,11 +97,10 @@ export const Route = createRootRouteWithContext()({
 });
 
 function NotFound() {
- 	return <div>{("not_found")}</div>;
+	return <div>{"not_found"}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
- 
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(
 		() =>
@@ -106,12 +110,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		[],
 	);
 
-	useEffect(() => {
-		document.documentElement.lang = i18n.language;
-	}, [i18n.language]);
-  
 	return (
-		<html>
+		<html lang={i18n.language}>
 			<head>
 				<HeadContent />
 			</head>
