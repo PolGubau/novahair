@@ -56,6 +56,14 @@ i18n
 				i18nPromise = Promise.reject(err);
 			} else {
 				console.log("i18n initialized successfully");
+				if (typeof window !== 'undefined') {
+					const lang = navigator.language.split('-')[0];
+					if (lang === 'es' || lang === 'en') {
+						i18n.changeLanguage(lang);
+					} else {
+						i18n.changeLanguage('es');
+					}
+				}
 				i18nPromise = Promise.resolve();
 			}
 		},

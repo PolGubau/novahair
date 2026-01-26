@@ -9,16 +9,13 @@ import {
 	Scripts,
 	createRootRouteWithContext,
 } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
 import i18n from "@novahair/utils/i18n/setup";
 import { i18nPromise } from "@novahair/utils/i18n/setup";
 
 export const Route = createRootRouteWithContext()({
-	loader: async () => {
-		await i18nPromise;
-	},
 	head: () => ({
 		meta: [
 			{
@@ -108,9 +105,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			}),
 		[],
 	);
+
+	useEffect(() => {
+		document.documentElement.lang = i18n.language;
+	}, [i18n.language]);
   
 	return (
-		<html lang={i18n.language}>
+		<html>
 			<head>
 				<HeadContent />
 			</head>
