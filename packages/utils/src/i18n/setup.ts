@@ -38,7 +38,7 @@ let i18nPromise: Promise<void>;
 
 i18n
 	.use(initReactI18next)
-	.use(LanguageDetector)
+	// .use(LanguageDetector)
 	.init(
 		{
 			debug: false,
