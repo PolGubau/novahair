@@ -50,6 +50,12 @@ i18n.init({
 	
 	},
 	resources,
+}, (err, t) => {
+	if (err) {
+		console.error('i18n initialization error:', err);
+	} else {
+		console.log('i18n initialized successfully');
+	}
 });
 
 export default i18n;

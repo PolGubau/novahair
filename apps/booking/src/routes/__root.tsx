@@ -135,20 +135,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	});
 
 	useEffect(() => {
-		// Ensure i18n is initialized
+		const handleInitialized = () => {
+			console.log('i18n initialized event fired');
+			setIsI18nReady(true);
+		};
+
 		if (i18n.isInitialized) {
+			console.log('i18n already initialized');
 			setIsI18nReady(true);
 		} else {
-			// If not initialized, wait for it
-			const checkInitialized = () => {
-				if (i18n.isInitialized) {
-					setIsI18nReady(true);
-				} else {
-					setTimeout(checkInitialized, 10);
-				}
-			};
-			checkInitialized();
+			console.log('Waiting for i18n initialized event');
+			i18n.on('initialized', handleInitialized);
 		}
+
+		return () => {
+			i18n.off('initialized', handleInitialized);
+		};
 	}, []);
 
 	if (!isI18nReady) {
