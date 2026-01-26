@@ -8,6 +8,7 @@ export * from "./hooks/use-controlled-state";
 export * from "./hooks/use-mobile";
 export * from "./hooks/use-repository-mutation";
 export * from "./i18n/setup";
+export * from "./i18n/types";
 export * from "./lib/api-error";
 export * from "./lib/api-utils";
 export * from "./lib/calendar";

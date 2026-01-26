@@ -24,6 +24,7 @@ const config = defineConfig({
 		outDir: "dist",
 	},
 	server: {
+		port: 3000,
 		proxy: {
 			"/api": {
 				target: "https://api.gerardmartinez.es/api",

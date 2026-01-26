@@ -1,7 +1,7 @@
+import { env } from "@novahair/utils";
 import { Link } from "@tanstack/react-router";
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { type WithTranslation, withTranslation } from "react-i18next";
-import { env } from "@novahair/utils";
 import { Button } from "./button";
 
 interface Props extends WithTranslation {

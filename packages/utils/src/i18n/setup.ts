@@ -16,13 +16,6 @@ export const resources = {
 	},
 } as const;
 
-declare module "i18next" {
-	interface CustomTypeOptions {
-		defaultNS: typeof defaultNS;
-		resources: typeof resources.en;
-	}
-}
-
 export type TranslationKey = keyof typeof commonEn;
 
 const keys = Object.keys(commonEn) as (keyof typeof commonEn)[];
@@ -34,17 +27,18 @@ export const translationKeys = keys.reduce(
 	{} as Record<keyof typeof commonEn, keyof typeof commonEn>,
 );
 
+export const i18nCookieName = "novahair_i18n";
 i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
 		debug: false,
 		defaultNS,
-		fallbackLng: "es",
+		fallbackLng: "en",
 		supportedLngs: ["en", "es"],
 		detection: {
 			order: ["cookie"],
-			lookupCookie: "novahair_i18n",
+			lookupCookie: i18nCookieName,
 			caches: ["cookie"],
 			cookieMinutes: 60 * 24 * 365, // 1 year
 		},
