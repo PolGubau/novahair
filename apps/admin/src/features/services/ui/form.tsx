@@ -120,10 +120,8 @@ export const ServiceCreationForm = ({
 						required
 						onChange={handleChange}
 					/>
-					<Avatar className="size-9">
-						<AvatarImage src={imageUrl ?? ""} alt={t("image_url")} />
-						<AvatarFallback>{getInitial(values.name)}</AvatarFallback>
-					</Avatar>
+					<Avatar className="size-9" src={imageUrl ?? ""} alt={values.name} />
+						 
 				</div>
 				<div className="grid grid-cols-2 gap-4">
 					<Input

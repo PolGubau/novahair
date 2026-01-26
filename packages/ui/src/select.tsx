@@ -1,10 +1,10 @@
+import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import { cn } from "@novahair/utils/lib/cn";
+import type { Breakpoints } from "@novahair/utils/types/common";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { t } from "i18next";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { useId } from "react";
-import { cn } from "@novahair/utils/lib/cn";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
-import type { Breakpoints } from "@novahair/utils/types/common";
 import { inputTheme } from "./input";
 import { Label } from "./label";
 
@@ -16,6 +16,7 @@ export type SelectProps = Omit<
 > & {
 	id?: string;
 	label?: TranslationKey;
+	customOptionRender?: (option: Option) => React.ReactNode;
 	placeholder?: TranslationKey;
 	onChange?: (value: string) => void;
 	options: Option[];
@@ -40,11 +41,18 @@ function Select({
 					<SelectValue placeholder={t(placeholder)} />
 				</SelectTrigger>
 				<SelectContent>
-					{options.map((option) => (
+					{options?.map((option) => (
 						<SelectItem key={option.value} value={option.value}>
-							{t(option.label)}
+							{props.customOptionRender
+								? props.customOptionRender(option)
+								: t(option.label)}
 						</SelectItem>
 					))}
+					{!options || options.length === 0 ? (
+						<SelectItem value="" disabled>
+							{t("no_options")}
+						</SelectItem>
+					) : null}
 				</SelectContent>
 			</SelectRoot>
 		</div>

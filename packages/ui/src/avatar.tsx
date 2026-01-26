@@ -1,13 +1,14 @@
 import { cn } from "@novahair/utils";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+export type AvatarRootProps = React.ComponentProps<typeof AvatarPrimitive.Root> & {
+	size?: "default" | "sm" | "lg";
+};
 
-function Avatar({
+export function AvatarRoot({
 	className,
 	size = "default",
 	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root> & {
-	size?: "default" | "sm" | "lg";
-}) {
+}:AvatarRootProps) {
 	return (
 		<AvatarPrimitive.Root
 			data-slot="avatar"
@@ -21,10 +22,11 @@ function Avatar({
 	);
 }
 
-function AvatarImage({
+export type AvatarImageProps = React.ComponentProps<typeof AvatarPrimitive.Image>;
+export function AvatarImage({
 	className,
 	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+}: AvatarImageProps) {
 	return (
 		<AvatarPrimitive.Image
 			data-slot="avatar-image"
@@ -34,10 +36,11 @@ function AvatarImage({
 	);
 }
 
-function AvatarFallback({
+export type AvatarFallbackProps = React.ComponentProps<typeof AvatarPrimitive.Fallback>;
+export function AvatarFallback({
 	className,
 	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+}: AvatarFallbackProps) {
 	return (
 		<AvatarPrimitive.Fallback
 			data-slot="avatar-fallback"
@@ -49,12 +52,27 @@ function AvatarFallback({
 		/>
 	);
 }
-export function getInitial(name: string) {
-	if (!name) return "?";
-	return name.charAt(0).toUpperCase();
+
+export type AvatarComponent = AvatarRootProps & {
+ 	src: string;
+	alt: string;
+	imageProps?: AvatarImageProps
+	fallbackProps?: AvatarFallbackProps
+	fallback?: React.ReactElement 
+};
+export function Avatar({ fallback,src, alt, imageProps, fallbackProps, ...props }: AvatarComponent) {
+	return (
+		<AvatarRoot {...props}>
+			<AvatarImage src={src} alt={alt} {...imageProps} />
+			<AvatarFallback {...fallbackProps}>{fallback ?? getInitial(alt)}</AvatarFallback>
+		</AvatarRoot>
+	)
 }
 
-function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
+
+
+
+export function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
 	return (
 		<span
 			data-slot="avatar-badge"
@@ -70,7 +88,7 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
 	);
 }
 
-function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
+export function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="avatar-group"
@@ -83,7 +101,7 @@ function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
 	);
 }
 
-function AvatarGroupCount({
+export function AvatarGroupCount({
 	className,
 	...props
 }: React.ComponentProps<"div">) {
@@ -98,12 +116,8 @@ function AvatarGroupCount({
 		/>
 	);
 }
-
-export {
-	Avatar,
-	AvatarImage,
-	AvatarFallback,
-	AvatarBadge,
-	AvatarGroup,
-	AvatarGroupCount,
-};
+export function getInitial(name: string) {
+	if (!name) return "?";
+	return name.charAt(0).toUpperCase();
+}
+ 

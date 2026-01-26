@@ -1,3 +1,4 @@
+import { PhoneCell, StaffChip } from "@novahair/ui";
 import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
@@ -34,7 +35,7 @@ const columns = [
 	}),
 	columnHelper.accessor("staff.name", {
 		id: "staffName",
-		cell: (info) => info.getValue(),
+		cell: (info) => <StaffChip name={info.getValue()} avatarUrl={info.row.original.staff.avatarUrl} />,
 		header: () => <span>{t("name")}</span>,
 	}),
 	columnHelper.accessor("customer.name", {
@@ -42,9 +43,14 @@ const columns = [
 		cell: (info) => info.getValue(),
 		header: () => <span>{t("name")}</span>,
 	}),
+	columnHelper.accessor("customer.email", {
+		id: "customerEmail",
+		cell: (info) => info.getValue(),
+		header: () => <span>{t("email")}</span>,
+	}),
 	columnHelper.accessor("customer.phone", {
 		id: "customerPhone",
-		cell: (info) => info.getValue(),
+		cell: ({ row }) => <PhoneCell phone={row.original.customer.phone} />,
 		header: () => <span>{t("phone")}</span>,
 	}),
 ];

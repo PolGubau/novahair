@@ -107,6 +107,8 @@ export function DataTable<TData, TValue>({
 												? header.column.columnDef.meta?.filterVariant !==
 														"null" && (
 														<Popover
+															title={"filter"}
+															description="use_these_controls_to_filter_the_data"
 															trigger={
 																<IconButton
 																	size="sm"
@@ -115,10 +117,7 @@ export function DataTable<TData, TValue>({
 																/>
 															}
 														>
-															<div className="flex justify-between">
-																<strong>{t("filter")}</strong>
-																<Filter column={header.column} />
-															</div>
+															<Filter column={header.column} />
 														</Popover>
 													)
 												: null}

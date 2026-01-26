@@ -61,14 +61,8 @@ export const getColumns = (options?: {
 			},
 			cell: ({ row }) => (
 				<div className="items-center flex gap-2">
-					<Avatar>
-						<AvatarImage
-							src={row.original.imageUrl ?? ""}
-							alt={row.getValue("name")}
-						/>
-						<AvatarFallback>{getInitial(row.getValue("name"))}</AvatarFallback>
-					</Avatar>
-
+					<Avatar src={row.original.imageUrl ?? ""} alt={row.getValue("name")} />
+ 
 					{row.getValue("name")}
 				</div>
 			),

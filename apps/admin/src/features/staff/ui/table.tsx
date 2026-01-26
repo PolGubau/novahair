@@ -1,5 +1,5 @@
 import type { Staff } from "@novahair/client";
-import { Checkbox, CopyButton } from "@novahair/ui";
+import { Checkbox, CopyButton, LabelWithCopy, PhoneCell } from "@novahair/ui";
 import { Avatar, AvatarFallback, AvatarImage } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { DataTable } from "@novahair/ui/data-table/data-table";
@@ -48,16 +48,7 @@ export const getColumns = (options?: {
 			},
 			cell: ({ row }) => (
 				<div className="flex gap-2 items-center">
-					<Avatar>
-						<AvatarImage
-							src={row.original.avatarUrl ?? ""}
-							alt={t("image_url")}
-							className=""
-						/>
-						<AvatarFallback>
-							{row.original.name.charAt(0).toUpperCase()}
-						</AvatarFallback>
-					</Avatar>
+					<Avatar	src={row.original.avatarUrl ?? ""} alt={t("image_url")} />
 					{row.getValue("name")}
 				</div>
 			),
@@ -69,15 +60,7 @@ export const getColumns = (options?: {
 				return <span>{t("email")}</span>;
 			},
 			cell: ({ row }) => (
-				<div className="flex gap-2 items-center group">
-					{row.getValue("email")}
-					<CopyButton
-						text={row.getValue("email")}
-						size="sm"
-						variant="ghost"
-						className="opacity-0 group-hover:opacity-100 transition-opacity"
-					/>
-				</div>
+				<LabelWithCopy label={row.getValue("email")} />
 			),
 		},
 
@@ -86,25 +69,7 @@ export const getColumns = (options?: {
 			header: () => {
 				return <span>{t("phone")}</span>;
 			},
-			cell: ({ row }) => (
-				<div className="flex gap-2 items-center group">
-					{row.getValue("phone")}
-					<a
-						href={`tel:${row.getValue("phone")}`}
-						target="_blank"
-						rel="noreferrer"
-					>
-						<IconButton
-							variant="ghost"
-							size="sm"
-							label={t("call")}
-							className="opacity-0 group-hover:opacity-100 transition-opacity"
-						>
-							<Phone />
-						</IconButton>
-					</a>
-				</div>
-			),
+			cell: ({ row }) => <PhoneCell phone={row.getValue("phone")} />,
 		},
 		{
 			accessorKey: "color",

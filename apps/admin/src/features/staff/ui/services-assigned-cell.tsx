@@ -43,6 +43,7 @@ export const ServicesAssignedCell = ({
 	const [open, setOpen] = useState(false);
 	return (
 		<Popover
+			title="assigned_services"
 			open={open}
 			onOpenChange={setOpen}
 			trigger={
@@ -53,7 +54,6 @@ export const ServicesAssignedCell = ({
 			}
 		>
 			<div className="flex flex-col gap-2">
-				<p className="font-medium">{t("assigned_services")}</p>
 				<ul className="flex flex-wrap gap-1">
 					{services.map((service) => {
 						const isAssigned = updatedAssigned.includes(service.id);

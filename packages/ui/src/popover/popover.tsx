@@ -1,4 +1,5 @@
-import { cn } from "@novahair/utils";
+import { type TranslationKey, cn } from "@novahair/utils";
+import { t } from "i18next";
 import { X } from "lucide-react";
 import type { Popover as P } from "radix-ui";
 import { Button } from "../button";
@@ -6,7 +7,10 @@ import { IconButton } from "../icon-button";
 import {
 	PopoverClose,
 	PopoverContent,
+	PopoverDescription,
+	PopoverHeader,
 	PopoverRoot,
+	PopoverTitle,
 	PopoverTrigger,
 } from "./primitives";
 
@@ -22,14 +26,18 @@ export interface PopoverProps extends Omit<P.PopoverContentProps, "content"> {
 	label?: string;
 	arrowClassName?: string;
 	disabled?: boolean;
+	title: TranslationKey;
+	description?: TranslationKey;
 }
 export const Popover = ({
 	children,
 	open,
 	defaultOpen,
+	description,
 	onOpenChange,
 	modal,
 	trigger,
+	title,
 	label = "Open Menu",
 	closeClassName,
 	closeIcon = <X />,
@@ -51,13 +59,24 @@ export const Popover = ({
 			</PopoverTrigger>
 			{!disabled && (
 				<PopoverContent {...rest}>
-					<PopoverClose
-						aria-label="Close"
-						asChild={true}
-						className={cn(closeClassName)}
-					>
-						<IconButton>{closeIcon}</IconButton>
-					</PopoverClose>
+					<header className="grid grid-cols-[1fr_auto] items-center gap-1">
+						<PopoverHeader>
+							{title && <PopoverTitle>{t(title)}</PopoverTitle>}
+							{description && (
+								<PopoverDescription>{t(description)}</PopoverDescription>
+							)}
+						</PopoverHeader>
+						<PopoverClose
+							aria-label="Close"
+							asChild={true}
+							className={cn(closeClassName)}
+						>
+							<IconButton variant="ghost" size="sm">
+								{closeIcon}
+							</IconButton>
+						</PopoverClose>
+					</header>
+
 					{children}
 				</PopoverContent>
 			)}

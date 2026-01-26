@@ -3,6 +3,7 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
+import { STAFF_COLORS, Select } from "@novahair/ui";
 import {
 	Avatar,
 	AvatarFallback,
@@ -12,6 +13,7 @@ import {
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
+import type { TranslationKey } from "@novahair/utils";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 
@@ -117,14 +119,27 @@ export const StaffForm = ({
 							onChange={handleChange}
 						/>
 					</div>
-
-					<Input
-						label={t("color")}
+					<Select
+						label={"color"}
 						value={color}
-						name="color"
-						type="color"
-						onChange={handleChange}
+						customOptionRender={(option) => (
+							<div className="flex gap-2 items-center">
+								<span
+									className="size-4 rounded-sm"
+									style={{ backgroundColor: option.value }}
+								/>
+								{t(option.label as TranslationKey)}
+							</div>
+						)}
+						options={STAFF_COLORS.map((color) => ({
+							label: color.name,
+							value: color.hex,
+						}))}
+						onChange={(value) =>
+							setValues((prev) => ({ ...prev, color: value }))
+						}
 					/>
+
 					<div className="grid gap-2 grid-cols-[1fr_auto] items-end">
 						<Input
 							label={t("avatar_url")}
@@ -134,10 +149,7 @@ export const StaffForm = ({
 							type="url"
 							onChange={handleChange}
 						/>
-						<Avatar className="size-9">
-							<AvatarImage src={avatarUrl ?? ""} alt={t("image_url")} />
-							<AvatarFallback>{getInitial(values.name)}</AvatarFallback>
-						</Avatar>
+						<Avatar className="size-9"src={avatarUrl ?? ""} alt={values.name} />
 					</div>
 				</fieldset>
 
