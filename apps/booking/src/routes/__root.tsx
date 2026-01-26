@@ -9,7 +9,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
@@ -98,7 +98,9 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
- 
+	const { i18n } = useTranslation();
+	const [isI18nReady, setIsI18nReady] = useState(false);
+
 	// Create QueryClient with the same configuration as in root-provider
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -131,6 +133,37 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			},
 		},
 	});
+
+	useEffect(() => {
+		// Ensure i18n is initialized
+		if (i18n.isInitialized) {
+			setIsI18nReady(true);
+		} else {
+			// If not initialized, wait for it
+			const checkInitialized = () => {
+				if (i18n.isInitialized) {
+					setIsI18nReady(true);
+				} else {
+					setTimeout(checkInitialized, 10);
+				}
+			};
+			checkInitialized();
+		}
+	}, [i18n]);
+
+	if (!isI18nReady) {
+		return (
+			<html>
+				<head>
+					<HeadContent />
+				</head>
+				<body>
+					<div>Loading...</div>
+					<Scripts />
+				</body>
+			</html>
+		);
+	}
 
 	return (
 		<html lang={i18n.language}>

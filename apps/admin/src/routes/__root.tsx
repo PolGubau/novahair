@@ -2,7 +2,6 @@
 
 import "@novahair/utils/i18n/setup";
 import { Devtools } from "@novahair/ui/dev-tools";
-import i18n from "i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
@@ -10,6 +9,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
 
@@ -97,7 +97,9 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
- 
+	const { i18n } = useTranslation();
+	const [isI18nReady, setIsI18nReady] = useState(false);
+
 	// Create QueryClient with default configuration
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -127,6 +129,37 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			},
 		},
 	});
+
+	useEffect(() => {
+		// Ensure i18n is initialized
+		if (i18n.isInitialized) {
+			setIsI18nReady(true);
+		} else {
+			// If not initialized, wait for it
+			const checkInitialized = () => {
+				if (i18n.isInitialized) {
+					setIsI18nReady(true);
+				} else {
+					setTimeout(checkInitialized, 10);
+				}
+			};
+			checkInitialized();
+		}
+	}, [i18n]);
+
+	if (!isI18nReady) {
+		return (
+			<html>
+				<head>
+					<HeadContent />
+				</head>
+				<body>
+					<div>Loading...</div>
+					<Scripts />
+				</body>
+			</html>
+		);
+	}
 
 	return (
 		<html lang={i18n.language}>
