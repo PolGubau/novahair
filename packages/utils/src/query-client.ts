@@ -1,8 +1,10 @@
 import type { DefaultOptions } from "@tanstack/react-query";
 
 export const queryClientDefaultOptions: DefaultOptions = {
-	queries: {
-		retry: (failureCount, error) => {
+  queries: {
+    experimental_prefetchInRender: true,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: (failureCount, error) => {
 			if (failureCount >= 2) return false;
 
 			const errorMessage =

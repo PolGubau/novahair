@@ -1,26 +1,22 @@
 /// <reference types="vite/client" />
 
-import "@novahair/utils/i18n/setup";
-import { i18nPromise } from "@novahair/utils/i18n/setup";
-import { queryClientDefaultOptions } from "@novahair/utils";
 import { Devtools } from "@novahair/ui/dev-tools";
+import { queryClientDefaultOptions } from "@novahair/utils";
+import "@novahair/utils/i18n/setup";
+import i18n from "@novahair/utils/i18n/setup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
-import { useEffect, useState } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import appCss from "../styles.css?url";
 
-type MyRouterContext = {};
-
-type MyRouterContext = {};
-
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+ 
+export const Route = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{
@@ -102,41 +98,28 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const [isI18nReady, setIsI18nReady] = useState(false);
+	// const [isI18nReady, setIsI18nReady] = useState(false);
 
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(() => new QueryClient({
 		defaultOptions: queryClientDefaultOptions,
 	}), []);
 
-	useEffect(() => {
-		const initI18n = async () => {
-			try {
-				await i18nPromise;
-				console.log('i18n promise resolved');
-				setIsI18nReady(true);
-			} catch (err) {
-				console.error('i18n init failed:', err);
-			}
-		};
+	// useEffect(() => {
+	// 	const initI18n = async () => {
+	// 		try {
+	// 			await i18nPromise;
+	// 			console.log('i18n promise resolved');
+	// 			setIsI18nReady(true);
+	// 		} catch (err) {
+	// 			console.error('i18n init failed:', err);
+	// 		}
+	// 	};
 
-		initI18n();
-	}, []);
+	// 	initI18n();
+	// }, []);
 
-	if (!isI18nReady) {
-		return (
-			<html>
-				<head>
-					<HeadContent />
-				</head>
-				<body>
-					<div>Loading...</div>
-					<Scripts />
-				</body>
-			</html>
-		);
-	}
-
+  
 	return (
 		<html lang={i18n.language}>
 			<head>

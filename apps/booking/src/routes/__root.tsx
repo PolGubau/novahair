@@ -4,7 +4,7 @@ import { Devtools } from "@novahair/ui/dev-tools";
 import "@novahair/utils/i18n/setup";
 import { i18nPromise } from "@novahair/utils/i18n/setup";
 import { queryClientDefaultOptions } from "@novahair/utils";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DefaultOptions, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
@@ -103,9 +103,8 @@ function NotFound() {
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const [isI18nReady, setIsI18nReady] = useState(false);
 
-	// Create QueryClient with default configuration
-	const queryClient = useMemo(() => new QueryClient({
-		defaultOptions: queryClientDefaultOptions,
+ 	const queryClient = useMemo(() => new QueryClient({
+		defaultOptions: queryClientDefaultOptions as DefaultOptions,
 	}), []);
 
 	useEffect(() => {
