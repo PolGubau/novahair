@@ -20,4 +20,5 @@ export * from "./lib/get-weekday-names";
 export * from "./lib/query-keys";
 export * from "./lib/tenant-theme";
 export * from "./lib/try-catch";
+export * from "./query-client";
 export * from "./types/common";
