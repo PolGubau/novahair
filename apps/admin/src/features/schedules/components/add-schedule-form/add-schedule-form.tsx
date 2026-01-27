@@ -5,7 +5,7 @@ import {
 } from "@novahair/client";
 import { Button } from "@novahair/ui";
 import { combineDateTime, config } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
@@ -24,6 +24,7 @@ export function AddScheduleForm({
 	onCancel,
 	setSelectedDays,
 }: Props) {
+	const { t } = useTranslation();
 	const { create } = useStaffScheduleActions(config.tenantId);
 	const { mutate, isPending } = create;
 	const handleSubmit = (e: React.FormEvent) => {

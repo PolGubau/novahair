@@ -6,7 +6,7 @@ import { Button } from "@novahair/ui";
 import { Input } from "@novahair/ui/input";
 import { Label } from "@novahair/ui/label";
 import { combineDateTime, config } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useId, useState } from "react";
 import type { Schedule } from "../weekly-calendar";
 
@@ -23,6 +23,7 @@ export function EditSchedule({
 	onClose,
 	day,
 }: EditScheduleProps) {
+	const { t } = useTranslation();
 	const { update } = useStaffScheduleActions(config.tenantId);
 
 	const { mutate, isPending } = update;

@@ -1,7 +1,7 @@
 import { type Staff, useStaffs } from "@novahair/client";
 import { CheckboxChip } from "@novahair/ui";
 import { config, type TranslationKey } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	label?: TranslationKey;
@@ -14,6 +14,7 @@ export function StaffSelector({
 	onChange,
 	label = "select_staff",
 }: Props) {
+	const { t } = useTranslation();
 	const { staffs } = useStaffs(config.tenantId);
 
 	const toggleStaff = (staff: Staff) => {

@@ -7,14 +7,17 @@ import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import type { ColumnDef } from "@tanstack/react-table";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Edit2, Trash } from "lucide-react";
 import { ServicesAssignedCell } from "./services-assigned-cell";
 
-export const getColumns = (options?: {
-	onEdit?: (s: Staff) => void;
-	onDelete?: (s: Staff) => void;
-}): ColumnDef<Staff>[] => {
+export const getColumns = (
+	t: (key: string) => string,
+	options?: {
+		onEdit?: (s: Staff) => void;
+		onDelete?: (s: Staff) => void;
+	},
+): ColumnDef<Staff>[] => {
 	const { onEdit, onDelete } = options || {};
 
 	const columns: ColumnDef<Staff>[] = [
@@ -152,7 +155,8 @@ export const StaffTable = ({
 	onEdit?: (s: Staff) => void;
 	onDelete?: (s: Staff) => void;
 }) => {
-	const cols = getColumns({ onDelete, onEdit });
+	const { t } = useTranslation();
+	const cols = getColumns(t, { onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>

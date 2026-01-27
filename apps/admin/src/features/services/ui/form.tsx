@@ -15,7 +15,7 @@ import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
 import { config } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 export const ServiceCreationForm = ({
@@ -25,6 +25,7 @@ export const ServiceCreationForm = ({
 	service?: Service | null;
 	onClose?: () => void;
 }) => {
+	const { t } = useTranslation();
 	const isEdit = Boolean(service);
 	const { create, update } = useServiceActions(config.tenantId);
 

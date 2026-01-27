@@ -2,7 +2,7 @@ import { useStaffActions } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 
 export const AppointmentForm = ({
@@ -12,6 +12,7 @@ export const AppointmentForm = ({
 	appointment?: SummarizedAppointment | null;
 	onClose?: () => void;
 }) => {
+	const { t } = useTranslation();
 	const isEdit = Boolean(appointment);
 	const { create, update } = useStaffActions();
 

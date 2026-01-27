@@ -13,13 +13,16 @@ import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import i18n from "@novahair/utils/i18n/setup";
 import type { ColumnDef } from "@tanstack/react-table";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { ArrowUpDown, Edit2, Trash } from "lucide-react";
 
-export const getColumns = (options?: {
-	onEdit?: (s: Service) => void;
-	onDelete?: (s: Service) => void;
-}): ColumnDef<Service>[] => {
+export const getColumns = (
+	t: (key: string) => string,
+	options?: {
+		onEdit?: (s: Service) => void;
+		onDelete?: (s: Service) => void;
+	},
+): ColumnDef<Service>[] => {
 	const { onEdit, onDelete } = options || {};
 
 	const columns: ColumnDef<Service>[] = [
@@ -147,7 +150,8 @@ export const ServiceTable = ({
 	onEdit?: (s: Service) => void;
 	onDelete?: (s: Service) => void;
 }) => {
-	const cols = getColumns({ onDelete, onEdit });
+	const { t } = useTranslation();
+	const cols = getColumns(t, { onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>

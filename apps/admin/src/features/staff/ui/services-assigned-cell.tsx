@@ -4,7 +4,7 @@ import { Button } from "@novahair/ui/button";
 import { CheckboxChip } from "@novahair/ui/checkbox/chip";
 import { config } from "@novahair/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Edit2 } from "lucide-react";
 import { useState } from "react";
 
@@ -16,6 +16,7 @@ export const ServicesAssignedCell = ({
 	assignedServiceIds = [],
 	staffId,
 }: ServicesAssignedCellProps) => {
+	const { t } = useTranslation();
 	const qc = useQueryClient();
 	const { services } = useServices(config.tenantId);
 	const { assign } = useStaffAssignmentActions(config.tenantId, staffId);

@@ -1,7 +1,7 @@
 import { ErrorBoundary } from "@novahair/ui";
 import type { ExistingRoute } from "@novahair/utils/types/common";
 import { Link } from "@tanstack/react-router";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type QuickLink = {
 	name: string;
@@ -9,6 +9,7 @@ type QuickLink = {
 };
 
 export const AdminPage = () => {
+	const { t } = useTranslation();
 	const quickLinks: QuickLink[] = [
 		{ href: "/team/members", name: t("manage_team") },
 		{ href: "/appointments/table", name: t("check_all_appointments") },

@@ -13,7 +13,7 @@ import {
 	toISODate,
 	sizes,
 } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import type { Schedule } from "../weekly-calendar";
 import { EditSchedule } from "./edit-schedule";
@@ -62,6 +62,7 @@ export function ScheduleEvent({
 	startHour,
 	day,
 }: ScheduleEventProps) {
+	const { t } = useTranslation();
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	const startDate = parseISODate(schedule.start);

@@ -1,7 +1,7 @@
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { Input } from "@novahair/ui/input";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
@@ -10,6 +10,7 @@ import AppointmentCreationForm from "./creation-form";
 import { AppointmentTable } from "./table";
 
 export const AppointmentAdminForm = () => {
+	const { t } = useTranslation();
 	const { appointments, isLoading, refetch, to, setTo, from, setFrom } =
 		useAppointments();
 

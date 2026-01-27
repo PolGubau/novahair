@@ -9,7 +9,7 @@ import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import type { TranslationKey } from "@novahair/utils";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 export const StaffForm = ({
@@ -19,6 +19,7 @@ export const StaffForm = ({
 	staff?: Staff | null;
 	onClose?: () => void;
 }) => {
+	const { t } = useTranslation();
 	const isEdit = Boolean(staff);
 	const { create, update } = useStaffActions();
 

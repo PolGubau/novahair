@@ -7,7 +7,7 @@ import { Textarea } from "@novahair/ui/textarea";
 import { config } from "@novahair/utils";
 import type { TranslationKey } from "@novahair/utils/i18n/types";
 
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { appointmentRepository } from "../infra/repository";
@@ -19,6 +19,7 @@ export const AppointmentCreationForm = ({
 	appointment?: SummarizedAppointment | null;
 	onClose?: () => void;
 }) => {
+	const { t } = useTranslation();
 	const isEdit = Boolean(appointment);
 	const { services } = useServices(config.tenantId);
 	const { staffs } = useStaffs(config.tenantId);
