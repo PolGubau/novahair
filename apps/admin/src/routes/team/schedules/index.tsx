@@ -107,7 +107,7 @@ function RouteComponent() {
 
 	if (staffsLoading) {
 		return (
-			<FeatureErrorBoundary featureName="Team Schedules">
+			<FeatureErrorBoundary featureName="schedules">
 				<AdminMain description="manage_your_team_schedules" title="schedules">
 					<Loader />
 				</AdminMain>
@@ -117,7 +117,7 @@ function RouteComponent() {
 
 	if (staffsError) {
 		return (
-			<FeatureErrorBoundary featureName="Team Schedules">
+			<FeatureErrorBoundary featureName="schedules">
 				<AdminMain description="manage_your_team_schedules" title="schedules">
 					<ApiErrorFallback error={staffsError} />
 				</AdminMain>
@@ -125,8 +125,8 @@ function RouteComponent() {
 		);
 	}
 
-	return (
-		<FeatureErrorBoundary featureName="Team Schedules">
+		return (
+		<FeatureErrorBoundary featureName="schedules">
 			<AdminMain
 				description="manage_your_team_schedules"
 				rightContent={

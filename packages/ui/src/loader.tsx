@@ -1,6 +1,6 @@
 import type { TranslationKey } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Loader as Icon, type LucideProps } from "lucide-react";
 
 type Props = LucideProps & {
@@ -13,6 +13,7 @@ export const Loader = ({
 	hasLabel = true,
 	...rest
 }: Props) => {
+	const { t } = useTranslation();
 	return (
 		<output className={cn("flex gap-2 items-center font-medium", className)}>
 			<Icon

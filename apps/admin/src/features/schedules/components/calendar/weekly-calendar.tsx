@@ -39,24 +39,22 @@ export function WeeklyCalendar({
 	}
 
 	return (
-		<>
-			<ul className="flex w-full overflow-x-auto gap-0 border rounded-xl divide-x divide-foreground/5">
-				{weekDays.map((day) => (
-					<CalendarDay
-						day={day}
-						dayHeight={DAY_HEIGHT}
-						endHour={endHour}
-						isFirstDay={weekDays.indexOf(day) === 0}
-						isLoading={isLoading}
-						key={day.toISOString()}
-						pixelsPerMinute={PIXELS_PER_MINUTE}
-						schedules={getSchedulesForDay(day)}
-						selectedDates={selectedDates}
-						startHour={startHour}
-						toggleDate={toggleDate}
-					/>
-				))}
-			</ul>
-		</>
+		<ul className="flex w-full overflow-x-auto gap-0 border rounded-xl divide-x divide-foreground/5">
+			{weekDays.map((day) => (
+				<CalendarDay
+					day={day}
+					dayHeight={DAY_HEIGHT}
+					endHour={endHour}
+					isFirstDay={weekDays.indexOf(day) === 0}
+					isLoading={isLoading}
+					key={day.toISOString()}
+					pixelsPerMinute={PIXELS_PER_MINUTE}
+					schedules={getSchedulesForDay(day)}
+					selectedDates={selectedDates}
+					startHour={startHour}
+					toggleDate={toggleDate}
+				/>
+			))}
+		</ul>
 	);
 }

@@ -5,9 +5,9 @@ import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StaffForm } from "~/features/staff/ui/form";
 import { StaffTable } from "~/features/staff/ui/table";
 
@@ -38,7 +38,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<FeatureErrorBoundary featureName="Team">
+		<FeatureErrorBoundary featureName="team">
 			<AdminMain
 				description="manage_your_team_and_schedules"
 				title="team_members"

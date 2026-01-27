@@ -4,10 +4,9 @@ import {
 } from "@novahair/client";
 import { Button } from "@novahair/ui";
 import { Input } from "@novahair/ui/input";
-import { Label } from "@novahair/ui/label";
 import { combineDateTime, config } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
 import { useId, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { Schedule } from "../weekly-calendar";
 
 type EditScheduleProps = {
@@ -60,7 +59,7 @@ export function EditSchedule({
 
 	return (
 		<div className="">
-			<h2 className="text-lg font-semibold mb-4">Editar Horario</h2>
+			<h2 className="text-lg font-semibold mb-4">{t("edit_schedule")}</h2>
 			<div className="space-y-4">
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
 					<Input

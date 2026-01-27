@@ -1,6 +1,6 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { AlertCircle, ArrowLeft, Home, RefreshCw } from "lucide-react";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { ApiError, env } from "@novahair/utils";
 import { Button } from "./button";
 
@@ -16,7 +16,7 @@ export function ApiErrorFallback({
 	showBackButton = true,
 }: ApiErrorFallbackProps) {
 	const router = useRouter();
-	;
+	const { t } = useTranslation();
 
 	// Use ApiError methods for better error detection
 	const isApiError = error instanceof ApiError;

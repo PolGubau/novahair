@@ -4,19 +4,14 @@ import {
 	type ServiceCreateDTO,
 	useServiceActions,
 } from "@novahair/client";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-	getInitial,
-} from "@novahair/ui/avatar";
+import { Avatar } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import { Textarea } from "@novahair/ui/textarea";
 import { config } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const ServiceCreationForm = ({
 	service,

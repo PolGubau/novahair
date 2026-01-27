@@ -172,7 +172,7 @@ export const AppointmentCreationForm = ({
 				/>
 
 				<div className="flex gap-2 justify-end">
-					<Button onClick={() => onClose?.()} type="button" variant="outline">
+					<Button onClick={() => onClose?.()} variant="outline">
 						{t("cancel")}
 					</Button>
 					<Button type="submit">{isEdit ? t("save") : t("create")}</Button>

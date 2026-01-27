@@ -2,7 +2,7 @@
 
 import { cn } from "@novahair/utils";
 import { Link } from "@tanstack/react-router";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { ChevronRight } from "lucide-react";
 import { Button } from "../../button";
 import {
@@ -23,6 +23,7 @@ import type { NavMainItem } from "./app-sidebar";
 
 export function NavMain({ items }: { items: NavMainItem[] }) {
 	const { state } = useSidebar();
+	const { t } = useTranslation();
 	return (
 		<SidebarGroup>
 			{/* <SidebarGroupLabel>{t("platform")}</SidebarGroupLabel> */}

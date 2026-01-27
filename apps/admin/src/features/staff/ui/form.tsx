@@ -9,8 +9,8 @@ import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
 import type { TranslationKey } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const StaffForm = ({
 	staff,
@@ -157,11 +157,11 @@ export const StaffForm = ({
 					<Button
 						disabled={saving}
 						onClick={() => onClose?.()}
-						type="button"
 						variant="outline"
 					>
 						{t("cancel")}
 					</Button>
+
 					<Button disabled={saving} loading={saving} type="submit">
 						{isEdit ? t("save") : t("create")}
 					</Button>

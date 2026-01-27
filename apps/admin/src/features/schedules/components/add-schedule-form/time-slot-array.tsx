@@ -1,8 +1,8 @@
 import type { CreateScheduleDto } from "@novahair/client";
 import { Button, Input } from "@novahair/ui";
-import type { ISODate } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
+import { type ISODate, sizes } from "@novahair/utils";
 import { Plus, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	timeSlots: CreateScheduleDto[];
@@ -59,7 +59,7 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 						{timeSlots.length > 1 && (
 							<Button
 								onClick={() => removeTimeSlot(index)}
-								size="sm"
+								size={sizes.sm}
 								variant="outline"
 							>
 								<X className="h-4 w-4" />

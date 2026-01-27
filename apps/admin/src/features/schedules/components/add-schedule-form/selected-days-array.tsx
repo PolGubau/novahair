@@ -1,5 +1,7 @@
 import { Button, Input } from "@novahair/ui";
+import { sizes } from "@novahair/utils";
 import { Plus, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 export function formatDate(date: Date, locale = "en-US") {
 	return new Intl.DateTimeFormat(locale, {
 		day: "numeric",
@@ -12,6 +14,7 @@ type Props = {
 	setDays: (dates: Date[]) => void;
 };
 export const SelectedDaysArray = ({ days, setDays }: Props) => {
+	const { t } = useTranslation();
 	const addTimeSlot = () => {
 		setDays([...days, new Date()]);
 	};
@@ -25,7 +28,7 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 	};
 	return (
 		<div>
-			<h3 className="text-lg font-semibold mb-2">Días Seleccionados</h3>
+			<h3 className="text-lg font-semibold mb-2">{t("selected_days")}</h3>
 			<div className="space-y-2">
 				{days.map((slot, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: key
@@ -40,7 +43,7 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 						{days.length > 1 && (
 							<Button
 								onClick={() => removeTimeSlot(index)}
-								size="sm"
+								size={sizes.sm}
 								variant="outline"
 							>
 								<X className="h-4 w-4" />
@@ -50,7 +53,7 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 				))}
 				<Button onClick={addTimeSlot} variant="outline">
 					<Plus className="h-4 w-4 mr-2" />
-					Agregar Horario
+					{t("add_schedule")}
 				</Button>
 			</div>
 		</div>

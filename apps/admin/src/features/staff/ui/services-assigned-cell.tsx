@@ -4,9 +4,9 @@ import { Button } from "@novahair/ui/button";
 import { CheckboxChip } from "@novahair/ui/checkbox/chip";
 import { config } from "@novahair/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
 import { Edit2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type ServicesAssignedCellProps = {
 	assignedServiceIds: string[];

@@ -5,9 +5,9 @@ import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ServiceCreationForm } from "~/features/services/ui/form";
 import { ServiceTable } from "~/features/services/ui/table";
 
@@ -38,7 +38,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<FeatureErrorBoundary featureName="Services">
+		<FeatureErrorBoundary featureName="services">
 			<AdminMain description={"manage_your_services"} title={"services"}>
 				<Drawer
 					description="fill_the_form_to_add_a_new_service"

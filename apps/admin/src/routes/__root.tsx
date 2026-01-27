@@ -2,6 +2,7 @@
 
 import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
+import i18n from "@novahair/utils/i18n/setup";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
@@ -9,7 +10,6 @@ import {
 	Scripts,
 	useRouter,
 } from "@tanstack/react-router";
-import i18n from "i18next";
 import { useEffect, useMemo } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
@@ -18,7 +18,8 @@ export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
 }>()({
 	beforeLoad: async () => {
-		await setSSRLanguage();
+		const language = await setSSRLanguage();
+		return { language };
 	},
 	head: () => ({
 		links: [
@@ -89,6 +90,11 @@ export const Route = createRootRouteWithContext<{
 				name: "robots",
 			},
 		],
+		scripts: [
+			{
+				children: `window.__SSR_LANGUAGE__ = "${i18n.language}";`,
+			},
+		],
 	}),
 	notFoundComponent: NotFound,
 
@@ -106,6 +112,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		i18n.on("languageChanged", handler);
 		return () => i18n.off("languageChanged", handler);
 	}, [i18n, router]);
+
+	useEffect(() => {
+		const ssrLanguage = (window as any).__SSR_LANGUAGE__;
+		if (ssrLanguage && ssrLanguage !== i18n.language) {
+			i18n.changeLanguage(ssrLanguage);
+		}
+	}, []);
 
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(

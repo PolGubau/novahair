@@ -1,6 +1,6 @@
 import type { TranslationKey } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { Drawer as D, type DialogProps } from "vaul";
 
 type Props = DialogProps & {
@@ -28,6 +28,7 @@ export const Drawer = ({
 	classNames,
 	...rest
 }: Props) => {
+	const { t } = useTranslation();
 	return (
 		<D.Root {...rest}>
 			<D.Portal>

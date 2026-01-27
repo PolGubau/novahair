@@ -1,20 +1,13 @@
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-	Button,
-	Drawer,
-	getInitial,
-} from "@novahair/ui";
+import { Avatar, Button, Drawer } from "@novahair/ui";
 import {
 	getTime,
 	parseISODate,
+	sizes,
 	type TranslationKey,
 	toISODate,
-	sizes,
 } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { Schedule } from "../weekly-calendar";
 import { EditSchedule } from "./edit-schedule";
 

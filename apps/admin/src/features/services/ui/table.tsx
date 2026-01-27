@@ -1,20 +1,16 @@
 import type { Service } from "@novahair/client";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-	getInitial,
-} from "@novahair/ui/avatar";
+import { Avatar } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { Checkbox } from "@novahair/ui/checkbox/checkbox";
 import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { IconButton } from "@novahair/ui/icon-button";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
+import { sizes } from "@novahair/utils";
 import i18n from "@novahair/utils/i18n/setup";
 import type { ColumnDef } from "@tanstack/react-table";
-import { useTranslation } from "react-i18next";
 import { ArrowUpDown, Edit2, Trash } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const getColumns = (
 	t: (key: string) => string,
@@ -108,7 +104,11 @@ export const getColumns = (
 
 				return (
 					<div className="flex items-center justify-end gap-2">
-						<Button onClick={() => onEdit?.(service)} size="sm" variant="ghost">
+						<Button
+							onClick={() => onEdit?.(service)}
+							size={sizes.sm}
+							variant="ghost"
+						>
 							<Edit2 />
 							{t("edit")}
 						</Button>
@@ -123,7 +123,7 @@ export const getColumns = (
 									onDelete?.(service);
 								}
 							}}
-							size="sm"
+							size={sizes.sm}
 							variant="error"
 						>
 							<Trash />

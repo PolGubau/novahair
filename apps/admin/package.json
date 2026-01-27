@@ -12,7 +12,7 @@
 		"format": "biome format",
 		"coverage": "vitest run --coverage",
 		"lint-i18n": "npx i18next-cli lint",
-		"lint": "biome check --write && pnpm lint-i18n",
+		"lint": "biome check --write --unsafe && pnpm lint-i18n",
 		"check": "biome check --write"
 	},
 	"dependencies": {

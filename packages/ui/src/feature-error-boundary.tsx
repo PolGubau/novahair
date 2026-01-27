@@ -1,11 +1,12 @@
 import { ApiError } from "@novahair/utils/lib/api-error";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { ApiErrorFallback } from "./api-error-fallback";
 import { ErrorBoundary } from "./error-boundary";
+import { TranslationKey } from "@novahair/utils";
 
 interface FeatureErrorBoundaryProps {
 	children: React.ReactNode;
-	featureName?: string;
+	featureName?: TranslationKey;
 }
 
 /**
@@ -15,7 +16,7 @@ export function FeatureErrorBoundary({
 	children,
 	featureName,
 }: FeatureErrorBoundaryProps) {
-	;
+	const { t } = useTranslation();
 
 	return (
 		<ErrorBoundary
@@ -27,11 +28,11 @@ export function FeatureErrorBoundary({
 
 				// Para otros errores, mostrar fallback genérico
 				return (
-					<div className="flex min-h-[400px] items-center justify-center p-4">
+					<div className="flex min-h-100 items-center justify-center p-4">
 						<div className="w-full max-w-md space-y-4 text-center">
 							<h2 className="text-2xl font-bold">
 								{t("error_occurred")}
-								{featureName && ` - ${featureName}`}
+								{featureName && ` - ${t(featureName)}`}
 							</h2>
 							<p className="text-muted-foreground">{error.message}</p>
 							<button

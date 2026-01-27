@@ -5,8 +5,8 @@ import {
 } from "@novahair/client";
 import { Button } from "@novahair/ui";
 import { combineDateTime, config } from "@novahair/utils";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
 import { TimeSlotArray } from "./time-slot-array";
