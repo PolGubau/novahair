@@ -20,6 +20,8 @@ i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
+		// Ensure initialization runs synchronously (important for SSR/hydration)
+		initImmediate: false,
 		debug: true,
 		defaultNS,
 		fallbackLng: defaultLocale,
