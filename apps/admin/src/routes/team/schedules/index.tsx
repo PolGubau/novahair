@@ -9,7 +9,7 @@ import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
 import { Loader } from "@novahair/ui/loader";
-import { type ISODate, config } from "@novahair/utils";
+import { config, type ISODate } from "@novahair/utils";
 import { useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { addDays, isSameDay, parseISO, startOfWeek } from "date-fns";
@@ -18,8 +18,8 @@ import { useEffect, useState } from "react";
 import {
 	ScheduleAssignmentDrawer,
 	StaffFilter,
-	WeekNavigation,
 	WeeklyCalendar,
+	WeekNavigation,
 } from "~/features/schedules";
 import {
 	END_HOUR,
@@ -41,10 +41,10 @@ function RouteComponent() {
 	const staffSchedules = useQueries({
 		queries:
 			staffs?.map((staff) => ({
-				queryKey: ["staff-schedule", config.tenantId, staff.id],
+				enabled: !!staffs,
 				queryFn: () =>
 					staffScheduleRepository.getByStaff(config.tenantId, staff.id),
-				enabled: !!staffs,
+				queryKey: ["staff-schedule", config.tenantId, staff.id],
 			})) || [],
 	});
 
@@ -93,10 +93,10 @@ function RouteComponent() {
 				for (const schedule of query.data as Schedule[]) {
 					if (isSameDay(parseISO(schedule.startTime), date)) {
 						schedules.push({
+							end: schedule.endTime,
 							id: schedule.id,
 							staff,
 							start: schedule.startTime,
-							end: schedule.endTime,
 						});
 					}
 				}
@@ -108,7 +108,7 @@ function RouteComponent() {
 	if (staffsLoading) {
 		return (
 			<FeatureErrorBoundary featureName="Team Schedules">
-				<AdminMain title="schedules" description="manage_your_team_schedules">
+				<AdminMain description="manage_your_team_schedules" title="schedules">
 					<Loader />
 				</AdminMain>
 			</FeatureErrorBoundary>
@@ -118,7 +118,7 @@ function RouteComponent() {
 	if (staffsError) {
 		return (
 			<FeatureErrorBoundary featureName="Team Schedules">
-				<AdminMain title="schedules" description="manage_your_team_schedules">
+				<AdminMain description="manage_your_team_schedules" title="schedules">
 					<ApiErrorFallback error={staffsError} />
 				</AdminMain>
 			</FeatureErrorBoundary>
@@ -128,14 +128,13 @@ function RouteComponent() {
 	return (
 		<FeatureErrorBoundary featureName="Team Schedules">
 			<AdminMain
-				title="schedules"
 				description="manage_your_team_schedules"
 				rightContent={
 					<div className="flex gap-1">
 						<IconButton
-							variant="outline"
 							icon={<Filter />}
 							onClick={() => setIsFiltersDrawerOpen(true)}
+							variant="outline"
 						/>
 
 						<ScheduleAssignmentDrawer
@@ -144,6 +143,7 @@ function RouteComponent() {
 						/>
 					</div>
 				}
+				title="schedules"
 			>
 				<div className="flex-1 space-y-4 ">
 					<WeekNavigation
@@ -152,27 +152,27 @@ function RouteComponent() {
 					/>
 
 					<WeeklyCalendar
-						startHour={START_HOUR}
 						endHour={END_HOUR}
-						weekDays={weekDays}
-						selectedDates={selectedDates}
-						toggleDate={toggleDate}
 						getSchedulesForDay={getSchedulesForDay}
 						isLoading={isSchedulesLoading}
+						selectedDates={selectedDates}
 						staffs={staffs || []}
+						startHour={START_HOUR}
+						toggleDate={toggleDate}
+						weekDays={weekDays}
 					/>
 				</div>
 
 				<Drawer
-					title="filter"
 					description="customize_your_schedule_view"
-					open={isFiltersDrawerOpen}
 					onClose={() => setIsFiltersDrawerOpen(false)}
+					open={isFiltersDrawerOpen}
+					title="filter"
 				>
 					<StaffFilter
 						filteredStaffs={filteredStaffs}
-						setFilteredStaffs={setFilteredStaffs}
 						isLoading={staffsLoading}
+						setFilteredStaffs={setFilteredStaffs}
 					/>
 				</Drawer>
 			</AdminMain>

@@ -1,11 +1,11 @@
 import { cn } from "@novahair/utils/lib/cn";
-import type { Breakpoints } from "@novahair/utils/types/common";
+import type { Sizes } from "@novahair/utils/types/common";
 import { useId } from "react";
 import { Label } from "./label";
 
 export type InputProps = Omit<React.ComponentProps<"input">, "size"> & {
 	label?: string;
-	size?: Breakpoints;
+	size?: Sizes;
 };
 
 function Input({ className, label, type, size = "md", ...props }: InputProps) {

@@ -27,11 +27,11 @@ export const useAppointments: UseAppointments = () => {
 	});
 
 	const { isLoading, error, data, refetch } = useQuery({
+		queryFn: () => appointmentRepository.list({ from, to }),
 		queryKey: queryKeys.appointments.list({ from, to }),
 		staleTime: 1000 * 60 * 5, // 5 minutes
-		queryFn: () => appointmentRepository.list({ from, to }),
 	});
 
 	const appointments = data || [];
-	return { isLoading, error, appointments, refetch, from, to, setFrom, setTo };
+	return { appointments, error, from, isLoading, refetch, setFrom, setTo, to };
 };

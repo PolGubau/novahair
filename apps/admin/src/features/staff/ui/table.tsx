@@ -19,61 +19,58 @@ export const getColumns = (options?: {
 
 	const columns: ColumnDef<Staff>[] = [
 		{
-			id: "select",
+			cell: ({ row }) => (
+				<Checkbox
+					aria-label="Select row"
+					checked={row.getIsSelected()}
+					onCheckedChange={(value) => row.toggleSelected(!!value)}
+				/>
+			),
+			enableHiding: false,
+			enableSorting: false,
 			header: ({ table }) => (
 				<Checkbox
+					aria-label="Select all"
 					checked={
 						table.getIsAllPageRowsSelected() ||
 						(table.getIsSomePageRowsSelected() && "indeterminate")
 					}
 					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-					aria-label="Select all"
 				/>
 			),
-			cell: ({ row }) => (
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label="Select row"
-				/>
-			),
-			enableSorting: false,
-			enableHiding: false,
+			id: "select",
 		},
 
 		{
 			accessorKey: "name",
-			header: () => {
-				return <span>{t("name")}</span>;
-			},
 			cell: ({ row }) => (
 				<div className="flex gap-2 items-center">
-					<Avatar src={row.original.avatarUrl ?? ""} alt={t("image_url")} />
+					<Avatar alt={t("image_url")} src={row.original.avatarUrl ?? ""} />
 					{row.getValue("name")}
 				</div>
 			),
+			header: () => {
+				return <span>{t("name")}</span>;
+			},
 		},
 
 		{
 			accessorKey: "email",
+			cell: ({ row }) => <LabelWithCopy label={row.getValue("email")} />,
 			header: () => {
 				return <span>{t("email")}</span>;
 			},
-			cell: ({ row }) => <LabelWithCopy label={row.getValue("email")} />,
 		},
 
 		{
 			accessorKey: "phone",
+			cell: ({ row }) => <PhoneCell phone={row.getValue("phone")} />,
 			header: () => {
 				return <span>{t("phone")}</span>;
 			},
-			cell: ({ row }) => <PhoneCell phone={row.getValue("phone")} />,
 		},
 		{
 			accessorKey: "color",
-			header: () => {
-				return <span>{t("color")}</span>;
-			},
 			cell: ({ row }) => (
 				<div className="flex items-center gap-2">
 					<span
@@ -84,42 +81,41 @@ export const getColumns = (options?: {
 					/>
 				</div>
 			),
+			header: () => {
+				return <span>{t("color")}</span>;
+			},
 		},
 		{
 			accessorKey: "services",
-			meta: {
-				filterVariant: "null",
-			},
-			header: () => {
-				return <span>{t("services")}</span>;
-			},
 			cell: ({ row }) => {
 				const services = row.getValue("services") as Staff["services"];
 				return (
 					<ServicesAssignedCell
-						staffId={row.original.id}
 						assignedServiceIds={services.map((s) => s.id)}
+						staffId={row.original.id}
 					/>
 				);
+			},
+			header: () => {
+				return <span>{t("services")}</span>;
+			},
+			meta: {
+				filterVariant: "null",
 			},
 		},
 
 		{
-			id: "actions",
-			enableHiding: false,
 			cell: ({ row }) => {
 				const staff = row.original;
 
 				return (
 					<div className="flex items-center justify-end gap-2">
-						<Button variant="ghost" size="sm" onClick={() => onEdit?.(staff)}>
+						<Button onClick={() => onEdit?.(staff)} size="sm" variant="ghost">
 							<Edit2 />
 							{t("edit")}
 						</Button>
 						<IconButton
-							variant="error"
 							label={t("delete")}
-							size="sm"
 							onClick={() => {
 								if (
 									window.confirm(
@@ -129,12 +125,16 @@ export const getColumns = (options?: {
 									onDelete?.(staff);
 								}
 							}}
+							size="sm"
+							variant="error"
 						>
 							<Trash />
 						</IconButton>
 					</div>
 				);
 			},
+			enableHiding: false,
+			id: "actions",
 		},
 	];
 
@@ -152,11 +152,11 @@ export const StaffTable = ({
 	onEdit?: (s: Staff) => void;
 	onDelete?: (s: Staff) => void;
 }) => {
-	const cols = getColumns({ onEdit, onDelete });
+	const cols = getColumns({ onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>
-				<DataTable data={staffs} columns={cols} />
+				<DataTable columns={cols} data={staffs} />
 			</LoadingOverlay>
 		</ErrorBoundary>
 	);

@@ -3,7 +3,7 @@ import {
 	type StaffCreate,
 	useStaffActions,
 } from "@novahair/client";
-import { STAFF_COLORS, Select } from "@novahair/ui";
+import { Select, STAFF_COLORS } from "@novahair/ui";
 import { Avatar } from "@novahair/ui/avatar";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
@@ -23,11 +23,11 @@ export const StaffForm = ({
 	const { create, update } = useStaffActions();
 
 	const [values, setValues] = useState<StaffCreate>({
-		name: staff?.name ?? "",
+		avatarUrl: staff?.avatarUrl ?? "",
 		color: staff?.color ?? "",
 		email: staff?.email ?? "",
+		name: staff?.name ?? "",
 		phone: staff?.phone ?? "",
-		avatarUrl: staff?.avatarUrl ?? "",
 	});
 
 	function handleChange(
@@ -46,11 +46,11 @@ export const StaffForm = ({
 	useEffect(() => {
 		if (staff) {
 			setValues({
-				name: staff.name,
-				email: staff.email ?? "",
-				phone: staff.phone ?? "",
-				color: staff.color ?? "",
 				avatarUrl: staff.avatarUrl ?? "",
+				color: staff.color ?? "",
+				email: staff.email ?? "",
+				name: staff.name,
+				phone: staff.phone ?? "",
 			});
 		}
 	}, [staff]);
@@ -58,11 +58,11 @@ export const StaffForm = ({
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		const payload: StaffCreate = {
-			name,
-			email,
-			phone,
-			color,
 			avatarUrl,
+			color,
+			email,
+			name,
+			phone,
 		};
 
 		if (isEdit && staff) {
@@ -79,44 +79,42 @@ export const StaffForm = ({
 
 	return (
 		<ErrorBoundary>
-			<form onSubmit={onSubmit} className="grid gap-4">
+			<form className="grid gap-4" onSubmit={onSubmit}>
 				<div>
 					<Input
 						label={t("name")}
-						value={name}
 						name="name"
+						onChange={handleChange}
 						placeholder={t("staff_name_placeholder")}
 						required
-						onChange={handleChange}
+						value={name}
 					/>
 				</div>
 
 				<fieldset className="grid grid-cols-2 gap-4">
 					<div>
 						<Input
+							label={t("email")}
+							name="email"
+							onChange={handleChange}
 							placeholder={t("staff_email_placeholder")}
 							required
 							type="text"
-							label={t("email")}
 							value={email}
-							name="email"
-							onChange={handleChange}
 						/>
 					</div>
 					<div>
 						<Input
 							label={t("phone")}
-							placeholder={t("staff_phone_placeholder")}
-							type="tel"
-							required
-							value={phone}
 							name="phone"
 							onChange={handleChange}
+							placeholder={t("staff_phone_placeholder")}
+							required
+							type="tel"
+							value={phone}
 						/>
 					</div>
 					<Select
-						label={"color"}
-						value={color}
 						customOptionRender={(option) => (
 							<div className="flex gap-2 items-center">
 								<span
@@ -126,42 +124,44 @@ export const StaffForm = ({
 								{t(option.label as TranslationKey)}
 							</div>
 						)}
+						label={"color"}
+						onChange={(value) =>
+							setValues((prev) => ({ ...prev, color: value }))
+						}
 						options={STAFF_COLORS.map((color) => ({
 							label: color.name,
 							value: color.hex,
 						}))}
-						onChange={(value) =>
-							setValues((prev) => ({ ...prev, color: value }))
-						}
+						value={color}
 					/>
 
 					<div className="grid gap-2 grid-cols-[1fr_auto] items-end">
 						<Input
 							label={t("avatar_url")}
-							value={avatarUrl ?? undefined}
 							name="avatarUrl"
+							onChange={handleChange}
 							placeholder="https://example.com/avatar.jpg"
 							type="url"
-							onChange={handleChange}
+							value={avatarUrl ?? undefined}
 						/>
 						<Avatar
+							alt={values.name}
 							className="size-9"
 							src={avatarUrl ?? ""}
-							alt={values.name}
 						/>
 					</div>
 				</fieldset>
 
 				<div className="flex gap-2 justify-end">
 					<Button
-						variant="outline"
-						type="button"
-						onClick={() => onClose?.()}
 						disabled={saving}
+						onClick={() => onClose?.()}
+						type="button"
+						variant="outline"
 					>
 						{t("cancel")}
 					</Button>
-					<Button type="submit" disabled={saving} loading={saving}>
+					<Button disabled={saving} loading={saving} type="submit">
 						{isEdit ? t("save") : t("create")}
 					</Button>
 				</div>

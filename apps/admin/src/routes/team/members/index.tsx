@@ -8,7 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { t } from "i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
- import { StaffForm } from "~/features/staff/ui/form";
+import { StaffForm } from "~/features/staff/ui/form";
 import { StaffTable } from "~/features/staff/ui/table";
 
 export const Route = createFileRoute("/team/members/")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/team/members/")({
 });
 
 function RouteComponent() {
- 	const { staffs, isLoading, refetch } = useStaffs(config.tenantId);
+	const { staffs, isLoading, refetch } = useStaffs(config.tenantId);
 	const { remove } = useStaffActions();
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
@@ -39,21 +39,21 @@ function RouteComponent() {
 	return (
 		<FeatureErrorBoundary featureName="Team">
 			<AdminMain
-				title="team_members"
 				description="manage_your_team_and_schedules"
+				title="team_members"
 			>
 				<Drawer
-					open={isFormOpened}
-					onOpenChange={setIsFormOpened}
-					title="add_new_staff"
 					description="fill_the_form_to_add_a_new_staff_member"
+					onOpenChange={setIsFormOpened}
+					open={isFormOpened}
+					title="add_new_staff"
 				>
 					<StaffForm
-						staff={editingStaff}
 						onClose={() => {
 							setIsFormOpened(false);
 							setEditingStaff(null);
 						}}
+						staff={editingStaff}
 					/>
 				</Drawer>
 				<nav className="flex gap-2 items-center">
@@ -62,7 +62,7 @@ function RouteComponent() {
 						{t("add_new_staff")}
 					</Button>
 
-					<Button onClick={() => refetch()} variant="ghost" className="group">
+					<Button className="group" onClick={() => refetch()} variant="ghost">
 						<div className="group-focus:rotate-90 transition-all">
 							<RefreshCcw />
 						</div>
@@ -71,10 +71,10 @@ function RouteComponent() {
 					</Button>
 				</nav>
 				<StaffTable
-					staffs={staffs}
 					isLoading={isLoading}
-					onEdit={openEdit}
 					onDelete={handleDelete}
+					onEdit={openEdit}
+					staffs={staffs}
 				/>
 			</AdminMain>
 		</FeatureErrorBoundary>

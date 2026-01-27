@@ -24,10 +24,10 @@ export const AppointmentAdminForm = () => {
 	return (
 		<>
 			<Drawer
-				open={isFormOpened}
-				onOpenChange={setIsFormOpened}
-				title="create_appointment"
 				description="create_appointment_for_your_customers"
+				onOpenChange={setIsFormOpened}
+				open={isFormOpened}
+				title="create_appointment"
 			>
 				<AppointmentCreationForm
 					appointment={editing}
@@ -44,7 +44,7 @@ export const AppointmentAdminForm = () => {
 						{t("create")}
 					</Button>
 
-					<Button onClick={() => refetch()} variant="ghost" className="group">
+					<Button className="group" onClick={() => refetch()} variant="ghost">
 						<div className="group-focus:rotate-90 transition-all">
 							<RefreshCcw />
 						</div>
@@ -53,17 +53,17 @@ export const AppointmentAdminForm = () => {
 				</div>
 				<div className="side">
 					<Input
+						max={new Date(to).toISOString().split("T")[0]}
+						onChange={(e) => setFrom(new Date(e.target.value).toISOString())}
 						type="date"
 						value={new Date(from).toISOString().split("T")[0]}
-						onChange={(e) => setFrom(new Date(e.target.value).toISOString())}
-						max={new Date(to).toISOString().split("T")[0]}
 					/>
 					<span className="mx-2">-</span>
 					<Input
 						min={new Date(from).toISOString().split("T")[0]}
+						onChange={(e) => setTo(new Date(e.target.value).toISOString())}
 						type="date"
 						value={new Date(to).toISOString().split("T")[0]}
-						onChange={(e) => setTo(new Date(e.target.value).toISOString())}
 					/>
 				</div>
 			</nav>

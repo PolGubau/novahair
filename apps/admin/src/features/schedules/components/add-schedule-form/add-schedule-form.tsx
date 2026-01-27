@@ -31,16 +31,16 @@ export function AddScheduleForm({
 
 		const newTimeSlots: CreateScheduleDto[] = selectedDays.flatMap((day) =>
 			timeSlots.map((slot) => ({
-				startTime: combineDateTime(day, slot.startTime).iso,
 				endTime: combineDateTime(day, slot.endTime).iso,
+				startTime: combineDateTime(day, slot.startTime).iso,
 			})),
 		);
 
 		for (const staff of selectedStaffs) {
 			mutate(
 				{
-					staffId: staff.id,
 					data: newTimeSlots,
+					staffId: staff.id,
 				},
 				{ onSuccess: onSuccess },
 			);
@@ -53,8 +53,8 @@ export function AddScheduleForm({
 		<form className="space-y-6" onSubmit={handleSubmit}>
 			<SelectedDaysArray days={selectedDays} setDays={setSelectedDays} />
 			<StaffSelector
-				selectedStaffs={selectedStaffs}
 				onChange={setSelectedStaffs}
+				selectedStaffs={selectedStaffs}
 			/>
 
 			<TimeSlotArray setTimeSlots={setTimeSlots} timeSlots={timeSlots} />
@@ -64,12 +64,12 @@ export function AddScheduleForm({
 					{t("cancel")}
 				</Button>
 				<Button
-					type="submit"
 					disabled={
 						isPending ||
 						!selectedStaffs.length ||
 						!timeSlots.some((s) => s.startTime && s.endTime)
 					}
+					type="submit"
 				>
 					{t("assign_schedule")}
 				</Button>

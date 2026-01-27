@@ -18,22 +18,22 @@ export function WeekNavigation({
 			</span>
 			<div className="flex gap-1">
 				<Button
-					variant="outline"
 					onClick={() =>
 						setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }))
 					}
+					variant="outline"
 				>
 					Hoy
 				</Button>
 				<IconButton
 					icon={<ChevronLeft />}
-					variant="outline"
 					onClick={() => setCurrentWeekStart(addDays(currentWeekStart, -7))}
+					variant="outline"
 				/>
 				<IconButton
 					icon={<ChevronRight />}
-					variant="outline"
 					onClick={() => setCurrentWeekStart(addDays(currentWeekStart, 7))}
+					variant="outline"
 				/>
 			</div>
 		</div>

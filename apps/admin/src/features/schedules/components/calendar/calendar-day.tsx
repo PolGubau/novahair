@@ -43,15 +43,15 @@ export function CalendarDay({
 	return (
 		<li
 			className={`flex-1 min-w-36 overflow-hidden ${isFirstDay ? "pl-10" : ""} ${isSameDay(day, new Date()) ? "bg-foreground/5" : ""}`}
-			style={{ height: `${dayHeight + 40}px` }}
 			data-day={day.toISOString()}
+			style={{ height: `${dayHeight + 40}px` }}
 		>
 			<Button
-				data-selected={selectedDates.some((d) => isSameDay(d, day))}
 				className="p-2 rounded-none h-fit flex flex-col w-full data-[selected=true]:bg-primary/20 border-none"
-				variant="ghost"
-				size="sm"
+				data-selected={selectedDates.some((d) => isSameDay(d, day))}
 				onClick={() => toggleDate(day)}
+				size="sm"
+				variant="ghost"
 			>
 				<span className="text-sm text-foreground/60 capitalize">
 					{weekDayLabel(day, i18n.language)}
@@ -63,9 +63,9 @@ export function CalendarDay({
 			<div className="relative border-t" style={{ height: `${dayHeight}px` }}>
 				<HourLines
 					hoursCount={endHour - startHour}
-					startHour={startHour}
-					pixelsPerMinute={pixelsPerMinute}
 					isFirstDay={isFirstDay}
+					pixelsPerMinute={pixelsPerMinute}
+					startHour={startHour}
 				/>
 				{isLoading ? (
 					<div className="absolute inset-0 flex items-center justify-center">
@@ -75,11 +75,11 @@ export function CalendarDay({
 					schedules.map((schedule, index) => (
 						<ScheduleEvent
 							day={day}
-							key={`${schedule.staff.name}-${schedule.start}-${schedule.end}-${index}`}
-							schedule={schedule}
 							index={index}
-							schedules={schedules}
+							key={`${schedule.staff.name}-${schedule.start}-${schedule.end}-${index}`}
 							pixelsPerMinute={pixelsPerMinute}
+							schedule={schedule}
+							schedules={schedules}
 							startHour={startHour}
 						/>
 					))

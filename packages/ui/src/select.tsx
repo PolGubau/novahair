@@ -1,6 +1,6 @@
 import type { TranslationKey } from "@novahair/utils/i18n/types";
 import { cn } from "@novahair/utils/lib/cn";
-import type { Breakpoints } from "@novahair/utils/types/common";
+import type { Sizes } from "@novahair/utils/types/common";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { t } from "i18next";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
@@ -83,7 +83,7 @@ function SelectTrigger({
 	children,
 	...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-	size?: Breakpoints;
+	size?: Sizes;
 }) {
 	return (
 		<SelectPrimitive.Trigger

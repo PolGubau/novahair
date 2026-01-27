@@ -10,18 +10,18 @@ export const getRouter = () => {
 	const rqContext = TanstackQuery.getContext();
 
 	const router = createRouter({
-		routeTree,
-		scrollRestoration: true,
-
-		defaultViewTransition: true,
 		context: { ...rqContext },
 		defaultPreload: "intent",
+
+		defaultViewTransition: true,
+		routeTree,
+		scrollRestoration: true,
 		// Wrap removed since providers are now in RootDocument
 	});
 
 	setupRouterSsrQueryIntegration({
-		router,
 		queryClient: rqContext.queryClient,
+		router,
 	});
 
 	return router;

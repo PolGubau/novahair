@@ -20,31 +20,30 @@ export type AppointmentRepository = {
 };
 
 export const appointmentRepository: AppointmentRepository = {
-	list: async ({ from, to }) => {
-		const url = buildTenantUrl("appointments", { from, to });
-		return genericFetch<Appointment[]>(url);
-	},
-
 	create: async (data) => {
 		const url = buildTenantUrl("appointments");
 		return genericFetch<SummarizedAppointment>(url, {
+			body: JSON.stringify(data),
+			headers: { "Content-Type": "application/json" },
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
-		});
-	},
-
-	update: async (id, data) => {
-		const url = buildTenantUrl(`appointments/${id}`);
-		return genericFetch<Appointment>(url, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(data),
 		});
 	},
 
 	delete: async (id) => {
 		const url = buildTenantUrl(`appointments/${id}`);
 		await genericFetch(url, { method: "DELETE" });
+	},
+	list: async ({ from, to }) => {
+		const url = buildTenantUrl("appointments", { from, to });
+		return genericFetch<Appointment[]>(url);
+	},
+
+	update: async (id, data) => {
+		const url = buildTenantUrl(`appointments/${id}`);
+		return genericFetch<Appointment>(url, {
+			body: JSON.stringify(data),
+			headers: { "Content-Type": "application/json" },
+			method: "PUT",
+		});
 	},
 };

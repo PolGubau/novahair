@@ -11,6 +11,7 @@ import {
 	parseISODate,
 	type TranslationKey,
 	toISODate,
+	sizes,
 } from "@novahair/utils";
 import { t } from "i18next";
 import { useState } from "react";
@@ -82,43 +83,43 @@ export function ScheduleEvent({
 	return (
 		<>
 			<Drawer
-				open={isDrawerOpen}
 				onClose={() => setIsDrawerOpen(false)}
+				open={isDrawerOpen}
 				title={
 					t("[staff]_turn_at_[date]", {
-						staff: schedule.staff.name,
 						date: startFormattedTime,
+						staff: schedule.staff.name,
 					}) as TranslationKey
 				}
 			>
 				<EditSchedule
 					day={day}
-					schedule={schedule}
+					onClose={() => setIsDrawerOpen(false)}
 					onSuccess={() => {
 						setIsDrawerOpen(false);
 					}}
-					onClose={() => setIsDrawerOpen(false)}
+					schedule={schedule}
 				/>
 			</Drawer>
 			<Button
 				className={
 					"text-left absolute text-white border border-background rounded-lg text-sm overflow-hidden select-none cursor-pointer hover:opacity-80 transition-opacity font-normal"
 				}
+				onClick={() => setIsDrawerOpen(true)}
 				style={{
 					backgroundColor: bgColor,
-					top: `${top}px`,
 					height: `${height}px`,
+					top: `${top}px`,
 					...position,
 				}}
 				title={`${schedule.staff.name}: ${startDate.toLocaleTimeString()} - ${endDate.toLocaleTimeString()}`}
-				onClick={() => setIsDrawerOpen(true)}
 			>
 				<div className="h-full w-full flex p-1 flex-col">
 					<div className="truncate flex items-center gap-2 mb-1">
 						<Avatar
-							size="sm"
-							src={schedule.staff.avatarUrl ?? ""}
 							alt={schedule.staff.name}
+							size={sizes.sm}
+							src={schedule.staff.avatarUrl ?? ""}
 						/>
 
 						<span className="">{schedule.staff.name}</span>

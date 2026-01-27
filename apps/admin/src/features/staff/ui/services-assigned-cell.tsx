@@ -43,9 +43,9 @@ export const ServicesAssignedCell = ({
 	const [open, setOpen] = useState(false);
 	return (
 		<Popover
-			title="assigned_services"
-			open={open}
 			onOpenChange={setOpen}
+			open={open}
+			title="assigned_services"
 			trigger={
 				<Button className="flex gap-2 items-center" variant="ghost">
 					<Edit2 />
@@ -70,10 +70,10 @@ export const ServicesAssignedCell = ({
 						return (
 							<li key={service.id}>
 								<CheckboxChip
-									label={service.name}
-									value={service.id}
 									checked={isAssigned}
+									label={service.name}
 									onCheckedChange={toggleAssignment}
+									value={service.id}
 								/>
 							</li>
 						);
@@ -83,7 +83,7 @@ export const ServicesAssignedCell = ({
 
 			{hasChanged && (
 				<div className="mt-4 flex justify-end">
-					<Button size="sm" variant="primary" onClick={handleAssignServices}>
+					<Button onClick={handleAssignServices} size="sm" variant="primary">
 						Save Changes
 					</Button>
 				</div>

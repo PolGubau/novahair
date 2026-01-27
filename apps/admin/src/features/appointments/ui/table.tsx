@@ -8,11 +8,11 @@ import type { Appointment } from "../domain/appointment";
 
 function formatDate(dateString: string) {
 	const formatOptions: Intl.DateTimeFormatOptions = {
-		year: "numeric",
-		month: "2-digit",
 		day: "2-digit",
 		hour: "2-digit",
 		minute: "2-digit",
+		month: "2-digit",
+		year: "numeric",
 	};
 	const date = new Date(dateString);
 	return date.toLocaleString(undefined, formatOptions);
@@ -21,42 +21,42 @@ function formatDate(dateString: string) {
 const columnHelper = createColumnHelper<Appointment>();
 const columns = [
 	columnHelper.accessor("startsAt", {
+		cell: (info) => formatDate(info.getValue()),
+		header: () => <span>{t("date")}</span>,
 		id: "startsAt",
 		meta: {
 			filterVariant: "date",
 		},
-		cell: (info) => formatDate(info.getValue()),
-		header: () => <span>{t("date")}</span>,
 	}),
 	columnHelper.accessor("service.name", {
-		id: "serviceName",
 		cell: (info) => info.getValue(),
 		header: () => <span>{t("service")}</span>,
+		id: "serviceName",
 	}),
 	columnHelper.accessor("staff.name", {
-		id: "staffName",
 		cell: (info) => (
 			<StaffChip
-				name={info.getValue()}
 				avatarUrl={info.row.original.staff.avatarUrl}
+				name={info.getValue()}
 			/>
 		),
 		header: () => <span>{t("name")}</span>,
+		id: "staffName",
 	}),
 	columnHelper.accessor("customer.name", {
-		id: "customerName",
 		cell: (info) => info.getValue(),
 		header: () => <span>{t("name")}</span>,
+		id: "customerName",
 	}),
 	columnHelper.accessor("customer.email", {
-		id: "customerEmail",
 		cell: (info) => info.getValue(),
 		header: () => <span>{t("email")}</span>,
+		id: "customerEmail",
 	}),
 	columnHelper.accessor("customer.phone", {
-		id: "customerPhone",
 		cell: ({ row }) => <PhoneCell phone={row.original.customer.phone} />,
 		header: () => <span>{t("phone")}</span>,
+		id: "customerPhone",
 	}),
 ];
 
@@ -70,7 +70,7 @@ export const AppointmentTable = ({
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>
-				<DataTable data={appointments} columns={columns} />
+				<DataTable columns={columns} data={appointments} />
 			</LoadingOverlay>
 		</ErrorBoundary>
 	);

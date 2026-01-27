@@ -24,13 +24,13 @@ export const AppointmentCreationForm = ({
 	const { staffs } = useStaffs(config.tenantId);
 
 	const [values, setValues] = useState({
+		customerEmail: appointment?.customer.email ?? "",
+		customerName: appointment?.customer.name ?? "",
+		customerPhone: appointment?.customer.phone ?? "",
+		notes: appointment?.notes ?? undefined,
 		serviceId: appointment?.serviceId ?? "",
 		staffId: appointment?.staffId ?? "",
-		customerName: appointment?.customer.name ?? "",
-		customerEmail: appointment?.customer.email ?? "",
-		customerPhone: appointment?.customer.phone ?? "",
 		startsAt: appointment?.startsAt ?? "",
-		notes: appointment?.notes ?? undefined,
 	});
 
 	function handleChange(
@@ -63,13 +63,13 @@ export const AppointmentCreationForm = ({
 	useEffect(() => {
 		if (appointment) {
 			setValues({
+				customerEmail: appointment.customer.email,
+				customerName: appointment.customer.name,
+				customerPhone: appointment.customer.phone,
+				notes: appointment.notes,
 				serviceId: appointment.serviceId,
 				staffId: appointment.staffId ?? "",
-				customerName: appointment.customer.name,
-				customerEmail: appointment.customer.email,
-				customerPhone: appointment.customer.phone,
 				startsAt: appointment.startsAt,
-				notes: appointment.notes,
 			});
 		}
 	}, [appointment]);
@@ -77,15 +77,15 @@ export const AppointmentCreationForm = ({
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		const newAppointment = {
-			serviceId,
-			staffId: staffId || undefined,
 			customer: {
-				name: customerName,
 				email: customerEmail,
+				name: customerName,
 				phone: customerPhone,
 			},
-			startsAt,
 			notes,
+			serviceId,
+			staffId: staffId || undefined,
+			startsAt,
 		};
 
 		try {
@@ -100,78 +100,78 @@ export const AppointmentCreationForm = ({
 
 	return (
 		<ErrorBoundary>
-			<form onSubmit={onSubmit} className="grid gap-4">
+			<form className="grid gap-4" onSubmit={onSubmit}>
 				<fieldset className="grid gap-4 border-b pb-4 md:grid-cols-2">
 					<Select
 						label={"select_service"}
-						required
 						onChange={(value) => handleSelectChange("serviceId", value)}
 						options={services.map((s) => ({
 							label: s.name as TranslationKey,
 							value: s.id,
 						}))}
+						required
 						value={serviceId}
 					/>
 
 					<Select
 						label={"select_staff"}
-						value={staffId || undefined}
 						onChange={(value) => handleSelectChange("staffId", value)}
 						options={staffs.map((s) => ({
 							label: s.name as TranslationKey,
 							value: s.id,
 						}))}
+						value={staffId || undefined}
 					/>
 				</fieldset>
 
 				<Input
 					label={t("name")}
-					value={customerName}
 					name="customerName"
+					onChange={handleChange}
 					placeholder={t("name_placeholder")}
 					required
-					onChange={handleChange}
+					value={customerName}
 				/>
 
 				<Input
 					label={t("email")}
-					value={customerEmail}
 					name="customerEmail"
-					type="email"
+					onChange={handleChange}
 					placeholder={t("email_placeholder")}
 					required
-					onChange={handleChange}
+					type="email"
+					value={customerEmail}
 				/>
 
 				<Input
 					label={t("phone")}
-					value={customerPhone}
 					name="customerPhone"
-					type="tel"
+					onChange={handleChange}
 					placeholder={t("staff_phone_placeholder")}
 					required
-					onChange={handleChange}
+					type="tel"
+					value={customerPhone}
 				/>
 
 				<Input
 					label={t("appointment_date")}
-					value={startsAt}
 					name="startsAt"
-					type="datetime-local"
-					required
 					onChange={handleChange}
+					required
+					type="datetime-local"
+					value={startsAt}
 				/>
 
 				<Textarea
-					placeholder={t("notes_placeholder")}
 					label={t("notes")}
 					name="notes"
-					value={notes ?? ""}
 					onChange={handleChange}
+					placeholder={t("notes_placeholder")}
+					value={notes ?? ""}
 				/>
 
 				<div className="flex gap-2 justify-end">
-					<Button variant="outline" type="button" onClick={() => onClose?.()}>
+					<Button onClick={() => onClose?.()} type="button" variant="outline">
 						{t("cancel")}
 					</Button>
 					<Button type="submit">{isEdit ? t("save") : t("create")}</Button>

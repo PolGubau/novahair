@@ -24,8 +24,8 @@ export function StaffFilter({
 	return (
 		<section className="">
 			<StaffSelector
-				selectedStaffs={filteredStaffs}
 				onChange={setFilteredStaffs}
+				selectedStaffs={filteredStaffs}
 			/>
 		</section>
 	);

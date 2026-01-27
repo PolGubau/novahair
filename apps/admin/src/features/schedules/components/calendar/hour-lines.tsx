@@ -27,8 +27,8 @@ export function HourLines({
 				}
 				return (
 					<div
-						key={hour}
 						className="absolute w-full border-t border-foreground/10"
+						key={hour}
 						style={{ top: `${i * 60 * pixelsPerMinute}px` }}
 					>
 						{isFirstDay && (

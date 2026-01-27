@@ -32,20 +32,20 @@ export const AppointmentForm = ({
 				<div className="grid grid-cols-2 gap-4">
 					<div>
 						<Input
+							label={t("email")}
+							name="email"
 							placeholder={t("staff_email_placeholder")}
 							required
 							type="text"
-							label={t("email")}
-							name="email"
 						/>
 					</div>
 					<div>
 						<Input
 							label={t("phone")}
-							placeholder={t("staff_phone_placeholder")}
-							type="tel"
-							required
 							name="phone"
+							placeholder={t("staff_phone_placeholder")}
+							required
+							type="tel"
 						/>
 					</div>
 				</div>
@@ -55,14 +55,14 @@ export const AppointmentForm = ({
 
 				<div className="flex gap-2 justify-end">
 					<Button
-						variant="outline"
-						type="button"
-						onClick={() => onClose?.()}
 						disabled={saving}
+						onClick={() => onClose?.()}
+						type="button"
+						variant="outline"
 					>
 						{t("cancel")}
 					</Button>
-					<Button type="submit" disabled={saving} loading={saving}>
+					<Button disabled={saving} loading={saving} type="submit">
 						{isEdit ? t("save") : t("create")}
 					</Button>
 				</div>

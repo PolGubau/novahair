@@ -2,8 +2,8 @@ import { Button, Input } from "@novahair/ui";
 import { Plus, X } from "lucide-react";
 export function formatDate(date: Date, locale = "en-US") {
 	return new Intl.DateTimeFormat(locale, {
-		month: "long",
 		day: "numeric",
+		month: "long",
 		weekday: "long",
 	}).format(date);
 }
@@ -29,26 +29,26 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 			<div className="space-y-2">
 				{days.map((slot, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: key
-					<div key={index} className="flex items-center space-x-2">
+					<div className="flex items-center space-x-2" key={index}>
 						<Input
-							type="date"
-							value={slot.toISOString().split("T")[0]}
 							onChange={(e) => updateDay(index, new Date(e.target.value))}
 							placeholder="Inicio"
+							type="date"
+							value={slot.toISOString().split("T")[0]}
 						/>
 
 						{days.length > 1 && (
 							<Button
-								variant="outline"
-								size="sm"
 								onClick={() => removeTimeSlot(index)}
+								size="sm"
+								variant="outline"
 							>
 								<X className="h-4 w-4" />
 							</Button>
 						)}
 					</div>
 				))}
-				<Button variant="outline" onClick={addTimeSlot}>
+				<Button onClick={addTimeSlot} variant="outline">
 					<Plus className="h-4 w-4 mr-2" />
 					Agregar Horario
 				</Button>

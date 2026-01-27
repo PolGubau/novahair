@@ -10,7 +10,7 @@ export const Route = createFileRoute("/appointments/table")({
 function RouteComponent() {
 	return (
 		<FeatureErrorBoundary featureName="Appointments">
-			<AdminMain title={"appointments"} description={"list_of_appointments"}>
+			<AdminMain description={"list_of_appointments"} title={"appointments"}>
 				<AppointmentAdminForm />
 			</AdminMain>
 		</FeatureErrorBoundary>

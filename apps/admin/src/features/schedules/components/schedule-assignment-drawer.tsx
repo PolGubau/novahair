@@ -19,17 +19,17 @@ export function ScheduleAssignmentDrawer({
 	return (
 		<>
 			<Button
-				onClick={() => setIsDrawerOpen(true)}
 				disabled={!selectedDays.length}
+				onClick={() => setIsDrawerOpen(true)}
 			>
 				<Plus className="size-4" />
 				<span className="max-md:hidden">{t("add_schedules")}</span>
 			</Button>
 			<Drawer
-				open={isDrawerOpen}
-				onOpenChange={setIsDrawerOpen}
-				title={"schedules"}
 				description={"manage_your_team_schedules"}
+				onOpenChange={setIsDrawerOpen}
+				open={isDrawerOpen}
+				title={"schedules"}
 			>
 				<AddScheduleForm
 					onCancel={() => setIsDrawerOpen(false)}

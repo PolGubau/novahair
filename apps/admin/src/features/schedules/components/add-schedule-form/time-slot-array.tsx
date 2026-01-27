@@ -12,8 +12,8 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 	const addTimeSlot = () => {
 		const slots: CreateScheduleDto[] = [...timeSlots];
 		slots.push({
-			startTime: undefined as unknown as ISODate,
 			endTime: undefined as unknown as ISODate,
+			startTime: undefined as unknown as ISODate,
 		});
 		setTimeSlots(slots);
 	};
@@ -39,34 +39,34 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 			<div className="space-y-2">
 				{timeSlots.map((slot, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: key
-					<div key={index} className="flex items-center space-x-2">
+					<div className="flex items-center space-x-2" key={index}>
 						<Input
-							type="time"
-							value={slot.startTime}
 							onChange={(e) =>
 								updateTimeSlot(index, "startTime", e.target.value)
 							}
 							placeholder={t("start")}
+							type="time"
+							value={slot.startTime}
 						/>
 						<span>{t("to")}</span>
 						<Input
-							type="time"
-							value={slot.endTime}
 							onChange={(e) => updateTimeSlot(index, "endTime", e.target.value)}
 							placeholder={t("end")}
+							type="time"
+							value={slot.endTime}
 						/>
 						{timeSlots.length > 1 && (
 							<Button
-								variant="outline"
-								size="sm"
 								onClick={() => removeTimeSlot(index)}
+								size="sm"
+								variant="outline"
 							>
 								<X className="h-4 w-4" />
 							</Button>
 						)}
 					</div>
 				))}
-				<Button variant="outline" onClick={addTimeSlot}>
+				<Button onClick={addTimeSlot} variant="outline">
 					<Plus className="h-4 w-4 mr-2" />
 					{t("add_time_slot")}
 				</Button>

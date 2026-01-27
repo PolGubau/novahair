@@ -8,7 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { t } from "i18next";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
- import { ServiceCreationForm } from "~/features/services/ui/form";
+import { ServiceCreationForm } from "~/features/services/ui/form";
 import { ServiceTable } from "~/features/services/ui/table";
 
 export const Route = createFileRoute("/services/")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/services/")({
 });
 
 function RouteComponent() {
- 	const { services, isLoading, refetch } = useServices(config.tenantId);
+	const { services, isLoading, refetch } = useServices(config.tenantId);
 	const { remove } = useServiceActions(config.tenantId);
 
 	const [isFormOpened, setIsFormOpened] = useState(false);
@@ -38,19 +38,19 @@ function RouteComponent() {
 
 	return (
 		<FeatureErrorBoundary featureName="Services">
-			<AdminMain title={"services"} description={"manage_your_services"}>
+			<AdminMain description={"manage_your_services"} title={"services"}>
 				<Drawer
-					open={isFormOpened}
-					onOpenChange={setIsFormOpened}
-					title="add_new_service"
 					description="fill_the_form_to_add_a_new_service"
+					onOpenChange={setIsFormOpened}
+					open={isFormOpened}
+					title="add_new_service"
 				>
 					<ServiceCreationForm
-						service={editing}
 						onClose={() => {
 							setIsFormOpened(false);
 							setEditing(null);
 						}}
+						service={editing}
 					/>
 				</Drawer>
 				<nav className="flex gap-2 items-center">
@@ -59,7 +59,7 @@ function RouteComponent() {
 						{t("add_new_service")}
 					</Button>
 
-					<Button onClick={() => refetch()} variant="ghost" className="group">
+					<Button className="group" onClick={() => refetch()} variant="ghost">
 						<div className="group-focus:rotate-90 transition-all">
 							<RefreshCcw />
 						</div>
@@ -68,10 +68,10 @@ function RouteComponent() {
 					</Button>
 				</nav>
 				<ServiceTable
-					services={services}
 					isLoading={isLoading}
-					onEdit={openEdit}
 					onDelete={handleDelete}
+					onEdit={openEdit}
+					services={services}
 				/>
 			</AdminMain>
 		</FeatureErrorBoundary>

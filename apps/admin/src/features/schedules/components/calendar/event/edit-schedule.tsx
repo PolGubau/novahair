@@ -47,9 +47,9 @@ export function EditSchedule({
 
 	function updateSchedule(updatedSchedule: Schedule) {
 		const schedule: UpdateScheduleDto = {
+			endTime: updatedSchedule.end,
 			id: updatedSchedule.id,
 			startTime: updatedSchedule.start,
-			endTime: updatedSchedule.end,
 		};
 		mutate({
 			data: [schedule],
@@ -64,8 +64,6 @@ export function EditSchedule({
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
 					<Input
 						label={t("start_hour")}
-						type="time"
-						value={startTime}
 						onChange={(e) => {
 							const time = e.target.value;
 							setEditedSchedule({
@@ -73,14 +71,14 @@ export function EditSchedule({
 								start: combineDateTime(day, time).iso,
 							});
 						}}
+						type="time"
+						value={startTime}
 					/>
 				</div>
 				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
 					<Input
 						id={endId}
 						label={t("end_hour")}
-						type="time"
-						value={endTime}
 						onChange={(e) => {
 							const time = e.target.value;
 							setEditedSchedule({
@@ -88,14 +86,16 @@ export function EditSchedule({
 								end: combineDateTime(day, time).iso,
 							});
 						}}
+						type="time"
+						value={endTime}
 					/>
 				</div>
 			</div>
 			<div className="flex justify-end gap-2 mt-6">
-				<Button variant="outline" onClick={onClose}>
+				<Button onClick={onClose} variant="outline">
 					{t("cancel")}
 				</Button>
-				<Button onClick={handleSave} loading={isPending}>
+				<Button loading={isPending} onClick={handleSave}>
 					{t("save")}
 				</Button>
 			</div>

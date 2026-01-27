@@ -4,15 +4,15 @@ import type { SummarizedAppointment } from "./summarized-appointments";
 describe("Appointment Domain", () => {
 	it("should create a valid appointment object", () => {
 		const appointment: SummarizedAppointment = {
-			serviceId: "service-1",
-			staffId: "staff-1",
 			customer: {
-				name: "María García",
 				email: "maria@example.com",
+				name: "María García",
 				phone: "+34612345678",
 			},
-			startsAt: "2026-01-15T10:00:00Z",
 			notes: "Cliente preferente",
+			serviceId: "service-1",
+			staffId: "staff-1",
+			startsAt: "2026-01-15T10:00:00Z",
 		};
 
 		expect(appointment).toBeDefined();
@@ -22,14 +22,14 @@ describe("Appointment Domain", () => {
 
 	it("should validate appointment has required fields", () => {
 		const appointment: SummarizedAppointment = {
-			serviceId: "service-1",
-			staffId: "staff-1",
-			notes: "Cliente preferente",
 			customer: {
-				name: "María García",
 				email: "maria@example.com",
+				name: "María García",
 				phone: "+34612345678",
 			},
+			notes: "Cliente preferente",
+			serviceId: "service-1",
+			staffId: "staff-1",
 			startsAt: "2026-01-15T10:00:00Z",
 		};
 
@@ -39,13 +39,13 @@ describe("Appointment Domain", () => {
 
 	it("should handle optional fields correctly", () => {
 		const appointment: SummarizedAppointment = {
-			serviceId: "service-1",
-			staffId: undefined,
 			customer: {
-				name: "María García",
 				email: "maria@example.com",
+				name: "María García",
 				phone: "+34612345678",
 			},
+			serviceId: "service-1",
+			staffId: undefined,
 			startsAt: "2026-01-15T10:00:00Z",
 		};
 

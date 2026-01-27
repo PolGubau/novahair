@@ -1,6 +1,13 @@
-export type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
+export const sizes = {
+	xs: "xs",
+	sm: "sm",
+	md: "md",
+	lg: "lg",
+	xl: "xl",
+} as const;
 
-// This type should be redeclared in each app based on their routeTree
+export type Sizes = typeof sizes[keyof typeof sizes];
+
 export type ExistingRoute = string;
 
 export type AbstractRepository<
@@ -14,3 +21,4 @@ export type AbstractRepository<
 	update: (id: string, payload: UpdateDTO) => Promise<T>;
 	delete: (id: string) => Promise<void>;
 };
+ 

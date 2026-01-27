@@ -4,9 +4,9 @@ import { Devtools } from "@novahair/ui/dev-tools";
 import { queryClientDefaultOptions } from "@novahair/utils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
+	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
-	createRootRouteWithContext,
 	useRouter,
 } from "@tanstack/react-router";
 import i18n from "i18next";
@@ -21,78 +21,78 @@ export const Route = createRootRouteWithContext<{
 		await setSSRLanguage();
 	},
 	head: () => ({
+		links: [
+			{
+				href: appCss,
+				rel: "stylesheet",
+			},
+			{
+				href: "/favicon.svg",
+				rel: "icon",
+			},
+		],
 		meta: [
 			{
 				charSet: "utf-8",
 			},
 			{
-				name: "viewport",
 				content: "width=device-width, initial-scale=1",
+				name: "viewport",
 			},
 			{
 				title: "NOVAHAIR - Tu nueva peluquería de confianza",
 			},
 			{
+				content: "Descubre todos nuestros servicios de corte, color y peinado.",
 				name: "description",
-				content: "Descubre todos nuestros servicios de corte, color y peinado.",
 			},
 			{
+				content: "NOVAHAIR - Tu nueva peluquería de confianza",
 				property: "og:title",
-				content: "NOVAHAIR - Tu nueva peluquería de confianza",
 			},
-			{ property: "og:type", content: "website" },
+			{ content: "website", property: "og:type" },
 			{
+				content: "Descubre todos nuestros servicios de corte, color y peinado.",
 				property: "og:description",
-				content: "Descubre todos nuestros servicios de corte, color y peinado.",
 			},
 			{
+				content: "/images/1.webp",
 				property: "og:image",
-				content: "/images/1.webp",
 			},
 			{
-				name: "twitter:card",
 				content: "summary_large_image",
+				name: "twitter:card",
 			},
 			{
-				name: "twitter:description",
 				content: "Descubre todos nuestros servicios de corte, color y peinado.",
+				name: "twitter:description",
 			},
 			{
-				name: "twitter:image",
 				content: "/images/1.webp",
+				name: "twitter:image",
 			},
 			{
-				name: "twitter:title",
 				content: "NOVAHAIR - Tu nueva peluquería de confianza",
+				name: "twitter:title",
 			},
 			{
-				name: "author",
 				content: "Destacat.cat - Pol Gubau Amores",
+				name: "author",
 			},
 			{
-				name: "keywords",
 				content:
 					"peluquería, corte de pelo, coloración, peinados, tratamientos capilares, NOVAHAIR",
+				name: "keywords",
 			},
 			{
-				name: "robots",
 				content: "index, follow",
-			},
-		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-			{
-				rel: "icon",
-				href: "/favicon.svg",
+				name: "robots",
 			},
 		],
 	}),
+	notFoundComponent: NotFound,
 
 	shellComponent: RootDocument,
-	notFoundComponent: NotFound,
 });
 
 function NotFound() {

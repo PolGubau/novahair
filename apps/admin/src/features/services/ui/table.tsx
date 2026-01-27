@@ -24,72 +24,69 @@ export const getColumns = (options?: {
 
 	const columns: ColumnDef<Service>[] = [
 		{
-			id: "select",
+			cell: ({ row }) => (
+				<Checkbox
+					aria-label="Select row"
+					checked={row.getIsSelected()}
+					onCheckedChange={(value) => row.toggleSelected(!!value)}
+				/>
+			),
+			enableHiding: false,
+			enableSorting: false,
 			header: ({ table }) => (
 				<Checkbox
+					aria-label="Select all"
 					checked={
 						table.getIsAllPageRowsSelected() ||
 						(table.getIsSomePageRowsSelected() && "indeterminate")
 					}
 					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-					aria-label="Select all"
 				/>
 			),
-			cell: ({ row }) => (
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label="Select row"
-				/>
-			),
-			enableSorting: false,
-			enableHiding: false,
+			id: "select",
 		},
 
 		{
 			accessorKey: "name",
+			cell: ({ row }) => (
+				<div className="items-center flex gap-2">
+					<Avatar
+						alt={row.getValue("name")}
+						src={row.original.imageUrl ?? ""}
+					/>
+
+					{row.getValue("name")}
+				</div>
+			),
 			header: ({ column }) => {
 				return (
 					<Button
-						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+						variant="ghost"
 					>
 						{t("name")}
 						<ArrowUpDown />
 					</Button>
 				);
 			},
-			cell: ({ row }) => (
-				<div className="items-center flex gap-2">
-					<Avatar
-						src={row.original.imageUrl ?? ""}
-						alt={row.getValue("name")}
-					/>
-
-					{row.getValue("name")}
-				</div>
-			),
 		},
 
 		{
 			accessorKey: "description",
-			header: () => {
-				return <span>{t("description")}</span>;
-			},
 			cell: ({ row }) => (
 				<div className="lowercase">{row.getValue("description")}</div>
 			),
+			header: () => {
+				return <span>{t("description")}</span>;
+			},
 		},
 
 		{
 			accessorKey: "priceCents",
-			header: () => {
-				return <span>{t("price")}</span>;
-			},
 			cell: ({ row }) => {
 				const format = new Intl.NumberFormat(i18n.language, {
-					style: "currency",
 					currency: "EUR",
+					style: "currency",
 				});
 				const priceInCents = row.getValue("priceCents") as number;
 				const priceInEuros = priceInCents / 100;
@@ -97,24 +94,23 @@ export const getColumns = (options?: {
 
 				return <div className="lowercase">{formattedPrice}</div>;
 			},
+			header: () => {
+				return <span>{t("price")}</span>;
+			},
 		},
 
 		{
-			id: "actions",
-			enableHiding: false,
 			cell: ({ row }) => {
 				const service = row.original;
 
 				return (
 					<div className="flex items-center justify-end gap-2">
-						<Button variant="ghost" size="sm" onClick={() => onEdit?.(service)}>
+						<Button onClick={() => onEdit?.(service)} size="sm" variant="ghost">
 							<Edit2 />
 							{t("edit")}
 						</Button>
 						<IconButton
-							variant="error"
 							label={t("delete")}
-							size="sm"
 							onClick={() => {
 								if (
 									window.confirm(
@@ -124,12 +120,16 @@ export const getColumns = (options?: {
 									onDelete?.(service);
 								}
 							}}
+							size="sm"
+							variant="error"
 						>
 							<Trash />
 						</IconButton>
 					</div>
 				);
 			},
+			enableHiding: false,
+			id: "actions",
 		},
 	];
 
@@ -147,11 +147,11 @@ export const ServiceTable = ({
 	onEdit?: (s: Service) => void;
 	onDelete?: (s: Service) => void;
 }) => {
-	const cols = getColumns({ onEdit, onDelete });
+	const cols = getColumns({ onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>
-				<DataTable data={services} columns={cols} />
+				<DataTable columns={cols} data={services} />
 			</LoadingOverlay>
 		</ErrorBoundary>
 	);

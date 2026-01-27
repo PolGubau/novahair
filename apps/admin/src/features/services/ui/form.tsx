@@ -29,13 +29,13 @@ export const ServiceCreationForm = ({
 	const { create, update } = useServiceActions(config.tenantId);
 
 	const [values, setValues] = useState<EditableServiceCreateDTO>({
-		name: service?.name ?? "",
 		bufferAfter: service?.bufferAfter ?? 0,
 		bufferBefore: service?.bufferBefore ?? 0,
 		description: service?.description ?? "",
-		priceCents: service?.priceCents ?? 1000,
 		durationMin: service?.durationMin ?? 30,
 		imageUrl: service?.imageUrl ?? "",
+		name: service?.name ?? "",
+		priceCents: service?.priceCents ?? 1000,
 	});
 
 	function handleChange(
@@ -54,13 +54,13 @@ export const ServiceCreationForm = ({
 	useEffect(() => {
 		if (service) {
 			setValues({
-				name: service.name,
-				description: service.description ?? "",
 				bufferAfter: service.bufferAfter ?? 0,
 				bufferBefore: service.bufferBefore ?? 0,
-				priceCents: service.priceCents,
-				imageUrl: service.imageUrl ?? "",
+				description: service.description ?? "",
 				durationMin: service.durationMin,
+				imageUrl: service.imageUrl ?? "",
+				name: service.name,
+				priceCents: service.priceCents,
 			});
 		}
 	}, [service]);
@@ -68,19 +68,19 @@ export const ServiceCreationForm = ({
 	const onSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		const payload: ServiceCreateDTO = {
-			name,
-			tenantId: config.tenantId,
-			description,
-			imageUrl,
-			priceCents,
 			bufferAfter: 0,
 			bufferBefore: 0,
+			description,
 			durationMin,
+			imageUrl,
+			name,
+			priceCents,
+			tenantId: config.tenantId,
 		};
 
 		if (isEdit && service) {
 			update.mutate(
-				{ id: service.id, data: payload },
+				{ data: payload, id: service.id },
 				{ onSuccess: () => onClose?.() },
 			);
 		} else {
@@ -92,67 +92,67 @@ export const ServiceCreationForm = ({
 
 	return (
 		<ErrorBoundary>
-			<form onSubmit={onSubmit} className="grid gap-4">
+			<form className="grid gap-4" onSubmit={onSubmit}>
 				<Input
 					label={t("name")}
-					value={name}
 					name="name"
+					onChange={handleChange}
 					placeholder={t("service_name_placeholder")}
 					required
-					onChange={handleChange}
+					value={name}
 				/>
 				<Textarea
-					placeholder={t("service_description_placeholder")}
-					required
 					label={t("description")}
 					name="description"
-					value={description ?? ""}
 					onChange={handleChange}
+					placeholder={t("service_description_placeholder")}
+					required
+					value={description ?? ""}
 				/>
 
 				<div className="grid grid-cols-[1fr_auto] gap-2 items-end">
 					<Input
 						label={t("image_url")}
-						value={imageUrl}
-						placeholder="https://example.com/image.jpg"
 						name="imageUrl"
-						type="url"
-						required
 						onChange={handleChange}
+						placeholder="https://example.com/image.jpg"
+						required
+						type="url"
+						value={imageUrl}
 					/>
-					<Avatar className="size-9" src={imageUrl ?? ""} alt={values.name} />
+					<Avatar alt={values.name} className="size-9" src={imageUrl ?? ""} />
 				</div>
 				<div className="grid grid-cols-2 gap-4">
 					<Input
+						label={t("price_in_cents")}
+						name="priceCents"
+						onChange={handleChange}
 						placeholder="5000"
 						required
 						type="number"
-						label={t("price_in_cents")}
 						value={priceCents}
-						name="priceCents"
-						onChange={handleChange}
 					/>
 
 					<Input
 						label={t("duration_in_minutes")}
+						name="durationMin"
+						onChange={handleChange}
 						placeholder="30"
 						required
 						type="number"
 						value={durationMin}
-						name="durationMin"
-						onChange={handleChange}
 					/>
 				</div>
 				<div className="flex gap-2 justify-end">
 					<Button
-						variant="outline"
-						type="button"
-						onClick={() => onClose?.()}
 						disabled={saving}
+						onClick={() => onClose?.()}
+						type="button"
+						variant="outline"
 					>
 						{t("cancel")}
 					</Button>
-					<Button type="submit" disabled={saving} loading={saving}>
+					<Button disabled={saving} loading={saving} type="submit">
 						{isEdit ? t("save") : t("create")}
 					</Button>
 				</div>
