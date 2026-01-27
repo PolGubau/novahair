@@ -1,4 +1,4 @@
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
 import { cn } from "@novahair/utils/lib/cn";
 import type { Breakpoints } from "@novahair/utils/types/common";
 import * as SelectPrimitive from "@radix-ui/react-select";

@@ -3,12 +3,12 @@ import type { Breakpoints } from "@novahair/utils/types/common";
 import { useId } from "react";
 import { Label } from "./label";
 
-type Props = Omit<React.ComponentProps<"input">, "size"> & {
+export type InputProps = Omit<React.ComponentProps<"input">, "size"> & {
 	label?: string;
 	size?: Breakpoints;
 };
 
-function Input({ className, label, type, size = "md", ...props }: Props) {
+function Input({ className, label, type, size = "md", ...props }: InputProps) {
 	const id = useId();
 	return (
 		<div>

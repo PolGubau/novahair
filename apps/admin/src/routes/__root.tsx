@@ -9,13 +9,11 @@ import {
 	createRootRouteWithContext,
 	useRouter,
 } from "@tanstack/react-router";
-import { t } from "i18next";
+import i18n from "i18next";
 import { useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
 import appCss from "../styles.css?url";
-
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
 }>()({
@@ -98,35 +96,16 @@ export const Route = createRootRouteWithContext<{
 });
 
 function NotFound() {
-	return <div>{t("not_found")}</div>;
+	return <div>{"not_found"}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { i18n } = useTranslation();
 	const router = useRouter();
 	useEffect(() => {
-		const handler = () => {
-			router.invalidate();
-		};
+		const handler = () => router.invalidate();
 		i18n.on("languageChanged", handler);
-		return () => {
-			i18n.off("languageChanged", handler);
-		};
+		return () => i18n.off("languageChanged", handler);
 	}, [i18n, router]);
-
-	if (!i18n.isInitialized) {
-		return (
-			<html lang="en" suppressHydrationWarning>
-				<head>
-					<HeadContent />
-				</head>
-				<body>
-					<div>Loading...</div>
-					<Scripts />
-				</body>
-			</html>
-		);
-	}
 
 	// Create QueryClient with default configuration
 	const queryClient = useMemo(

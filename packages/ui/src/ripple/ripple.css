@@ -56,7 +56,7 @@
 
 .ripple .ripple-surface.--hover::before {
 	background-color: var(--ripple-color, currentColor);
-	opacity: var(--ripple-hover-opacity, 0.08);
+	opacity: var(--ripple-hover-opacity, 0);
 }
 
 .ripple .ripple-surface.--press::after {

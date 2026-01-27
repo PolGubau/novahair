@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@novahair/utils";
 import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ChevronRight } from "lucide-react";
@@ -16,13 +17,15 @@ import {
 	SidebarMenuItem,
 	SidebarMenuSub,
 	SidebarMenuSubItem,
+	useSidebar,
 } from "../../sidebar";
 import type { NavMainItem } from "./app-sidebar";
 
 export function NavMain({ items }: { items: NavMainItem[] }) {
+	const { state } = useSidebar();
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>{t("platform")}</SidebarGroupLabel>
+			{/* <SidebarGroupLabel>{t("platform")}</SidebarGroupLabel> */}
 			<SidebarMenu>
 				{items.map((item) => (
 					<Collapsible
@@ -33,13 +36,25 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 					>
 						<SidebarMenuItem>
 							<CollapsibleTrigger asChild>
-								<Button
-									variant="ghost"
-									className="peer/menu-button flex w-full items-center gap-2"
-								>
-									{item.icon && <item.icon />}
-									<span>{t(item.title)}</span>
-									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+								<Button variant="ghost" className="peer/menu-button w-full">
+									<span className={cn({ "pl-1.5": state === "collapsed" })}>
+										<item.icon />
+									</span>
+									<span
+										className={cn("w-fit transition-all", {
+											" opacity-50 w-0": state === "collapsed",
+										})}
+									>
+										{t(item.title)}
+									</span>
+									<ChevronRight
+										className={cn(
+											"ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90",
+											{
+												hidden: state === "collapsed",
+											},
+										)}
+									/>
 								</Button>
 							</CollapsibleTrigger>
 							<CollapsibleContent className="transition-all">

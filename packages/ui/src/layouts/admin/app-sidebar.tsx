@@ -1,4 +1,5 @@
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
+
 import { Link } from "@tanstack/react-router";
 import {
 	Database,
@@ -14,7 +15,6 @@ import {
 	SidebarHeader,
 	SidebarRail,
 } from "../../sidebar";
-import { TeamSwitcher } from "./location-switcher";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 
@@ -25,7 +25,7 @@ export type Team = {
 };
 export type NavMainItem = {
 	title: TranslationKey;
-	icon?: React.ComponentType;
+	icon: React.ComponentType;
 	isActive?: boolean;
 
 	items?: {
@@ -116,7 +116,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarHeader>
 				<Link to="/">
 					<div className="size-6 bg-foreground rounded-full flex justify-center items-center text-background">
-						A
+						N
 					</div>
 				</Link>
 				{/* <TeamSwitcher teams={data.teams} /> */}

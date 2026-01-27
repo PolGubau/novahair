@@ -1,6 +1,7 @@
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
-import type React from "react";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
+
 import { t } from "i18next";
+import type React from "react";
 
 type Props = {
 	title: TranslationKey;
@@ -15,7 +16,6 @@ export const AdminMain = ({
 	children,
 	rightContent,
 }: Props) => {
-	;
 	return (
 		<section className="p-4 gap-3 flex flex-col h-full">
 			<header className="flex justify-between items-center">

@@ -2,22 +2,16 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { ChevronLeft, ChevronRight, PanelLeftIcon } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import * as React from "react";
 
 import { useIsMobile } from "@novahair/utils/hooks/use-mobile";
 import { cn } from "@novahair/utils/lib/cn";
 import type { Button } from "./button";
+import { Drawer } from "./drawer";
 import { IconButton } from "./icon-button";
 import { Input } from "./input";
 import { Separator } from "./separator";
-import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-} from "./sheet";
 import { Skeleton } from "./skeleton";
 import { TooltipProvider } from "./tooltip";
 
@@ -191,26 +185,31 @@ function Sidebar({
 
 	if (isMobile) {
 		return (
-			<Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-				<SheetContent
+			<Drawer
+				open={openMobile}
+				onOpenChange={setOpenMobile}
+				// biome-ignore lint/suspicious/noExplicitAny: ok
+				{...(props as any)}
+			>
+				<div
 					data-sidebar="sidebar"
 					data-slot="sidebar"
 					data-mobile="true"
-					className="bg-background text-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+					className="bg-background text-foreground md:w-(--sidebar-width) p-0 [&>button]:hidden"
 					style={
 						{
 							"--sidebar-width": SIDEBAR_WIDTH_MOBILE,
 						} as React.CSSProperties
 					}
-					side={side}
+					// side={side}
 				>
-					<SheetHeader className="sr-only">
-						<SheetTitle>Sidebar</SheetTitle>
-						<SheetDescription>Displays the mobile sidebar.</SheetDescription>
-					</SheetHeader>
+					<header className="sr-only">
+						<p>Sidebar</p>
+						<span>Displays the mobile sidebar.</span>
+					</header>
 					<div className="flex h-full w-full flex-col">{children}</div>
-				</SheetContent>
-			</Sheet>
+				</div>
+			</Drawer>
 		);
 	}
 
@@ -350,7 +349,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
 		<div
 			data-slot="sidebar-header"
 			data-sidebar="header"
-			className={cn("flex flex-col gap-2 p-2", className)}
+			className={cn("flex flex-col gap-2 pt-3 pl-2.5", className)}
 			{...props}
 		/>
 	);
@@ -375,7 +374,7 @@ function SidebarSeparator({
 		<Separator
 			data-slot="sidebar-separator"
 			data-sidebar="separator"
-			className={cn("bg-sidebar-border mx-2 w-auto", className)}
+			className={cn("bg-foreground/20 mx-2 w-auto", className)}
 			{...props}
 		/>
 	);
@@ -418,7 +417,7 @@ function SidebarGroupLabel({
 			data-slot="sidebar-group-label"
 			data-sidebar="group-label"
 			className={cn(
-				"text-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+				"text-foreground/70 ring-foreground/20 flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
 				"group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
 				className,
 			)}

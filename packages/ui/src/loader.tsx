@@ -1,7 +1,7 @@
+import type { TranslationKey } from "@novahair/utils";
+import { cn } from "@novahair/utils/lib/cn";
 import { t } from "i18next";
 import { Loader as Icon, type LucideProps } from "lucide-react";
-import { cn } from "@novahair/utils/lib/cn";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
 
 type Props = LucideProps & {
 	label?: TranslationKey;

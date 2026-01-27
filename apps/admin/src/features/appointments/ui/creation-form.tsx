@@ -5,7 +5,8 @@ import { Input } from "@novahair/ui/input";
 import { Select } from "@novahair/ui/select";
 import { Textarea } from "@novahair/ui/textarea";
 import { config } from "@novahair/utils";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
+
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";

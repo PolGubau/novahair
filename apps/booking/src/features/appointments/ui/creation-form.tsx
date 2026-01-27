@@ -3,7 +3,8 @@ import { Button } from "@novahair/ui/button";
 import { Input } from "@novahair/ui/input";
 import { Select } from "@novahair/ui/select";
 import { Textarea } from "@novahair/ui/textarea";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
+
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { useTenantId } from "~/shared/tenant";

@@ -12,6 +12,7 @@ export const getRouter = () => {
 	const router = createRouter({
 		routeTree,
 		scrollRestoration: true,
+
 		defaultViewTransition: true,
 		context: { ...rqContext },
 		defaultPreload: "intent",

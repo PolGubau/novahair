@@ -1,7 +1,8 @@
 import { useServices } from "@novahair/client";
 import { Select } from "@novahair/ui/select";
 import { config } from "@novahair/utils";
-import type { TranslationKey } from "@novahair/utils/i18n/setup";
+import type { TranslationKey } from "@novahair/utils/i18n/types";
+
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "~/routes/$serviceId";
 import { useTenant } from "~/shared/tenant";
