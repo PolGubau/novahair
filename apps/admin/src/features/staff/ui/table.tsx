@@ -10,10 +10,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Edit2, Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { ServicesAssignedCell } from "./services-assigned-cell";
+import { t } from "i18next";
 
 export const getColumns = (
-	t: (key: string) => string,
-	options?: {
+ 	options?: {
 		onEdit?: (s: Staff) => void;
 		onDelete?: (s: Staff) => void;
 	},
@@ -155,8 +155,7 @@ export const StaffTable = ({
 	onEdit?: (s: Staff) => void;
 	onDelete?: (s: Staff) => void;
 }) => {
-	const { t } = useTranslation();
-	const cols = getColumns(t, { onDelete, onEdit });
+ 	const cols = getColumns( { onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>

@@ -20,6 +20,7 @@
 	"end": "Fin",
 	"version": "Versión",
 	"language": "Idioma",
+	"edit_schedule": "Editar horario",
 	"use_these_controls_to_filter_the_data": "Usa estos controles para filtrar los datos",
 	"choose_service": "Elige servicio",
 	"time_slots": "Franjas horarias",

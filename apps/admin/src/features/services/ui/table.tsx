@@ -9,12 +9,12 @@ import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { sizes } from "@novahair/utils";
 import i18n from "@novahair/utils/i18n/setup";
 import type { ColumnDef } from "@tanstack/react-table";
+import { t } from "i18next";
 import { ArrowUpDown, Edit2, Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const getColumns = (
-	t: (key: string) => string,
-	options?: {
+ 	options?: {
 		onEdit?: (s: Service) => void;
 		onDelete?: (s: Service) => void;
 	},
@@ -150,8 +150,7 @@ export const ServiceTable = ({
 	onEdit?: (s: Service) => void;
 	onDelete?: (s: Service) => void;
 }) => {
-	const { t } = useTranslation();
-	const cols = getColumns(t, { onDelete, onEdit });
+	const cols = getColumns({ onDelete, onEdit });
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>
