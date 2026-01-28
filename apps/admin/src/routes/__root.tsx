@@ -17,6 +17,7 @@ import appCss from "../styles.css?url";
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
 }>()({
+	ssr: false,
 	beforeLoad: async () => {
 		const language = await setSSRLanguage();
 		return { language };
@@ -88,11 +89,6 @@ export const Route = createRootRouteWithContext<{
 			{
 				content: "index, follow",
 				name: "robots",
-			},
-		],
-		scripts: [
-			{
-				children: `window.__SSR_LANGUAGE__ = "${i18n.language}";`,
 			},
 		],
 	}),
