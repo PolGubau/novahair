@@ -20,8 +20,7 @@ export function ScheduleAssignmentDrawer({
 	return (
 		<>
 			<Button
-				disabled={!selectedDays.length}
-				onClick={() => setIsDrawerOpen(true)}
+ 				onClick={() => setIsDrawerOpen(true)}
 			>
 				<Plus className="size-4" />
 				<span className="max-md:hidden">{t("add_schedules")}</span>

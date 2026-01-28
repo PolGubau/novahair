@@ -15,11 +15,20 @@ type Props = {
 };
 export const SelectedDaysArray = ({ days, setDays }: Props) => {
 	const { t } = useTranslation();
-	const addTimeSlot = () => {
-		setDays([...days, new Date()]);
+	const addDay = () => {
+		let newDate: Date;
+		if (days.length > 0) {
+			// Tomar el último día y añadir un día
+			const lastDay = days[days.length - 1];
+			newDate = new Date(lastDay.getTime() + 24 * 60 * 60 * 1000); // Añadir un día
+		} else {
+			// Usar hoy
+			newDate = new Date();
+		}
+		setDays([...days, newDate]);
 	};
 
-	const removeTimeSlot = (index: number) => {
+	const removeDay = (index: number) => {
 		setDays(days.filter((_, i) => i !== index));
 	};
 
@@ -42,7 +51,7 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 
 						{days.length > 1 && (
 							<Button
-								onClick={() => removeTimeSlot(index)}
+								onClick={() => removeDay(index)}
 								size={sizes.sm}
 								variant="outline"
 							>
@@ -51,9 +60,9 @@ export const SelectedDaysArray = ({ days, setDays }: Props) => {
 						)}
 					</div>
 				))}
-				<Button onClick={addTimeSlot} variant="outline">
-					<Plus className="h-4 w-4 mr-2" />
-					{t("add_schedule")}
+				<Button onClick={addDay} variant="outline">
+					<Plus />
+					{t("add_schedules")}
 				</Button>
 			</div>
 		</div>

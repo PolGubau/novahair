@@ -62,13 +62,13 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 								size={sizes.sm}
 								variant="outline"
 							>
-								<X className="h-4 w-4" />
+								<X   />
 							</Button>
 						)}
 					</div>
 				))}
 				<Button onClick={addTimeSlot} variant="outline">
-					<Plus className="h-4 w-4 mr-2" />
+					<Plus />
 					{t("add_time_slot")}
 				</Button>
 			</div>
