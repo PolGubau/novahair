@@ -2,8 +2,7 @@
 
 import { Devtools } from "@novahair/ui/dev-tools";
 import { RootProvider } from "@novahair/utils";
- import i18n from "@novahair/utils/i18n/setup";
-import {
+ import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
@@ -14,6 +13,7 @@ import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
 import "../styles.css";
+import i18n from "~/shared/i18n/setup";
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({

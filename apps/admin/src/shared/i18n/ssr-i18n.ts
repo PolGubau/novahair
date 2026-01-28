@@ -1,9 +1,8 @@
-import {  i18nCookieName } from "@novahair/utils";
-import { defaultLocale } from "@novahair/utils/i18n/constants";
-import i18n from "@novahair/utils/i18n/setup";
+ import { defaultLocale } from "@novahair/utils/i18n/constants";
+import i18n, { i18nCookieName } from "@novahair/utils/i18n/setup";
 import { createIsomorphicFn } from "@tanstack/react-start";
 import { getCookie, setCookie } from "@tanstack/react-start/server";
-
+ 
 export const setSSRLanguage = createIsomorphicFn().server(async () => {
 	let language = getCookie(i18nCookieName) 
 	if (!language) {

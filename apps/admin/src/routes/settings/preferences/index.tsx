@@ -1,15 +1,19 @@
 import { Select } from "@novahair/ui";
 import { cn, TranslationKey } from "@novahair/utils";
-import { allLocales } from "@novahair/utils/i18n/constants";
+import { allLocales, Locale } from "@novahair/utils/i18n/constants";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {version,displayName,description} from "../../../../package.json";
-
+ 
 const settingsItem = "grid md:grid-cols-2 gap-2 items-center p-4"
 
 export const Route = createFileRoute("/settings/preferences/")({
   component: RouteComponent,
 });
+const localeLabelMapper: Record<Locale, TranslationKey> = {
+  en: "english",
+  es: "spanish",
+};
 
 function RouteComponent() {
   const { i18n, t } = useTranslation();
@@ -24,7 +28,7 @@ function RouteComponent() {
         <Select
       value={i18n.language}
       options={allLocales.map((locale) => ({
-        label: locale as TranslationKey,
+        label: localeLabelMapper[locale],
         value: locale,
       }))}
       onChange={(e) => { i18n.changeLanguage(e); }}

@@ -2,8 +2,7 @@
 
 import { Devtools } from "@novahair/ui/dev-tools";
 import { RootProvider } from "@novahair/utils";
-import i18n from "@novahair/utils/i18n/setup";
-import {
+ import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
@@ -12,6 +11,7 @@ import {
  import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
 import appCss from "../styles.css?url";
+import i18n from "~/shared/i18n/setup";
 export const Route = createRootRouteWithContext()({
 	ssr: false,
 	beforeLoad: async () => {

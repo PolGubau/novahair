@@ -2,8 +2,7 @@ import { useAvailableDays } from "@novahair/client";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { TranslationKey } from "@novahair/utils";
-import i18n from "@novahair/utils/i18n/setup";
-import { cn } from "@novahair/utils/lib/cn";
+ import { cn } from "@novahair/utils/lib/cn";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import confetti from "canvas-confetti";
 import { t } from "i18next";
@@ -19,7 +18,8 @@ import {
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { useTenantId } from "~/shared/tenant";
+import i18n from "~/shared/i18n/setup";
+ import { useTenantId } from "~/shared/tenant";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 
 const SearchSchema = z.object({
@@ -29,6 +29,15 @@ export const Route = createFileRoute("/$serviceId")({
 	component: CalendarStep,
 	validateSearch: (search) => SearchSchema.parse(search),
 });
+	function getLabelledDate(date: Date,locale?: string) {
+		return new Intl.DateTimeFormat(locale, {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+		}).format(date);
+	}
 
 function CalendarStep() {
 	const serviceId = Route.useParams().serviceId;
@@ -85,17 +94,8 @@ function CalendarStep() {
 	if (error) return `An error has occurred: ${error.message}`;
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
 
-	function getLabelledDate(date: Date) {
-		return new Intl.DateTimeFormat(i18n.language, {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			minute: "2-digit",
-		}).format(date);
-	}
 
-	const parsedDate = selectedDay ? getLabelledDate(selectedDay) : "";
+	const parsedDate = selectedDay ? getLabelledDate(selectedDay,i18n.language) : "";
 
 	function updateParams(iso: string | null) {
 		navigate({
