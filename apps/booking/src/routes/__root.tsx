@@ -28,6 +28,8 @@ const rootSearchSchema = z.object({
 
 export const Route = createRootRouteWithContext()({
 	validateSearch: rootSearchSchema,
+	ssr: false,
+
 
 	head: () => ({
 		meta: [
