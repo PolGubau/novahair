@@ -9,8 +9,7 @@ import {
 	Scripts,
 	useRouter,
 } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { MainLayout } from "~/app/layouts/main";
+ import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
 import appCss from "../styles.css?url";
 export const Route = createRootRouteWithContext()({

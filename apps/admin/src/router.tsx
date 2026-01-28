@@ -1,7 +1,7 @@
 import { createRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import * as TanstackQuery from "./integrations/tanstack-query/root-provider";
-import "@novahair/utils/i18n/setup";
+import "./shared/i18n/setup";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
