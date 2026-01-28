@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
-import type { QueryClient } from "@tanstack/react-query";
 import {
 	HeadContent,
 	Scripts,
@@ -15,9 +14,6 @@ import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
 import i18n from "@novahair/utils/i18n/setup";
 
-interface MyRouterContext {
-	queryClient: QueryClient;
-}
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	head: () => ({
@@ -102,7 +98,6 @@ function NotFound() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const { isReady } = usePreloader();
-
 	return (
 		<html lang={i18n.language}>
 			<head>

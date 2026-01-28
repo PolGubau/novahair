@@ -58,9 +58,10 @@ function TooltipContent({
 type TooltipProps = React.ComponentProps<typeof TooltipRoot> & {
 	children: React.ReactNode;
 	label?: React.ReactNode;
+	disabled?: boolean;
 	content?: React.ComponentProps<typeof TooltipContent>;
 };
-export function Tooltip({ children, label, content, ...rest }: TooltipProps) {
+export function Tooltip({ children,disabled ,label, content, ...rest }: TooltipProps) {
 	if (!label) {
 		return <>{children}</>;
 	}
@@ -70,8 +71,8 @@ export function Tooltip({ children, label, content, ...rest }: TooltipProps) {
 			<TooltipTrigger asChild {...rest}>
 				<div>{children}</div>
 			</TooltipTrigger>
-			<TooltipContent {...content}>{label}</TooltipContent>
-		</TooltipRoot>
+{!disabled &&			<TooltipContent {...content}>{label}</TooltipContent>
+}		</TooltipRoot>
 	);
 }
 

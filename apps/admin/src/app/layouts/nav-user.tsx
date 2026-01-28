@@ -1,4 +1,4 @@
-import { Avatar } from "../../avatar";
+import { Avatar } from "@novahair/ui/avatar";
 import type { SidebarUser } from "./app-sidebar";
 
 export function NavUser({ user }: { user: SidebarUser }) {

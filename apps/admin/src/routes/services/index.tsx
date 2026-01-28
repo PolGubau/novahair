@@ -2,7 +2,7 @@ import { type Service, useServiceActions, useServices } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
+import { AdminMain } from "~/app/layouts/admin-main";
 import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";

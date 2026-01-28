@@ -14,6 +14,7 @@ import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as AppointmentsTableRouteImport } from './routes/appointments/table'
 import { Route as TeamSchedulesIndexRouteImport } from './routes/team/schedules/index'
 import { Route as TeamMembersIndexRouteImport } from './routes/team/members/index'
+import { Route as SettingsPreferencesIndexRouteImport } from './routes/settings/preferences/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,11 +41,18 @@ const TeamMembersIndexRoute = TeamMembersIndexRouteImport.update({
   path: '/team/members/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsPreferencesIndexRoute =
+  SettingsPreferencesIndexRouteImport.update({
+    id: '/settings/preferences/',
+    path: '/settings/preferences/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/appointments/table': typeof AppointmentsTableRoute
   '/services': typeof ServicesIndexRoute
+  '/settings/preferences': typeof SettingsPreferencesIndexRoute
   '/team/members': typeof TeamMembersIndexRoute
   '/team/schedules': typeof TeamSchedulesIndexRoute
 }
@@ -52,6 +60,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/appointments/table': typeof AppointmentsTableRoute
   '/services': typeof ServicesIndexRoute
+  '/settings/preferences': typeof SettingsPreferencesIndexRoute
   '/team/members': typeof TeamMembersIndexRoute
   '/team/schedules': typeof TeamSchedulesIndexRoute
 }
@@ -60,6 +69,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/appointments/table': typeof AppointmentsTableRoute
   '/services/': typeof ServicesIndexRoute
+  '/settings/preferences/': typeof SettingsPreferencesIndexRoute
   '/team/members/': typeof TeamMembersIndexRoute
   '/team/schedules/': typeof TeamSchedulesIndexRoute
 }
@@ -69,6 +79,7 @@ export interface FileRouteTypes {
     | '/'
     | '/appointments/table'
     | '/services'
+    | '/settings/preferences'
     | '/team/members'
     | '/team/schedules'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/appointments/table'
     | '/services'
+    | '/settings/preferences'
     | '/team/members'
     | '/team/schedules'
   id:
@@ -83,6 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/appointments/table'
     | '/services/'
+    | '/settings/preferences/'
     | '/team/members/'
     | '/team/schedules/'
   fileRoutesById: FileRoutesById
@@ -91,6 +104,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppointmentsTableRoute: typeof AppointmentsTableRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
+  SettingsPreferencesIndexRoute: typeof SettingsPreferencesIndexRoute
   TeamMembersIndexRoute: typeof TeamMembersIndexRoute
   TeamSchedulesIndexRoute: typeof TeamSchedulesIndexRoute
 }
@@ -132,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamMembersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings/preferences/': {
+      id: '/settings/preferences/'
+      path: '/settings/preferences'
+      fullPath: '/settings/preferences'
+      preLoaderRoute: typeof SettingsPreferencesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -139,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppointmentsTableRoute: AppointmentsTableRoute,
   ServicesIndexRoute: ServicesIndexRoute,
+  SettingsPreferencesIndexRoute: SettingsPreferencesIndexRoute,
   TeamMembersIndexRoute: TeamMembersIndexRoute,
   TeamSchedulesIndexRoute: TeamSchedulesIndexRoute,
 }

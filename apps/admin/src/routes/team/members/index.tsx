@@ -2,12 +2,12 @@ import { type Staff, useStaffActions, useStaffs } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
-import { config } from "@novahair/utils";
+ import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AdminMain } from "~/app/layouts/admin-main";
 import { StaffForm } from "~/features/staff/ui/form";
 import { StaffTable } from "~/features/staff/ui/table";
 

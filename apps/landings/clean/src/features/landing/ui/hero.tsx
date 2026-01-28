@@ -11,7 +11,7 @@ export const Hero = () => {
 
 				<Title />
 				<strong className="text-center text-foreground/70 text-xl px-6 md:text-2xl text-balance animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000">
-					{t("hero.subtitle")}
+					{t("hero_description")}
 				</strong>
 			</header>
 

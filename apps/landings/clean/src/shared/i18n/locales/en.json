@@ -1,7 +1,8 @@
 {
 	"elige_servicio": "Choose a service",
 	"home": "Home",
-	"profile": "Profile",
+	"hero_description": "Book your appointment online in a few clicks",
+ 	"profile": "Profile",
 	"name": "Name",
 	"go_back_home": "Go back home",
 	"email": "Email",
@@ -11,7 +12,6 @@
 	"team": "Team",
 	"check_availability": "Check availability",
 	"we_sent_email_confirmation": "We have sent a confirmation email to {{email}}",
-	"preferences": "Preferences",
 	"start": "Start",
 	"to": "to",
 	"end": "End",

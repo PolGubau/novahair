@@ -7,7 +7,7 @@ import {
 import { Drawer, IconButton } from "@novahair/ui";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "@novahair/ui/layouts/admin/admin-main";
+import { AdminMain } from "~/app/layouts/admin-main";
 import { Loader } from "@novahair/ui/loader";
 import { config, type ISODate } from "@novahair/utils";
 import { useQueries } from "@tanstack/react-query";

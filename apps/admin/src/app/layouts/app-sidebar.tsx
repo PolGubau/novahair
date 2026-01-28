@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import {
 	Database,
 	GalleryVerticalEnd,
+	Settings,
 	SlidersHorizontal,
 	Users,
 } from "lucide-react";
@@ -14,9 +15,11 @@ import {
 	SidebarFooter,
 	SidebarHeader,
 	SidebarRail,
-} from "../../sidebar";
+	useSidebar,
+} from "@novahair/ui";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
+import { cn } from "@novahair/utils";
 
 export type Team = {
 	name: string;
@@ -58,6 +61,7 @@ const data: SidebarMenuConfig = {
 		},
 	],
 	navMain: [
+	 
 		{
 			title: "management",
 			icon: SlidersHorizontal,
@@ -93,12 +97,23 @@ const data: SidebarMenuConfig = {
 				},
 			],
 		},
+		{
+			title: "settings",
+			icon: Settings,
+			items: [
+				{
+					title: "preferences",
+					url: "/settings/preferences",
+				},
+			],
+		},
 	],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const [pathname, setPathname] = React.useState("");
 
+	const {open}=useSidebar()
 	React.useEffect(() => {
 		if (typeof window !== "undefined") {
 			setPathname(window.location.pathname);
@@ -115,7 +130,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 		<Sidebar collapsible="icon" variant="sidebar" {...props}>
 			<SidebarHeader>
 				<Link to="/">
-					<div className="size-6 bg-foreground rounded-full flex justify-center items-center text-background">
+					<div className={cn("size-6 transition-all bg-foreground rounded-full flex justify-center items-center text-background", {
+						"md:mx-2 ":open
+					})}>
 						N
 					</div>
 				</Link>

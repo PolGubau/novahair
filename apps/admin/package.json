@@ -3,6 +3,8 @@
 	"description": "Admin panel for Novahair",
 	"private": true,
 	"type": "module",
+	"version": "0.0.1",
+	"displayName": "NovaHair Admin",
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",

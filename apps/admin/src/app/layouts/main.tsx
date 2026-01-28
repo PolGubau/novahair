@@ -1,5 +1,5 @@
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
-import { AppSidebar } from "@novahair/ui/layouts/admin/app-sidebar";
+import { AppSidebar } from "./app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@novahair/ui/sidebar";
 import type { PropsWithChildren } from "react";
 

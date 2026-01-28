@@ -1,18 +1,16 @@
 "use client";
 
-import { ChevronsUpDown, Plus } from "lucide-react";
-import * as React from "react";
-import { Button } from "../../button";
 import {
-	DropdownMenu,
+	Button, DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
-	DropdownMenuTrigger,
-} from "../../dropdown-menu";
-import { SidebarMenu, SidebarMenuItem, useSidebar } from "../../sidebar";
+	DropdownMenuTrigger, SidebarMenu, SidebarMenuItem, useSidebar
+} from "@novahair/ui";
+import { ChevronsUpDown, Plus } from "lucide-react";
+import * as React from "react";
 
 export function TeamSwitcher({
 	teams,

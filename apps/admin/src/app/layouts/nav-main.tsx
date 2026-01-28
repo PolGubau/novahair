@@ -1,28 +1,23 @@
 "use client";
 
-import { cn } from "@novahair/utils";
-import { Link } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
-import { ChevronRight } from "lucide-react";
-import { Button } from "../../button";
 import {
-	Collapsible,
+	Button, Collapsible,
 	CollapsibleContent,
-	CollapsibleTrigger,
-} from "../../collapsible";
-import {
-	SidebarGroup,
-	SidebarGroupLabel,
-	SidebarMenu,
+	CollapsibleTrigger, SidebarGroup, SidebarMenu,
 	SidebarMenuItem,
 	SidebarMenuSub,
 	SidebarMenuSubItem,
-	useSidebar,
-} from "../../sidebar";
+	Tooltip,
+	useSidebar
+} from "@novahair/ui";
+import { cn } from "@novahair/utils";
+import { Link } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { NavMainItem } from "./app-sidebar";
 
 export function NavMain({ items }: { items: NavMainItem[] }) {
-	const { state } = useSidebar();
+	const { state,open,setOpen } = useSidebar();
 	const { t } = useTranslation();
 	return (
 		<SidebarGroup>
@@ -37,10 +32,12 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 					>
 						<SidebarMenuItem>
 							<CollapsibleTrigger asChild>
-								<Button variant="ghost" className="peer/menu-button w-full">
+								<Button variant="ghost" className="peer/menu-button w-full" onClick={()=>!open && setOpen(true)}>
 									<span className={cn({ "pl-1.5": state === "collapsed" })}>
+									<Tooltip label={t(item.title)} disabled={state !== "collapsed"}>
 										<item.icon />
-									</span>
+									</Tooltip>
+										</span>
 									<span
 										className={cn("w-fit transition-all", {
 											" opacity-50 w-0": state === "collapsed",
