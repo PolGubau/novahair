@@ -26,6 +26,10 @@
 			"types": "./src/i18n/*.ts",
 			"default": "./src/i18n/*.ts"
 		},
+		"./providers/*": {
+			"types": "./src/providers/*.ts",
+			"default": "./src/providers/*.ts"
+		},
 		"./constants": {
 			"types": "./src/constants.ts",
 			"default": "./src/constants.ts"

@@ -1,21 +1,15 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
-import { queryClientDefaultOptions } from "@novahair/utils";
-import "@novahair/utils/i18n/setup";
-import i18n from "@novahair/utils/i18n/setup";
-import {
-	type DefaultOptions,
-	QueryClient,
-	QueryClientProvider,
-} from "@tanstack/react-query";
+import { RootProvider } from "@novahair/utils";
+ import i18n from "@novahair/utils/i18n/setup";
 import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
+	useRouter,
 } from "@tanstack/react-router";
 import { t } from "i18next";
-import { useMemo } from "react";
 import { z } from "zod";
 import { MainLayout } from "~/app/layouts/main";
 import { TenantGuard } from "~/shared/tenant";
@@ -97,30 +91,22 @@ export const Route = createRootRouteWithContext()({
 });
 
 function NotFound() {
-	;
 	return <div>{t("not_found")}</div>;
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const queryClient = useMemo(
-		() =>
-			new QueryClient({
-				defaultOptions: queryClientDefaultOptions as DefaultOptions,
-			}),
-		[],
-	);
-
+	const router=useRouter()
 	return (
 		<html lang={i18n.language}>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				<QueryClientProvider client={queryClient}>
+				<RootProvider onChangedLanguage={() => router.invalidate()}>
 					<TenantGuard>
 						<MainLayout>{children}</MainLayout>
 					</TenantGuard>
-				</QueryClientProvider>
+				</RootProvider>
 				<Devtools />
 				<Scripts />
 			</body>

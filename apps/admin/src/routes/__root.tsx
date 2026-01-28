@@ -1,22 +1,19 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
-import { queryClientDefaultOptions } from "@novahair/utils";
+import { RootProvider } from "@novahair/utils";
 import i18n from "@novahair/utils/i18n/setup";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 	useRouter,
 } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { MainLayout } from "~/app/layouts/main";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
 import appCss from "../styles.css?url";
-export const Route = createRootRouteWithContext<{
-	queryClient: QueryClient;
-}>()({
+export const Route = createRootRouteWithContext()({
 	ssr: false,
 	beforeLoad: async () => {
 		const language = await setSSRLanguage();
@@ -102,28 +99,10 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const router = useRouter();
-	useEffect(() => {
-		const handler = () => router.invalidate();
-		i18n.on("languageChanged", handler);
-		return () => i18n.off("languageChanged", handler);
-	}, [i18n, router]);
 
-	useEffect(() => {
-		const ssrLanguage = (window as any).__SSR_LANGUAGE__;
-		if (ssrLanguage && ssrLanguage !== i18n.language) {
-			i18n.changeLanguage(ssrLanguage);
-		}
-	}, []);
+	const router=useRouter()
 
-	// Create QueryClient with default configuration
-	const queryClient = useMemo(
-		() =>
-			new QueryClient({
-				defaultOptions: queryClientDefaultOptions,
-			}),
-		[],
-	);
+ 
 
 	return (
 		<html lang={i18n.language} suppressHydrationWarning>
@@ -131,9 +110,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<QueryClientProvider client={queryClient}>
-					<MainLayout>{children}</MainLayout>
-				</QueryClientProvider>
+				<RootProvider onChangedLanguage={() => router.invalidate()}>
+				<MainLayout>{children}</MainLayout>
+				</RootProvider>
 				<Devtools />
 				<Scripts />
 			</body>

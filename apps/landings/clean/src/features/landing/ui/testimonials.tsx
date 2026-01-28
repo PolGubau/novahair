@@ -1,9 +1,8 @@
 import { cn } from "@novahair/utils/lib/cn";
-import Avatar from "boring-avatars";
-import { t } from "i18next";
+ import { t } from "i18next";
 import { type Testimonial, testimonials } from "~/data/testimonials";
 import { Marquee } from "~/shared/ui/marquee";
-
+import { Avatar } from "@novahair/ui";
 export const TestimonialCard = ({
 	testimonial,
 }: {
@@ -27,7 +26,7 @@ export const TestimonialCard = ({
 						src={testimonial.src}
 					/>
 				) : (
-					<Avatar size={32} name={testimonial.name} variant="beam" />
+						<Avatar alt={testimonial.name} src={ testimonial.name} />
 				)}
 				<div className="flex flex-col">
 					<figcaption className="text-lg text-foreground/90">

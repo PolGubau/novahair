@@ -15,8 +15,7 @@ export const getRouter = () => {
 		defaultViewTransition: true,
 		context: { ...rqContext },
 		defaultPreload: "intent",
-		// Wrap removed since providers are now in RootDocument
-	});
+ 	});
 
 	setupRouterSsrQueryIntegration({
 		router,

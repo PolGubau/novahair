@@ -1,9 +1,10 @@
+import { useServices } from "@novahair/client";
+import { config } from "@novahair/utils";
 import { t } from "i18next";
-import { useServices } from "~/features/services/model/use-services";
-import { ServiceList } from "~/features/services/ui/list/list";
+ import { ServiceList } from "~/features/services/ui/list/list";
 
 export const Services = () => {
-	const { services, error, isLoading } = useServices();
+	const { services, error, isLoading } = useServices(config.tenantId);
 
 	// Si hay un error, no mostrar la sección
 	if (error || (!isLoading && services.length === 0)) {
