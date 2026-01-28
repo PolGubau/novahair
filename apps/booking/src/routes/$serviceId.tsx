@@ -1,7 +1,8 @@
 import { useAvailableDays } from "@novahair/client";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import i18n, { TranslationKey } from "@novahair/utils/i18n/setup";
+import { TranslationKey } from "@novahair/utils";
+import i18n from "@novahair/utils/i18n/setup";
 import { cn } from "@novahair/utils/lib/cn";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import confetti from "canvas-confetti";
