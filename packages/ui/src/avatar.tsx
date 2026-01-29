@@ -46,7 +46,7 @@ export function AvatarFallback({
 		<AvatarPrimitive.Fallback
 			data-slot="avatar-fallback"
 			className={cn(
-				"bg-background text-foreground flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs",
+				"bg-background text-foreground flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
 				className,
 			)}
 			{...props}
@@ -55,7 +55,7 @@ export function AvatarFallback({
 }
 
 export type AvatarComponent = AvatarRootProps & {
- 	src: string|undefined;
+ 	src: string|undefined|null;
 	alt: string;
 	imageProps?: AvatarImageProps
 	fallbackProps?: AvatarFallbackProps

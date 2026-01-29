@@ -2,10 +2,14 @@ import type { ISODate } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 import type { AvailabilityDay } from "../domain/day";
 import { availabilityRepository } from "../infra/repository";
+import { Staff } from "../../staff";
+import { Service } from "../../services";
+import { Tenant } from "../../tenants";
 
 type Props = {
-	tenantId: string;
-	serviceId: string;
+	tenantId: Tenant["id"];
+	serviceId: Service["id"];
+	staffId?: Staff["id"];
 	from: ISODate;
 	to: ISODate;
 };
@@ -22,9 +26,10 @@ export const useAvailableDays: UseAvailableDays = ({
 	serviceId,
 	from,
 	to,
+	staffId,
 }) => {
 	const { isLoading, error, data, refetch } = useQuery({
-		queryKey: ["available-days", serviceId, from, to, tenantId],
+		queryKey: ["available-days", serviceId, staffId, from, to, tenantId],
 		staleTime: 1000 * 60 * 5, // 5 minutes
 
 		queryFn: () => {
@@ -32,6 +37,7 @@ export const useAvailableDays: UseAvailableDays = ({
 				availabilityRepository.getDays(tenantId, {
 					serviceId,
 					from,
+					staffId,
 					to,
 				}) || []
 			);

@@ -86,9 +86,6 @@
   }
 }
 
-.side {
-  @apply flex gap-2 items-center;
-}
 
 ::view-transition-old(root), 
 ::view-transition-new(root) {

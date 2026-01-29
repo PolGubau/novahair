@@ -1,25 +1,17 @@
 import { useStaffs } from "@novahair/client";
 import { Avatar, Button } from "@novahair/ui";
 import { labelClasses } from "@novahair/ui/label";
+import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
-import { useNavigate } from "@tanstack/react-router";
 import { useTenantId } from "~/shared/tenant";
 
 type Props = {
 	serviceId: string;
 };
 
-export const StaffSelector = ({ serviceId }: Props) => {
+export const StaffChipSelector = ({ serviceId }: Props) => {
 	const tenantId = useTenantId();
 	const { staffs, isLoading } = useStaffs(tenantId);
-	const navigate = useNavigate();
-
-	const handleSelectStaff = (staffId: string) => {
-		navigate({
-			to: "/calendar",
-			search: { staffId, serviceId},
-		});
-	};
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -31,19 +23,20 @@ export const StaffSelector = ({ serviceId }: Props) => {
 			<ul className="flex flex-wrap gap-2">
 				{staffs.map((staff) => (
 					<li key={staff.id}>
+						<Link to="/calendar" search={{ staffId: staff.id, serviceId }}>
 						<Button
 							type="button"
 							variant="outline"
-							onClick={() => handleSelectStaff(staff.id)}
 							className="pl-2"
-						>
+							>
 							<Avatar
 								alt={staff.name ?? "Unknown"}
 								size="sm"
 								src={staff.avatarUrl ?? ""}
-							/>
+								/>
 							<span>{staff.name ?? t("unknown")}</span>
 						</Button>
+								</Link>
 					</li>
 				))}
 			</ul>

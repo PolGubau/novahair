@@ -7,13 +7,24 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { useId } from "react";
 import { inputTheme } from "./input";
 import { Label } from "./label";
+import { Spinner } from "./spinner";
 
 export type Option = { value: string; label: TranslationKey };
 
 export type SelectProps = Omit<
 	React.ComponentProps<typeof SelectPrimitive.Root>,
 	"children"
-> & {
+	> & {
+	classNames?: {
+ 		trigger?: string;
+		content?: string;
+			label?: string;
+		item?: string
+ 
+	};
+	size?: Sizes;
+	required?: boolean;
+	loading?: boolean;
 	id?: string;
 	label?: TranslationKey;
 	customOptionRender?: (option: Option) => React.ReactNode;
@@ -25,39 +36,59 @@ export type SelectProps = Omit<
 function Select({
 	label,
 	placeholder = "select_option",
-	options,
+	options=[],
+	classNames,loading,
 	...props
 }: SelectProps) {
 	const id = useId();
 
-	return (
-		<div className="flex flex-col gap-1">
-			{label && (
-				<Label htmlFor={id} label={t(label)} required={props.required} />
-			)}
 
+	if (loading || options.length === 0) {
+		return (
+			<WithField label={label} id={props.id || id} className={classNames?.label} required={props.required}>
+				<div className={cn(inputTheme,"flex justify-center")}>
+					<Spinner />
+				</div>
+			</WithField>
+		);
+	}
+
+	return (
+		<WithField label={label} id={props.id || id} className={classNames?.label} required={props.required}>
 			<SelectRoot data-slot="select" {...props} onValueChange={props.onChange}>
-				<SelectTrigger>
-					<SelectValue placeholder={t(placeholder)} />
+				<SelectTrigger className={classNames?.trigger}>
+					<SelectValue placeholder={t(placeholder)} /> 
 				</SelectTrigger>
-				<SelectContent>
+			 	<SelectContent className={classNames?.content}>
 					{options?.map((option) => (
-						<SelectItem key={option.value} value={option.value}>
+						<SelectItem key={option.value} value={option.value} className={classNames?.item}>
 							{props.customOptionRender
 								? props.customOptionRender(option)
 								: t(option.label)}
 						</SelectItem>
 					))}
 					{!options || options.length === 0 ? (
-						<SelectItem value="" disabled>
+						<SelectItem value="" disabled className={classNames?.item}>
 							{t("no_options")}
 						</SelectItem>
 					) : null}
-				</SelectContent>
-			</SelectRoot>
-		</div>
-	);
+				</SelectContent> 
+			</SelectRoot></WithField>
+ 	);
 }
+type WithFieldProps = Pick<SelectProps, "label" | "required"|"required" | "id" > & {
+	className?: string;
+};
+
+function WithField({ label, id, children, className,required }: React.PropsWithChildren<WithFieldProps>) {
+	return <div className="flex flex-col gap-1">
+	{label && (
+		<Label htmlFor={id} label={t(label)} required={required} className={className} />
+	)}
+{children}
+</div>
+}
+
 
 function SelectRoot({
 	...props

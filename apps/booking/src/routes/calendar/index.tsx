@@ -17,31 +17,38 @@ import {
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
+import { StaffSwitcher } from "~/features/staff/ui/switcher";
 import i18n from "~/shared/i18n/setup";
 import { useTenantId } from "~/shared/tenant";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 
 const searchSchema = z.object({
-	selectedDayISO: z.string().optional().nullable(),
+	selectedDayISO: z.string().optional(),
 	staffId: z.string().optional(),
 	serviceId: z.string(),
 });
+type SearchSchema = z.infer<typeof searchSchema>;
+type PartialSearchSchema = Partial<SearchSchema>;
 export const Route = createFileRoute("/calendar/")({
 	component: CalendarStep,
   validateSearch: zodValidator(searchSchema),
 });
-	function getLabelledDate(date: Date,locale?: string) {
-		return new Intl.DateTimeFormat(locale, {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			minute: "2-digit",
-		}).format(date);
-	}
+
+function getLabelledDate(date: Date,locale?: string) {
+	return new Intl.DateTimeFormat(locale, {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+	}).format(date);
+}
 
 function CalendarStep() {
-	const { staffId,serviceId } = Route.useSearch();
+	
+	const navigate = useNavigate({ from: Route.fullPath });
+
+	const { staffId,serviceId,selectedDayISO } = Route.useSearch();
 	const tenantId = useTenantId();
 	const {
 		goNextMonth,
@@ -57,11 +64,10 @@ function CalendarStep() {
 		serviceId,
 		tenantId,
 		from: startIso,
+		staffId,
 		to: endIso,
 	});
 
-	const { selectedDayISO } = Route.useSearch();
-	const navigate = useNavigate({ from: Route.fullPath });
 
 	const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
 	const [submittedEmail, setSubmittedEmail] = useState<string>("");
@@ -98,22 +104,22 @@ function CalendarStep() {
 
 	const parsedDate = selectedDay ? getLabelledDate(selectedDay,i18n.language) : "";
 
-	function updateParams(iso: string | null) {
+	function updateParams(params: PartialSearchSchema) {
 		navigate({
 			search: (old) => ({
 				...old,
-				selectedDayISO: iso,
+				...params,
 			}),
 		})
 	}
 
 	const handleCloseDialog = () => {
 		refetch();
-		updateParams(null);
+		updateParams({ selectedDayISO: undefined });
 		setIsSuccessfullySent(false);
 	}
 	function setSelectedDay(date: Date) {
-		updateParams(date.toISOString());
+		updateParams({ selectedDayISO: date.toISOString() });
 	}
 
 	return (
@@ -155,15 +161,20 @@ function CalendarStep() {
 			</Drawer>
 
 			<section className="h-full grid gap-2 md:gap-8">
-				<div className="md:hidden px-4">
-					<ServiceSwitcher />
+				<div className="md:hidden justify-end w-full px-4 flex gap-2">
+					<StaffSwitcher staffId={staffId} onSelect={(id) => updateParams({ staffId: id })} />
+					<ServiceSwitcher serviceId={serviceId} onSelect={(id) => updateParams({ serviceId: id })}/>
 				</div>
 				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">
 					<div className="text-2xl md:text-4xl xl:text-5xl first-letter:capitalize">
 						{formattedDate}
 					</div>
 
-					<CalendarNav
+					<CalendarNav 
+						staffId={staffId}
+						serviceId={serviceId}
+						setStaffId={(id) => updateParams({ staffId: id })}
+						setServiceId={(id) => updateParams({ serviceId: id })}
 						onPrev={goPreviousMonth}
 						onNext={goNextMonth}
 						showPrev={

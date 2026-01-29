@@ -1,5 +1,4 @@
 import { type Appointment, appointmentsRepository } from "@novahair/client";
-import { config } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTenantId } from "~/shared/tenant";

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
  import { z } from 'zod'
-import { StaffSelector } from '~/features/staff/ui/selector'
-
+import { StaffListSelector } from '~/features/staff/ui/list-selector'
+ 
 const paramsSchema = z.object({
   serviceId: z.string(),
 })
@@ -16,7 +16,7 @@ function RouteComponent() {
   const { serviceId } = Route.useSearch()
   return (
     <section className="flex flex-col gap-4 p-4">
-      <StaffSelector serviceId={serviceId} />
+      <StaffListSelector serviceId={serviceId} />
     </section>
   )
 }
