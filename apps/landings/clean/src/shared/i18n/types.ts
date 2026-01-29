@@ -6,14 +6,14 @@ declare module "i18next" {
 	interface CustomTypeOptions {
 		defaultNS: typeof defaultNS;
 		resources: {
-			common: typeof commonEn;
+			translation: typeof commonEn.translation;
 		};
 	}
 }
 
-export type TranslationKey = keyof typeof commonEn;
+export type TranslationKey = keyof typeof commonEn.translation;
 
-const keys = Object.keys(commonEn) as (keyof typeof commonEn)[];
+const keys = Object.keys(commonEn.translation) as (keyof typeof commonEn.translation)[];
 export const translationKeys = keys.reduce(
 	(acc, key) => {
 		acc[key] = key;

@@ -13,7 +13,7 @@ import { usePreloader } from "~/features/preloader/ui/model/use-preloader";
 import { Preloader } from "~/features/preloader/ui/preloader";
 import { SquiCircleFilterLayout } from "~/shared/ui/squicircle";
 import appCss from "../styles.css?url";
-import i18n from "@novahair/utils/i18n/setup";
+import i18n from "~/shared/i18n/setup";
 
 
 export const Route = createRootRouteWithContext()({

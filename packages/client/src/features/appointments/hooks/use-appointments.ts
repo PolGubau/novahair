@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { appointmentsRepository } from "../infra/repository";
+import { ISODate } from "@novahair/utils";
 
 export const useAppointments = (
 	tenantId: string,
-	params?: { from?: string; to?: string },
+	params?: { from?: ISODate; to?: ISODate, tenantId?: string },
 ) => {
 	const { isLoading, error, data, refetch } = useQuery({
 		queryKey: ["appointments", tenantId, params],

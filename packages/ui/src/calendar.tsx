@@ -7,10 +7,9 @@ import {
   type DayButton,
 } from "react-day-picker"
 
-import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from "lucide-react"
 import { cn } from "@novahair/utils"
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { Button, buttonVariants } from "./button"
-import { IconButton } from "./icon-button"
 
 export function Calendar({
   className,

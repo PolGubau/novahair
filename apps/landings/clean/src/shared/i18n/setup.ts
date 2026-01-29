@@ -8,10 +8,10 @@ import commonEs from "./locales/es.json";
 
 export const resources = {
 	en: {
-		common: commonEn,
+		translation: commonEn.translation,
 	},
 	es: {
-		common: commonEs,
+		translation: commonEs.translation,
 	},
 } as const;
 
