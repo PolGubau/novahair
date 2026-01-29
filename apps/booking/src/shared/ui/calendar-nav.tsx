@@ -12,7 +12,7 @@ type CalendarNavProps = {
 	prevLabel?: string;
 	nextLabel?: string;
 	staffId?: Staff["id"];
-	setStaffId: (id: Staff["id"]) => void;
+	setStaffId: (id?: Staff["id"]) => void;
 	setServiceId: (id: Service["id"]) => void;
 	serviceId: Service["id"];
 };

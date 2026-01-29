@@ -2,7 +2,6 @@ import { useStaffs } from "@novahair/client";
 import { Avatar } from "@novahair/ui";
 import { Select } from "@novahair/ui/select";
 import type { TranslationKey } from "@novahair/utils/i18n/types";
-import { t } from "i18next";
 
 
 type Props = {
