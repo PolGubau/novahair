@@ -1,4 +1,4 @@
-import { useServices, useStaffs } from "@novahair/client";
+import { appointmentsRepository, CreateAppointmentDto, useServices, useStaffs } from "@novahair/client";
 import { Button } from "@novahair/ui/button";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { Input } from "@novahair/ui/input";
@@ -10,8 +10,7 @@ import type { TranslationKey } from "@novahair/utils/i18n/types";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import type { SummarizedAppointment } from "../domain/summarized-appointments";
-import { appointmentRepository } from "../infra/repository";
-
+ 
 export const AppointmentCreationForm = ({
 	appointment,
 	onClose,
@@ -77,7 +76,8 @@ export const AppointmentCreationForm = ({
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const newAppointment = {
+		const newAppointment: CreateAppointmentDto = {
+			tenantId: config.tenantId,
 			customer: {
 				email: customerEmail,
 				name: customerName,
@@ -85,12 +85,12 @@ export const AppointmentCreationForm = ({
 			},
 			notes,
 			serviceId,
-			staffId: staffId || undefined,
+			staffId: staffId || null,
 			startsAt,
 		};
 
 		try {
-			await appointmentRepository.create(newAppointment);
+			await appointmentsRepository.create(config.tenantId,newAppointment);
 			onClose?.();
 			window.location.reload();
 		} catch (error) {

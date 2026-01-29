@@ -1,4 +1,4 @@
-import { buildApiUrl, genericFetch } from "@novahair/utils";
+import { buildApiUrl, genericFetch, ISODate } from "@novahair/utils";
 import { toAppointment } from "../../..";
 import type {
 	AppointmentDto,
@@ -10,7 +10,7 @@ import type { Appointment } from "../domain/appointment";
 export type AppointmentsRepository = {
 	list: (
 		tenantId: string,
-		params?: { from?: string; to?: string },
+		params?: { from?: ISODate; to?: ISODate },
 	) => Promise<Appointment[]>;
 	get: (tenantId: string, id: string) => Promise<Appointment>;
 	create: (

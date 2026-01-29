@@ -5,7 +5,7 @@
 export const queryKeys = {
 	appointments: {
 		all: ["appointments"] as const,
-		list: (params: { from: string; to: string }) =>
+		list: (params: { from: string; to: string; tenantId: string }) =>
 			[...queryKeys.appointments.all, params] as const,
 	},
 	services: {

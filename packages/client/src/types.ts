@@ -107,7 +107,7 @@ export type CreateAppointmentDto = {
 		phone: string;
 	};
 	startsAt: string;
-	notes: string;
+	notes?: string
 };
 
 export type UpdateAppointmentStatusDto = {

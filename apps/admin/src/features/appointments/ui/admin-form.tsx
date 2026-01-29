@@ -16,7 +16,7 @@ export const AppointmentAdminForm = () => {
 	const { t } = useTranslation();
 	const tenantId = config.tenantId;
 	const { appointments, isLoading, refetch, to, setTo, from, setFrom } =
-		useAppointments();
+		useAppointments(config.tenantId);
 
 	const [staffId, setStaffId] = useState<string | undefined>(undefined);
 	

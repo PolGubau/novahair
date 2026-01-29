@@ -1,10 +1,10 @@
+import { Appointment } from "@novahair/client";
 import { PhoneCell, StaffChip } from "@novahair/ui";
 import { DataTable } from "@novahair/ui/data-table/data-table";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import type { Appointment } from "../domain/appointment";
 
 function formatDate(dateString: string) {
 	const formatOptions: Intl.DateTimeFormatOptions = {
@@ -37,7 +37,7 @@ export const AppointmentTable = ({
 }) => {
 	const { t } = useTranslation();
 	const columns = [
-		columnHelper.accessor("startsAt", {
+		columnHelper.accessor("startAt", {
 			cell: (info) => formatDate(info.getValue()),
 			header: () => <span>{t("date")}</span>,
 			id: "date",
@@ -45,7 +45,7 @@ export const AppointmentTable = ({
 				filterVariant: "date",
 			},
 		}),
-		columnHelper.accessor("startsAt", {
+		columnHelper.accessor("startAt", {
 			cell: (info) => formatTime(info.getValue()),
 			header: () => <span>{t("time")}</span>,
 			id: "time",
