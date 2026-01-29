@@ -62,27 +62,17 @@ export const AppointmentAdminForm = () => {
 				</div>
 				<div className="side">
 				<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
+				
 					<DateRangeInput
-						from={new Date(from)}
-						to={new Date(to)}
- 						onChange={({ from, to }) => {
-							setFrom(toISODate(from));
-							setTo(toISODate(to));
-						}} />
+					from={new Date(from)}
+					to={new Date(to)}
+					onChange={({ from, to }) => {
+						setFrom(toISODate(from));
+						setTo(toISODate(to));
+						}}
+					/>
 					
-					<Input
-						max={new Date(to).toISOString().split("T")[0]}
-						onChange={(e) => setFrom(toISODate(new Date(e.target.value)))}
-						type="date"
-						value={new Date(from).toISOString().split("T")[0]}
-					/>
-					<span className="mx-1">-</span>
-					<Input
-						min={new Date(from).toISOString().split("T")[0]}
-						onChange={(e) => setTo(toISODate(new Date(e.target.value)))}
-						type="date"
-						value={new Date(to).toISOString().split("T")[0]}
-					/>
+					 
 				</div>
 			</nav>
 			<AppointmentTable appointments={appointments} isLoading={isLoading} />
