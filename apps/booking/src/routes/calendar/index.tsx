@@ -2,32 +2,33 @@ import { useAvailableDays } from "@novahair/client";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { TranslationKey } from "@novahair/utils";
- import { cn } from "@novahair/utils/lib/cn";
+import { cn } from "@novahair/utils/lib/cn";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { zodValidator } from '@tanstack/zod-adapter';
 import confetti from "canvas-confetti";
 import { t } from "i18next";
 import { useState } from "react";
 import { z } from "zod";
 import { useCalendarTimes } from "~/features/appointment-form/hooks/use-calendar-times";
-import { useFormValues } from "~/features/appointment-form/hooks/use-form-values";
 import { Calendar, cellStyles } from "~/features/appointment-form/ui/calendar";
 import {
-	AppointmentForm,
-	type FormValue,
+	AppointmentForm
 } from "~/features/appointment-form/ui/form/form";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
 import { ServiceSwitcher } from "~/features/services/ui/switcher";
 import i18n from "~/shared/i18n/setup";
- import { useTenantId } from "~/shared/tenant";
+import { useTenantId } from "~/shared/tenant";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 
-const SearchSchema = z.object({
+const searchSchema = z.object({
 	selectedDayISO: z.string().optional().nullable(),
+	staffId: z.string().optional(),
+	serviceId: z.string(),
 });
-export const Route = createFileRoute("/$serviceId")({
+export const Route = createFileRoute("/calendar/")({
 	component: CalendarStep,
-	validateSearch: (search) => SearchSchema.parse(search),
+  validateSearch: zodValidator(searchSchema),
 });
 	function getLabelledDate(date: Date,locale?: string) {
 		return new Intl.DateTimeFormat(locale, {
@@ -40,7 +41,7 @@ export const Route = createFileRoute("/$serviceId")({
 	}
 
 function CalendarStep() {
-	const serviceId = Route.useParams().serviceId;
+	const { staffId,serviceId } = Route.useSearch();
 	const tenantId = useTenantId();
 	const {
 		goNextMonth,
@@ -63,7 +64,7 @@ function CalendarStep() {
 	const navigate = useNavigate({ from: Route.fullPath });
 
 	const [isSuccessfullySent, setIsSuccessfullySent] = useState(false);
-	const { fields } = useFormValues<FormValue>();
+	const [submittedEmail, setSubmittedEmail] = useState<string>("");
 
 	const triggerConfetti = () => {
 		const end = Date.now() + 1 * 1000; // 1 second
@@ -77,7 +78,7 @@ function CalendarStep() {
 				startVelocity: 60,
 				origin: { x: 0, y: 0.5 },
 				colors: colors,
-			});
+			})
 			confetti({
 				particleCount: 2,
 				angle: 120,
@@ -85,11 +86,11 @@ function CalendarStep() {
 				startVelocity: 60,
 				origin: { x: 1, y: 0.5 },
 				colors: colors,
-			});
+			})
 			requestAnimationFrame(frame);
-		};
+		}
 		frame();
-	};
+	}
 
 	if (error) return `An error has occurred: ${error.message}`;
 	const selectedDay = selectedDayISO ? new Date(selectedDayISO) : null;
@@ -103,14 +104,14 @@ function CalendarStep() {
 				...old,
 				selectedDayISO: iso,
 			}),
-		});
+		})
 	}
 
 	const handleCloseDialog = () => {
 		refetch();
 		updateParams(null);
 		setIsSuccessfullySent(false);
-	};
+	}
 	function setSelectedDay(date: Date) {
 		updateParams(date.toISOString());
 	}
@@ -135,16 +136,18 @@ function CalendarStep() {
 						selectedDay && (
 							<AppointmentForm
 								date={selectedDay}
-								onSuccess={() => {
-									triggerConfetti();
+								initialStaffId={staffId}
+								onSuccess={({ email }) => {
+									triggerConfetti()
 									setIsSuccessfullySent(true);
+									setSubmittedEmail(email)
 								}}
 							/>
 						)
 					) : (
 						<SuccessAppointment
 							date={parsedDate}
-							email={fields.email}
+							email={submittedEmail}
 							onCloseDialog={handleCloseDialog}
 						/>
 					)}
@@ -170,7 +173,7 @@ function CalendarStep() {
 								return (
 									year > today.getFullYear() ||
 									(year === today.getFullYear() && month > today.getMonth())
-								);
+								)
 							})()
 						}
 					/>
@@ -203,5 +206,5 @@ function CalendarStep() {
 				</ul>
 			</section>
 		</main>
-	);
+	)
 }

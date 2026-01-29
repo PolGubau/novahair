@@ -19,10 +19,10 @@ type UseAppointments = () => Response;
 export const useAppointments: UseAppointments = () => {
 	const [from, setFrom] = useState<string>(new Date().toISOString());
 
-	// default -> two months from now
+	// to is last second of today (one day)
 	const [to, setTo] = useState<string>(() => {
 		const date = new Date();
-		date.setMonth(date.getMonth() + 2);
+		date.setHours(23, 59, 59, 999);
 		return date.toISOString();
 	});
 

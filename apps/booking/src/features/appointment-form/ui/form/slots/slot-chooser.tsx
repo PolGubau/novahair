@@ -2,7 +2,7 @@ import { type AvailabilitySlot, useSlots } from "@novahair/client";
 import { labelClasses } from "@novahair/ui/label";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { t } from "i18next";
-import { Route } from "~/routes/$serviceId";
+import { Route } from "~/routes/calendar";
 import { useTenantId } from "~/shared/tenant";
 import { SlotList } from "./list";
 import { SlotListSkeleton } from "./list-skeleton";
@@ -19,7 +19,7 @@ export const SlotChooser = ({
 	selectedSlot,
 	onChange,
 }: SlotChooserProps) => {
-	const serviceId = Route.useParams().serviceId;
+	const serviceId = Route.useSearch().serviceId;
 	const tenantId = useTenantId();
 	const { isLoading, error, slots } = useSlots({
 		serviceId,

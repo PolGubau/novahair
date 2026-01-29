@@ -17,6 +17,8 @@ export const AppointmentAdminForm = () => {
 	const [isFormOpened, setIsFormOpened] = useState(false);
 	const [editing, setEditing] = useState<SummarizedAppointment | null>(null);
 
+  
+
 	const openCreate = () => {
 		setEditing(null);
 		setIsFormOpened(true);
@@ -38,7 +40,7 @@ export const AppointmentAdminForm = () => {
 					}}
 				/>
 			</Drawer>
-			<nav className="side justify-between">
+			<nav className="flex gap-2 sm:justify-between max-sm:flex-col">
 				<div className="side">
 					<Button onClick={openCreate}>
 						<Plus />
@@ -59,7 +61,7 @@ export const AppointmentAdminForm = () => {
 						type="date"
 						value={new Date(from).toISOString().split("T")[0]}
 					/>
-					<span className="mx-2">-</span>
+					<span className="mx-1">-</span>
 					<Input
 						min={new Date(from).toISOString().split("T")[0]}
 						onChange={(e) => setTo(new Date(e.target.value).toISOString())}

@@ -10,7 +10,7 @@ import { useTenantId } from "~/shared/tenant";
 
 type Params = {
 	serviceId: string;
-	onSuccess?: () => void;
+	onSuccess?: (email: string) => void;
 	staffId: string | null;
 };
 type UseSubmitAppointmentResult = {
@@ -37,9 +37,9 @@ export const useSubmitAppointment = (
 
 	const mutation = useMutation<Appointment, Error, CreateAppointment>({
 		mutationFn: (props) => appointmentsRepository.create(tenantId, props),
-		onSuccess() {
+		onSuccess(data, variables) {
 			setIsSuccess(true);
-			params?.onSuccess?.();
+			params?.onSuccess?.(variables.customer.email);
 		},
 		onError() {
 			setIsSuccess(false);

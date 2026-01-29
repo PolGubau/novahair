@@ -9,72 +9,68 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ChooseServiceRouteImport } from './routes/choose-service'
-import { Route as ServiceIdRouteImport } from './routes/$serviceId'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChooseStaffIndexRouteImport } from './routes/choose-staff/index'
+import { Route as ChooseServiceIndexRouteImport } from './routes/choose-service/index'
+import { Route as CalendarIndexRouteImport } from './routes/calendar/index'
 
-const ChooseServiceRoute = ChooseServiceRouteImport.update({
-  id: '/choose-service',
-  path: '/choose-service',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServiceIdRoute = ServiceIdRouteImport.update({
-  id: '/$serviceId',
-  path: '/$serviceId',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChooseStaffIndexRoute = ChooseStaffIndexRouteImport.update({
+  id: '/choose-staff/',
+  path: '/choose-staff/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChooseServiceIndexRoute = ChooseServiceIndexRouteImport.update({
+  id: '/choose-service/',
+  path: '/choose-service/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarIndexRoute = CalendarIndexRouteImport.update({
+  id: '/calendar/',
+  path: '/calendar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$serviceId': typeof ServiceIdRoute
-  '/choose-service': typeof ChooseServiceRoute
+  '/calendar': typeof CalendarIndexRoute
+  '/choose-service': typeof ChooseServiceIndexRoute
+  '/choose-staff': typeof ChooseStaffIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/$serviceId': typeof ServiceIdRoute
-  '/choose-service': typeof ChooseServiceRoute
+  '/calendar': typeof CalendarIndexRoute
+  '/choose-service': typeof ChooseServiceIndexRoute
+  '/choose-staff': typeof ChooseStaffIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/$serviceId': typeof ServiceIdRoute
-  '/choose-service': typeof ChooseServiceRoute
+  '/calendar/': typeof CalendarIndexRoute
+  '/choose-service/': typeof ChooseServiceIndexRoute
+  '/choose-staff/': typeof ChooseStaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$serviceId' | '/choose-service'
+  fullPaths: '/' | '/calendar' | '/choose-service' | '/choose-staff'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$serviceId' | '/choose-service'
-  id: '__root__' | '/' | '/$serviceId' | '/choose-service'
+  to: '/' | '/calendar' | '/choose-service' | '/choose-staff'
+  id: '__root__' | '/' | '/calendar/' | '/choose-service/' | '/choose-staff/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ServiceIdRoute: typeof ServiceIdRoute
-  ChooseServiceRoute: typeof ChooseServiceRoute
+  CalendarIndexRoute: typeof CalendarIndexRoute
+  ChooseServiceIndexRoute: typeof ChooseServiceIndexRoute
+  ChooseStaffIndexRoute: typeof ChooseStaffIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/choose-service': {
-      id: '/choose-service'
-      path: '/choose-service'
-      fullPath: '/choose-service'
-      preLoaderRoute: typeof ChooseServiceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$serviceId': {
-      id: '/$serviceId'
-      path: '/$serviceId'
-      fullPath: '/$serviceId'
-      preLoaderRoute: typeof ServiceIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/choose-staff/': {
+      id: '/choose-staff/'
+      path: '/choose-staff'
+      fullPath: '/choose-staff'
+      preLoaderRoute: typeof ChooseStaffIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/choose-service/': {
+      id: '/choose-service/'
+      path: '/choose-service'
+      fullPath: '/choose-service'
+      preLoaderRoute: typeof ChooseServiceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/': {
+      id: '/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ServiceIdRoute: ServiceIdRoute,
-  ChooseServiceRoute: ChooseServiceRoute,
+  CalendarIndexRoute: CalendarIndexRoute,
+  ChooseServiceIndexRoute: ChooseServiceIndexRoute,
+  ChooseStaffIndexRoute: ChooseStaffIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

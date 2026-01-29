@@ -1,22 +1,21 @@
 import { useServices } from "@novahair/client";
 import { Select } from "@novahair/ui/select";
-import { config } from "@novahair/utils";
 import type { TranslationKey } from "@novahair/utils/i18n/types";
 
 import { useNavigate } from "@tanstack/react-router";
-import { Route } from "~/routes/$serviceId";
+import { Route } from "~/routes/calendar";
 import { useTenant } from "~/shared/tenant";
 
 export const ServiceSwitcher = () => {
-	const navigate = useNavigate({ from: "/$serviceId" });
+	const navigate = useNavigate({ from: "/calendar" });
 	const { tenantId } = useTenant();
 
 	const { services } = useServices(tenantId || "");
-	const selectedServiceId = Route.useParams().serviceId;
+	const selectedServiceId = Route.useSearch().serviceId;
 
 	const handleChange = (value: string) => {
 		const newServiceId = value;
-		navigate({ to: `/${newServiceId}` });
+		navigate({ to: "/calendar", search: { serviceId: newServiceId } });
 	};
 
 	// Filter out services without valid IDs to prevent Radix UI Select errors

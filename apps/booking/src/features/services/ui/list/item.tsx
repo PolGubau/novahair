@@ -30,8 +30,8 @@ export const ServiceItem = ({ service }: Props) => {
 
 				<nav className="flex">
 					<Link
-						to="/$serviceId"
-						params={{ serviceId: service.id }}
+						to="/choose-staff"
+						search={{ serviceId: service.id }}
 						className="mt-2"
 					>
 						<Button>

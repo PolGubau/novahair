@@ -26,7 +26,7 @@ export interface PopoverProps extends Omit<P.PopoverContentProps, "content"> {
 	label?: string;
 	arrowClassName?: string;
 	disabled?: boolean;
-	title: TranslationKey;
+	title?: TranslationKey;
 	description?: TranslationKey;
 }
 export const Popover = ({

@@ -9,14 +9,22 @@ import type { Appointment } from "../domain/appointment";
 function formatDate(dateString: string) {
 	const formatOptions: Intl.DateTimeFormatOptions = {
 		day: "2-digit",
-		hour: "2-digit",
-		minute: "2-digit",
 		month: "2-digit",
 		year: "numeric",
 	};
 	const date = new Date(dateString);
 	return date.toLocaleString(undefined, formatOptions);
 }
+
+function formatTime(dateString: string) {
+	const formatOptions: Intl.DateTimeFormatOptions = {
+		hour: "2-digit",
+		minute: "2-digit",
+	};
+	const date = new Date(dateString);
+	return date.toLocaleString(undefined, formatOptions);
+}
+
 
 const columnHelper = createColumnHelper<Appointment>();
 
@@ -32,15 +40,30 @@ export const AppointmentTable = ({
 		columnHelper.accessor("startsAt", {
 			cell: (info) => formatDate(info.getValue()),
 			header: () => <span>{t("date")}</span>,
-			id: "startsAt",
+			id: "date",
 			meta: {
 				filterVariant: "date",
 			},
 		}),
-		columnHelper.accessor("service.name", {
+		columnHelper.accessor("startsAt", {
+			cell: (info) => formatTime(info.getValue()),
+			header: () => <span>{t("time")}</span>,
+			id: "time",
+			meta: {
+				filterVariant: "date",
+			},
+		}),
+
+		columnHelper.accessor("customer.name", {
 			cell: (info) => info.getValue(),
-			header: () => <span>{t("service")}</span>,
-			id: "serviceName",
+			header: () => <span>{t("customer_name")}</span>,
+			id: "customerName",
+		}),
+ 
+		columnHelper.accessor("customer.phone", {
+			cell: ({ row }) => <PhoneCell phone={row.original.customer.phone} />,
+			header: () => <span>{t("customer_phone")}</span>,
+			id: "customerPhone",
 		}),
 		columnHelper.accessor("staff.name", {
 			cell: (info) => (
@@ -49,23 +72,13 @@ export const AppointmentTable = ({
 					name={info.getValue()}
 				/>
 			),
-			header: () => <span>{t("name")}</span>,
+			header: () => <span>{t("staff_name")}</span>,
 			id: "staffName",
 		}),
-		columnHelper.accessor("customer.name", {
+		columnHelper.accessor("service.name", {
 			cell: (info) => info.getValue(),
-			header: () => <span>{t("name")}</span>,
-			id: "customerName",
-		}),
-		columnHelper.accessor("customer.email", {
-			cell: (info) => info.getValue(),
-			header: () => <span>{t("email")}</span>,
-			id: "customerEmail",
-		}),
-		columnHelper.accessor("customer.phone", {
-			cell: ({ row }) => <PhoneCell phone={row.original.customer.phone} />,
-			header: () => <span>{t("phone")}</span>,
-			id: "customerPhone",
+			header: () => <span>{t("service")}</span>,
+			id: "serviceName",
 		}),
 	];
 
