@@ -99,5 +99,5 @@ export const Calendar = ({
 export const cellStyles = {
 	available:
 		"bg-primary/10 hover:bg-primary/20 focus:bg-primary/30 cursor-pointer",
-	unavailable: "bg-foreground/0 text-foreground/50 cursor-not-allowed",
+	unavailable: "bg-foreground/0 text-foreground/50 cursor-not-allowed line-through",
 };
