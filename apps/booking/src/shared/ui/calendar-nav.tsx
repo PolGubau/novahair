@@ -32,7 +32,7 @@ export const CalendarNav = ({
 	const tenantId =useTenantId();
 	return (
 		<nav className="flex gap-4 items-center">
-			<div className="max-md:hidden side">
+			<div className="max-md:hidden flex gap-2 items-center">
 				<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
 				<ServiceSwitcher serviceId={serviceId} onSelect={setServiceId} />
 			</div>
