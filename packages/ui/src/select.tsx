@@ -4,7 +4,7 @@ import type { Sizes } from "@novahair/utils/types/common";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { t } from "i18next";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { useId } from "react";
+import { JSX, useId } from "react";
 import { inputTheme } from "./input";
 import { Label } from "./label";
 import { Spinner } from "./spinner";
@@ -73,7 +73,7 @@ function Select({
 		<WithField label={label} id={props.id || id} className={classNames?.label} required={props.required}>
 			<SelectRoot data-slot="select" {...props} onValueChange={(value) => {
 				if (nullable && value === "all") {
-					props.onChange?.(undefined);
+					(props.onChange as (value: string | undefined) => void)?.(undefined);
 				} else {
 					props.onChange?.(value);
 				}
@@ -101,7 +101,7 @@ function Select({
 					) : null}
 				</SelectContent> 
 			</SelectRoot></WithField>
- 	);
+	);
 }
 type WithFieldProps = Pick<SelectProps, "label" | "required" | "id"> & {
 	className?: string;
@@ -298,5 +298,6 @@ export {
 	SelectScrollUpButton,
 	SelectSeparator,
 	SelectTrigger,
-	SelectValue,
+	SelectValue
 };
+
