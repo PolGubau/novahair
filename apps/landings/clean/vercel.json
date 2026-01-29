@@ -1,3 +1,6 @@
 {
-	"buildCommand": "cd ../../.. && pnpm install && pnpm build:landing:clean"
+	"buildCommand": "cd ../../.. && pnpm install && pnpm build:landing:clean",
+	"rewrites": [
+		{ "source": "/(.*)", "destination": "/index.html" }
+	]
 }
