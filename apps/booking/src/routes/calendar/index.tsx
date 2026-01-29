@@ -1,4 +1,5 @@
 import { useAvailableDays } from "@novahair/client";
+import { StaffSwitcher } from "@novahair/ui";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { TranslationKey } from "@novahair/utils";
@@ -16,9 +17,8 @@ import {
 } from "~/features/appointment-form/ui/form/form";
 import { SuccessAppointment } from "~/features/appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "~/features/appointment-form/utils/get-month-boundaries";
-import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { StaffSwitcher } from "~/features/staff/ui/switcher";
-import i18n from "~/shared/i18n/setup";
+import { ServiceSwitcher } from "~/features/services/ui/service-switcher";
+ import i18n from "~/shared/i18n/setup";
 import { useTenantId } from "~/shared/tenant";
 import { CalendarNav } from "~/shared/ui/calendar-nav";
 
@@ -162,7 +162,7 @@ function CalendarStep() {
 
 			<section className="h-full grid gap-2 md:gap-8">
 				<div className="md:hidden justify-end w-full px-4 flex gap-2">
-					<StaffSwitcher staffId={staffId} onSelect={(id) => updateParams({ staffId: id })} />
+					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={(id) => updateParams({ staffId: id })} />
 					<ServiceSwitcher serviceId={serviceId} onSelect={(id) => updateParams({ serviceId: id })}/>
 				</div>
 				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">

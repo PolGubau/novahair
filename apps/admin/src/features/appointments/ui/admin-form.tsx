@@ -8,12 +8,18 @@ import type { SummarizedAppointment } from "../domain/summarized-appointments";
 import { useAppointments } from "../hooks/use-appointments";
 import AppointmentCreationForm from "./creation-form";
 import { AppointmentTable } from "./table";
+import { DateRangeInput, StaffSwitcher } from "@novahair/ui";
+import { config, toISODate } from "@novahair/utils";
 
 export const AppointmentAdminForm = () => {
+
 	const { t } = useTranslation();
+	const tenantId = config.tenantId;
 	const { appointments, isLoading, refetch, to, setTo, from, setFrom } =
 		useAppointments();
 
+	const [staffId, setStaffId] = useState<string | undefined>(undefined);
+	
 	const [isFormOpened, setIsFormOpened] = useState(false);
 	const [editing, setEditing] = useState<SummarizedAppointment | null>(null);
 
@@ -55,16 +61,25 @@ export const AppointmentAdminForm = () => {
 					</Button>
 				</div>
 				<div className="side">
+				<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
+					<DateRangeInput
+						from={new Date(from)}
+						to={new Date(to)}
+ 						onChange={({ from, to }) => {
+							setFrom(toISODate(from));
+							setTo(toISODate(to));
+						}} />
+					
 					<Input
 						max={new Date(to).toISOString().split("T")[0]}
-						onChange={(e) => setFrom(new Date(e.target.value).toISOString())}
+						onChange={(e) => setFrom(toISODate(new Date(e.target.value)))}
 						type="date"
 						value={new Date(from).toISOString().split("T")[0]}
 					/>
 					<span className="mx-1">-</span>
 					<Input
 						min={new Date(from).toISOString().split("T")[0]}
-						onChange={(e) => setTo(new Date(e.target.value).toISOString())}
+						onChange={(e) => setTo(toISODate(new Date(e.target.value)))}
 						type="date"
 						value={new Date(to).toISOString().split("T")[0]}
 					/>

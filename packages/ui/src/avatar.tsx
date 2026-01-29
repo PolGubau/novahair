@@ -64,7 +64,7 @@ export type AvatarComponent = AvatarRootProps & {
 export function Avatar({ fallback,src, alt, imageProps, fallbackProps, ...props }: AvatarComponent) {
 	return (
 		<AvatarRoot {...props}>
-			<AvatarImage src={src} alt={alt} {...imageProps} />
+			<AvatarImage src={src??undefined} alt={alt} {...imageProps} />
 			<AvatarFallback {...fallbackProps}>{fallback ?? getInitial(alt)}</AvatarFallback>
 		</AvatarRoot>
 	)

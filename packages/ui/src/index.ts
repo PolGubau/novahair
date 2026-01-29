@@ -45,6 +45,7 @@ export * from './skeleton';
 export * from './spinner';
 export * from './staff-chip';
 export * from './staff-colors/constants';
+export * from './staff-switcher';
 export * from './switch';
 export * from './table';
 export * from './textarea';

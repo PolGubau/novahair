@@ -3,31 +3,32 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { Appointment } from "../domain/appointment";
 import { appointmentRepository } from "../infra/repository";
+import { ISODate, toISODate } from "@novahair/utils";
 
 type Response = {
 	isLoading: boolean;
 	error: Error | null;
 	refetch: () => void;
 	appointments: Appointment[];
-	from: string;
-	to: string;
-	setFrom: (from: string) => void;
-	setTo: (to: string) => void;
+	from: ISODate;
+	to: ISODate;
+	setFrom: (from: ISODate) => void;
+	setTo: (to: ISODate) => void;
 };
 type UseAppointments = () => Response;
 
 export const useAppointments: UseAppointments = () => {
-	const [from, setFrom] = useState<string>(() => {
+	const [from, setFrom] = useState<ISODate>(() => {
 		const date = new Date();
 		date.setHours(0, 0, 0, 0);
-		return date.toISOString();
+		return toISODate(date);
 	});
 
 	// to is last second of today (one day)
-	const [to, setTo] = useState<string>(() => {
+	const [to, setTo] = useState<ISODate>(() => {
 		const date = new Date();
 		date.setHours(23, 59, 59, 999);
-		return date.toISOString();
+		return toISODate(date);
 	});
 
 	const { isLoading, error, data, refetch } = useQuery({

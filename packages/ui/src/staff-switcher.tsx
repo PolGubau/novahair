@@ -2,15 +2,15 @@ import { useStaffs } from "@novahair/client";
 import { Avatar } from "@novahair/ui";
 import { Select } from "@novahair/ui/select";
 import type { TranslationKey } from "@novahair/utils/i18n/types";
+import { t } from "i18next";
 
-import { useTenantId } from "~/shared/tenant";
 
 type Props = {
+	tenantId: string;
 	staffId?: string;
-	onSelect: (staffId: string) => void;
+	onSelect: (staffId?: string) => void;
 }
-export const StaffSwitcher = ({ staffId, onSelect }: Props) => {
-	const  tenantId  = useTenantId();
+export const StaffSwitcher = ({ tenantId, staffId, onSelect }: Props) => {
 
 	const { staffs } = useStaffs(tenantId);
 
@@ -28,6 +28,9 @@ export const StaffSwitcher = ({ staffId, onSelect }: Props) => {
 
 	return (
 		<Select
+			nullable
+			nullableLabel={"all_staff"}
+			placeholder={"select_staff"}
 			classNames={{
 				trigger:"p-2"
 			}}

@@ -1,9 +1,10 @@
 import { Service, Staff } from "@novahair/client";
 import { IconButton } from "@novahair/ui/icon-button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { ServiceSwitcher } from "~/features/services/ui/switcher";
-import { StaffSwitcher } from "~/features/staff/ui/switcher";
-
+import { ServiceSwitcher } from "~/features/services/ui/service-switcher";
+import { useTenantId } from "../tenant";
+import { StaffSwitcher } from "@novahair/ui";
+ 
 type CalendarNavProps = {
 	onPrev?: () => void;
 	onNext: () => void;
@@ -28,10 +29,11 @@ export const CalendarNav = ({
 	setServiceId,
 
 }: CalendarNavProps) => {
+	const tenantId =useTenantId();
 	return (
 		<nav className="flex gap-4 items-center">
 			<div className="max-md:hidden side">
-				<StaffSwitcher staffId={staffId} onSelect={setStaffId} />
+				<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
 				<ServiceSwitcher serviceId={serviceId} onSelect={setServiceId} />
 			</div>
 			{showPrev && (

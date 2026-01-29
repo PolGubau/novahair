@@ -13,6 +13,8 @@
 	"we_sent_email_confirmation": "We have sent a confirmation email to {{email}}",
 	"preferences": "Preferences",
 	"start": "Start",
+	"pick_date": "Pick a date",
+	"all_staff": "All staff",
 	"to": "to",
 	"we_sent_email_confirmation_generic": "We have sent a confirmation email.",
 	"english": "English",

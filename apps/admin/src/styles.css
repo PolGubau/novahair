@@ -12,3 +12,7 @@ body {
 	font-family: "Outfit Variable", sans-serif;
 	scroll-timeline-name: --timeline;
 }
+
+.side {
+	@apply flex items-center gap-2;
+}

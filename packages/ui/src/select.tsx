@@ -11,7 +11,7 @@ import { Spinner } from "./spinner";
 
 export type Option = { value: string; label: TranslationKey };
 
-export type SelectProps = Omit<
+type SelectPropsBase = Omit<
 	React.ComponentProps<typeof SelectPrimitive.Root>,
 	"children"
 	> & {
@@ -25,18 +25,34 @@ export type SelectProps = Omit<
 	size?: Sizes;
 	required?: boolean;
 	loading?: boolean;
+	nullableLabel?: TranslationKey;
 	id?: string;
 	label?: TranslationKey;
 	customOptionRender?: (option: Option) => React.ReactNode;
 	placeholder?: TranslationKey;
-	onChange?: (value: string) => void;
 	options: Option[];
 };
 
+export type SelectPropsNullable = SelectPropsBase & {
+	nullable: true;
+	onChange?: (value: string | undefined) => void;
+};
+
+export type SelectPropsNonNullable = SelectPropsBase & {
+	nullable?: false;
+	onChange?: (value: string) => void;
+};
+
+export type SelectProps = SelectPropsNullable | SelectPropsNonNullable;
+
+function Select(props: SelectPropsNullable): JSX.Element;
+function Select(props: SelectPropsNonNullable): JSX.Element;
 function Select({
 	label,
 	placeholder = "select_option",
-	options=[],
+	options = [],
+	nullable = false,
+	nullableLabel,
 	classNames,loading,
 	...props
 }: SelectProps) {
@@ -55,11 +71,22 @@ function Select({
 
 	return (
 		<WithField label={label} id={props.id || id} className={classNames?.label} required={props.required}>
-			<SelectRoot data-slot="select" {...props} onValueChange={props.onChange}>
+			<SelectRoot data-slot="select" {...props} onValueChange={(value) => {
+				if (nullable && value === "all") {
+					props.onChange?.(undefined);
+				} else {
+					props.onChange?.(value);
+				}
+			}}>
 				<SelectTrigger className={classNames?.trigger}>
 					<SelectValue placeholder={t(placeholder)} /> 
 				</SelectTrigger>
-			 	<SelectContent className={classNames?.content}>
+				<SelectContent className={classNames?.content}>
+					{nullable && (
+						<SelectItem value={"all"} className={classNames?.item}>
+							{t(nullableLabel || placeholder)}
+						</SelectItem>
+					)}
 					{options?.map((option) => (
 						<SelectItem key={option.value} value={option.value} className={classNames?.item}>
 							{props.customOptionRender
@@ -76,7 +103,7 @@ function Select({
 			</SelectRoot></WithField>
  	);
 }
-type WithFieldProps = Pick<SelectProps, "label" | "required"|"required" | "id" > & {
+type WithFieldProps = Pick<SelectProps, "label" | "required" | "id"> & {
 	className?: string;
 };
 
