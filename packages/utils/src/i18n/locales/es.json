@@ -161,5 +161,16 @@
 	"rose": "Rosa fuerte",
 	"violet": "Violeta",
 	"sky": "Cielo",
-	"slate": "Pizarra"
+	"slate": "Pizarra",
+	"error_loading_appointment": "Error al cargar los detalles de la cita.",
+	"appointment_cancelled": "Cita Cancelada",
+	"appointment_cancelled_message": "Tu cita ha sido cancelada exitosamente.",
+	"go_home": "Ir a Inicio",
+	"cancel_appointment": "Cancelar Cita",
+	"appointment_details": "Detalles de la Cita",
+	"date": "Fecha",
+	"staff": "Personal",
+	"cancel_appointment_confirmation": "¿Estás seguro de que quieres cancelar esta cita?",
+	"cancelling": "Cancelando...",
+	"confirm_cancel": "Confirmar Cancelación"
 }

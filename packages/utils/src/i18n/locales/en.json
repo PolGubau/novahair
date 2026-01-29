@@ -161,5 +161,16 @@
 	"rose": "Rose",
 	"violet": "Violet",
 	"sky": "Sky",
-	"slate": "Slate"
+	"slate": "Slate",
+	"error_loading_appointment": "Error loading appointment details.",
+	"appointment_cancelled": "Appointment Cancelled",
+	"appointment_cancelled_message": "Your appointment has been successfully cancelled.",
+	"go_home": "Go Home",
+	"cancel_appointment": "Cancel Appointment",
+	"appointment_details": "Appointment Details",
+	"date": "Date",
+	"staff": "Staff",
+	"cancel_appointment_confirmation": "Are you sure you want to cancel this appointment?",
+	"cancelling": "Cancelling...",
+	"confirm_cancel": "Confirm Cancel"
 }

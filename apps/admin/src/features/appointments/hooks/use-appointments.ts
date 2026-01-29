@@ -17,7 +17,11 @@ type Response = {
 type UseAppointments = () => Response;
 
 export const useAppointments: UseAppointments = () => {
-	const [from, setFrom] = useState<string>(new Date().toISOString());
+	const [from, setFrom] = useState<string>(() => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		return date.toISOString();
+	});
 
 	// to is last second of today (one day)
 	const [to, setTo] = useState<string>(() => {

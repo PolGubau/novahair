@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChooseStaffIndexRouteImport } from './routes/choose-staff/index'
 import { Route as ChooseServiceIndexRouteImport } from './routes/choose-service/index'
+import { Route as CancelAppointmentIndexRouteImport } from './routes/cancel-appointment/index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const ChooseServiceIndexRoute = ChooseServiceIndexRouteImport.update({
   path: '/choose-service/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CancelAppointmentIndexRoute = CancelAppointmentIndexRouteImport.update({
+  id: '/cancel-appointment/',
+  path: '/cancel-appointment/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
   id: '/calendar/',
   path: '/calendar/',
@@ -38,12 +44,14 @@ const CalendarIndexRoute = CalendarIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/cancel-appointment': typeof CancelAppointmentIndexRoute
   '/choose-service': typeof ChooseServiceIndexRoute
   '/choose-staff': typeof ChooseStaffIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/cancel-appointment': typeof CancelAppointmentIndexRoute
   '/choose-service': typeof ChooseServiceIndexRoute
   '/choose-staff': typeof ChooseStaffIndexRoute
 }
@@ -51,20 +59,38 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/cancel-appointment/': typeof CancelAppointmentIndexRoute
   '/choose-service/': typeof ChooseServiceIndexRoute
   '/choose-staff/': typeof ChooseStaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/choose-service' | '/choose-staff'
+  fullPaths:
+    | '/'
+    | '/calendar'
+    | '/cancel-appointment'
+    | '/choose-service'
+    | '/choose-staff'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/choose-service' | '/choose-staff'
-  id: '__root__' | '/' | '/calendar/' | '/choose-service/' | '/choose-staff/'
+  to:
+    | '/'
+    | '/calendar'
+    | '/cancel-appointment'
+    | '/choose-service'
+    | '/choose-staff'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendar/'
+    | '/cancel-appointment/'
+    | '/choose-service/'
+    | '/choose-staff/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
+  CancelAppointmentIndexRoute: typeof CancelAppointmentIndexRoute
   ChooseServiceIndexRoute: typeof ChooseServiceIndexRoute
   ChooseStaffIndexRoute: typeof ChooseStaffIndexRoute
 }
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChooseServiceIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cancel-appointment/': {
+      id: '/cancel-appointment/'
+      path: '/cancel-appointment'
+      fullPath: '/cancel-appointment'
+      preLoaderRoute: typeof CancelAppointmentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendar/': {
       id: '/calendar/'
       path: '/calendar'
@@ -105,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarIndexRoute: CalendarIndexRoute,
+  CancelAppointmentIndexRoute: CancelAppointmentIndexRoute,
   ChooseServiceIndexRoute: ChooseServiceIndexRoute,
   ChooseStaffIndexRoute: ChooseStaffIndexRoute,
 }
