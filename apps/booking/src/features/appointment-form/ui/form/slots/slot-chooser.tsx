@@ -1,7 +1,6 @@
 import { type AvailabilitySlot, useSlots } from "@novahair/client";
 import { labelClasses } from "@novahair/ui/label";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import { config } from "@novahair/utils";
 import { t } from "i18next";
 import { Route } from "~/routes/$serviceId";
 import { useTenantId } from "~/shared/tenant";

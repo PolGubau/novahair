@@ -25,5 +25,5 @@ export const SlotList = ({ slots, selectedSlot, onChange }: Props) => {
 };
 
 export const slotsListClassNames = {
-	list: "overflow-x-auto gap-2 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))]",
+	list: "overflow-x-auto gap-2 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] max-md:max-h-[40vh]",
 };
