@@ -87,7 +87,6 @@ export const Route = createRootRouteWithContext()({
 			},
 		],
 	}),
-	ssr: false,
 	
 	shellComponent: RootDocument,
 	notFoundComponent: NotFound,

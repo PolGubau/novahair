@@ -3,7 +3,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
-
+import { nitro } from "nitro/vite";
 const config = defineConfig({
 	plugins: [
 		// this is the plugin that enables path aliases
@@ -11,14 +11,12 @@ const config = defineConfig({
 			projects: ["./tsconfig.json"],
 		}),
 		tailwindcss(),
-		tanstackStart({
+			tanstackStart({
 			router: {
 				routeToken: "layout",
 			},
-			deployment: {
-				preset: "vercel-static",
-			},
-		}),
+			}),
+		nitro(),
 		viteReact(),
 	],
 	build: {
