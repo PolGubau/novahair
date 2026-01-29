@@ -33,12 +33,12 @@ type SelectPropsBase = Omit<
 	options: Option[];
 };
 
-export type SelectPropsNullable = SelectPropsBase & {
+type SelectPropsNullable = SelectPropsBase & {
 	nullable: true;
 	onChange?: (value: string | undefined) => void;
 };
 
-export type SelectPropsNonNullable = SelectPropsBase & {
+type SelectPropsNonNullable = SelectPropsBase & {
 	nullable?: false;
 	onChange?: (value: string) => void;
 };
