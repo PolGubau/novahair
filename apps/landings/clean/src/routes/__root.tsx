@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
+import { RootProvider } from "@novahair/utils";
 import {
 	HeadContent,
 	Scripts,
@@ -15,7 +16,7 @@ import appCss from "../styles.css?url";
 import i18n from "@novahair/utils/i18n/setup";
 
 
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{
@@ -104,13 +105,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ReactLenis root>
-					<Preloader isReady={isReady} />
-					<div className="min-h-screen flex flex-col justify-between w-full pb-20">
-						<div className="fade-in">{children}</div>
-					</div>
-					<SquiCircleFilterLayout />
-				</ReactLenis>
+				<RootProvider>
+					<ReactLenis root>
+						<Preloader isReady={isReady} />
+						<div className="min-h-screen flex flex-col justify-between w-full pb-20">
+							<div className="fade-in">{children}</div>
+						</div>
+						<SquiCircleFilterLayout />
+					</ReactLenis>
+				</RootProvider>
 				<Devtools />
 				<Scripts />
 			</body>

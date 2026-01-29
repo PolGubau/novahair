@@ -3,7 +3,7 @@ import { queryClientDefaultOptions } from "@novahair/utils";
 
 export function getContext() {
 	const queryClient = new QueryClient({
-		defaultOptions: queryClientDefaultOptions,
+		defaultOptions: queryClientDefaultOptions as any
 	});
 	return {
 		queryClient,
