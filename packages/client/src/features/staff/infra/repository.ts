@@ -8,13 +8,13 @@ export type StaffRepository = Omit<
 	AbstractRepository<Staff, StaffCreateDto, UpdateStaffDto>,
 	"list"
 > & {
-	list: (tenantId: string) => Promise<Staff[]>;
+	list: (tenantId: string, params?: { hasService?: string }) => Promise<Staff[]>;
 };
 
 export const staffRepository: StaffRepository = {
-	list: async (tenantId) => {
+	list: async (tenantId,params) => {
 		const dtos = await genericFetch<StaffDto[]>(
-			buildApiUrl(`staff/tenants/${tenantId}`),
+			buildApiUrl(`staff/tenants/${tenantId}`,params),
 		);
 		return dtos.map(toStaff);
 	},

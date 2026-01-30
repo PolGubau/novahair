@@ -38,7 +38,8 @@ export function BookingApp({ tenantId }: { tenantId: string }) {
 					<ServiceSelector onServiceSelect={handleServiceSelect} />
 				)}
 				{step === "staff" && selectedServiceId && (
-					<StaffListSelector
+						<StaffListSelector
+							
 						serviceId={selectedServiceId}
 						onStaffSelect={handleStaffSelect}
  					/>

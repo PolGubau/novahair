@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/outfit";
-@import "@novahair/ui/theme/defaults";
-@import "@novahair/ui/theme/style";
-@source "../../../packages/ui/src/**/*.tsx";
+
 
 
 body {

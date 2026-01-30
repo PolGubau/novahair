@@ -1,19 +1,17 @@
-import { useStaffs } from "@novahair/client";
+import { Service, useStaffs } from "@novahair/client";
 import { Avatar, Button } from "@novahair/ui";
-import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ChevronRight } from "lucide-react";
 import { useTenantId } from "../../../shared/tenant";
 
 type Props = {
-  serviceId: string;
   onStaffSelect?: (staffId: string) => void;
-  
+  serviceId:Service["id"]
 };
 
-export const StaffListSelector = ({ serviceId, onStaffSelect }: Props) => {
+export const StaffListSelector = ({ onStaffSelect,serviceId }: Props) => {
   const tenantId = useTenantId();
-  const { staffs, isLoading } = useStaffs(tenantId);
+  const { staffs, isLoading } = useStaffs(tenantId,{hasService:serviceId});
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,7 +20,7 @@ export const StaffListSelector = ({ serviceId, onStaffSelect }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="">{t("select_staff")}</h1>
-      <ul className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
+      <ul className="grid gap-2 grid-cols-2">
         {staffs.map((staff) => (
           <li key={staff.id} 
               className="flex items-center gap-4 border overflow-hidden border-foreground/20 rounded-xl"

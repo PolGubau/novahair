@@ -16,6 +16,7 @@
 @import '@novahair/booking-app/styles.css';
 @import "@novahair/ui/theme/style";
 
+@source "../../../../packages/book-app/src/**/*.tsx";
 @source "../../../../packages/ui/src/**/*.tsx";
 @custom-variant dark (&:where(.dark, .dark *));
 

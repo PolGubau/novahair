@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { staffRepository } from "../infra/repository";
 
-export const useStaffs = (tenantId: string) => {
+
+type Params = {
+	hasService?: string;
+};
+export const useStaffs = (tenantId: string, params?: Params) => {
 	const { isLoading, error, data, refetch } = useQuery({
-		queryKey: ["staffs", tenantId],
+		queryKey: ["staffs", tenantId, params],
 		staleTime: 1000 * 60 * 30, // 30 minutes
-		queryFn: () => staffRepository.list(tenantId),
+		queryFn: () => staffRepository.list(tenantId,params),
 	});
 	const staffs = data || [];
 
