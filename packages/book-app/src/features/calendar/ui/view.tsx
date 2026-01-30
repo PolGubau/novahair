@@ -142,11 +142,7 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 			</Drawer>
 
 			<section className="h-full grid gap-2 md:gap-8">
-				<fieldset className="md:hidden justify-end w-full px-4 flex gap-2">
-					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={(id) => setSelectedStaffId(id)} />
-					<ServiceSwitcher serviceId={serviceId} onSelect={(id) => setSelectedServiceId(id)}/>
-        </fieldset>
-        
+				 
 				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">
 					<div className="text-2xl md:text-4xl xl:text-5xl first-letter:capitalize">
 						{formattedDate}

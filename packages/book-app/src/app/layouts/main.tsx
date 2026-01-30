@@ -12,7 +12,7 @@ type MainLayoutProps = {
 
 export function MainLayout({ children, currentStep,setCurrentStep }: MainLayoutProps) {
 	return (
-		<div className="pt-10 grid grid-rows-[auto_1fr] gap-4 max-w-7xl w-full mx-auto">
+		<div className="grid grid-rows-[auto_1fr] gap-4 max-w-7xl w-full mx-auto">
 			<header className="flex gap-1 items-center border rounded-md w-fit">
 				{bookingSteps.map((step) => {
 					const isDone = bookingSteps.indexOf(step) < bookingSteps.indexOf(currentStep);
