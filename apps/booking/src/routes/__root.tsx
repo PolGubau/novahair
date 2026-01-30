@@ -1,8 +1,7 @@
 /// <reference types="vite/client" />
-
+import { BookingApp } from "@novahair/booking-app";
 import { Devtools } from "@novahair/ui/dev-tools";
-import { RootProvider } from "@novahair/utils";
- import {
+import {
 	HeadContent,
 	Scripts,
 	createRootRouteWithContext,
@@ -10,10 +9,9 @@ import { RootProvider } from "@novahair/utils";
 } from "@tanstack/react-router";
 import { t } from "i18next";
 import { z } from "zod";
-import { MainLayout } from "~/app/layouts/main";
-import { TenantGuard } from "~/shared/tenant";
-import "../styles.css";
 import i18n from "~/shared/i18n/setup";
+import "../styles.css";
+import { config } from "@novahair/utils";
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({
@@ -102,11 +100,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<RootProvider onChangedLanguage={() => router.invalidate()}>
+				{/* <RootProvider onChangedLanguage={() => router.invalidate()}>
 					<TenantGuard>
 						<MainLayout>{children}</MainLayout>
 					</TenantGuard>
-				</RootProvider>
+				</RootProvider> */}
+				<BookingApp tenantId={config.tenantId} />
 				<Devtools />
 				<Scripts />
 			</body>

@@ -19,6 +19,7 @@
 	"dependencies": {
 		"@gsap/react": "2.1.2",
 		"@novahair/client": "workspace:*",
+		"@novahair/booking-app": "workspace:*",
 		"@novahair/ui": "workspace:*",
 		"@novahair/utils": "workspace:*",
 		"@radix-ui/react-accordion": "1.2.12",
