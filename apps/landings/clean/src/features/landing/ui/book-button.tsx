@@ -1,11 +1,11 @@
 import { Button } from "@novahair/ui/button";
-import { config } from "@novahair/utils";
+import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { ArrowRight } from "lucide-react";
 
 export const BookButton = () => {
 	return (
-		<a href={`https://novahair-booking.vercel.app/choose-service?tenant=${config.tenantId}`}>
+		<Link to={"/booking"}>
 			<Button
 				variant="secondary"
 				className="rounded-full group flex gap-2 items-center pl-4! p-2 h-16 text-xl motion-preset-slide-up motion-delay-1500"
@@ -15,6 +15,6 @@ export const BookButton = () => {
 					<ArrowRight className="size-4 group-hover:size-5" />
 				</span>
 			</Button>
-		</a>
+		</Link>
 	);
 };
