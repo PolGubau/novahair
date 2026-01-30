@@ -27,7 +27,9 @@
 @theme inline {
 	--color-dark: var(--color-secondary-950);
 	--color-light: var(--color-secondary-25);
-}
+
+	--color-secondary: var(--color-secondary-500);
+ }
 
 :root {
 	--background: var(--color-light);
