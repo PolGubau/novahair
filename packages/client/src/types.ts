@@ -51,7 +51,7 @@ export type AppointmentDto = {
 	customer: CustomerDto;
 	notes: string | null;
 	service: ServiceDto;
-	startAt: ISODate;
+	startsAt: ISODate;
 	endsAt: ISODate;
 	status: AppointmentStatusDto;
 };

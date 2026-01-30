@@ -24,7 +24,7 @@ export const availabilityRepository: AvailabilityRepository = {
 	},
 
 	getDays: (tenantId, params) =>
-		genericFetch<AvailabilityDay[]>(
-			buildApiUrl(`tenants/${tenantId}/availability/days`, params),
+		genericFetch<AvailabilityDay[]>( 
+			buildApiUrl(`tenants/${tenantId}/availability/days`,params),
 		),
 };

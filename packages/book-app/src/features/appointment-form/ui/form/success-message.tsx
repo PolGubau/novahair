@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const SuccessMessage = ({ appointment }: Props) => {
-	const datetime = new Date(appointment.startAt).toLocaleString();
+	const datetime = new Date(appointment.startsAt).toLocaleString();
 	const detailsDefault = `${appointment.customer.name} — ${datetime}`;
 
 	return (

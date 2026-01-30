@@ -65,6 +65,7 @@ export const AppointmentForm = ({ date, onSuccess, initialStaffId }: Appointment
 			<section className="flex flex-col px-4 md:px-8 gap-4">
 				<SlotChooser
 					date={date}
+					serviceId={serviceId}
 					staffId={staffId}
 					selectedSlot={chosenSlot}
 					onChange={setChosenSlot}

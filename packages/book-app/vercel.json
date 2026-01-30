@@ -1,3 +1,0 @@
-{
-	"buildCommand": "cd ../.. && pnpm install && pnpm build:booking"
-}

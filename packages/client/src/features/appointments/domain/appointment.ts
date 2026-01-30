@@ -14,7 +14,7 @@ export interface Appointment {
 	staff: Staff;
 	customer: Customer;
 	service: Service;
-	startAt: ISODate;
+	startsAt: ISODate;
 	endsAt: ISODate;
 	notes: string | null;
 	status: AppointmentStatus;

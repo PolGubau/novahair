@@ -22,7 +22,7 @@ export const useCancelAppointment = (appointmentId: string) => {
 		});
 	};
 
-	const formattedDate = appointment?.startAt ? formatAppointmentDate(appointment.startAt) : null;
+	const formattedDate = appointment?.startsAt ? formatAppointmentDate(appointment.startsAt) : null;
 
 	return {
 		appointment,

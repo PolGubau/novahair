@@ -18,6 +18,7 @@ export const SlotChooser = ({
 	staffId,
 	selectedSlot,
 	onChange,
+	
 }: SlotChooserProps) => {
 	const serviceId = Route.useSearch().serviceId;
 	const tenantId = useTenantId();

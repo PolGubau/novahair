@@ -185,9 +185,12 @@ function Sidebar({
 		);
 	}
 
-	if (isMobile) {
-		return (
-			<Drawer
+	 
+
+	return (
+		<>
+		<div className="md:hidden">
+		<Drawer
 				open={openMobile}
 				onOpenChange={setOpenMobile}
 				// biome-ignore lint/suspicious/noExplicitAny: ok
@@ -212,12 +215,10 @@ function Sidebar({
 					<div className="flex h-full w-full flex-col">{children}</div>
 				</div>
 			</Drawer>
-		);
-	}
-
-	return (
-		<div
-			className="group peer text-foreground hidden md:block"
+		</div>
+	
+		<div 
+			className="group peer max-md:hidden"
 			data-state={state}
 			data-collapsible={state === "collapsed" ? collapsible : ""}
 			data-variant={variant}
@@ -259,7 +260,8 @@ function Sidebar({
 					{children}
 				</div>
 			</div>
-		</div>
+			</div>
+			</>
 	);
 }
 
@@ -268,10 +270,10 @@ function SidebarTrigger({
 	onClick,
 	...props
 }: React.ComponentProps<typeof Button>) {
-	const { toggleSidebar, state } = useSidebar();
+	const { toggleSidebar,  open } = useSidebar();
 
-	return (
-		<IconButton
+	return (<>
+ 		<IconButton
 			data-sidebar="trigger"
 			data-slot="sidebar-trigger"
 			label="Toggle Sidebar"
@@ -280,7 +282,7 @@ function SidebarTrigger({
 			icon={
 				<ChevronLeft
 					className={cn({
-						"rotate-180": state === "collapsed",
+						"rotate-180": open,
 					})}
 				/>
 			}
@@ -289,7 +291,7 @@ function SidebarTrigger({
 				toggleSidebar();
 			}}
 			{...props}
-		/>
+		/></>
 	);
 }
 

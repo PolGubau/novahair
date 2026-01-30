@@ -37,7 +37,7 @@ export const AppointmentTable = ({
 }) => {
 	const { t } = useTranslation();
 	const columns = [
-		columnHelper.accessor("startAt", {
+		columnHelper.accessor("startsAt", {
 			cell: (info) => formatDate(info.getValue()),
 			header: () => <span>{t("date")}</span>,
 			id: "date",
@@ -45,7 +45,7 @@ export const AppointmentTable = ({
 				filterVariant: "date",
 			},
 		}),
-		columnHelper.accessor("startAt", {
+		columnHelper.accessor("startsAt", {
 			cell: (info) => formatTime(info.getValue()),
 			header: () => <span>{t("time")}</span>,
 			id: "time",

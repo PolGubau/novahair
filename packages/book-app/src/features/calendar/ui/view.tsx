@@ -1,5 +1,4 @@
 import { useAvailableDays } from "@novahair/client";
-import {   StaffSwitcher } from "@novahair/ui";
 import { Drawer } from "@novahair/ui/drawer";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { TranslationKey } from "@novahair/utils";
@@ -12,10 +11,9 @@ import { useTenantId } from "../../../shared/tenant";
 import { CalendarNav } from "../../../shared/ui/calendar-nav";
 import { useCalendarTimes } from "../../appointment-form/hooks/use-calendar-times";
 import { Calendar, cellStyles } from "../../appointment-form/ui/calendar";
+import { AppointmentForm } from "../../appointment-form/ui/form/form";
 import { SuccessAppointment } from "../../appointment-form/ui/success-appointment";
 import { getMonthBoundaries } from "../../appointment-form/utils/get-month-boundaries";
- import { ServiceSwitcher } from "../../services/ui/service-switcher";
-import { AppointmentForm } from "../../appointment-form/ui/form/form";
  
  
 

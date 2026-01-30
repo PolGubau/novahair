@@ -1,15 +1,5 @@
 import type { TranslationKey } from "@novahair/utils/i18n/types";
 
-import { Link } from "@tanstack/react-router";
-import {
-	Database,
-	GalleryVerticalEnd,
-	Settings,
-	SlidersHorizontal,
-	Users,
-} from "lucide-react";
-import * as React from "react";
-import { useRouterState } from "@tanstack/react-router";
 import {
 	Sidebar,
 	SidebarContent,
@@ -18,9 +8,18 @@ import {
 	SidebarRail,
 	useSidebar,
 } from "@novahair/ui";
+import { cn } from "@novahair/utils";
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+	Database,
+	GalleryVerticalEnd,
+	Settings,
+	SlidersHorizontal,
+	Users,
+} from "lucide-react";
+import * as React from "react";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
-import { cn } from "@novahair/utils";
 
 export type Team = {
 	name: string;
@@ -114,8 +113,7 @@ const data: SidebarMenuConfig = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const [pathname, setPathname] = React.useState("");
 
-	const { open, setOpenMobile, isMobile } = useSidebar();
-	const routerState = useRouterState();
+	const { open } = useSidebar();
 
 	React.useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -123,11 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 		}
 	}, []);
 
-	React.useEffect(() => {
-		if (isMobile) {
-			setOpenMobile(false);
-		}
-	}, [routerState.location.pathname, isMobile, setOpenMobile]);
+ 
 
 	const itemsWithActive = data.navMain.map((item) => {
 		const isActive =

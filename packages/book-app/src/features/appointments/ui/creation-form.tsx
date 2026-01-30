@@ -27,7 +27,7 @@ export const AppointmentCreationForm = ({
 		customerName: appointment?.customer.name ?? "",
 		customerEmail: appointment?.customer.email ?? "",
 		customerPhone: appointment?.customer.phone ?? "",
-		startsAt: appointment?.startAt ?? "",
+		startsAt: appointment?.startsAt ?? "",
 		notes: appointment?.notes ?? undefined,
 	});
 
@@ -66,7 +66,7 @@ export const AppointmentCreationForm = ({
 				customerName: appointment.customer.name,
 				customerEmail: appointment.customer.email,
 				customerPhone: appointment.customer.phone,
-				startsAt: appointment.startAt,
+				startsAt: appointment.startsAt,
 				notes: appointment.notes ?? undefined,
 			});
 		}
