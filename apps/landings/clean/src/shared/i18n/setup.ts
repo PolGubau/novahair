@@ -5,13 +5,16 @@ import { initReactI18next } from "react-i18next";
 import { allLocales, defaultLocale, defaultNS } from "./constants";
 import commonEn from "./locales/en.json";
 import commonEs from "./locales/es.json";
+import { resources } from "@novahair/utils";
 
-export const resources = {
-	en: {
+export const localizationResources = {
+ 	en: {
 		translation: commonEn.translation,
+		common: resources.en.common,
 	},
 	es: {
 		translation: commonEs.translation,
+		common: resources.es.common,
 	},
 } as const;
 
@@ -32,7 +35,7 @@ i18n
 		},
 
 		interpolation: { escapeValue: false },
-		resources,
+		resources: localizationResources,
 	});
 
 export default i18n;
