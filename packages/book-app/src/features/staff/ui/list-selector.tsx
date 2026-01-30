@@ -20,7 +20,7 @@ export const StaffListSelector = ({ onStaffSelect,serviceId }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="">{t("select_staff")}</h1>
-      <ul className="grid gap-2 grid-cols-2">
+      <ul className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
         {staffs.map((staff) => (
           <li key={staff.id} 
               className="flex items-center gap-4 border overflow-hidden border-foreground/20 rounded-xl"

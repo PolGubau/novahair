@@ -28,7 +28,7 @@ function getLabelledDate(date: Date,locale?: string) {
 }
 type CalendarStepProps = {
   serviceId: string;
-  staffId: string;
+  staffId: string|undefined;
   setSelectedServiceId: (id?: string) => void;
   setSelectedStaffId: (id?: string) => void;
  };
@@ -142,8 +142,8 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 
 			<section className="h-full grid gap-2 md:gap-8">
 				 
-				<header className="flex md:items-center md:gap-6 md:text-center justify-between px-4">
-					<div className="text-2xl md:text-4xl xl:text-5xl first-letter:capitalize">
+				<header className="flex md:items-center md:gap-6 md:text-center justify-between">
+					<div className="text-2xl md:text-3xl xl:text-5xl first-letter:capitalize">
 						{formattedDate}
 					</div>
 

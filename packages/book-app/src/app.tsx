@@ -31,7 +31,7 @@ export function BookingApp({ tenantId }: { tenantId: string }) {
  
 
   return (
-    <MainLayout currentStep={step} setCurrentStep={setStep}>
+    <MainLayout currentStep={step} setStep={setStep}>
 		<TenantProvider tenantId={tenantId}>
 			<QueryClientProvider client={queryClient}>
 				{step === "services" && (
@@ -39,12 +39,11 @@ export function BookingApp({ tenantId }: { tenantId: string }) {
 				)}
 				{step === "staff" && selectedServiceId && (
 						<StaffListSelector
-							
 						serviceId={selectedServiceId}
 						onStaffSelect={handleStaffSelect}
  					/>
 				)}
-				{step === "calendar" && selectedServiceId && selectedStaffId && (
+				{step === "calendar" && selectedServiceId &&  (
 					<CalendarStep
           setSelectedServiceId={setSelectedServiceId}
           setSelectedStaffId={setSelectedStaffId}

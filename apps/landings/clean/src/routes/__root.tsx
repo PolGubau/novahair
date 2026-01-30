@@ -108,8 +108,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<RootProvider>
 					<ReactLenis root>
 						<Preloader isReady={isReady} />
-						<div className="min-h-screen flex flex-col justify-between w-full pb-20">
-							<div className="fade-in">{children}</div>
+						<div className="min-h-screen grid w-full">
+						  {children} 
 						</div>
 						<SquiCircleFilterLayout />
 					</ReactLenis>

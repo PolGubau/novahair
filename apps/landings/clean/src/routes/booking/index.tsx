@@ -15,7 +15,7 @@ function BookingPage() {
     return <div>Please provide a tenant ID</div>;
   }
 
-  return <section className='p-4 flex flex-col gap-4'>
+  return <section className='p-4 grid grid-rows-[auto_1fr] h-full gap-4'>
     <header>
       <h1 className='text-2xl font-bold'>Peluquería Novahair</h1>
     </header>
