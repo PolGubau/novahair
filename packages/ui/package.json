@@ -21,6 +21,12 @@
 		"./theme/*": {
 			"types": "./src/theme/*.css",
 			"default": "./src/theme/*.css"
+		},
+		"./theme/defaults": {
+			"default": "./src/theme/defaults.css"
+		},
+		"./theme/style": {
+			"default": "./src/theme/style.css"
 		}
 	},
 	"scripts": {

@@ -11,11 +11,9 @@
 			"**/src/**/*",
 			"**/.vscode/**/*",
 			"**/index.html",
-			"**/vite.config.js",
-			"!**/src/routeTree.gen.ts",
-			"!**/src/styles.css",
-			"!**/src/shared/theme/colors.css"
-		]
+			"**/vite.config.*",
+			"!**/src/routeTree.gen.ts"
+ 		]
 	},
 	"formatter": {
 		"enabled": true,

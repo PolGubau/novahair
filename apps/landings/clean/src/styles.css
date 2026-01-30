@@ -1,22 +1,21 @@
 @import "tailwindcss";
+@import "@fontsource-variable/outfit";
+
+@import "@novahair/ui/theme/defaults";
 
 /* Define custom theme variables here */
 :root {
-  --color-secondary: oklch(0.7 0.3 120); /* Example: green primary */
-  --radius: 0.5rem; /* Custom border radius */
+	--primary: oklch(0.7 0.3 120);
+ 
+  --secondary: oklch(0.7 0.3 120);
+  --secondary-foreground: oklch(1 0 0); /* Blanco para contraste sobre verde */
+   --radius: 0.5rem; /* Custom border radius */
   /* Add other customizations as needed */
-}
-@theme inline {
-	--color-primary: var(--color-primary-500);
-	--color-secondary: oklch(0.7 0.3 120);
 }
 
 @import '@novahair/booking-app/styles.css';
+@import "@novahair/ui/theme/style";
 
-@import "@fontsource-variable/outfit";
-@import "../../../../packages/ui/src/theme/colors.css";
-@import "../../../../packages/ui/src/theme/animations.css";
-@import "../../../../packages/ui/src/theme/base.css";
 @source "../../../../packages/ui/src/**/*.tsx";
 @custom-variant dark (&:where(.dark, .dark *));
 

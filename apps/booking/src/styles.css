@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @import "@fontsource-variable/outfit";
-@import "../../../packages/ui/src/theme/colors.css";
+@import "../../../packages/ui/src/theme/defaults.css";
 @import "../../../packages/ui/src/theme/animations.css";
 @import "../../../packages/ui/src/theme/base.css";
 @source "../../../packages/ui/src/**/*.tsx";
