@@ -2,6 +2,7 @@ import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { BookingStep, bookingSteps } from "../../app";
 import { Button } from "@novahair/ui";
+import { t } from "i18next";
 
 type MainLayoutProps = {
 	children: React.ReactNode;
@@ -23,7 +24,7 @@ export function MainLayout({ children, currentStep,setCurrentStep }: MainLayoutP
 						variant={step === currentStep ? "secondary" : "ghost"}
 						 
 					>
-						{step.charAt(0).toUpperCase() + step.slice(1)}
+						{t(step)}
 					</Button>);	
 
 				})}
