@@ -3,12 +3,13 @@ import type { AbstractRepository } from "@novahair/utils/types/common";
 import { toStaff } from "../../../mappers";
 import type { StaffDto, UpdateStaffDto } from "../../../types";
 import type { Staff, StaffCreateDto } from "../domain/staff";
+import { StaffsParams } from "../hooks/use-staffs";
 
 export type StaffRepository = Omit<
 	AbstractRepository<Staff, StaffCreateDto, UpdateStaffDto>,
 	"list"
 > & {
-	list: (tenantId: string, params?: { hasService?: string }) => Promise<Staff[]>;
+	list: (tenantId: string, params?: StaffsParams) => Promise<Staff[]>;
 };
 
 export const staffRepository: StaffRepository = {

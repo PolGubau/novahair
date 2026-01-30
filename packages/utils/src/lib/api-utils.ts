@@ -7,7 +7,7 @@ import { basePath, config } from "../constants";
  */
 export function buildApiUrl(
 	path: string,
-	params?: Record<string, string | undefined>,
+	params?: Record<string, string | number | boolean | string[] | undefined>,
 ): string {
 	const fullPath = `${basePath}/${path}`;
 
@@ -18,7 +18,8 @@ export function buildApiUrl(
 	const searchParams = new URLSearchParams();
 	for (const [key, value] of Object.entries(params)) {
 		if (value !== undefined) {
-			searchParams.append(key, value);
+			const stringValue = Array.isArray(value) ? value.join(',') : String(value);
+			searchParams.append(key, stringValue);
 		}
 	}
 
@@ -30,7 +31,7 @@ export function buildApiUrl(
  */
 export function buildTenantUrl(
 	resource: string,
-	params?: Record<string, string | undefined>,
+	params?: Record<string, string | number | boolean | string[] | undefined>,
 ): string {
 	return buildApiUrl(`${tenantPath}/${resource}`, params);
 }
