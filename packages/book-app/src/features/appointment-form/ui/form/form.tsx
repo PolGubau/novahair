@@ -5,15 +5,15 @@ import { Textarea } from "@novahair/ui/textarea";
 import { t } from "i18next";
 import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-  import { useFormValues } from "../../hooks/use-form-values";
+import { useFormValues } from "../../hooks/use-form-values";
+import { useSubmitAppointment } from "../../hooks/use-submit-appointment";
 import { ErrorMessage } from "./error-message";
 import { SlotChooser } from "./slots/slot-chooser";
 import { StaffSelector } from "./staff/list";
-import { useSubmitAppointment } from "../../hooks/use-submit-appointment";
-import { Route } from "../../../../routes/calendar";
 
 type AppointmentFormProps = {
 	date: Date;
+	serviceId: string;
 	onSuccess: (data:FormValue) => void;
 	initialStaffId?: string | null;
 };
@@ -25,7 +25,7 @@ export type FormValue = {
 	notes?: string;
 };
 
-export const AppointmentForm = ({ date, onSuccess, initialStaffId }: AppointmentFormProps) => {
+export const AppointmentForm = ({ date, serviceId, onSuccess, initialStaffId }: AppointmentFormProps) => {
 	const { fields, updateField } = useFormValues<FormValue>();
 
 	const [chosenSlot, setChosenSlot] = useState<AvailabilitySlot | null>(null);
@@ -33,8 +33,7 @@ export const AppointmentForm = ({ date, onSuccess, initialStaffId }: Appointment
 	const [staffId, setStaffId] = useState<string | null>(initialStaffId ?? null);
 	const formRef = useRef<HTMLFormElement | null>(null);
 
-	const serviceId = Route.useSearch().serviceId;
-
+ 
 	const { isLoading, error, handleSubmit, isSuccess } = useSubmitAppointment({
 		serviceId,
 		staffId,

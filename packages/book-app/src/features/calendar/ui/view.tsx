@@ -120,6 +120,7 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 					{!isSuccessfullySent ? (
 						selectedDay && (
 							<AppointmentForm
+							serviceId={serviceId}
 								date={selectedDay}
 								initialStaffId={staffId}
 								onSuccess={({ email }) => {

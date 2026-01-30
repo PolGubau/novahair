@@ -11,7 +11,7 @@ type Props = {
 
 export const StaffListSelector = ({ onStaffSelect,serviceId }: Props) => {
   const tenantId = useTenantId();
-  const { staffs, isLoading } = useStaffs(tenantId,{hasService:serviceId});
+  const { staffs, isLoading } = useStaffs(tenantId,{containsServices:[serviceId]});
 
   if (isLoading) {
     return <div>Loading...</div>;
