@@ -18,15 +18,15 @@ type UseAppointments = (tenantId:Tenant["id"]) => Response;
 
 export const useAppointments: UseAppointments = (tenantId) => {
 	const [from, setFrom] = useState<ISODate>(() => {
-		const date = new Date();
-		date.setHours(0, 0, 0, 0);
+		const now = new Date();
+		const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
 		return toISODate(date);
 	});
 
 	// to is last second of today (one day)
 	const [to, setTo] = useState<ISODate>(() => {
-		const date = new Date();
-		date.setHours(23, 59, 59, 999);
+		const now = new Date();
+		const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
 		return toISODate(date);
 	});
 
