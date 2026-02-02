@@ -47,8 +47,7 @@ export const scheduleRepository: ScheduleRepository = {
 			buildApiUrl(`schedules`),
 			{
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data),
+ 				body: JSON.stringify(data),
 			},
 		);
 	},
@@ -57,8 +56,7 @@ export const scheduleRepository: ScheduleRepository = {
 			buildApiUrl(`schedules?staffId=${staffId}`),
 			{
 				method: "PUT",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data),
+ 				body: JSON.stringify(data),
 			},
 		);
 	},

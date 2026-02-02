@@ -14,7 +14,8 @@ export const useScheduleActions = (tenantId: Tenant["id"]) => {
 		}: { data: UpdateScheduleDto[]; staffId: Staff["id"] }) =>
 			scheduleRepository.update(staffId, data),
 		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["staff-schedule", tenantId] });
+			// Invalidate all schedule queries for this tenant (matches useSchedulesQuery key)
+			qc.invalidateQueries({ queryKey: ["staff-schedules", tenantId] });
 		},
 	});
 
@@ -26,7 +27,8 @@ export const useScheduleActions = (tenantId: Tenant["id"]) => {
 		mutationFn: ({ data }: CreateParams) =>
 			scheduleRepository.create(data),
 		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: ["staff-schedule", tenantId] });
+			// Invalidate all schedule queries for this tenant (matches useSchedulesQuery key)
+			qc.invalidateQueries({ queryKey: ["staff-schedules", tenantId] });
 		},
 	});
 

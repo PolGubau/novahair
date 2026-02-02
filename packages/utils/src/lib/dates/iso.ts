@@ -26,7 +26,9 @@ export const formatISODate = (
 /**
  * Combines a date and a time string (HH:MM) into a single Date object.
  * Uses UTC to avoid timezone conversion issues.
- * @param date Date object representing the date.
+ * The date parameter is interpreted as a calendar date (year, month, day) regardless
+ * of whether it was created in local time or UTC.
+ * @param date Date object representing the date (uses local year/month/day).
  * @param time Time string in HH:MM format (interpreted as UTC).
  * @returns An object containing the new Date and its ISODate representation.
  */
@@ -38,11 +40,12 @@ export const combineDateTime = (
 	iso: ISODate;
 } => {
 	const [hours, minutes] = time.split(":").map(Number);
-	// Use UTC methods to avoid timezone conversion
+	// Use local date components (year, month, day) to preserve the calendar date
+	// the user selected, but create the timestamp in UTC with the given time
 	const newDate = new Date(Date.UTC(
-		date.getUTCFullYear(),
-		date.getUTCMonth(),
-		date.getUTCDate(),
+		date.getFullYear(),
+		date.getMonth(),
+		date.getDate(),
 		hours,
 		minutes,
 		0,

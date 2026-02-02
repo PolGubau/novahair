@@ -13,14 +13,12 @@ type EditScheduleProps = {
 	schedule: Schedule | null;
 	onSuccess: () => void;
 	onClose: () => void;
-	day: Date;
 };
 
 export function EditSchedule({
 	schedule,
 	onSuccess,
 	onClose,
-	day,
 }: EditScheduleProps) {
 	const { t } = useTranslation();
 	const { update } = useScheduleActions(config.tenantId);
@@ -43,8 +41,7 @@ export function EditSchedule({
 		if (editedSchedule) {
 			updateSchedule(editedSchedule);
 		}
-		onSuccess();
-	};
+ 	};
 
 	function updateSchedule(updatedSchedule: Schedule) {
 		const schedule: UpdateScheduleDto = {
@@ -55,8 +52,14 @@ export function EditSchedule({
 		mutate({
 			data: [schedule],
 			staffId: updatedSchedule.staff.id,
-		});
+		},{onSuccess: () => {
+			onSuccess();
+		}});
 	}
+
+	// Use the schedule's original date (in UTC) instead of the local 'day' prop
+	// to avoid timezone issues when combining date and time
+	const scheduleDate = new Date(editedSchedule.start);
 
 	return (
 		<div className="">
@@ -69,7 +72,7 @@ export function EditSchedule({
 							const time = e.target.value;
 							setEditedSchedule({
 								...editedSchedule,
-								start: combineDateTime(day, time).iso,
+								start: combineDateTime(scheduleDate, time).iso,
 							});
 						}}
 						type="time"
@@ -84,7 +87,7 @@ export function EditSchedule({
 							const time = e.target.value;
 							setEditedSchedule({
 								...editedSchedule,
-								end: combineDateTime(day, time).iso,
+								end: combineDateTime(scheduleDate, time).iso,
 							});
 						}}
 						type="time"

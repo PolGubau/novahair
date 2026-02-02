@@ -7,15 +7,14 @@ export async function genericFetch<ResponseType>(
 ): Promise<ResponseType> {
 	try {
 		const defaultOptions: RequestInit = {
+			...options,
 			headers: {
 				// JSON by default
 				"Content-Type": "application/json",
-				// Add tenant ID header if available
-				...(config.tenantId && { "X-Tenant-ID": config.tenantId }),
-
-				...options?.headers,
+				// Add tenant ID header 
+				"X-Tenant-ID": config.tenantId ??'',
+				...(options?.headers as Record<string, string> | undefined),
 			},
-			...options,
 		};
 		const response = await fetch(url, defaultOptions);
 

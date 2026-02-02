@@ -88,7 +88,6 @@ export function ScheduleEvent({
 				}
 			>
 				<EditSchedule
-					day={day}
 					onClose={() => setIsDrawerOpen(false)}
 					onSuccess={() => {
 						setIsDrawerOpen(false);
