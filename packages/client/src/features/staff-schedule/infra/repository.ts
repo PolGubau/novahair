@@ -1,5 +1,5 @@
-import { buildApiUrl, genericFetch } from "@novahair/utils";
-import { toSchedule } from "../../..";
+import { buildApiUrl, genericFetch, type ISODate } from "@novahair/utils";
+import { Staff, Tenant, toSchedule } from "../../..";
 import type {
 	CreateScheduleDto,
 	ScheduleDto,
@@ -8,24 +8,57 @@ import type {
 import type { Schedule } from "../domain/schedule";
 
 export type StaffScheduleRepository = {
-	getByStaff: (tenantId: string, staffId: string) => Promise<Schedule[]>;
+	getByStaff: (
+		tenantId: Tenant["id"],
+		staffId: Staff["id"],
+		from?: ISODate,
+		to?: ISODate,
+	) => Promise<Schedule[]>;
+	getByTenant: (
+		tenantId: Tenant["id"],
+		from?: ISODate,
+		to?: ISODate,
+		staffIds?: Staff["id"][],
+	) => Promise<Schedule[]>;
 	create: (
-		tenantId: string,
-		staffId: string,
+		tenantId: Tenant["id"],
+		staffId: Staff["id"],
 		data: CreateScheduleDto[],
 	) => Promise<void>;
 	update: (
-		tenantId: string,
-		staffId: string,
+		tenantId: Tenant["id"],
+		staffId: Staff["id"],
 		data: UpdateScheduleDto[],
 	) => Promise<void>;
 };
 
 export const staffScheduleRepository: StaffScheduleRepository = {
-	getByStaff: async (tenantId, staffId) => {
-		const dto = await genericFetch<ScheduleDto[]>(
-			buildApiUrl(`tenants/${tenantId}/staff/${staffId}/schedule`),
-		);
+	getByStaff: async (tenantId, staffId, from, to) => {
+		const params = new URLSearchParams();
+		if (from) params.append("from", from);
+		if (to) params.append("to", to);
+		const queryString = params.toString();
+		const url = queryString
+			? `tenants/${tenantId}/staff/${staffId}/schedule?${queryString}`
+			: `tenants/${tenantId}/staff/${staffId}/schedule`;
+		const dto = await genericFetch<ScheduleDto[]>(buildApiUrl(url));
+		return dto.map(toSchedule);
+	},
+
+	getByTenant: async (tenantId, from, to, staffIds) => {
+		const params = new URLSearchParams();
+		if (from) params.append("from", from);
+		if (to) params.append("to", to);
+		if (staffIds?.length) {
+			for (const staffId of staffIds) {
+				params.append("staffId", staffId);
+			}
+		}
+		const queryString = params.toString();
+		const url = queryString
+			? `tenants/${tenantId}/schedule?${queryString}`
+			: `tenants/${tenantId}/schedule`;
+		const dto = await genericFetch<ScheduleDto[]>(buildApiUrl(url));
 		return dto.map(toSchedule);
 	},
 

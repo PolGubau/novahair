@@ -10,11 +10,11 @@ import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { AdminMain } from "~/app/layouts/admin-main";
 import { Loader } from "@novahair/ui/loader";
 import { config, type ISODate } from "@novahair/utils";
-import { useQueries } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { addDays, isSameDay, parseISO, startOfWeek } from "date-fns";
+import { addDays, endOfDay, isSameDay, parseISO, startOfWeek } from "date-fns";
 import { Filter } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
 	ScheduleAssignmentDrawer,
 	StaffFilter,
@@ -38,21 +38,46 @@ function RouteComponent() {
 	} = useStaffs(config.tenantId);
 	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
 
-	const staffSchedules = useQueries({
-		queries:
-			staffs?.map((staff) => ({
-				enabled: !!staffs,
-				queryFn: () =>
-					staffScheduleRepository.getByStaff(config.tenantId, staff.id),
-				queryKey: ["staff-schedule", config.tenantId, staff.id],
-			})) || [],
-	});
+	// Week starting from Monday
+	const [currentWeekStart, setCurrentWeekStart] = useState(
+		startOfWeek(new Date(), { weekStartsOn: 1 }),
+	);
+	const [filteredStaffs, setFilteredStaffs] = useState<Staff[]>([]);
 
-	const isSchedulesLoading = staffSchedules.some((q) => q.isLoading);
+	// Calculate from/to dates for the current week
+	const { from, to } = useMemo(() => {
+		const weekEnd = endOfDay(addDays(currentWeekStart, 6));
+		return {
+			from: currentWeekStart.toISOString() as ISODate,
+			to: weekEnd.toISOString() as ISODate,
+		};
+	}, [currentWeekStart]);
+
+	const filteredStaffIds = useMemo(
+		() => filteredStaffs.map((staff) => staff.id),
+		[filteredStaffs],
+	);
+
+	const { data: schedulesData, isLoading: isSchedulesLoading } = useQuery({
+		queryKey: [
+			"staff-schedules",
+			config.tenantId,
+			from,
+			to,
+			filteredStaffIds,
+		],
+		queryFn: () =>
+			staffScheduleRepository.getByTenant(
+				config.tenantId,
+				from,
+				to,
+				filteredStaffIds.length > 0 ? filteredStaffIds : undefined,
+			),
+		enabled: !!staffs,
+	});
 
 	const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
-	const [filteredStaffs, setFilteredStaffs] = useState<Staff[]>([]);
 
 	useEffect(() => {
 		if (staffs) {
@@ -60,12 +85,9 @@ function RouteComponent() {
 		}
 	}, [staffs]);
 
-	// Week starting from Monday
-	const [currentWeekStart, setCurrentWeekStart] = useState(
-		startOfWeek(new Date(), { weekStartsOn: 1 }),
-	);
-	const weekDays = Array.from({ length: 7 }, (_, i) =>
-		addDays(currentWeekStart, i),
+	const weekDays = useMemo(
+		() => Array.from({ length: 7 }, (_, i) => addDays(currentWeekStart, i)),
+		[currentWeekStart],
 	);
 
 	const toggleDate = (date: Date) => {
@@ -77,28 +99,26 @@ function RouteComponent() {
 	};
 
 	const getSchedulesForDay = (date: Date) => {
+		if (!schedulesData || !staffs) return [];
+
 		const schedules: {
 			id: string;
 			staff: Staff;
 			start: ISODate;
 			end: ISODate;
 		}[] = [];
-		for (const [index, query] of staffSchedules.entries()) {
-			if (
-				query.data &&
-				staffs &&
-				filteredStaffs.some((s) => s.id === staffs[index].id)
-			) {
-				const staff = staffs[index];
-				for (const schedule of query.data as Schedule[]) {
-					if (isSameDay(parseISO(schedule.startTime), date)) {
-						schedules.push({
-							end: schedule.endTime,
-							id: schedule.id,
-							staff,
-							start: schedule.startTime,
-						});
-					}
+
+		for (const schedule of schedulesData) {
+			if (isSameDay(parseISO(schedule.startTime), date)) {
+				// Find the staff member for this schedule
+				const staff = staffs.find((s) => schedule.staffId === s.id);
+				if (staff) {
+					schedules.push({
+						end: schedule.endTime,
+						id: schedule.id,
+						staff,
+						start: schedule.startTime,
+					});
 				}
 			}
 		}
