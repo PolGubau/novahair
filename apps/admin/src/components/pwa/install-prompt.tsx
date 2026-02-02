@@ -41,11 +41,11 @@ export const InstallPrompt = ({ show, onInstall }: InstallPromptProps) => {
 					initial={{ opacity: 0, y: -50 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -50 }}
-					className="fixed top-4 left-1/2 -translate-x-1/2 z-50 max-w-md w-full mx-4"
+					className="fixed top-4 left-1/2 -translate-x-1/2 z-50 max-w-md w-full"
 				>
-					<div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border border-primary/20 rounded-lg shadow-lg p-4">
+					<div className="bg-background border border-primary/20 rounded-lg shadow-lg p-4">
 						<div className="flex items-start gap-3">
-							<div className="flex-shrink-0 mt-0.5">
+							<div className="shrink-0 mt-0.5">
 								<div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
 									<Download className="w-5 h-5 text-primary-foreground" />
 								</div>
@@ -81,7 +81,7 @@ export const InstallPrompt = ({ show, onInstall }: InstallPromptProps) => {
 							<button
 								type="button"
 								onClick={handleDismiss}
-								className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+								className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
 								aria-label="Cerrar"
 							>
 								<X className="w-4 h-4" />

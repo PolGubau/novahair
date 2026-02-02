@@ -25,8 +25,9 @@ export const formatISODate = (
 
 /**
  * Combines a date and a time string (HH:MM) into a single Date object.
+ * Uses UTC to avoid timezone conversion issues.
  * @param date Date object representing the date.
- * @param time Time string in HH:MM format.
+ * @param time Time string in HH:MM format (interpreted as UTC).
  * @returns An object containing the new Date and its ISODate representation.
  */
 export const combineDateTime = (
@@ -37,8 +38,16 @@ export const combineDateTime = (
 	iso: ISODate;
 } => {
 	const [hours, minutes] = time.split(":").map(Number);
-	const newDate = new Date(date);
-	newDate.setHours(hours, minutes, 0, 0);
+	// Use UTC methods to avoid timezone conversion
+	const newDate = new Date(Date.UTC(
+		date.getUTCFullYear(),
+		date.getUTCMonth(),
+		date.getUTCDate(),
+		hours,
+		minutes,
+		0,
+		0
+	));
 	const iso = toISODate(newDate);
 	return { newDate, iso };
 };

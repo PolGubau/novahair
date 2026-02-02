@@ -35,8 +35,9 @@ export function EditSchedule({
 
 	const startDate = new Date(editedSchedule.start);
 	const endDate = new Date(editedSchedule.end);
-	const startTime = `${startDate.getHours().toString().padStart(2, "0")}:${startDate.getMinutes().toString().padStart(2, "0")}`;
-	const endTime = `${endDate.getHours().toString().padStart(2, "0")}:${endDate.getMinutes().toString().padStart(2, "0")}`;
+	// Use UTC to match backend timezone
+	const startTime = `${startDate.getUTCHours().toString().padStart(2, "0")}:${startDate.getUTCMinutes().toString().padStart(2, "0")}`;
+	const endTime = `${endDate.getUTCHours().toString().padStart(2, "0")}:${endDate.getUTCMinutes().toString().padStart(2, "0")}`;
 
 	const handleSave = () => {
 		if (editedSchedule) {
