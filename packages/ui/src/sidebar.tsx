@@ -282,7 +282,7 @@ function SidebarTrigger({
 			icon={
 				<ChevronLeft
 					className={cn({
-						"rotate-180": open,
+						"rotate-180": !open,
 					})}
 				/>
 			}

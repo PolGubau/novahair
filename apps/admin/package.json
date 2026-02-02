@@ -78,7 +78,9 @@
 		"tailwindcss": "4.1.18",
 		"typescript": "5.7.2",
 		"vite": "7.1.7",
+		"vite-plugin-pwa": "^1.2.0",
 		"vitest": "3.2.4",
-		"web-vitals": "5.1.0"
+		"web-vitals": "5.1.0",
+		"workbox-window": "^7.4.0"
 	}
 }
