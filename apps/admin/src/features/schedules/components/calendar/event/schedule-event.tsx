@@ -107,7 +107,7 @@ export function ScheduleEvent({
 					top: `${top}px`,
 					...position,
 				}}
-				title={`${schedule.staff.name}: ${startDate.toLocaleTimeString()} - ${endDate.toLocaleTimeString()}`}
+				title={`${schedule.staff.name}: ${startDate.toLocaleTimeString('default', { timeZone: 'UTC' })} - ${endDate.toLocaleTimeString('default', { timeZone: 'UTC' })}`}
 			>
 				<div className="h-full w-full flex p-1 flex-col">
 					<div className="truncate flex items-center gap-2 mb-1">
