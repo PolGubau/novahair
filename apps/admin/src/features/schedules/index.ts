@@ -9,3 +9,4 @@ export { WeeklyCalendar } from "./components/calendar/weekly-calendar";
 export { ScheduleAssignmentDrawer } from "./components/schedule-assignment-drawer";
 export { StaffFilter } from "./components/staff-filter-sidebar";
 export { WeekNavigation } from "./components/week-navigation";
+export { SchedulesPage } from "./components/schedules-page";
