@@ -12,6 +12,7 @@ import { RootProvider } from "@novahair/utils";
 import { setSSRLanguage } from "~/shared/i18n/ssr-i18n";
 import appCss from "../styles.css?url";
 import i18n from "~/shared/i18n/setup";
+import { PWAProvider } from "~/components/pwa";
 export const Route = createRootRouteWithContext()({
 	ssr: false,
 	beforeLoad: async () => {
@@ -28,14 +29,42 @@ export const Route = createRootRouteWithContext()({
 				href: "/favicon.svg",
 				rel: "icon",
 			},
+			{
+				href: "/manifest.json",
+				rel: "manifest",
+			},
 		],
 		meta: [
 			{
 				charSet: "utf-8",
 			},
 			{
-				content: "width=device-width, initial-scale=1",
+				content: "width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes",
 				name: "viewport",
+			},
+			{
+				content: "#000000",
+				name: "theme-color",
+			},
+			{
+				content: "yes",
+				name: "mobile-web-app-capable",
+			},
+			{
+				content: "yes",
+				name: "apple-mobile-web-app-capable",
+			},
+			{
+				content: "black-translucent",
+				name: "apple-mobile-web-app-status-bar-style",
+			},
+			{
+				content: "NovaHair Admin",
+				name: "apple-mobile-web-app-title",
+			},
+			{
+				content: "NovaHair Admin",
+				name: "application-name",
 			},
 			{
 				title: "NOVAHAIR - Tu nueva peluquería de confianza",
@@ -110,7 +139,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<RootProvider onChangedLanguage={() => router.invalidate()}>
-				<MainLayout>{children}</MainLayout>
+					<PWAProvider>
+						<MainLayout>{children}</MainLayout>
+					</PWAProvider>
 				</RootProvider>
 				<Devtools />
 				<Scripts />
