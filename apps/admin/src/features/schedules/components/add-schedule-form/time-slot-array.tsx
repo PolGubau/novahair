@@ -14,6 +14,7 @@ export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 		const slots: CreateScheduleDto[] = [...timeSlots];
 		slots.push({
 			endTime: undefined as unknown as ISODate,
+			staffId: undefined as unknown as string,
 			startTime: undefined as unknown as ISODate,
 		});
 		setTimeSlots(slots);

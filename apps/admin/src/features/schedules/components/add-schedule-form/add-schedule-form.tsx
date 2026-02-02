@@ -1,8 +1,8 @@
 import {
+	useScheduleActions,
 	type CreateScheduleDto,
 	type Staff,
-	useStaffScheduleActions,
-} from "@novahair/client";
+ } from "@novahair/client";
 import { Button } from "@novahair/ui";
 import { combineDateTime, config } from "@novahair/utils";
 import { useState } from "react";
@@ -25,13 +25,14 @@ export function AddScheduleForm({
 	setSelectedDays,
 }: Props) {
 	const { t } = useTranslation();
-	const { create } = useStaffScheduleActions(config.tenantId);
+	const { create } = useScheduleActions(config.tenantId);
 	const { mutate, isPending } = create;
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const newTimeSlots: CreateScheduleDto[] = selectedDays.flatMap((day) =>
 			timeSlots.map((slot) => ({
+				staffId: slot.staffId,
 				endTime: combineDateTime(day, slot.endTime).iso,
 				startTime: combineDateTime(day, slot.startTime).iso,
 			})),

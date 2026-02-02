@@ -21,8 +21,9 @@ type ScheduleEventProps = {
 };
 
 function getMinutesFromMidnight(date: Date): number {
-	const hours = date.getHours();
-	const minutes = date.getMinutes();
+	// Use UTC hours and minutes to match backend timezone
+	const hours = date.getUTCHours();
+	const minutes = date.getUTCMinutes();
 	return hours * 60 + minutes;
 }
 

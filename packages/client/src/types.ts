@@ -68,7 +68,7 @@ export type ScheduleDto = {
 	id: string;
 	startTime: ISODate;
 	endTime: ISODate;
-	staffId?: string;
+	staff:Staff
 };
 
 export type AvailabilitySlotDto = {
@@ -126,8 +126,10 @@ export type UpdateWorkingHoursDto = CreateWorkingHoursDto;
 
 export type AssignServicesToStaffDto = { serviceIds: string[] };
 
-export type CreateScheduleDto = Omit<ScheduleDto, "id">;
-export type UpdateScheduleDto = ScheduleDto;
+export type CreateScheduleDto = Pick<ScheduleDto, "startTime"|"endTime">&{
+	staffId: string;
+};
+export type UpdateScheduleDto = Pick<ScheduleDto, "startTime" | "endTime"|"id">;
 
 export type CreateCustomerDto = {
 	name: string;

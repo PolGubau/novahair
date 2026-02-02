@@ -66,12 +66,12 @@ export function SchedulesPage() {
 
 		for (const schedule of schedulesData) {
 			if (isSameDay(parseISO(schedule.startTime), date)) {
-				const staff = staffs.find((s) => schedule.staffId === s.id);
-				if (staff) {
+				// The schedule already has the staff object from the backend
+				if (schedule.staff) {
 					schedules.push({
 						end: schedule.endTime,
 						id: schedule.id,
-						staff,
+						staff: schedule.staff,
 						start: schedule.startTime,
 					});
 				}

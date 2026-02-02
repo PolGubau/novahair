@@ -1,6 +1,6 @@
 import {
 	type UpdateScheduleDto,
-	useStaffScheduleActions,
+	useScheduleActions,
 } from "@novahair/client";
 import { Button } from "@novahair/ui";
 import { Input } from "@novahair/ui/input";
@@ -23,7 +23,7 @@ export function EditSchedule({
 	day,
 }: EditScheduleProps) {
 	const { t } = useTranslation();
-	const { update } = useStaffScheduleActions(config.tenantId);
+	const { update } = useScheduleActions(config.tenantId);
 
 	const { mutate, isPending } = update;
 	const [editedSchedule, setEditedSchedule] = useState<Schedule | null>(

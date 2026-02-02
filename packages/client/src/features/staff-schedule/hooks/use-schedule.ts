@@ -1,17 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
 import type { ISODate } from "@novahair/utils";
-import { staffScheduleRepository } from "../infra/repository";
+import { useQuery } from "@tanstack/react-query";
+import { scheduleRepository } from "../infra/repository";
 
-export const useStaffSchedule = (
-	tenantId: string,
+export const useSchedule = (
 	staffId: string,
 	from?: ISODate,
 	to?: ISODate,
 ) => {
 	const { isLoading, error, data, refetch } = useQuery({
-		queryKey: ["staff-schedule", tenantId, staffId, from, to],
+		queryKey: ["staff-schedule", from, to],
 		staleTime: 1000 * 60 * 5, // 5 minutes
-		queryFn: () => staffScheduleRepository.getByStaff(tenantId, staffId, from, to),
+		queryFn: () => scheduleRepository.get(from, to),
 		enabled: !!staffId,
 	});
 	const schedule = data || [];

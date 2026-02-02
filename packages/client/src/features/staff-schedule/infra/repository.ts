@@ -1,5 +1,5 @@
 import { buildApiUrl, genericFetch, type ISODate } from "@novahair/utils";
-import { Staff, Tenant, toSchedule } from "../../..";
+import { Staff, toSchedule } from "../../..";
 import type {
 	CreateScheduleDto,
 	ScheduleDto,
@@ -7,45 +7,25 @@ import type {
 } from "../../../types";
 import type { Schedule } from "../domain/schedule";
 
-export type StaffScheduleRepository = {
-	getByStaff: (
-		tenantId: Tenant["id"],
-		staffId: Staff["id"],
-		from?: ISODate,
-		to?: ISODate,
-	) => Promise<Schedule[]>;
-	getByTenant: (
-		tenantId: Tenant["id"],
-		from?: ISODate,
+export type ScheduleRepository = {
+	get: (
+ 		from?: ISODate,
 		to?: ISODate,
 		staffIds?: Staff["id"][],
 	) => Promise<Schedule[]>;
 	create: (
-		tenantId: Tenant["id"],
-		staffId: Staff["id"],
-		data: CreateScheduleDto[],
+  		data: CreateScheduleDto[],
 	) => Promise<void>;
 	update: (
-		tenantId: Tenant["id"],
-		staffId: Staff["id"],
+ 		staffId: Staff["id"],
 		data: UpdateScheduleDto[],
 	) => Promise<void>;
 };
 
-export const staffScheduleRepository: StaffScheduleRepository = {
-	getByStaff: async (tenantId, staffId, from, to) => {
-		const params = new URLSearchParams();
-		if (from) params.append("from", from);
-		if (to) params.append("to", to);
-		const queryString = params.toString();
-		const url = queryString
-			? `tenants/${tenantId}/staff/${staffId}/schedule?${queryString}`
-			: `tenants/${tenantId}/staff/${staffId}/schedule`;
-		const dto = await genericFetch<ScheduleDto[]>(buildApiUrl(url));
-		return dto.map(toSchedule);
-	},
+export const scheduleRepository: ScheduleRepository = {
+	 
 
-	getByTenant: async (tenantId, from, to, staffIds) => {
+	get: async (from, to, staffIds) => {
 		const params = new URLSearchParams();
 		if (from) params.append("from", from);
 		if (to) params.append("to", to);
@@ -56,15 +36,15 @@ export const staffScheduleRepository: StaffScheduleRepository = {
 		}
 		const queryString = params.toString();
 		const url = queryString
-			? `tenants/${tenantId}/schedule?${queryString}`
-			: `tenants/${tenantId}/schedule`;
+			? `schedules?${queryString}`
+			: `schedules`;
 		const dto = await genericFetch<ScheduleDto[]>(buildApiUrl(url));
 		return dto.map(toSchedule);
 	},
 
-	create: async (tenantId, staffId, data) => {
+	create: async (data) => {
 		await genericFetch(
-			buildApiUrl(`tenants/${tenantId}/staff/${staffId}/schedule`),
+			buildApiUrl(`schedules`),
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -72,9 +52,9 @@ export const staffScheduleRepository: StaffScheduleRepository = {
 			},
 		);
 	},
-	update: async (tenantId, staffId, data) => {
+	update: async (staffId, data) => {
 		await genericFetch(
-			buildApiUrl(`tenants/${tenantId}/staff/${staffId}/schedule`),
+			buildApiUrl(`schedules?staffId=${staffId}`),
 			{
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },

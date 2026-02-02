@@ -1,4 +1,4 @@
-import { staffScheduleRepository } from "@novahair/client";
+ import { scheduleRepository } from "@novahair/client";
 import type { ISODate } from "@novahair/utils";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,9 +12,8 @@ export function useSchedulesQuery(
 	return useQuery({
 		queryKey: ["staff-schedules", tenantId, from, to, staffIds],
 		queryFn: () =>
-			staffScheduleRepository.getByTenant(
-				tenantId,
-				from,
+			scheduleRepository.get(
+ 				from,
 				to,
 				staffIds?.length ? staffIds : undefined,
 			),

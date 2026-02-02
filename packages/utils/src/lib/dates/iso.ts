@@ -47,8 +47,9 @@ export function getTime(
 	isoDate: ISODate,
 ): [string, { hours: number; minutes: number }] {
 	const date = parseISODate(isoDate);
-	const hours = date.getHours();
-	const minutes = date.getMinutes();
+	// Use UTC to match backend timezone (ISODate always ends in Z = UTC)
+	const hours = date.getUTCHours();
+	const minutes = date.getUTCMinutes();
 	const label = `${hours.toString().padStart(2, "0")}:${minutes
 		.toString()
 		.padStart(2, "0")}`;

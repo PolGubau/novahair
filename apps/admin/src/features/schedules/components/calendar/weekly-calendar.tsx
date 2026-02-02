@@ -40,7 +40,7 @@ export function WeeklyCalendar({
 
 	return (
 		<ul className="flex w-full overflow-x-auto gap-0 border rounded-xl divide-x divide-foreground/5">
-			{weekDays.map((day) => (
+ 			{weekDays.map((day) => (
 				<CalendarDay
 					day={day}
 					dayHeight={DAY_HEIGHT}
