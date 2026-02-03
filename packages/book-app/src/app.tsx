@@ -5,8 +5,7 @@ import { CalendarStep } from "./features/calendar/ui/view";
 import { ServiceSelector } from "./features/services/ui/selector";
 import { StaffListSelector } from "./features/staff/ui/list-selector";
 import { TenantProvider } from "./shared/tenant";
-import "./styles.css";
-
+ 
 export const bookingSteps = ["services", "staff", "calendar"] as const;
 export type BookingStep = typeof bookingSteps[number];
 

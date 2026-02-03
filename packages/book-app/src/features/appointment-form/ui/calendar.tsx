@@ -34,7 +34,7 @@ export const Calendar = ({
 	const today = new Date();
 	return (
 		<table
-			className="w-full h-full border-collapse table-fixed text-sm"
+			className="w-full h-full border-collapse table-fixed text-xs md:text-sm"
 			cellPadding={0}
 			cellSpacing={0}
 		>
@@ -43,7 +43,7 @@ export const Calendar = ({
 					{weekDays.map((dayName) => (
 						<th
 							key={dayName.long}
-							className="py-2 border-y first:border-l first:rounded-l-full last:border-r last:rounded-r-full border-foreground/10 font-medium text-foreground/70"
+							className="py-1.5 md:py-2 border-y first:border-l first:rounded-l-full last:border-r last:rounded-r-full border-foreground/10 font-medium text-foreground/70 text-xs md:text-sm"
 						>
 							<span className="md:hidden first-letter:capitalize">
 								{dayName.short}
@@ -71,7 +71,7 @@ export const Calendar = ({
 										disabled={!isAvailable}
 										type="button"
 										className={cn(
-											"border transition-all p-3 w-full text-center min-h-24",
+											"border transition-all p-2 md:p-3 w-full text-center min-h-16 md:min-h-24 text-sm md:text-base",
 											{
 												"border-transparent": !cell.inMonth,
 												"border-foreground/5": cell.inMonth,

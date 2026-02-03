@@ -1,8 +1,11 @@
 import { Service, useStaffs } from "@novahair/client";
-import { Avatar, Button } from "@novahair/ui";
 import { t } from "i18next";
-import { ChevronRight } from "lucide-react";
 import { useTenantId } from "../../../shared/tenant";
+import { StaffSelectionItem } from "./item/item";
+import { StaffSelectionItemSkeleton } from "./item/item-skeleton";
+import { LoadingOverlay } from "@novahair/ui";
+import { StaffListSelectorList } from "./list/list";
+import { StaffListSelectorListSkeleton } from "./list/list-skeleton";
 
 type Props = {
   onStaffSelect?: (staffId: string) => void;
@@ -14,35 +17,24 @@ export const StaffListSelector = ({ onStaffSelect,serviceId }: Props) => {
   const { staffs, isLoading } = useStaffs(tenantId,{containsServices:[serviceId]});
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center p-8">
+      <LoadingOverlay isLoading={true}>
+      <ul className="grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
+        {[1, 2, 3, 4, 5].map((_) => (
+          <StaffSelectionItemSkeleton key={_} />
+        ))}
+      </ul>
+      </LoadingOverlay>
+    </div>;
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="">{t("select_staff")}</h1>
-      <ul className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-        {staffs.map((staff) => (
-          <li key={staff.id} 
-              className="flex items-center gap-4 border overflow-hidden border-foreground/20 rounded-xl"
-          >
-              <Avatar className="size-24 rounded-none border-y-0 border-l-0"
-                alt={staff.name ?? "Unknown"}
-                src={staff.avatarUrl ?? ""}
-                />
+    <div className="flex flex-col gap-4 h-full">
+      <h1 className="text-2xl md:text-4xl mb-2 md:mb-4">{t("select_staff")}</h1>
+      <LoadingOverlay isLoading={isLoading} >
+         {isLoading ? <StaffListSelectorListSkeleton/>:<StaffListSelectorList onStaffSelect={onStaffSelect} staffs={staffs} />}
 
-            <div className="flex flex-col gap-2">
-            
-              <h2 className="text-lg">{staff.name ?? t("unknown")}</h2>
-            
-                 <Button onClick={() => onStaffSelect?.(staff.id)}>
-                  {t("select")}         
-                  <ChevronRight/>
-                </Button>
-             </div>            
-
-           </li>
-        ))}
-      </ul>
+      </LoadingOverlay>
     </div>
   );
 };

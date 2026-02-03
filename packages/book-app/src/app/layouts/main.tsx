@@ -11,9 +11,9 @@ type MainLayoutProps = {
 
 export function MainLayout({ children, currentStep,setStep }: MainLayoutProps) {
 	return (
-		<div className="grid grid-rows-[1fr_auto] gap-4 h-full max-w-7xl w-full mx-auto">
-	 
-			<main className="h-full grid flex-1">
+		<div className="grid grid-rows-[1fr_auto] gap-4 h-full max-w-7xl w-full mx-auto overflow-hidden">
+
+			<main className="h-full grid flex-1 overflow-y-auto pb-4">
 				<ErrorBoundary
 					fallback={(error, reset) => (
 						<ApiErrorFallback

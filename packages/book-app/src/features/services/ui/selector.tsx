@@ -17,8 +17,8 @@ export const ServiceSelector = ({ onServiceSelect }: Props) => {
 	// Show loading if tenantId is not available or if services are loading
 	if (!tenantId || isLoading) {
 		return (
-			<div className="flex flex-col gap-4">
-				<h1 className="text-4xl mb-4">{t("choose_service")}</h1>
+			<div className="flex flex-col gap-4 h-full">
+				<h1 className="text-2xl md:text-4xl mb-2 md:mb-4">{t("choose_service")}</h1>
 				<ServiceListSkeleton />
 			</div>
 		);
@@ -29,8 +29,8 @@ export const ServiceSelector = ({ onServiceSelect }: Props) => {
 	}
 
 	return (
-		<div className="flex flex-col gap-4">
-			<h1 className="text-4xl mb-4">{t("choose_service")}</h1>
+		<div className="flex flex-col gap-4 h-full">
+			<h1 className="text-2xl md:text-4xl mb-2 md:mb-4">{t("choose_service")}</h1>
 			<ServiceList services={services} onServiceSelect={onServiceSelect} />
 		</div>
 	);

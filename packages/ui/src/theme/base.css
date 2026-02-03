@@ -1,5 +1,4 @@
 
-@import "./defaults.css";
 @import "./tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -32,7 +31,7 @@
 
 @layer base {
   * {
-    @apply border-foreground/20 outline-foreground/30;
+    @apply border-muted outline-muted;
   }
   body {
     @apply bg-background text-foreground m-0 font-sans antialiased;

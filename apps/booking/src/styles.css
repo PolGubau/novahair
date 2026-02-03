@@ -2,8 +2,13 @@
 
 @import "@fontsource-variable/outfit";
 @import "../../../packages/ui/src/theme/defaults.css";
-@import "../../../packages/ui/src/theme/animations.css";
-@import "../../../packages/ui/src/theme/base.css";
+
+/* :root {
+	--radius: 2rem;
+	--background: oklch(52.768% 0.21534 29.097);
+} */
+
+@import "../../../packages/ui/src/theme/style.css";
 @source "../../../packages/*/src/**/*.tsx";
  
 @custom-variant dark (&:where(.dark, .dark *));

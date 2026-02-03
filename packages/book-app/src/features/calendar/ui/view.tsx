@@ -102,11 +102,11 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 	}
 
 	return (
-		<main className="grid grid-rows-[auto_1fr]">
+		<main className="grid grid-rows-[auto_1fr] h-full gap-4">
 			<Drawer
 				className="max-w-4xl"
 				classNames={{
-					header: "md:px-8 pt-6",
+					header: "px-4 md:px-8 pt-6",
 					body: "p-0",
 				}}
 				open={Boolean(selectedDayISO)}
@@ -114,7 +114,7 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 				title={t("appointment_date", {
 					date: parsedDate,
 				}) as TranslationKey}
-				 
+
 			>
 				<section className="">
 					{!isSuccessfullySent ? (
@@ -140,14 +140,14 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 				</section>
 			</Drawer>
 
-			<section className="h-full grid gap-2 md:gap-8">
-				 
-				<header className="flex md:items-center md:gap-6 md:text-center justify-between">
-					<div className="text-2xl md:text-3xl xl:text-5xl first-letter:capitalize">
+			<section className="h-full grid gap-3 md:gap-8 overflow-y-auto">
+
+				<header className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 justify-between">
+					<div className="text-xl md:text-3xl xl:text-5xl first-letter:capitalize font-semibold">
 						{formattedDate}
 					</div>
 
-					<CalendarNav 
+					<CalendarNav
 						staffId={staffId}
 						serviceId={serviceId}
 						setStaffId={(id) => setSelectedStaffId(id)}
@@ -175,17 +175,17 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 						availableDays={days}
 					/>
 				</LoadingOverlay>
-				<ul className="flex gap-2 md:gap-6 px-4 md:px-0 max-md:flex-col">
+				<ul className="flex gap-3 md:gap-6 text-xs md:text-sm max-md:flex-col">
 					<li className="flex gap-2 items-center">
 						<div
-							className={cn("size-4 rounded-full border", cellStyles.available)}
+							className={cn("size-3 md:size-4 rounded-full border", cellStyles.available)}
 						/>
 						{t("available")}
 					</li>
 					<li className="flex gap-2 items-center">
 						<div
 							className={cn(
-								"size-4 rounded-full border",
+								"size-3 md:size-4 rounded-full border",
 								cellStyles.unavailable,
 							)}
 						/>
