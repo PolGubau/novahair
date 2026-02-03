@@ -1,5 +1,8 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { BookingApp } from '@novahair/booking-app';
+import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { MainLayout } from '~/app/layouts/main';
+import { useTenantId } from "~/shared/tenant";
 
 const searchSchema = z.object({
 	serviceId: z.string().optional(),
@@ -9,33 +12,15 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/")({
 	validateSearch: searchSchema,
-	beforeLoad: async ({ search }) => {
-		const { serviceId, staffId } = search;
-		
-		// if service and staff IDs are provided, redirect to calendar step
-		if (serviceId && staffId) {
-			throw redirect({
-				to: "/calendar",
-				search: {
-					serviceId,
-					staffId,
-				},
-			});
-		}
-
-		// If service ID is provided, redirect directly to next step
-		if (search.serviceId) {
-			throw redirect({
-				to: "/choose-staff",
-				search: {
-					serviceId: search.serviceId,
- 				},
-			});
-		}
-
-		// Otherwise, show service selector
-		throw redirect({
-			to: "/choose-service",
-		});
-	},
+	ssr: false,
+	component: RouteComponent,
+	
 });
+
+function RouteComponent() {
+	const tenantId  = useTenantId();
+
+	return  <MainLayout>
+		<BookingApp tenantId={tenantId} />
+	</MainLayout>
+ }

@@ -1,19 +1,31 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
+import { MainLayout } from "./app/layouts/main";
 import { CalendarStep } from "./features/calendar/ui/view";
 import { ServiceSelector } from "./features/services/ui/selector";
 import { StaffListSelector } from "./features/staff/ui/list-selector";
 import { TenantProvider } from "./shared/tenant";
-import { MainLayout } from "./app/layouts/main";
-import "./styles.css"; 
+import "./styles.css";
 
 export const bookingSteps = ["services", "staff", "calendar"] as const;
 export type BookingStep = typeof bookingSteps[number];
 
-const queryClient = new QueryClient();
+ 
 
-export function BookingApp({ tenantId }: { tenantId: string }) {
+export type BookingAppProps = {
+	tenantId: string;
+};
+
+
+// export const stepsRender:Record<BookingStep, React.ReactNode> = {
+// 	services: <ServiceSelector onServiceSelect={() => {}} />,
+// 	staff: <StaffListSelector serviceId="" onStaffSelect={() => {}} />,
+// 	calendar: <CalendarStep serviceId="" />,
+// };
+
+
+
+export function BookingApp({ tenantId }: BookingAppProps) {
 	const [step, setStep] = useState<BookingStep>("services");
 	const [selectedServiceId, setSelectedServiceId] = useState<string>();
 	const [selectedStaffId, setSelectedStaffId] = useState<string>();
@@ -33,8 +45,7 @@ export function BookingApp({ tenantId }: { tenantId: string }) {
   return (
     <MainLayout currentStep={step} setStep={setStep}>
 		<TenantProvider tenantId={tenantId}>
-			<QueryClientProvider client={queryClient}>
-				{step === "services" && (
+ 				{step === "services" && (
 					<ServiceSelector onServiceSelect={handleServiceSelect} />
 				)}
 				{step === "staff" && selectedServiceId && (
@@ -52,8 +63,7 @@ export function BookingApp({ tenantId }: { tenantId: string }) {
  					/>
 				)}
 				<ReactQueryDevtools />
-			</QueryClientProvider>
-      </TenantProvider>
+       </TenantProvider>
       </MainLayout>
 	);
 }

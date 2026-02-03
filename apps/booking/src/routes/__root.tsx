@@ -1,24 +1,25 @@
 /// <reference types="vite/client" />
-import { BookingApp } from "@novahair/booking-app";
 import { Devtools } from "@novahair/ui/dev-tools";
 import {
 	HeadContent,
+	Outlet,
 	Scripts,
 	createRootRouteWithContext,
-	useRouter,
 } from "@tanstack/react-router";
 import { t } from "i18next";
 import { z } from "zod";
 import i18n from "~/shared/i18n/setup";
 import "../styles.css";
-import { config } from "@novahair/utils";
+import { Provider } from "~/integrations/tanstack-query/root-provider";
+import type { getContext } from "~/integrations/tanstack-query/root-provider";
+import { TenantGuard } from "~/shared/tenant/ui/tenant-guard";
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({
 	tenant: z.string().optional(),
 });
 
-export const Route = createRootRouteWithContext()({
+export const Route = createRootRouteWithContext<ReturnType<typeof getContext>>()({
 	validateSearch: rootSearchSchema,
 	ssr: false,
 
@@ -92,21 +93,21 @@ function NotFound() {
 	return <div>{t("not_found")}</div>;
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
-	const router=useRouter()
+function RootDocument() {
+	const { queryClient } = Route.useRouteContext();
+
 	return (
 		<html lang={i18n.language}>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				{/* <RootProvider onChangedLanguage={() => router.invalidate()}>
+				<Provider queryClient={queryClient}>
 					<TenantGuard>
-						<MainLayout>{children}</MainLayout>
+						<Outlet />
 					</TenantGuard>
-				</RootProvider> */}
-				<BookingApp tenantId={config.tenantId} />
-				<Devtools />
+					<Devtools />
+				</Provider>
 				<Scripts />
 			</body>
 		</html>

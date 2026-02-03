@@ -10,89 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ChooseStaffIndexRouteImport } from './routes/choose-staff/index'
-import { Route as ChooseServiceIndexRouteImport } from './routes/choose-service/index'
-import { Route as CancelAppointmentIndexRouteImport } from './routes/cancel-appointment/index'
-import { Route as CalendarIndexRouteImport } from './routes/calendar/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChooseStaffIndexRoute = ChooseStaffIndexRouteImport.update({
-  id: '/choose-staff/',
-  path: '/choose-staff/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChooseServiceIndexRoute = ChooseServiceIndexRouteImport.update({
-  id: '/choose-service/',
-  path: '/choose-service/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CancelAppointmentIndexRoute = CancelAppointmentIndexRouteImport.update({
-  id: '/cancel-appointment/',
-  path: '/cancel-appointment/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CalendarIndexRoute = CalendarIndexRouteImport.update({
-  id: '/calendar/',
-  path: '/calendar/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/calendar': typeof CalendarIndexRoute
-  '/cancel-appointment': typeof CancelAppointmentIndexRoute
-  '/choose-service': typeof ChooseServiceIndexRoute
-  '/choose-staff': typeof ChooseStaffIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/calendar': typeof CalendarIndexRoute
-  '/cancel-appointment': typeof CancelAppointmentIndexRoute
-  '/choose-service': typeof ChooseServiceIndexRoute
-  '/choose-staff': typeof ChooseStaffIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/calendar/': typeof CalendarIndexRoute
-  '/cancel-appointment/': typeof CancelAppointmentIndexRoute
-  '/choose-service/': typeof ChooseServiceIndexRoute
-  '/choose-staff/': typeof ChooseStaffIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/calendar'
-    | '/cancel-appointment'
-    | '/choose-service'
-    | '/choose-staff'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/calendar'
-    | '/cancel-appointment'
-    | '/choose-service'
-    | '/choose-staff'
-  id:
-    | '__root__'
-    | '/'
-    | '/calendar/'
-    | '/cancel-appointment/'
-    | '/choose-service/'
-    | '/choose-staff/'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CalendarIndexRoute: typeof CalendarIndexRoute
-  CancelAppointmentIndexRoute: typeof CancelAppointmentIndexRoute
-  ChooseServiceIndexRoute: typeof ChooseServiceIndexRoute
-  ChooseStaffIndexRoute: typeof ChooseStaffIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -104,43 +48,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/choose-staff/': {
-      id: '/choose-staff/'
-      path: '/choose-staff'
-      fullPath: '/choose-staff'
-      preLoaderRoute: typeof ChooseStaffIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/choose-service/': {
-      id: '/choose-service/'
-      path: '/choose-service'
-      fullPath: '/choose-service'
-      preLoaderRoute: typeof ChooseServiceIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cancel-appointment/': {
-      id: '/cancel-appointment/'
-      path: '/cancel-appointment'
-      fullPath: '/cancel-appointment'
-      preLoaderRoute: typeof CancelAppointmentIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/calendar/': {
-      id: '/calendar/'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof CalendarIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CalendarIndexRoute: CalendarIndexRoute,
-  CancelAppointmentIndexRoute: CancelAppointmentIndexRoute,
-  ChooseServiceIndexRoute: ChooseServiceIndexRoute,
-  ChooseStaffIndexRoute: ChooseStaffIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
