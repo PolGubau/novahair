@@ -5,13 +5,13 @@
 @import "@novahair/ui/theme/defaults";
 
 
-:root {
+/* :root {
 	--primary: oklch(0.7 0.3 120);
  
   --secondary: oklch(0.7 0.3 120);
 	
   --secondary-foreground: oklch(1 0 0);  
-}
+} */
 @import "@novahair/ui/theme/style";
 
 @source "../../../packages/ui/src/**/*.tsx";

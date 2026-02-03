@@ -1,4 +1,3 @@
-"use client";
 
 import {
 	Button, Collapsible,
@@ -17,8 +16,15 @@ import { useTranslation } from "react-i18next";
 import type { NavMainItem } from "./app-sidebar";
 
 export function NavMain({ items }: { items: NavMainItem[] }) {
-	const { state,open,setOpen } = useSidebar();
+	const { state, open, setOpen, isMobile, setOpenMobile } = useSidebar();
 	const { t } = useTranslation();
+
+	const handleLinkClick = () => {
+		if (isMobile) {
+			setOpenMobile(false);
+		}
+	};
+
 	return (
 		<SidebarGroup>
 			{/* <SidebarGroupLabel>{t("platform")}</SidebarGroupLabel> */}
@@ -63,6 +69,7 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 												<Link
 													to={subItem.url as string}
 													className="flex w-full"
+													onClick={handleLinkClick}
 												>
 													<span>{t(subItem.title)}</span>
 												</Link>

@@ -2,7 +2,7 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Menu } from "lucide-react";
 import * as React from "react";
 
 import { useIsMobile } from "@novahair/utils/hooks/use-mobile";
@@ -272,26 +272,24 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
 	const { toggleSidebar,  open } = useSidebar();
 
-	return (<>
- 		<IconButton
+	return ( <IconButton
 			data-sidebar="trigger"
 			data-slot="sidebar-trigger"
 			label="Toggle Sidebar"
 			variant="ghost"
 			className={cn("size-7", className)}
-			icon={
-				<ChevronLeft
-					className={cn({
-						"rotate-180": !open,
-					})}
-				/>
+		icon={
+				<>
+				<ChevronLeft className={cn("max-md:hidden",{"rotate-180": !open})} />
+				<Menu className={"md:hidden"} />
+					</>
 			}
 			onClick={(event) => {
 				onClick?.(event);
 				toggleSidebar();
 			}}
 			{...props}
-		/></>
+		/> 
 	);
 }
 

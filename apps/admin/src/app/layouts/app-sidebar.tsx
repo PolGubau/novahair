@@ -13,6 +13,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
 	Database,
 	GalleryVerticalEnd,
+	Home,
 	Settings,
 	SlidersHorizontal,
 	Users,
@@ -63,10 +64,20 @@ const data: SidebarMenuConfig = {
 	navMain: [
 	 
 		{
-			title: "management",
-			icon: SlidersHorizontal,
+			title: "main",
+			icon: Home,
 			isActive: true,
 			items: [
+				{
+					title: "metrics",
+					url: "/",
+				},
+			],
+		},
+		{
+			title: "appointments",
+			icon: SlidersHorizontal,
+ 			items: [
 				{
 					title: "view_appointments",
 					url: "/appointments/table",
