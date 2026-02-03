@@ -46,7 +46,7 @@
 	"x_services_assigned": "{{count}} services assigned",
 	"appointment_created_title": "Appointment created",
 	"book_appointment": "Book appointment",
-	"booking_error": "Error creating appointment. {{message}}",
+	"booking_error": "Error creating appointment. Please try again.",
 	"choose_time_slot": "Choose a time slot",
 	"error_loading_slots": "Error loading available time slots. Please try again.",
 	"create_appointment_for_your_customers": "Create appointment for your customers",

@@ -86,7 +86,7 @@
 	"your_appointment_created_x": "Tu cita ha sido creada para el {{dateTime}}",
 	"appointment_created_title": "Cita creada",
 	"book_appointment": "Reservar cita",
-	"booking_error": "Error al crear la cita. {{message}}",
+	"booking_error": "Error al crear la cita. Por favor, inténtalo de nuevo.",
 	"choose_time_slot": "Elige una franja horaria",
 	"error_loading_slots": "Error al cargar las franjas horarias disponibles. Inténtalo de nuevo.",
 	"settings": "Configuración",
