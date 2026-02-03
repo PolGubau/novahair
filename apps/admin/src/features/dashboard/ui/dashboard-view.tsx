@@ -20,11 +20,12 @@ import {
 } from "./staff-performance";
 import { PeriodSelector } from "./period-selector";
 import { AdminMain } from "~/app/layouts/admin-main";
+import { useTranslation } from "react-i18next";
 
 export const DashboardView = () => {
+	const {t}=useTranslation();
 	const { metrics, isLoading, error, period, setPeriod, refetch } =
 		useDashboardMetrics(config.tenantId);
-
 	// Error state
 	if (error) {
 		return (
@@ -78,9 +79,9 @@ export const DashboardView = () => {
 						onClick={refetch}
 						className="gap-2"
 					>
-						<RefreshCcw className="h-4 w-4" />
-						Actualizar
-					</Button>
+					<RefreshCcw />
+					<span className="max-md:hidden">{t("refresh")}</span>
+ 					</Button>
 				</div>
 			</div>}>
 			{/* Header */}
