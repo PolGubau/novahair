@@ -13,7 +13,7 @@ import { AppointmentTable } from "./table";
  
 export const AppointmentAdminForm = () => {
 
-	const { page, staffId} = useSearch({
+	const { staffId} = useSearch({
     from: Route.fullPath,
 	})
  	const navigate = useNavigate({ from: Route.fullPath })

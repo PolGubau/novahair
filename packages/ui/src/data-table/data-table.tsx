@@ -30,6 +30,8 @@ import {
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
+	pageIndex?: number;
+	pageSize?: number;
 }
 declare module "@tanstack/react-table" {
 	//allows us to define custom properties for our columns
@@ -40,10 +42,12 @@ declare module "@tanstack/react-table" {
 export function DataTable<TData, TValue>({
 	columns,
 	data,
+	pageIndex = 0,
+	pageSize = 10,
 }: DataTableProps<TData, TValue>) {
 	const [pagination, setPagination] = useState<PaginationState>({
-		pageIndex: 0,
-		pageSize: 10,
+		pageIndex,
+		pageSize,
 	});
 	const table = useReactTable({
 		data,

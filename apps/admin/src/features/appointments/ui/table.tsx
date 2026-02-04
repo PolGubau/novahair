@@ -5,6 +5,7 @@ import { ErrorBoundary } from "@novahair/ui/error-boundary";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
+import { Route } from "~/routes/appointments/table";
 
 function formatDate(dateString: string) {
 	const formatOptions: Intl.DateTimeFormatOptions = {
@@ -36,6 +37,7 @@ export const AppointmentTable = ({
 	isLoading: boolean;
 }) => {
 	const { t } = useTranslation();
+  const { pageIndex,pageSize } = Route.useSearch()
 	const columns = [
 		columnHelper.accessor("startsAt", {
 			cell: (info) => formatDate(info.getValue()),
@@ -85,7 +87,7 @@ export const AppointmentTable = ({
 	return (
 		<ErrorBoundary>
 			<LoadingOverlay isLoading={isLoading}>
-				<DataTable columns={columns} data={appointments} />
+				<DataTable columns={columns} data={appointments} pageIndex={pageIndex} pageSize={pageSize} />
 			</LoadingOverlay>
 		</ErrorBoundary>
 	);

@@ -3,23 +3,31 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppointmentAdminForm } from "~/features/appointments/ui/admin-form";
 import { z } from 'zod'
 
+// Helper functions for default date ranges
+const getStartOfToday = () => {
+	const date = new Date();
+	date.setHours(0, 0, 0, 0);
+	return date.toISOString();
+};
+
+const getEndOfToday = () => {
+	const date = new Date();
+	date.setHours(23, 59, 59, 999);
+	return date.toISOString();
+};
+
 const appointmentsTableSchema = z.object({
-  page: z.number().catch(1),
-  staffId: z.uuid().optional(),
-	from: z.iso.datetime().optional().default(() => {
-		
-		// first second of today
-		const date = new Date();
-		date.setHours(0,0,0,0);
-		return date.toISOString();
-	}),
-	to: z.iso.datetime().optional().default(() => {
-		// last second of today
-		const date = new Date();
-		date.setHours(22,59,59,999);
-		return date.toISOString();
-	}),
-})
+	// Page number for pagination - catch invalid values and default to 0
+	pageIndex: z.number().catch(0),
+
+	pageSize: z.number().catch(10),
+	// Optional staff filter - if invalid UUID, becomes undefined
+	staffId: z.uuid().optional().catch(undefined),
+
+	// Date range filters - catch invalid dates and use today's range as fallback
+	from: z.iso.datetime().catch(getStartOfToday),
+	to: z.iso.datetime().catch(getEndOfToday),
+});
 export const Route = createFileRoute("/appointments/table")({
 	component: RouteComponent,
   validateSearch: appointmentsTableSchema,
