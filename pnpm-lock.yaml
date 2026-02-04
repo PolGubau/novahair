@@ -1882,8 +1882,8 @@ packages:
   '@floating-ui/react-dom@2.1.6':
     resolution: {integrity: sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw==}
     peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
@@ -2270,10 +2270,10 @@ packages:
   '@radix-ui/react-accessible-icon@1.1.7':
     resolution: {integrity: sha512-XM+E4WXl0OqUJFovy6GjmxxFyx9opfCAIUku4dlKRd5YEPqt4kALOkQOp0Of6reHuUkJuiPBEc5k0o4z4lTC8A==}
     peerDependencies:
-      '@types/react': ^18.2
-      '@types/react-dom': ^18.2
-      react: ^18.3.1
-      react-dom: ^18.3.1
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -2322,10 +2322,10 @@ packages:
   '@radix-ui/react-aspect-ratio@1.1.7':
     resolution: {integrity: sha512-Yq6lvO9HQyPwev1onK1daHCHqXVLzPhSVjmsNjCa2Zcxy2f7uJD2itDtxknv6FzAKCwD1qQkeVDmX/cev13n/g==}
     peerDependencies:
-      '@types/react': ^18.2
-      '@types/react-dom': ^18.2
-      react: ^18.3.1
-      react-dom: ^18.3.1
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -2514,8 +2514,8 @@ packages:
   '@radix-ui/react-id@1.1.1':
     resolution: {integrity: sha512-kGkGegYIdQsOb4XjsfM97rXsiHaBwco+hFI66oO4s9LU+PLAC5oJ7khdOVFxkhsmlbpUqDAvXw11CluXP+jkHg==}
     peerDependencies:
-      '@types/react': ^19.0.0
-      react: ^19.0.0
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -6099,7 +6099,7 @@ snapshots:
     dependencies:
       '@babel/template': 7.28.6
       '@babel/traverse': 7.29.0
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6120,7 +6120,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6147,7 +6147,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6238,7 +6238,7 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/helper-plugin-utils': 7.28.6
       '@babel/helper-replace-supers': 7.28.6(@babel/core@7.28.6)
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6252,7 +6252,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6309,7 +6309,7 @@ snapshots:
       '@babel/core': 7.28.6
       '@babel/helper-compilation-targets': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6395,7 +6395,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.28.6
       '@babel/plugin-transform-destructuring': 7.28.5(@babel/core@7.28.6)
       '@babel/plugin-transform-parameters': 7.27.7(@babel/core@7.28.6)
-      '@babel/traverse': 7.28.6
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -6615,7 +6615,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
       esutils: 2.0.3
 
   '@babel/preset-typescript@7.28.5(@babel/core@7.28.6)':
@@ -8682,6 +8682,18 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
+  '@tanstack/react-start-server@1.132.0(crossws@0.4.3(srvx@0.10.1))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@tanstack/history': 1.132.0
+      '@tanstack/react-router': 1.132.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@tanstack/router-core': 1.132.0
+      '@tanstack/start-client-core': 1.132.0
+      '@tanstack/start-server-core': 1.132.0(crossws@0.4.3(srvx@0.10.1))
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+    transitivePeerDependencies:
+      - crossws
+
   '@tanstack/react-start-server@1.132.0(crossws@0.4.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@tanstack/history': 1.132.0
@@ -8698,7 +8710,7 @@ snapshots:
     dependencies:
       '@tanstack/react-router': 1.132.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tanstack/react-start-client': 1.132.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@tanstack/react-start-server': 1.132.0(crossws@0.4.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@tanstack/react-start-server': 1.132.0(crossws@0.4.3(srvx@0.10.1))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tanstack/router-utils': 1.143.11
       '@tanstack/start-client-core': 1.132.0
       '@tanstack/start-plugin-core': 1.132.0(@tanstack/react-router@1.132.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(crossws@0.4.3(srvx@0.10.1))(vite@7.1.7(@types/node@25.0.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
@@ -8939,7 +8951,7 @@ snapshots:
       '@tanstack/router-plugin': 1.132.0(@tanstack/react-router@1.132.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.1.7(@types/node@25.0.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       '@tanstack/router-utils': 1.132.0
       '@tanstack/server-functions-plugin': 1.132.0(vite@7.1.7(@types/node@25.0.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
-      '@tanstack/start-server-core': 1.132.0(crossws@0.4.3)
+      '@tanstack/start-server-core': 1.132.0(crossws@0.4.3(srvx@0.10.1))
       babel-dead-code-elimination: 1.0.12
       cheerio: 1.1.2
       exsolve: 1.0.8
@@ -8986,6 +8998,21 @@ snapshots:
       - supports-color
       - vite-plugin-solid
       - webpack
+
+  '@tanstack/start-server-core@1.132.0(crossws@0.4.3(srvx@0.10.1))':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@tanstack/history': 1.132.0
+      '@tanstack/router-core': 1.132.0
+      '@tanstack/start-client-core': 1.132.0
+      '@tanstack/start-storage-context': 1.132.0
+      cookie-es: 2.0.0
+      fetchdts: 0.1.7
+      h3: 2.0.0-beta.4(crossws@0.4.3(srvx@0.10.1))
+      seroval: 1.4.2
+      tiny-invariant: 1.3.3
+    transitivePeerDependencies:
+      - crossws
 
   '@tanstack/start-server-core@1.132.0(crossws@0.4.3)':
     dependencies:
@@ -9961,6 +9988,15 @@ snapshots:
   graceful-fs@4.2.11: {}
 
   gsap@3.13.0: {}
+
+  h3@2.0.0-beta.4(crossws@0.4.3(srvx@0.10.1)):
+    dependencies:
+      cookie-es: 2.0.0
+      fetchdts: 0.1.7
+      rou3: 0.7.12
+      srvx: 0.8.16
+    optionalDependencies:
+      crossws: 0.4.3(srvx@0.10.1)
 
   h3@2.0.0-beta.4(crossws@0.4.3):
     dependencies:

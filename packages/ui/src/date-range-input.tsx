@@ -23,7 +23,7 @@ export type DateRangeInputProps = {
 
 export const DateRangeInput = ({label, from, to, onChange}: DateRangeInputProps) => {
     return (
-    <div className='w-full max-w-xs space-y-2'>
+    <div className='w-full space-y-2'>
     {label &&  <Label className='px-1' label={t(label)}/>}
       <Popover 
         trigger={

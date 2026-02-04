@@ -184,6 +184,7 @@
 	"appointment_cancelled": "Cita Cancelada",
 	"appointment_cancelled_message": "Tu cita ha sido cancelada exitosamente.",
 	"go_home": "Ir a Inicio",
+	"filters": "Filtros",
 	"refine_your_appointment_list_using_filters": "Refina la lista de tus citas usando filtros",
 	"cancel_appointment": "Cancelar Cita",
 	"appointment_details": "Detalles de la Cita", 

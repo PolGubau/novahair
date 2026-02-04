@@ -10,13 +10,13 @@ export const Label = ({ label, htmlFor, required, ...props }: Props) => {
 	return (
 		<label
 			htmlFor={htmlFor}
-			className={cn(labelClasses.base, props.className)}
+			className={cn("mb-1 text-sm font-medium text-foreground flex items-center gap-1.5", props.className)}
 			data-slot={"label"}
 			{...props}
 		>
 			<span className="">{label}</span>
 			{!required && (
-				<span className="text-foreground/80 text-thin text-xs">
+				<span className="text-foreground/80 text-thin text-xs ml-1.5">
 					{`(${t("optional")})`}
 				</span>
 			)}
@@ -24,6 +24,4 @@ export const Label = ({ label, htmlFor, required, ...props }: Props) => {
 	);
 };
 
-export const labelClasses = {
-	base: "block mb-1 text-sm font-medium text-foreground flex items-center gap-1.5",
-};
+ 

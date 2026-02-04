@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
   import { ISODate, toISODate } from "@novahair/utils";
 import { Appointment, appointmentsRepository, Tenant } from "@novahair/client";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { Route } from "~/routes/appointments/table";
 
 type Response = {
 	isLoading: boolean;
@@ -17,18 +19,39 @@ type Response = {
 type UseAppointments = (tenantId:Tenant["id"]) => Response;
 
 export const useAppointments: UseAppointments = (tenantId) => {
-	const [from, setFrom] = useState<ISODate>(() => {
-		const now = new Date();
-		const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
-		return toISODate(date);
-	});
+		const { to: externalTo, from: externalFrom } = useSearch({
+			from: Route.fullPath,
+		})
+		const navigate = useNavigate({ from: Route.fullPath })
+	
+	const to = toISODate(new Date(externalTo));
+	 const from = toISODate(new Date(externalFrom));
 
-	// to is last second of today (one day)
-	const [to, setTo] = useState<ISODate>(() => {
-		const now = new Date();
-		const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
-		return toISODate(date);
-	});
+	function setFrom(from: ISODate) {
+		// first minute of the day
+		const date = new Date(from);
+		date.setHours(0, 0, 0, 0);
+		from = toISODate(date);
+		navigate({
+			search: (prev) => ({
+				...prev,
+				from,
+			}),
+		});
+	}
+
+	function setTo(to: ISODate) {
+		// last minute of the day
+		const date = new Date(to);
+		date.setHours(22, 59, 59, 999);
+		to = toISODate(date);
+		navigate({
+			search: (prev) => ({
+				...prev,
+				to,
+			}),
+		});
+	}
 
 	const { isLoading, error, data, refetch } = useQuery({
 		queryFn: () => appointmentsRepository.list(tenantId, { from, to }),

@@ -1,49 +1,45 @@
-import { DateRangeInput, Drawer, QuickActions, StaffSwitcher } from "@novahair/ui";
+import { DateRangeInput, Drawer, IconButton, QuickActions, StaffSelector } from "@novahair/ui";
 import { config, toISODate } from "@novahair/utils";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Filter, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AdminMain } from "~/app/layouts/admin-main";
+import { Route } from "~/routes/appointments/table";
 import { useAppointments } from "../hooks/use-appointments";
 import { AppointmentTable } from "./table";
 
+
+ 
 export const AppointmentAdminForm = () => {
+
+	const { page, staffId} = useSearch({
+    from: Route.fullPath,
+	})
+ 	const navigate = useNavigate({ from: Route.fullPath })
+
 
 	const { t } = useTranslation();
 	const tenantId = config.tenantId;
 	const { appointments, isLoading, refetch, to, setTo, from, setFrom } =
 		useAppointments(config.tenantId);
 
-	const [staffId, setStaffId] = useState<string | undefined>(undefined);
-	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
-  
-
-	  
-
+ 	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
+  	  
+	function updateStaffId(id: string | null) {
+ 		navigate({
+			search: (prev) => ({
+				...prev,
+				staffId: id ?? undefined,
+			}),
+		})	}
 	return (
 		 
 		<AdminMain description={"list_of_appointments"} title={"appointments"} rightContent={
-			<QuickActions
-					actions={[
-					 {
-						 id: "filters",
-						 label: t("filters"),
-						 icon: <Filter className="size-4" />,
-						 onClick: () => setIsFiltersDrawerOpen(true),
-					 },
-					 {
-						 id: "refresh",
-						 label: t("refresh"),
-						 icon: <RefreshCcw className="size-4" />,
-						 onClick: () => refetch(),
-					 }
-				 ]}
-			 />
-			 }>
- 			<nav className=" gap-2 sm:justify-between">
- 				<div className="side justify-end">
-					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
-
+			<div className="flex gap-1 items-center">
+				<div className="max-lg:hidden flex gap-1 items-center">
+					
+					<StaffSelector tenantId={tenantId} staffId={staffId} onSelect={updateStaffId} />
 					<DateRangeInput
 						from={new Date(from)}
 						to={new Date(to)}
@@ -53,10 +49,27 @@ export const AppointmentAdminForm = () => {
 						}}
 					/>
 				</div>
+				<IconButton className="lg:hidden" label={t("filter")} onClick={() => setIsFiltersDrawerOpen(true)} icon={<Filter />} variant="ghost"/>
+
+			<QuickActions
+					actions={[
+					 {
+						 id: "refresh",
+						 label: t("refresh"),
+						 icon: <RefreshCcw className="size-4" />,
+						 onClick: () => refetch(),
+					 }
+				 ]}
+				/>
+			</div>
+			 }>
+  			 
 				<Drawer open={isFiltersDrawerOpen} onOpenChange={setIsFiltersDrawerOpen} title={"filters"} description={"refine_your_appointment_list_using_filters"}>
-					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
+				
+					<StaffSelector label="filter_by_staff" tenantId={tenantId} staffId={staffId} onSelect={updateStaffId} />
 
 					<DateRangeInput
+						label="date"
 						from={new Date(from)}
 						to={new Date(to)}
 						onChange={({ from, to }) => {
@@ -65,8 +78,7 @@ export const AppointmentAdminForm = () => {
 						}}
 					/>
 				</Drawer>
-			</nav>
-
+ 
 			<AppointmentTable appointments={appointments} isLoading={isLoading} />
 		</AdminMain>
 	);

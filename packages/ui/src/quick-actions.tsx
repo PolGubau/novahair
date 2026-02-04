@@ -9,7 +9,8 @@ import {
 } from "./dropdown-menu";
 
 export interface QuickAction {
-	id: string;
+  id: string;
+  className?: string;
 	label: string;
 	icon: React.ReactNode;
 	onClick: () => void;
@@ -45,7 +46,7 @@ export function QuickActions({
 						size="sm"
 						onClick={action.onClick}
 						title={action.label}
-						className="p-2"
+						className={action.className}
 					>
 						{action.icon}
 						<span className="sr-only">{action.label}</span>
@@ -86,8 +87,8 @@ export function QuickActions({
 					variant={action.variant || "ghost"}
 					size="sm"
 					onClick={action.onClick}
-					className="gap-2"
-				>
+          className={action.className}
+          >
 					{action.icon}
 					{action.label}
 				</Button>
