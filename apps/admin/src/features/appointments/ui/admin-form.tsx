@@ -1,6 +1,6 @@
 import { DateRangeInput, Drawer, QuickActions, StaffSwitcher } from "@novahair/ui";
 import { config, toISODate } from "@novahair/utils";
-import { RefreshCcw } from "lucide-react";
+import { Filter, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AdminMain } from "~/app/layouts/admin-main";
