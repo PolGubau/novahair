@@ -1,9 +1,9 @@
 import { DateRangeInput, Drawer, QuickActions, StaffSwitcher } from "@novahair/ui";
-import { Button } from "@novahair/ui/button";
 import { config, toISODate } from "@novahair/utils";
-import { Plus, RefreshCcw } from "lucide-react";
+import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AdminMain } from "~/app/layouts/admin-main";
 import { useAppointments } from "../hooks/use-appointments";
 import { AppointmentTable } from "./table";
 
@@ -21,28 +21,26 @@ export const AppointmentAdminForm = () => {
 	  
 
 	return (
-		<>
- 	 
-
-			{/* Quick Actions for Mobile */}
-			<div className="mb-4">
-				<QuickActions
- 					actions={[
-						{
-							id: "refresh",
-							label: t("refresh"),
-							icon: <RefreshCcw className="h-4 w-4" />,
-							onClick: () => refetch(),
-						}
-					]}
-				/>
-			</div>
-
-			{/* Desktop Navigation */}
-			<nav className=" gap-2 sm:justify-between">
- 				 
-
-		
+		 
+		<AdminMain description={"list_of_appointments"} title={"appointments"} rightContent={
+			<QuickActions
+					actions={[
+					 {
+						 id: "filters",
+						 label: t("filters"),
+						 icon: <Filter className="size-4" />,
+						 onClick: () => setIsFiltersDrawerOpen(true),
+					 },
+					 {
+						 id: "refresh",
+						 label: t("refresh"),
+						 icon: <RefreshCcw className="size-4" />,
+						 onClick: () => refetch(),
+					 }
+				 ]}
+			 />
+			 }>
+ 			<nav className=" gap-2 sm:justify-between">
  				<div className="side justify-end">
 					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
 
@@ -55,7 +53,7 @@ export const AppointmentAdminForm = () => {
 						}}
 					/>
 				</div>
-				<Drawer >
+				<Drawer open={isFiltersDrawerOpen} onOpenChange={setIsFiltersDrawerOpen} title={"filters"} description={"refine_your_appointment_list_using_filters"}>
 					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
 
 					<DateRangeInput
@@ -70,6 +68,6 @@ export const AppointmentAdminForm = () => {
 			</nav>
 
 			<AppointmentTable appointments={appointments} isLoading={isLoading} />
-		</>
+		</AdminMain>
 	);
 };

@@ -22,7 +22,7 @@ export const AdminMain = ({
 	const { t } = useTranslation();
 	return (
 		<section className={cn(`gap-6 flex flex-col h-full`, className)}>
-			<header className="flex md:justify-between md:items-center max-md:flex-col gap-4">
+			<header className="flex justify-between md:items-center gap-4">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-xl md:text-2xl font-bold tracking-tight">{t(title)}</h1>
 					<p className="text-sm text-foreground/70">{t(description)}</p>

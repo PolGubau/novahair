@@ -27,7 +27,7 @@ export function MainLayout({ children }: PropsWithChildren) {
 						<div className="flex-1 overflow-y-auto p-4 md:p-6">
 							{/* Breadcrumbs */}
 							{breadcrumbs.length > 0 && (
-								<div className="mb-4">
+								<div className="mb-2">
 									<Breadcrumbs items={breadcrumbs} />
 								</div>
 							)}
