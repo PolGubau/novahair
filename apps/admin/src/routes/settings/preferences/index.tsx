@@ -4,6 +4,7 @@ import { allLocales, Locale } from "@novahair/utils/i18n/constants";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {version,displayName,description} from "../../../../package.json";
+import { AdminMain } from "~/app/layouts/admin-main";
  
 const settingsItem = "grid md:grid-cols-2 gap-2 items-center p-4"
 
@@ -17,10 +18,9 @@ const localeLabelMapper: Record<Locale, TranslationKey> = {
 
 function RouteComponent() {
   const { i18n, t } = useTranslation();
-  return <section className="p-4 flex flex-col gap-4">
+  return <AdminMain title="preferences" description="manage_preferences_description"> 
 
-    <h1 className="text-2xl">{t("preferences")}</h1>
-  
+   
     <ul className="border border-foreground/10 rounded-xl gap-2 flex flex-col divide-y divide-foreground/10 max-w-4xl">
       <li className={settingsItem}>
         <span className="font-medium">{t("language")}</span>
@@ -46,5 +46,5 @@ function RouteComponent() {
       </li>
 
 </ul>
-  </section>;
+  </AdminMain>;
 }

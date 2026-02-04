@@ -42,12 +42,26 @@ function RouteComponent() {
 			<AdminMain
 				description="manage_your_team_and_schedules"
 				title="team_members"
+				rightContent={	<nav className="flex gap-2 items-center">
+					<Button onClick={openCreate}>
+						<Plus />
+							{t("add_new_staff")}
+					</Button>
+
+					<Button className="group" onClick={() => refetch()} variant="ghost">
+						<div className="group-focus:rotate-90 transition-all">
+							<RefreshCcw />
+						</div>
+ 						<span className="max-md:hidden">{t("refresh")}</span>
+					</Button>
+				</nav>}
 			>
 				<Drawer
 					description="fill_the_form_to_add_a_new_staff_member"
 					onOpenChange={setIsFormOpened}
 					open={isFormOpened}
 					title="add_new_staff"
+					
 				>
 					<StaffForm
 						onClose={() => {
@@ -57,20 +71,7 @@ function RouteComponent() {
 						staff={editingStaff}
 					/>
 				</Drawer>
-				<nav className="flex gap-2 items-center">
-					<Button onClick={openCreate}>
-						<Plus />
-						{t("add_new_staff")}
-					</Button>
-
-					<Button className="group" onClick={() => refetch()} variant="ghost">
-						<div className="group-focus:rotate-90 transition-all">
-							<RefreshCcw />
-						</div>
-
-						{t("refresh")}
-					</Button>
-				</nav>
+			
 				<StaffTable
 					isLoading={isLoading}
 					onDelete={handleDelete}

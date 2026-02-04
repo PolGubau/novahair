@@ -6,28 +6,34 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { ModuleDashboard, type ModuleLink } from "~/shared/ui/module-dashboard";
-import { Package } from "lucide-react";
+import { Users, Calendar } from "lucide-react";
 
-export const Route = createFileRoute("/services/")({
+export const Route = createFileRoute("/team/")({
 	component: RouteComponent,
 });
 
 const links: ModuleLink[] = [
 	{
-		title: "services",
-		description: "manage_services_description",
-		href: "/services/table",
-		icon: Package,
+		title: "team_members",
+		description: "manage_team_members_description",
+		href: "/team/members",
+		icon: Users,
  	},
-	 
+	{
+		title: "schedules",
+		description: "manage_schedules_description",
+		href: "/team/schedules",
+		icon: Calendar,
+ 	},
 ];
 function RouteComponent() {
 
 	return (
 		<ModuleDashboard
-		description={"manage_your_services"} title={"services"} 
+			title="team"
+			description="manage_your_team_and_schedules"
 			links={links}
 		/>
-	)
+	);
 }
 

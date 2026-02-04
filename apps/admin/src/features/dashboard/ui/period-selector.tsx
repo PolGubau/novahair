@@ -9,6 +9,7 @@ import type { TimePeriod } from "../domain/metrics";
 import { Calendar, Clock, TrendingUp } from "lucide-react";
 import { motion } from "motion/react";
 import { TranslationKey } from "@novahair/utils";
+import { useTranslation } from "react-i18next";
 
 interface PeriodSelectorProps {
 	/** Current selected period */
@@ -19,21 +20,27 @@ interface PeriodSelectorProps {
 
 const periods: Array<{ value: TimePeriod; label: TranslationKey; icon?: typeof Clock }> =
 	[
-		{ value: "today", label: "Hoy", icon: Clock },
-		{ value: "week", label: "Semana", icon: Calendar },
-		{ value: "month", label: "Mes", icon: Calendar },
-		{ value: "quarter", label: "Trimestre", icon: TrendingUp },
-		{ value: "year", label: "Año", icon: TrendingUp },
+		{ value: "today", label: "today", icon: Clock },
+		{ value: "week", label: "week", icon: Calendar },
+		{ value: "month", label: "month", icon: Calendar },
+		{ value: "quarter", label: "quarter", icon: TrendingUp },
+		{ value: "year", label: "year", icon: TrendingUp },
 	];
 
 export const PeriodSelector = ({ value, onChange }: PeriodSelectorProps) => {
+	const { t } = useTranslation();
+
 	return (<>
-		
+
 		<div className="md:hidden">
-			<Select value={value} onValueChange={onChange} options={periods.map((period) => ({
-				value: period.value,
-				label: period.label,
- 			}))}  />
+			<Select 
+				value={value} 
+				onValueChange={onChange} 
+				options={periods.map((period) => ({
+					value: period.value,
+					label: period.label as TranslationKey,
+				}))}
+			/>
 
 		</div>
 
@@ -69,7 +76,7 @@ export const PeriodSelector = ({ value, onChange }: PeriodSelectorProps) => {
 						{/* Content */}
 						<span className="relative z-10 flex items-center gap-1.5">
 							{Icon && <Icon className="h-3.5 w-3.5" />}
-							{period.label}
+							{t(period.label)}
 						</span>
 					</button>
 				);
