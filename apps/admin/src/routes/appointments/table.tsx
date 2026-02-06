@@ -20,7 +20,7 @@ const appointmentsTableSchema = z.object({
 	// Page number for pagination - catch invalid values and default to 0
 	pageIndex: z.number().catch(0),
 
-	pageSize: z.number().catch(10),
+	pageSize: z.number().catch(40),
 	// Optional staff filter - if invalid UUID, becomes undefined
 	staffId: z.uuid().optional().catch(undefined),
 

@@ -37,7 +37,7 @@ export const AppointmentAdminForm = () => {
 	return (
 		 
 		<AdminMain description={"list_of_appointments"} title={"appointments"} rightContent={
-			<div className="flex gap-1 items-center">
+			<header className="flex gap-1 items-center">
 				<div className="max-lg:hidden flex gap-1 items-center">
 					
 					<StaffSelector tenantId={tenantId} staffId={staffId} onSelect={updateStaffId} />
@@ -62,7 +62,7 @@ export const AppointmentAdminForm = () => {
 					 }
 				 ]}
 				/>
-			</div>
+			</header>
 			 }>
   			 
 				<Drawer open={isFiltersDrawerOpen} onOpenChange={setIsFiltersDrawerOpen} title={"filters"} description={"refine_your_appointment_list_using_filters"}>

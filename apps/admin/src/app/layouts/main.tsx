@@ -19,12 +19,8 @@ export function MainLayout({ children }: PropsWithChildren) {
 					<MobileHeader />
 
 					<ErrorBoundary>
-						<div className="flex-1 overflow-y-auto p-4 md:p-6">
- 							{breadcrumbs.length > 0 && (
-								<div className="mb-2">
-									<Breadcrumbs items={breadcrumbs} />
-								</div>
-							)}
+						<div className="flex-1 h-full p-4 md:p-6 flex flex-col overflow-hidden gap-2">
+ 							{breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
 							{children}
 						</div>
 					</ErrorBoundary>
