@@ -20,8 +20,7 @@ interface PeriodSelectorProps {
 
 const periods: Array<{ value: TimePeriod; label: TranslationKey; icon?: typeof Clock }> =
 	[
-		{ value: "today", label: "today", icon: Clock },
-		{ value: "week", label: "week", icon: Calendar },
+ 		{ value: "week", label: "week", icon: Calendar },
 		{ value: "month", label: "month", icon: Calendar },
 		{ value: "quarter", label: "quarter", icon: TrendingUp },
 		{ value: "year", label: "year", icon: TrendingUp },
@@ -44,7 +43,7 @@ export const PeriodSelector = ({ value, onChange }: PeriodSelectorProps) => {
 
 		</div>
 
-		<div className="flex items-center gap-1 rounded-lg border max-md:hidden">
+		<div className="flex items-center gap-1 rounded-lg border max-md:hidden overflow-hidden">
 			{periods.map((period) => {
 				const isActive = value === period.value;
 				const Icon = period.icon;

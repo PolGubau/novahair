@@ -17,6 +17,8 @@
 	"schedules": "Horarios",
 	"main": "Principal",
 	"metrics": "Métricas",
+	"total": "Total",
+	"average": "Promedio",
 	"filter_by_service": "Filtrar por servicio",
 	"filter_by_staff": "Filtrar por personal",
 	"copy": "Copiar",
@@ -200,8 +202,17 @@
 	"customize_appearance_description": "Personaliza el aspecto de tu aplicación",
  	"manage_application_settings": "Configura todos los ajustes de la aplicación",
 	"appearance": "Apariencia",
+	"appointments_amount": "Cantidad de citas",
 	"notifications": "Notificaciones",
 	"security": "Seguridad",
- 
- 	"revenue": "Ingresos"
+ 	"revenue": "Ingresos",
+   	 "total_revenue": "Ingresos Totales",
+	 "total_appointments": "Citas Totales",
+	 "completed_appointments": "Citas Completadas",
+	 "average_ticket": "Ticket Promedio",
+	 "appointment_status": "Estado de la Cita",
+	 "appointments_status": "Estado de las Citas",
+	 "completion_rate": "Tasa de Finalización",
+	 "cancellation_rate": "Tasa de Cancelación",
+	 "x_percent": "{{x}}%"
 }

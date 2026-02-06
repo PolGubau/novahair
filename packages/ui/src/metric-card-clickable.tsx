@@ -9,10 +9,7 @@ interface ClickableMetricCardProps {
 	href: string;
 	description?: string;
 	className?: string;
-	trend?: {
-		value: number;
-		isPositive: boolean;
-	};
+	trend?: number
 }
 
 export function ClickableMetricCard({
@@ -55,16 +52,17 @@ export function ClickableMetricCard({
 
 				{/* Trend or CTA */}
 				<div className="flex items-center justify-between pt-2 border-t">
-					{trend && (
+					
 						<span
 							className={cn("text-xs font-medium", {
-								"text-green-600": trend.isPositive,
-								"text-red-600": !trend.isPositive,
+								"text-green-600": trend > 0,
+								"text-red-600": !trend || trend < 0,
 							})}
-						>
-							{trend.isPositive ? "+" : ""}{trend.value}%
+						>{trend && (
+							 `${trend > 0 ? "+" : ""}${trend}%`
+	)}
 						</span>
-					)}
+				
 					<ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
 				</div>
 			</div>

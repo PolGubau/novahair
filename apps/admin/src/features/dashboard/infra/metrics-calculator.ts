@@ -6,30 +6,24 @@
  * and staff data into meaningful metrics.
  */
 
-import type { Appointment, Service, Staff } from "@novahair/client";
-import { toISODate, type ISODate } from "@novahair/utils";
+import type { Appointment, Staff } from "@novahair/client";
+import { toISODate } from "@novahair/utils";
 import {
-	startOfDay,
-	endOfDay,
-	isWithinInterval,
-	differenceInMinutes,
-	parseISO,
-	format,
-	subDays,
-	startOfWeek,
-	endOfWeek,
 	eachDayOfInterval,
+	endOfDay,
+	format,
+	isWithinInterval,
+	parseISO,
+	startOfDay
 } from "date-fns";
 import type {
-	KPI,
 	AppointmentStats,
-	RevenueBreakdown,
-	StaffPerformance,
-	TrendData,
 	DataPoint,
 	DateRange,
-	DashboardMetrics,
-	TimePeriod,
+	KPI,
+	RevenueBreakdown,
+	StaffPerformance,
+	TrendData
 } from "../domain/metrics";
 
 /**
@@ -54,24 +48,10 @@ const formatNumber = (value: number): string => {
  */
 const calculatePercentageChange = (current: number, previous: number): number => {
 	if (previous === 0) return current > 0 ? 100 : 0;
-	return ((current - previous) / previous) * 100;
+	return Number((((current - previous) / previous) * 100).toFixed(2));
 };
 
-/**
- * Filters appointments within a date range
- */
-const filterAppointmentsByRange = (
-	appointments: Appointment[],
-	range: DateRange,
-): Appointment[] => {
-	const start = parseISO(range.from);
-	const end = parseISO(range.to);
-
-	return appointments.filter((apt) => {
-		const aptDate = parseISO(apt.startsAt);
-		return isWithinInterval(aptDate, { start, end });
-	});
-};
+ 
 
 /**
  * Calculates appointment statistics
@@ -216,7 +196,7 @@ export const calculateAppointmentTrends = (
 
 	return {
 		metricId: "appointments",
-		name: "Citas",
+		name: "appointments",
 		data: dataPoints,
 		total,
 		average,
@@ -260,7 +240,7 @@ export const calculateRevenueTrends = (
 
 	return {
 		metricId: "revenue",
-		name: "Ingresos",
+		name: "revenue",
 		data: dataPoints,
 		total,
 		average,
@@ -288,7 +268,7 @@ export const generateKPIs = (
 	return [
 		{
 			id: "total-revenue",
-			label: "Ingresos Totales",
+			label: "total_revenue",
 			value: currentRevenue,
 			previousValue: previousRevenue,
 			formattedValue: formatCurrency(currentRevenue),
@@ -298,7 +278,7 @@ export const generateKPIs = (
 		},
 		{
 			id: "total-appointments",
-			label: "Total Citas",
+			label: "total_appointments",
 			value: currentCount,
 			previousValue: previousCount,
 			formattedValue: formatNumber(currentCount),
@@ -308,7 +288,7 @@ export const generateKPIs = (
 		},
 		{
 			id: "completed-appointments",
-			label: "Citas Completadas",
+			label: "completed_appointments",
 			value: currentCompleted,
 			previousValue: previousCompleted,
 			formattedValue: formatNumber(currentCompleted),
@@ -317,11 +297,11 @@ export const generateKPIs = (
 				currentCompleted,
 				previousCompleted,
 			),
-			isPositiveTrend: true,
+			isPositiveTrend:  true,
 		},
 		{
 			id: "average-ticket",
-			label: "Ticket Promedio",
+			label: "average_ticket",
 			value: currentCompleted > 0 ? currentRevenue / currentCompleted : 0,
 			previousValue:
 				previousCompleted > 0 ? previousRevenue / previousCompleted : 0,

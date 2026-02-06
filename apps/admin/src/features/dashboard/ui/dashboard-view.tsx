@@ -5,27 +5,24 @@
  * and displays comprehensive business metrics
  */
 
-import { config } from "@novahair/utils";
-import { RefreshCcw, Users, Briefcase, TrendingUp, Calendar } from "lucide-react";
-import { Button } from "@novahair/ui/button";
+import { LineBarChart } from "@novahair/ui";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
-import { useDashboardMetrics } from "../hooks/use-dashboard-metrics";
-import { MetricCard, MetricCardSkeleton } from "./metric-card";
-import { TrendChart } from "./trend-chart";
-import { StatsList, StatsListSkeleton } from "./stats-list";
-import { RevenueBreakdown, RevenueBreakdownSkeleton } from "./revenue-breakdown";
-import {
-	StaffPerformance,
-	StaffPerformanceSkeleton,
-} from "./staff-performance";
-import { PeriodSelector } from "./period-selector";
-import { AdminMain } from "~/app/layouts/admin-main";
-import { useTranslation } from "react-i18next";
+import { Button } from "@novahair/ui/button";
 import { ClickableMetricCard } from "@novahair/ui/metric-card-clickable";
-import { useRouter } from "@tanstack/react-router";
+import { config } from "@novahair/utils";
+import { Briefcase, Calendar, RefreshCcw, TrendingUp, Users } from "lucide-react";
 import { memo } from "react";
-import type { TimePeriod, DashboardMetrics } from "../domain/metrics";
-import { DashboardContentSkeleton } from "./dasboard-content-skeleton";
+import { useTranslation } from "react-i18next";
+import { AdminMain } from "~/app/layouts/admin-main";
+import type { DashboardMetrics, TimePeriod } from "../domain/metrics";
+import { useDashboardMetrics } from "../hooks/use-dashboard-metrics";
+import { DashboardContentSkeleton } from "./dashboard-content-skeleton";
+import { PeriodSelector } from "./period-selector";
+import { RevenueBreakdown } from "./revenue-breakdown";
+import {
+	StaffPerformance
+} from "./staff-performance";
+import { StatsList } from "./stats-list";
 
 // Memoized header controls component
 const DashboardControls = memo(({
@@ -69,48 +66,62 @@ const DashboardContent = memo(({ metrics }: { metrics: DashboardMetrics }) => {
 			<div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
 				<ClickableMetricCard
 					title={t("appointments")}
-					value={metrics.kpis[0]?.value || "—"}
-					icon={<Calendar className="h-5 w-5" />}
+					value={metrics.kpis[1]?.value??undefined}
+					icon={<Calendar className="size-5" />}
 					href="/appointments/table"
-					trend={{ value: 12, isPositive: true }}
+					trend={metrics.kpis[1]?.changePercentage }
 				/>
 				<ClickableMetricCard
 					title={t("services")}
-					value={metrics.kpis[1]?.value || "—"}
-					icon={<Briefcase className="h-5 w-5" />}
+					value={metrics.serviceAmount}
+					icon={<Briefcase className="size-5" />}
 					href="/services"
-					trend={{ value: 5, isPositive: true }}
-				/>
+ 				/>
 				<ClickableMetricCard
 					title={t("team_members")}
-					value={metrics.kpis[2]?.value || "—"}
-					icon={<Users className="h-5 w-5" />}
+					value={metrics.staffAmount}
+					icon={<Users className="size-5" />}
 					href="/team/members"
-					trend={{ value: 2, isPositive: true }}
-				/>
+ 				/>
 				<ClickableMetricCard
 					title={t("revenue")}
-					value={`€${metrics.kpis[3]?.value || "0"}`}
-					icon={<TrendingUp className="h-5 w-5" />}
+					value={`€${metrics.kpis[0]?.value || "0"}`}
+					icon={<TrendingUp className="size-5" />}
 					href="/appointments/table"
-					trend={{ value: 8, isPositive: true }}
+					trend={metrics.kpis[0]?.changePercentage }
 				/>
 			</div>
 
 			{/* Trend Charts */}
-			<div className="grid gap-6 md:grid-cols-2">
-				<div className="rounded-lg border bg-card p-6">
-					<TrendChart data={metrics.appointmentTrends} color="primary" />
-				</div>
-				<div className="rounded-lg border bg-card p-6">
-					<TrendChart data={metrics.revenueTrends} color="success" />
-				</div>
+			<div className="grid gap-3 md:grid-cols-2">
+ 					{/* <TrendChart data={metrics.appointmentTrends} color="primary" /> */}
+					<LineBarChart data={metrics.appointmentTrends} title={t("appointments_amount")} description={
+						<div className="text-xs text-muted-foreground">
+							<span>{ t("total")}: </span>
+						<span>{metrics.appointmentTrends.total}</span>
+							<span className="mx-1">-</span>
+							<span>{ t("average")}: </span>
+							<span>{(metrics.appointmentTrends.average).toFixed(1)}</span>
+					</div>}
+				trend={metrics.kpis[1].value}
+				/>
+					<LineBarChart data={metrics.revenueTrends} title={t("revenue")} description={
+						<div className="text-xs text-muted-foreground">
+							<span>{ t("total")}: </span>
+						<span>{metrics.revenueTrends.total}</span>
+							<span className="mx-1">-</span>
+							<span>{ t("average")}: </span>
+							<span>{(metrics.revenueTrends.average).toFixed(1)}</span>
+					</div>}
+					trend={metrics.kpis[0].value}
+				/>
+ 			 
 			</div>
 
 			{/* Detailed Stats */}
-			<div className="grid gap-6 md:grid-cols-3">
+			<div className="grid gap-3 md:grid-cols-3">
 				{/* Appointment Stats */}
-				<div className="rounded-lg border bg-card p-6">
+				<div className="rounded-lg border p-6">
 					<StatsList stats={metrics.appointmentStats} />
 				</div>
 
@@ -122,7 +133,7 @@ const DashboardContent = memo(({ metrics }: { metrics: DashboardMetrics }) => {
 			</div>
 
 			{/* Footer info */}
-			<div className="text-xs text-muted-foreground text-center pt-4 border-t">
+			<div className="text-xs text-muted-foreground text-center pt-4">
 				Última actualización:{" "}
 				{new Date(metrics.lastUpdated).toLocaleString("es-ES", {
 					dateStyle: "short",

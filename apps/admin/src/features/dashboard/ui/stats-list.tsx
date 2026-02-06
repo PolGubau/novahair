@@ -4,15 +4,16 @@
  * Displays a list of statistics with labels and values
  */
 
+import { AlertCircle, CheckCircle2, Clock, XCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { AppointmentStats } from "../domain/metrics";
-import { CheckCircle2, Clock, XCircle, AlertCircle } from "lucide-react";
-import { motion } from "motion/react";
 
 interface StatsListProps {
 	stats: AppointmentStats;
 }
 
 export const StatsList = ({ stats }: StatsListProps) => {
+	const {t}=useTranslation()
 	const items = [
 		{
 			label: "Total",
@@ -54,22 +55,22 @@ export const StatsList = ({ stats }: StatsListProps) => {
 	return (
 		<div className="space-y-3">
 			<h4 className="text-sm font-medium text-foreground mb-4">
-				Estado de Citas
+				{t("appointments_status")}
 			</h4>
 
-			<div className="space-y-2">
+			<ul className="space-y-3 overflow-hidden divide-y">
 				{items.map((item, index) => {
 					const Icon = item.icon;
 					const percentage =
 						stats.total > 0 ? (item.value / stats.total) * 100 : 0;
 
 					return (
-						<motion.div
+						<li
 							key={item.label}
-							initial={{ opacity: 0, x: -20 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ delay: index * 0.1, duration: 0.3 }}
-							className="flex items-center justify-between rounded-lg border bg-card p-3 hover:bg-accent/50 transition-colors"
+							className="animate-in slide-in-from-left-8 flex items-center justify-between duration-300 fade-in fill-mode-both last:pb-0 pb-3"
+							style={{
+								animationDelay: `${index * 0.1}s`
+							}}
 						>
 							<div className="flex items-center gap-3">
 								<div className={`rounded-full p-2 ${item.bgColor}`}>
@@ -85,26 +86,28 @@ export const StatsList = ({ stats }: StatsListProps) => {
 							<div className="text-right">
 								<p className="text-lg font-bold">{item.value}</p>
 							</div>
-						</motion.div>
+						</li>
 					);
 				})}
-			</div>
+			</ul>
 
 			{/* Summary metrics */}
-			<div className="mt-4 grid grid-cols-2 gap-3 pt-3 border-t">
-				<div className="rounded-lg bg-muted/50 p-3">
-					<p className="text-xs text-muted-foreground mb-1">Tasa de Finalización</p>
-					<p className="text-xl font-bold text-green-600 dark:text-green-400">
+			<ul className="mt-4 grid grid-cols-2 gap-3 pt-3 ">
+				<li className="rounded-lg bg-muted/50 p-3">
+					<p className="text-xs text-muted-foreground mb-1">
+						{t("completion_rate")}</p>
+ 					<p className="text-xl font-bold text-green-600 dark:text-green-400">
 						{stats.completionRate.toFixed(1)}%
 					</p>
-				</div>
-				<div className="rounded-lg bg-muted/50 p-3">
-					<p className="text-xs text-muted-foreground mb-1">Tasa de Cancelación</p>
+				</li>
+				<li className="rounded-lg bg-muted/50 p-3">
+					<p className="text-xs text-muted-foreground mb-1">
+						{ t("cancellation_rate")}</p>
 					<p className="text-xl font-bold text-red-600 dark:text-red-400">
-						{stats.cancellationRate.toFixed(1)}%
+						{t("x_percent", { x: stats.cancellationRate.toFixed(1) })}
 					</p>
-				</div>
-			</div>
+				</li>
+			</ul>
 		</div>
 	);
 };

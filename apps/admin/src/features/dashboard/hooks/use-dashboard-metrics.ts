@@ -132,6 +132,8 @@ export const useDashboardMetrics = (
 
 		return {
 			kpis,
+			staffAmount: staffs.length,
+			serviceAmount: services.length,
 			appointmentStats,
 			revenueBreakdown,
 			staffPerformance,

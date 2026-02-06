@@ -27,6 +27,7 @@ export const AppointmentAdminForm = () => {
  	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
   	  
 	function updateStaffId(id: string | null) {
+		
  		navigate({
 			search: (prev) => ({
 				...prev,

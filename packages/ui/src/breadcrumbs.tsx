@@ -1,6 +1,7 @@
 import { ChevronRight, Home } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@novahair/utils";
+import { useTranslation } from "react-i18next";
 
 export interface BreadcrumbItem {
 	label: string;
@@ -19,6 +20,7 @@ export function Breadcrumbs({
 	className,
 	homeLink = "/",
 }: BreadcrumbsProps) {
+	const {t}=useTranslation()
 	return (
 		<nav
 			aria-label="breadcrumb"
@@ -29,7 +31,7 @@ export function Breadcrumbs({
 				className="flex items-center gap-1 hover:text-foreground transition-colors"
 			>
 				<Home className="h-4 w-4" />
-				<span className="sr-only">Home</span>
+				<span className="sr-only">{ t("home")}</span>
 			</Link>
 
 			{items.map((item, index) => (

@@ -4,23 +4,22 @@
  * Utility functions to calculate date ranges for different time periods
  */
 
-import { toISODate, type ISODate } from "@novahair/utils";
+import { toISODate } from "@novahair/utils";
 import {
-	startOfDay,
 	endOfDay,
-	startOfWeek,
-	endOfWeek,
-	startOfMonth,
 	endOfMonth,
-	startOfQuarter,
 	endOfQuarter,
-	startOfYear,
+	endOfWeek,
 	endOfYear,
-	subDays,
-	subWeeks,
+	startOfDay,
+	startOfMonth,
+	startOfQuarter,
+	startOfWeek,
+	startOfYear,
 	subMonths,
 	subQuarters,
-	subYears,
+	subWeeks,
+	subYears
 } from "date-fns";
 import type { DateRange, TimePeriod } from "../domain/metrics";
 
@@ -30,13 +29,7 @@ import type { DateRange, TimePeriod } from "../domain/metrics";
 export const getDateRangeForPeriod = (period: TimePeriod): DateRange => {
 	const now = new Date();
 
-	switch (period) {
-		case "today":
-			return {
-				from: toISODate(startOfDay(now)),
-				to: toISODate(endOfDay(now)),
-			};
-
+	switch (period) { 
 		case "week":
 			return {
 				from: toISODate(startOfWeek(now, { weekStartsOn: 1 })),
@@ -80,13 +73,7 @@ export const getPreviousPeriodRange = (
 	const start = new Date(currentRange.from);
 
 	switch (period) {
-		case "today": {
-			const prevDay = subDays(start, 1);
-			return {
-				from: toISODate(startOfDay(prevDay)),
-				to: toISODate(endOfDay(prevDay)),
-			};
-		}
+		 
 
 		case "week": {
 			const prevWeekStart = subWeeks(start, 1);

@@ -6,7 +6,7 @@
  * and external dependencies.
  */
 
-import type { ISODate } from "@novahair/utils";
+import type { ISODate, TranslationKey } from "@novahair/utils";
 
 /**
  * Represents a Key Performance Indicator with current value and trend
@@ -15,7 +15,7 @@ export interface KPI {
 	/** Unique identifier for the KPI */
 	id: string;
 	/** Display label */
-	label: string;
+	label: TranslationKey;
 	/** Current value */
 	value: number;
 	/** Previous period value for comparison */
@@ -49,7 +49,7 @@ export interface TrendData {
 	/** Metric identifier */
 	metricId: string;
 	/** Metric name */
-	name: string;
+	name: TranslationKey;
 	/** Time series data points */
 	data: DataPoint[];
 	/** Total for the period */
@@ -115,7 +115,7 @@ export interface AppointmentStats {
 /**
  * Time period for metrics calculation
  */
-export type TimePeriod = "today" | "week" | "month" | "quarter" | "year" | "custom";
+export type TimePeriod = "week" | "month" | "quarter" | "year";
 
 /**
  * Date range for custom period
@@ -143,6 +143,9 @@ export interface DashboardMetrics {
 	revenueTrends: TrendData;
 	/** Period for which metrics are calculated */
 	period: TimePeriod;
+
+	staffAmount: number;
+	serviceAmount: number;
 	/** Date range */
 	dateRange: DateRange;
 	/** Last updated timestamp */
