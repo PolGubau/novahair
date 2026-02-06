@@ -19,7 +19,7 @@ type Response = {
 type UseAppointments = (tenantId:Tenant["id"]) => Response;
 
 export const useAppointments: UseAppointments = (tenantId) => {
-		const { to: externalTo, from: externalFrom } = useSearch({
+		const { to: externalTo, from: externalFrom, staffId } = useSearch({
 			from: Route.fullPath,
 		})
 		const navigate = useNavigate({ from: Route.fullPath })
@@ -54,8 +54,8 @@ export const useAppointments: UseAppointments = (tenantId) => {
 	}
 
 	const { isLoading, error, data, refetch } = useQuery({
-		queryFn: () => appointmentsRepository.list(tenantId, { from, to }),
-		queryKey: queryKeys.appointments.list({ from, to, tenantId }),
+		queryFn: () => appointmentsRepository.list(tenantId, { from, to, staffId }),
+		queryKey: queryKeys.appointments.list({ from, to, tenantId,staffId }),
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 

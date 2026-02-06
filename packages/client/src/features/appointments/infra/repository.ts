@@ -7,10 +7,15 @@ import type {
 } from "../../../types";
 import type { Appointment } from "../domain/appointment";
 
+export type ListAppointmentsParams = {
+	from?: ISODate;
+	to?: ISODate;
+staffId?: string;
+};
 export type AppointmentsRepository = {
 	list: (
 		tenantId: string,
-		params?: { from?: ISODate; to?: ISODate },
+		params?: ListAppointmentsParams,
 	) => Promise<Appointment[]>;
 	get: (tenantId: string, id: string) => Promise<Appointment>;
 	create: (
