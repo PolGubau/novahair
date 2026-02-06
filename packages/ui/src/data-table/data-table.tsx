@@ -26,6 +26,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "../table";
+import { useTranslation } from "react-i18next";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -235,6 +236,7 @@ export function DataTable<TData, TValue>({
 
 // biome-ignore lint/suspicious/noExplicitAny: Any data
 function Filter({ column }: { column: Column<any, unknown> }) {
+	const {t}=useTranslation();
 	const columnFilterValue = column.getFilterValue();
 	const { filterVariant } = column.columnDef.meta ?? {};
 
@@ -248,7 +250,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 					onChange={(value) =>
 						column.setFilterValue((old: [number, number]) => [value, old?.[1]])
 					}
-					placeholder={"Min"}
+					placeholder={t("min")}
 					className="w-24 border shadow rounded"
 				/>
 				<DebouncedInput
@@ -257,7 +259,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 					onChange={(value) =>
 						column.setFilterValue((old: [number, number]) => [old?.[0], value])
 					}
-					placeholder={"Max"}
+					placeholder={t("max")}
 					className="w-24 border shadow rounded"
 				/>
 			</div>
@@ -286,7 +288,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 			size="sm"
 			className="w-36 border shadow rounded"
 			onChange={(e) => column.setFilterValue(e.target.value)}
-			placeholder={"Search..."}
+			placeholder={t("search")}
 			type="search"
 			value={(columnFilterValue ?? "") as string}
 		/>

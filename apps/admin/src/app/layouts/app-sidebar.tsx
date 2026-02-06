@@ -9,7 +9,7 @@ import {
 	useSidebar,
 } from "@novahair/ui";
 import { cn } from "@novahair/utils";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import {
 	Database,
 	GalleryVerticalEnd,
@@ -90,7 +90,7 @@ const data: SidebarMenuConfig = {
 			items: [
 				{
 					title: "your_services",
-					url: "/services",
+					url: "/services/table",
 				},
 			],
 		},

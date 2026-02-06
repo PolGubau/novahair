@@ -7,6 +7,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { IconButton } from "./icon-button";
 
 export interface QuickAction {
   id: string;
@@ -36,13 +37,22 @@ export function QuickActions({
 		.filter((action) => !action.hidden)
 		.slice(maxVisibleActions);
 
+	
+	
+	function getVariant(variant: QuickAction["variant"], index: number ) {
+		if (variant) return variant;
+		// last one is primary, other ghost
+		if (index === 0) return "primary";
+		return "ghost";
+	}
+	
   return (
     <>
-			<div className={cn("flex gap-1 md:hidden", className)}>
-				{visibleActions.map((action) => (
-					<Button
+			<div className={cn("flex gap-1 md:hidden flex-row-reverse", className)}>
+				{visibleActions.map((action,index) => (
+					<IconButton
 						key={action.id}
-						variant={action.variant || "ghost"}
+						variant={getVariant(action.variant, index)}
 						size="sm"
 						onClick={action.onClick}
 						title={action.label}
@@ -50,7 +60,7 @@ export function QuickActions({
 					>
 						{action.icon}
 						<span className="sr-only">{action.label}</span>
-					</Button>
+					</IconButton>
 				))}
 
 				{moreActions.length > 0 && (
@@ -80,11 +90,11 @@ export function QuickActions({
 					</DropdownMenu>
 				)}
 			</div>
-		<div className={cn("flex gap-1 max-md:hidden", className)}>
-			{visibleActions.map((action) => (
+		<div className={cn("flex gap-1 max-md:hidden flex-row-reverse", className)}>
+			{visibleActions.map((action,index) => (
 				<Button
 					key={action.id}
-					variant={action.variant || "ghost"}
+					variant={getVariant(action.variant, index)}
 					size="sm"
 					onClick={action.onClick}
           className={action.className}

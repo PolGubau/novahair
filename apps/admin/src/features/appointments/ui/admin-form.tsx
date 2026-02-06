@@ -62,10 +62,7 @@ export const AppointmentAdminForm = () => {
 					 }
 				 ]}
 				/>
-			</header>
-			 }>
-  			 
-				<Drawer open={isFiltersDrawerOpen} onOpenChange={setIsFiltersDrawerOpen} title={"filters"} description={"refine_your_appointment_list_using_filters"}>
+			<Drawer open={isFiltersDrawerOpen} onOpenChange={setIsFiltersDrawerOpen} title={"filters"} description={"refine_your_appointment_list_using_filters"}>
 				
 					<StaffSelector label="filter_by_staff" tenantId={tenantId} staffId={staffId} onSelect={updateStaffId} />
 
@@ -78,7 +75,10 @@ export const AppointmentAdminForm = () => {
 							setTo(toISODate(to));
 						}}
 					/>
-				</Drawer>
+				</Drawer>	</header>
+			 }>
+  			 
+			
  
 			<AppointmentTable appointments={appointments} isLoading={isLoading} />
 		</AdminMain>

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ServiceCreationForm } from "~/features/services/ui/form";
 import { ServiceTable } from "~/features/services/ui/table";
+import { QuickActions } from "@novahair/ui";
 
 export const Route = createFileRoute("/services/table")({
 	component: RouteComponent,
@@ -39,7 +40,23 @@ function RouteComponent() {
 
 	return (
 		<FeatureErrorBoundary featureName="services">
-			<AdminMain description={"manage_your_services"} title={"services"}>
+			<AdminMain description={"manage_your_services"} title={"services"} rightContent={
+				<QuickActions
+									actions={[{
+										 id: "add_new_service",
+										 label: t("add_new_service"),
+										 icon: <Plus  />,
+											onClick: openCreate,
+									 },
+										{
+											id: "refresh",
+											label: t("refresh"),
+											icon: <RefreshCcw  />,
+											onClick: refetch,
+										}
+								 ]}
+								/>
+			}>
 				<Drawer
 					description="fill_the_form_to_add_a_new_service"
 					onOpenChange={setIsFormOpened}
@@ -54,20 +71,7 @@ function RouteComponent() {
 						service={editing}
 					/>
 				</Drawer>
-				<nav className="flex gap-2 items-center">
-					<Button onClick={openCreate}>
-						<Plus />
-						{t("add_new_service")}
-					</Button>
-
-					<Button className="group" onClick={() => refetch()} variant="ghost">
-						<div className="group-focus:rotate-90 transition-all">
-							<RefreshCcw />
-						</div>
-
-						{t("refresh_services")}
-					</Button>
-				</nav>
+			 
 				<ServiceTable
 					isLoading={isLoading}
 					onDelete={handleDelete}

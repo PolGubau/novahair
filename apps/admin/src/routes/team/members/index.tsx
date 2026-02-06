@@ -1,4 +1,5 @@
 import { type Staff, useStaffActions, useStaffs } from "@novahair/client";
+import { QuickActions } from "@novahair/ui";
 import { Button } from "@novahair/ui/button";
 import { Drawer } from "@novahair/ui/drawer";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
@@ -42,20 +43,25 @@ function RouteComponent() {
 			<AdminMain
 				description="manage_your_team_and_schedules"
 				title="team_members"
-				rightContent={	<nav className="flex gap-2 items-center">
-					<Button onClick={openCreate}>
-						<Plus />
-							{t("add_new_staff")}
-					</Button>
-
-					<Button className="group" onClick={() => refetch()} variant="ghost">
-						<div className="group-focus:rotate-90 transition-all">
-							<RefreshCcw />
-						</div>
- 						<span className="max-md:hidden">{t("refresh")}</span>
-					</Button>
-				</nav>}
-			>
+				rightContent={
+								<QuickActions
+													actions={[
+														{
+															id: "add_new_staff",
+															label: t("add_new_staff"),
+															icon: <Plus  />,
+															 onClick: openCreate,
+							},
+							{
+															id: "refresh",
+															label: t("refresh"),
+															icon: <RefreshCcw  />,
+															onClick: refetch,
+														}
+												 ]}
+												/>
+							}>
+				 
 				<Drawer
 					description="fill_the_form_to_add_a_new_staff_member"
 					onOpenChange={setIsFormOpened}

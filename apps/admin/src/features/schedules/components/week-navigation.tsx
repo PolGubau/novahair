@@ -12,7 +12,7 @@ export function WeekNavigation({
 	setCurrentWeekStart,
 }: WeekNavigationProps) {
 	return (
-		<div className="flex justify-between items-center space-x-4 mb-2">
+		<div className="flex justify-between items-center space-x-4 mb-2 sticky top-0 bg-background py-2 z-10">
 			<span className="text-lg font-medium">
 				{format(currentWeekStart, "MMM yyyy")}
 			</span>

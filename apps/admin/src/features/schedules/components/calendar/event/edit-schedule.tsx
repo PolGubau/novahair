@@ -64,9 +64,8 @@ export function EditSchedule({
 	return (
 		<div className="">
 			<h2 className="text-lg font-semibold mb-4">{t("edit_schedule")}</h2>
-			<div className="space-y-4">
-				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
-					<Input
+			<div className="grid grid-cols-2 gap-4">
+ 					<Input
 						label={t("start_hour")}
 						onChange={(e) => {
 							const time = e.target.value;
@@ -78,9 +77,7 @@ export function EditSchedule({
 						type="time"
 						value={startTime}
 					/>
-				</div>
-				<div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
-					<Input
+			 	<Input
 						id={endId}
 						label={t("end_hour")}
 						onChange={(e) => {
@@ -93,8 +90,7 @@ export function EditSchedule({
 						type="time"
 						value={endTime}
 					/>
-				</div>
-			</div>
+ 			</div>
 			<div className="flex justify-end gap-2 mt-6">
 				<Button onClick={onClose} variant="outline">
 					{t("cancel")}
