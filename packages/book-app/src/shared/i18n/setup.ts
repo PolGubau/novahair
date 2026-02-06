@@ -3,6 +3,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { allLocales, defaultLocale, defaultNS, i18nCookieName } from "@novahair/utils";
 import { initReactI18next } from "react-i18next";
+// Import types for TypeScript autocomplete
+import "./types";
 // Import common translations from utils
 import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
 import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
@@ -11,13 +13,16 @@ import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
 import bookAppEn from "./locales/en.json" with { type: "json" };
 import bookAppEs from "./locales/es.json" with { type: "json" };
 
+export const mergedEnTranslations = { ...commonEn, ...bookAppEn };
+export const mergedEsTranslations = { ...commonEs, ...bookAppEs };
+
 // Merge common and app-specific translations (app-specific override common if there are conflicts)
 export const resources = {
 	en: {
-		common: { ...commonEn, ...bookAppEn },
+		common: mergedEnTranslations,
 	},
 	es: {
-		common: { ...commonEs, ...bookAppEs },
+		common: mergedEsTranslations,
 	},
 } as const;
 

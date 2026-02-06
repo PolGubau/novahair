@@ -1,10 +1,10 @@
 import "i18next";
 import type { defaultNS } from "@novahair/utils/i18n/constants";
 import type commonEn from "@novahair/utils/i18n/locales/en.json";
-import type bookAppEn from "../../i18n/locales/en.json";
+import type bookAppEn from "./locales/en.json";
+import { mergedEnTranslations } from "./setup";
 
-// Merge common and book-app translations for TypeScript
-type MergedTranslations = typeof commonEn & typeof bookAppEn;
+type MergedTranslations = typeof mergedEnTranslations;
 
 declare module "i18next" {
 	interface CustomTypeOptions {
