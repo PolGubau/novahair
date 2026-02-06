@@ -1,11 +1,12 @@
 import { type Staff, useStaffs } from "@novahair/client";
-import { Drawer, IconButton } from "@novahair/ui";
+import { Drawer, IconButton, QuickActions } from "@novahair/ui";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { Loader } from "@novahair/ui/loader";
 import { config, type ISODate } from "@novahair/utils";
 import { isSameDay, parseISO } from "date-fns";
-import { Filter } from "lucide-react";
+import { t } from "i18next";
+import { Filter, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AdminMain } from "~/app/layouts/admin-main";
 import {
@@ -29,6 +30,7 @@ export function SchedulesPage() {
 		error: staffsError,
 	} = useStaffs(config.tenantId);
 	const [isFiltersDrawerOpen, setIsFiltersDrawerOpen] = useState(false);
+	const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
 	const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
 	const { currentWeekStart, setCurrentWeekStart, weekDays, from, to } =
@@ -80,23 +82,7 @@ export function SchedulesPage() {
 		return schedules;
 	};
 
-	const rightContent = useMemo(
-		() => (
-			<div className="flex gap-1">
-				<IconButton
-					icon={<Filter />}
-					onClick={() => setIsFiltersDrawerOpen(true)}
-					variant="outline"
-				/>
-
-				<ScheduleAssignmentDrawer
-					selectedDays={selectedDates}
-					setSelectedDays={setSelectedDates}
-				/>
-			</div>
-		),
-		[selectedDates],
-	);
+	
 
 	if (staffsLoading) {
 		return (
@@ -121,9 +107,29 @@ export function SchedulesPage() {
 	return (
 		<FeatureErrorBoundary featureName="schedules">
 			<AdminMain
-				description="manage_your_team_schedules"
-				rightContent={rightContent}
 				title="schedules"
+				description="manage_your_team_schedules"
+				rightContent={
+					<div>
+						<QuickActions
+					actions={[{
+									id: "create",
+									label: t("add_schedules"),
+									icon: <Plus />,
+									onClick() {setIsCreateDrawerOpen(true)},
+						},
+						{
+							id: "filter",
+							label: t("filter"),
+							icon: <Filter />,
+							onClick() {setIsFiltersDrawerOpen(true)},
+								},
+								
+						]}
+					/>
+					</div>
+				}
+			
 			>
 				<div className="flex-1 space-y-4 ">
 					<WeekNavigation
@@ -141,7 +147,13 @@ export function SchedulesPage() {
 						toggleDate={toggleDate}
 						weekDays={weekDays}
 					/>
-				</div>
+			</div>
+			<ScheduleAssignmentDrawer 
+				selectedDays={selectedDates}
+				setSelectedDays={setSelectedDates}
+				open={isCreateDrawerOpen}
+				setOpen={setIsCreateDrawerOpen}
+			/>
 
 				<Drawer
 					description="customize_your_schedule_view"

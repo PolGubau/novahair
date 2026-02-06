@@ -1,30 +1,25 @@
-import { Button } from "@novahair/ui";
 import { Drawer } from "@novahair/ui/drawer";
-import { Plus } from "lucide-react";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AddScheduleForm } from "./add-schedule-form/add-schedule-form";
 
 interface ScheduleAssignmentDrawerProps {
 	selectedDays: Date[];
 	setSelectedDays: (dates: Date[]) => void;
+	open: boolean;
+	setOpen: (open: boolean) => void;
 }
 
 export function ScheduleAssignmentDrawer({
 	selectedDays,
 	setSelectedDays,
+	open: isDrawerOpen,
+	setOpen: setIsDrawerOpen,
 }: ScheduleAssignmentDrawerProps) {
 	const { t } = useTranslation();
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+ 
 	return (
 		<>
-			<Button
- 				onClick={() => setIsDrawerOpen(true)}
-			>
-				<Plus className="size-4" />
-				<span className="max-md:hidden">{t("add_schedules")}</span>
-			</Button>
+		 
 			<Drawer
 				description={"manage_your_team_schedules"}
 				onOpenChange={setIsDrawerOpen}
