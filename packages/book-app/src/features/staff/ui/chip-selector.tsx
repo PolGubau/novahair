@@ -1,7 +1,6 @@
 import { useStaffs } from "@novahair/client";
-import { Avatar, Button } from "@novahair/ui";
-import { labelClasses } from "@novahair/ui/label";
-import { Link } from "@tanstack/react-router";
+import { Avatar, Button, Label } from "@novahair/ui";
+ import { Link } from "@tanstack/react-router";
 import { t } from "i18next";
 import { useTenantId } from "../../../shared/tenant";
 
@@ -19,7 +18,7 @@ export const StaffChipSelector = ({ serviceId }: Props) => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<h2 className={labelClasses.base}>{t("select_staff")}</h2>
+ 			<Label label={t("select_staff")} />
 			<ul className="flex flex-wrap gap-2">
 				{staffs.map((staff) => (
 					<li key={staff.id}>

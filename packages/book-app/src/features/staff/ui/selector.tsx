@@ -1,6 +1,5 @@
 import { useStaffs } from "@novahair/client";
-import { Avatar, Button } from "@novahair/ui";
-import { labelClasses } from "@novahair/ui/label";
+import { Avatar, Button, Label } from "@novahair/ui";
 import { t } from "i18next";
 import { ChevronLeft } from "lucide-react";
 import { useTenantId } from "../../../shared/tenant";
@@ -27,7 +26,7 @@ export const StaffSelector = ({ serviceId, onStaffSelect, onBack }: Props) => {
 						<ChevronLeft />
 					</Button>
 				)}
-				<h2 className={labelClasses.base}>{t("select_staff")}</h2>
+ 				<Label label={t("select_staff")} />
 			</div>
 			<ul className="flex flex-wrap gap-2">
 				{staffs.map((staff) => (

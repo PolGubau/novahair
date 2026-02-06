@@ -3,7 +3,7 @@ import { IconButton } from "@novahair/ui/icon-button";
 import { ArrowLeft, ArrowRight, Filter } from "lucide-react";
 import { ServiceSwitcher } from "../../features/services/ui/service-switcher";
 import { useTenantId } from "../tenant";
-import { Drawer, Label, StaffSwitcher } from "@novahair/ui";
+import { Drawer, Label, StaffSelector } from "@novahair/ui";
 import { useState } from "react";
 import { t } from "i18next";
 import { TranslationKey } from "@novahair/utils";
@@ -38,7 +38,7 @@ export const CalendarNav = ({
 	return (
 		<nav className="flex gap-2 items-center">
 			<div className="max-md:hidden flex gap-2 items-center">
-				<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
+				<StaffSelector tenantId={tenantId} staffId={staffId} onSelect={v=>v&& setStaffId(v)} />
 				<ServiceSwitcher serviceId={serviceId} onSelect={setServiceId} />
 			</div>
 
@@ -51,7 +51,7 @@ export const CalendarNav = ({
 			<Drawer open={open} onOpenChange={setOpen} title="filter" description="customize_the_appointments_shown">
 				<fieldset className="grid md:grid-cols-[auto_1fr] gap-2">
 					<Label label={t("filter_by_staff")} />
-					<StaffSwitcher tenantId={tenantId} staffId={staffId} onSelect={setStaffId} />
+					<StaffSelector tenantId={tenantId} staffId={staffId} onSelect={v=>v&& setStaffId(v)} />
 					<Label label={t("filter_by_service")} />
 					<ServiceSwitcher serviceId={serviceId} onSelect={setServiceId} />
 				</fieldset>

@@ -17,7 +17,7 @@ export interface ModuleLink {
 	href: string;
 	icon: LucideIcon;
 	value?: string;
-	trend?: { value: number; isPositive: boolean };
+	trend?: number;
 }
 
 interface ModuleDashboardProps {

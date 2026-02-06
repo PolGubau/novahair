@@ -1,6 +1,5 @@
 import type { Staff } from "@novahair/client";
-import { Avatar, Button } from "@novahair/ui";
-import { labelClasses } from "@novahair/ui/label";
+import { Avatar, Button, Label } from "@novahair/ui";
 import { t } from "i18next";
 import { ArrowUp } from "lucide-react";
 
@@ -16,7 +15,7 @@ export const StaffSelector = ({
 }: Props) => {
 	return (
 		<div className="flex flex-col gap-1 min-h-16">
-			<h3 className={labelClasses.base}>{t("select_staff")}</h3>
+ 			<Label label={t("select_staff")} />
 			<ul className="flex flex-wrap gap-2 items-center">
 				{!staffs.length ? (
 					<div className="flex gap-2 items-center">

@@ -3,17 +3,21 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { allLocales, defaultLocale, defaultNS, i18nCookieName } from "@novahair/utils";
 import { initReactI18next } from "react-i18next";
-// Import JSON files directly to ensure they're bundled in production
-import commonEn from "@novahair/utils/i18n/locales/en.json";
-import commonEs from "@novahair/utils/i18n/locales/es.json";
+// Import common translations from utils
+import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
+import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
 
-// Build resources object with imported JSON
+// Import app-specific translations
+import bookAppEn from "../../i18n/locales/en.json" with { type: "json" };
+import bookAppEs from "../../i18n/locales/es.json" with { type: "json" };
+
+// Merge common and app-specific translations (app-specific override common if there are conflicts)
 export const resources = {
 	en: {
-		common: commonEn,
+		common: { ...commonEn, ...bookAppEn },
 	},
 	es: {
-		common: commonEs,
+		common: { ...commonEs, ...bookAppEs },
 	},
 } as const;
 

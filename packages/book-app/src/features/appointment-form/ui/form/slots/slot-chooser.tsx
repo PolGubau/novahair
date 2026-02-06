@@ -1,5 +1,5 @@
 import { type AvailabilitySlot, useSlots } from "@novahair/client";
-import { labelClasses } from "@novahair/ui/label";
+import { Label } from "@novahair/ui/label";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { t } from "i18next";
 import { useTenantId } from "../../../../../shared/tenant";
@@ -29,7 +29,7 @@ export const SlotChooser = ({
 	});
 	return (
 		<div className="flex flex-col gap-1">
-			<h3 className={labelClasses.base}>{t("choose_time_slot")}</h3>
+ 			<Label label={t("choose_time_slot")} />
 			<LoadingOverlay isLoading={isLoading}>
 				{isLoading ? (
 					<SlotListSkeleton />

@@ -8,11 +8,11 @@ import {
 } from "@tanstack/react-router";
 import { t } from "i18next";
 import { z } from "zod";
-import i18n from "~/shared/i18n/setup";
 import "../styles.css";
 import { Provider } from "~/integrations/tanstack-query/root-provider";
 import type { getContext } from "~/integrations/tanstack-query/root-provider";
 import { TenantGuard } from "~/shared/tenant/ui/tenant-guard";
+import i18n from "~/shared/i18n/setup";
 
 // Define search params schema for tenant ID
 const rootSearchSchema = z.object({
