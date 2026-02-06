@@ -4,7 +4,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { allLocales, defaultLocale, defaultNS, i18nCookieName } from "@novahair/utils";
 import { initReactI18next } from "react-i18next";
 // Import types for TypeScript autocomplete
-import "./types";
+import "./types.d";
 // Import common translations from utils
 import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
 import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
