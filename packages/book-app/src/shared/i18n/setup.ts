@@ -8,8 +8,8 @@ import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
 import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
 
 // Import app-specific translations
-import bookAppEn from "../../i18n/locales/en.json" with { type: "json" };
-import bookAppEs from "../../i18n/locales/es.json" with { type: "json" };
+import bookAppEn from "./locales/en.json" with { type: "json" };
+import bookAppEs from "./locales/es.json" with { type: "json" };
 
 // Merge common and app-specific translations (app-specific override common if there are conflicts)
 export const resources = {
