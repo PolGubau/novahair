@@ -63,7 +63,7 @@ export const StaffPerformance = ({
 							transition={{ delay: index * 0.05, duration: 0.3 }}
 							className={`
 								relative rounded-lg border p-4 transition-all
-								${isTopPerformer ? "bg-gradient-to-r from-yellow-50 to-transparent dark:from-yellow-950/20 border-yellow-200 dark:border-yellow-800" : "bg-card hover:bg-accent/50"}
+								${isTopPerformer ? "bg-linear-to-r from-yellow-50 to-transparent dark:from-yellow-950/20 border-yellow-200 dark:border-yellow-800" : "bg-card "}
 							`}
 						>
 							{/* Top performer badge */}

@@ -54,12 +54,12 @@ export const PeriodSelector = ({ value, onChange }: PeriodSelectorProps) => {
 						type="button"
 						onClick={() => onChange(period.value)}
 						className={`
-							relative px-2 py-1 rounded-md text-sm font-medium
+							relative px-2 py-1 text-sm font-medium
 							transition-colors duration-200 cursor-pointer
 							${
 								isActive
 									? "text-primary-foreground"
-									: "text-muted-foreground hover:text-foreground hover:bg-accent"
+									: "text-muted-foreground hover:text-foreground hover:bg-muted"
 							}
 						`}
 					>

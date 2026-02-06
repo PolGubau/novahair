@@ -30,7 +30,7 @@ export const UpdatePrompt = ({
 				>
 					<div className="bg-card border border-border rounded-lg shadow-lg p-4">
 						<div className="flex items-start gap-3">
-							<div className="flex-shrink-0 mt-0.5">
+							<div className="shrink-0 mt-0.5">
 								<div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
 									<RefreshCcw className="w-5 h-5 text-primary" />
 								</div>
