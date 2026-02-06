@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "../badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "./primitives";
+import { TrendChip } from "../trend-chip";
 
  
 
@@ -81,14 +82,7 @@ export function LineBarChart(props: LineBarChartProps) {
           >
             {title}
           </span>
-          {trend !== undefined && <Badge variant="secondary">
-            {trend < 0 ? (
-              <TrendingDown className="size-4" />
-            ) : (
-              <TrendingUp className="size-4" />
-            )}
-            <span>{trend}</span>
-          </Badge>}
+          {trend !== undefined && <TrendChip trend={trend} />}
           
         </CardTitle>
         <CardDescription>{description}</CardDescription>

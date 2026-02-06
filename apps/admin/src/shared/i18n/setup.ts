@@ -2,14 +2,29 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { initReactI18next } from "react-i18next";
-import { allLocales, defaultLocale, defaultNS, i18nCookieName, resources } from "@novahair/utils";
- 
- i18n
+import { allLocales, defaultLocale, defaultNS, i18nCookieName } from "@novahair/utils";
+// Import JSON files directly to ensure they're bundled in production
+import commonEn from "@novahair/utils/i18n/locales/en.json";
+import commonEs from "@novahair/utils/i18n/locales/es.json";
+
+// Build resources object with imported JSON
+export const resources = {
+	en: {
+		common: commonEn,
+	},
+	es: {
+		common: commonEs,
+	},
+} as const;
+
+export const i18nCookieName_admin = i18nCookieName;
+
+i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
- 		initImmediate: true,
- 		defaultNS,
+		initImmediate: true,
+		defaultNS,
 		fallbackLng: defaultLocale,
 		supportedLngs: allLocales,
 		detection: {
@@ -20,7 +35,7 @@ import { allLocales, defaultLocale, defaultNS, i18nCookieName, resources } from 
 		},
 
 		interpolation: { escapeValue: false },
-		resources:resources,
+		resources,
 	});
 
 export default i18n;

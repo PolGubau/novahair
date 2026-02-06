@@ -1,7 +1,19 @@
-import React from 'react'
+import { TrendingDown, TrendingUp } from 'lucide-react';
+import { Badge } from './badge';
 
-export const TrendChip = () => {
+type Props = {
+  trend: number;
+}
+
+export const TrendChip = (
+  { trend }
+: Props
+) => {
+  const Icon = trend < 0 ? TrendingDown : TrendingUp;
   return (
-    <div>TrendChip</div>
+    <Badge variant="secondary">
+      <Icon className="size-4" />
+      <span>{trend}</span>
+    </Badge>
   )
 }

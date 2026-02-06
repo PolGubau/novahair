@@ -26,6 +26,9 @@
 			"types": "./src/i18n/*.ts",
 			"default": "./src/i18n/*.ts"
 		},
+		"./i18n/locales/*": {
+			"default": "./src/i18n/locales/*.json"
+		},
 		"./providers/*": {
 			"types": "./src/providers/*.ts",
 			"default": "./src/providers/*.ts"

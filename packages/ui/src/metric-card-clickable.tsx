@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@novahair/utils";
+import { TrendChip } from "./trend-chip";
 
 interface ClickableMetricCardProps {
 	title: string;
@@ -53,15 +54,15 @@ export function ClickableMetricCard({
 				{/* Trend or CTA */}
 				<div className="flex items-center justify-between pt-2 border-t">
 					
-						<span
-							className={cn("text-xs font-medium", {
-								"text-green-600": trend > 0,
-								"text-red-600": !trend || trend < 0,
-							})}
-						>{trend && (
-							 `${trend > 0 ? "+" : ""}${trend}%`
-	)}
-						</span>
+					<div>
+											{trend !== undefined && <TrendChip trend={trend} />}
+						
+					</div>
+					
+
+
+					
+		
 				
 					<ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
 				</div>
