@@ -1,4 +1,4 @@
-import { Drawer } from "@novahair/ui/drawer";
+import { Drawer } from "@novahair/ui";
 import { useTranslation } from "react-i18next";
 import { AddScheduleForm } from "./add-schedule-form/add-schedule-form";
 

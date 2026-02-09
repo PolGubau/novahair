@@ -1,7 +1,7 @@
 import { type Staff, useStaffActions, useStaffs } from "@novahair/client";
 import { QuickActions } from "@novahair/ui";
 import { Button } from "@novahair/ui/button";
-import { Drawer } from "@novahair/ui/drawer";
+import { Drawer } from "@novahair/ui";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
  import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";

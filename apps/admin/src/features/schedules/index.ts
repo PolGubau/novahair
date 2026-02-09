@@ -1,5 +1,5 @@
 export { CalendarDay } from "./components/calendar/calendar-day";
-export { EditSchedule as EditScheduleDialog } from "./components/calendar/event/edit-schedule";
+export { ScheduleDetails as EditScheduleDialog } from "./components/calendar/event/schedule-details";
 export { ScheduleEvent } from "./components/calendar/event/schedule-event";
 export { HourLines } from "./components/calendar/hour-lines";
 // Types

@@ -28,5 +28,14 @@ export const useScheduleActions = (tenantId: Tenant["id"]) => {
 		},
 	});
 
-	return { create, update };
+	const remove = useMutation({
+		mutationFn: (id: string) =>
+			scheduleRepository.delete(id),
+		onSuccess: () => {
+			// Invalidate all schedule queries for this tenant (matches useSchedulesQuery key)
+			qc.invalidateQueries({ queryKey: ["staff-schedules", tenantId] });
+		},
+	});
+
+	return { create, update, remove };
 };

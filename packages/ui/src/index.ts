@@ -3,6 +3,7 @@
  */
 
 export * from './accordion';
+export * from './alert-dialog';
 export * from './alert';
 export * from './animated-theme-toggler';
 export * from './api-error-fallback';
@@ -21,13 +22,15 @@ export * from './checkbox/context';
 export * from './checkbox/primitives';
 export * from './checkbox/types';
 export * from './collapsible';
+export * from './confirm-delete-dialog';
 export * from './copy-button';
 export * from './data-table/cells/phone-cell';
 export * from './data-table/data-table';
 export * from './date-range-input';
 export * from './debounced-input';
 export * from './dev-tools';
-export * from './drawer';
+export * from './drawer/drawer';
+export * from './drawer/primitives';
 export * from './dropdown-menu';
 export * from './error-boundary';
 export * from './feature-error-boundary';
@@ -57,3 +60,4 @@ export * from './switch';
 export * from './table';
 export * from './textarea';
 export * from './tooltip';
+export * from './trend-chip';

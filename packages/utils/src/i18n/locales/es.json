@@ -14,6 +14,8 @@
 	"manage_team": "Gestionar equipo",
 	"check_all_appointments": "Ver todas las citas",
 	"color": "Color",
+	"are_you_sure_you_want_to_delete_this": "¿Estás seguro de que quieres eliminar esto?",
+	"this_action_cannot_be_undone": "Esta acción no se puede deshacer.",
 	"schedules": "Horarios",
 	"search": "Buscar",
 	"main": "Principal",

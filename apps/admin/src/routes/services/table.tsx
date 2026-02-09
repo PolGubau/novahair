@@ -1,17 +1,14 @@
 import { type Service, useServiceActions, useServices } from "@novahair/client";
-import { Button } from "@novahair/ui/button";
-import { Drawer } from "@novahair/ui/drawer";
+import { Drawer, QuickActions } from "@novahair/ui";
 import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
-import { AdminMain } from "~/app/layouts/admin-main";
 import { config } from "@novahair/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AdminMain } from "~/app/layouts/admin-main";
 import { ServiceCreationForm } from "~/features/services/ui/form";
 import { ServiceTable } from "~/features/services/ui/table";
-import { QuickActions } from "@novahair/ui";
-
 export const Route = createFileRoute("/services/table")({
 	component: RouteComponent,
 });

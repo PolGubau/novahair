@@ -33,6 +33,8 @@
 	"manage_schedules_description": "Configure work schedules for your team",
 	"add_schedules": "Add Schedules",
 	"edit_schedule": "Edit Schedule",
+	"schedule_details": "Schedule Details",
+	"are_you_sure_you_want_to_delete_this_schedule": "Are you sure you want to delete this schedule?",
 	"add_time_slot": "Add time slot",
 	"start_hour": "Start Hour",
 	"end_hour": "End Hour",

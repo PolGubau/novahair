@@ -20,6 +20,9 @@ export type ScheduleRepository = {
  		staffId: Staff["id"],
 		data: UpdateScheduleDto[],
 	) => Promise<void>;
+	delete: (
+		id: string,
+	) => Promise<void>;
 };
 
 export const scheduleRepository: ScheduleRepository = {
@@ -57,6 +60,14 @@ export const scheduleRepository: ScheduleRepository = {
 			{
 				method: "PUT",
  				body: JSON.stringify(data),
+			},
+		);
+	},
+	delete: async (id) => {
+		await genericFetch(
+			buildApiUrl(`schedules/${id}`),
+			{
+				method: "DELETE",
 			},
 		);
 	},

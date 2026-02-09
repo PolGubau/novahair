@@ -33,6 +33,8 @@
 	"manage_schedules_description": "Configura los horarios de trabajo de tu equipo",
 	"add_schedules": "Añadir Horarios",
 	"edit_schedule": "Editar Horario",
+	"schedule_details": "Detalles del Horario",
+	"are_you_sure_you_want_to_delete_this_schedule": "¿Estás seguro de que quieres eliminar este horario?",
 	"add_time_slot": "Añadir franja horaria",
 	"start_hour": "Hora de Inicio",
 	"end_hour": "Hora de Fin",

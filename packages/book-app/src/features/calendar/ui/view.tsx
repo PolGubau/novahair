@@ -1,5 +1,5 @@
 import { useAvailableDays } from "@novahair/client";
-import { Drawer } from "@novahair/ui/drawer";
+import { Drawer } from "@novahair/ui";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
 import { TranslationKey } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";

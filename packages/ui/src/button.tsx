@@ -13,7 +13,7 @@ const buttonVariants = cva(
 			variant: {
 				primary: "bg-accent text-background hover:bg-accent/90 ",
 				error:
-					"bg-error text-background hover:bg-error/90 focus-visible:border-error/20 dark:focus-visible:border-error/40 dark:bg-error/60",
+					"bg-destructive text-background hover:bg-destructive/90 focus-visible:border-destructive/20 dark:focus-visible:border-destructive/40 dark:bg-destructive/60",
 				outline:
 					"bg-transparent shadow-xs hover:bg-foreground/10 border-foreground/20",
 				secondary: "bg-primary text-background hover:brightness-90 ",
@@ -60,9 +60,10 @@ function Button({
 			className={cn(buttonVariants({ variant, size, className }))}
 			{...props}
 		>
+ 
 			{loading && <Loader hasLabel={false} className={cn("size-4")} />}
 			<Ripple />
-
+ 
 			{props.children}
 		</Comp>
 	);

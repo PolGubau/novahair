@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Schedule } from "../weekly-calendar";
-import { EditSchedule } from "./edit-schedule";
+import { ScheduleDetails } from "./schedule-details";
 
 type ScheduleEventProps = {
 	day: Date;
@@ -87,7 +87,8 @@ export function ScheduleEvent({
 					}) as TranslationKey
 				}
 			>
-				<EditSchedule
+				<ScheduleDetails
+					day={day}
 					onClose={() => setIsDrawerOpen(false)}
 					onSuccess={() => {
 						setIsDrawerOpen(false);

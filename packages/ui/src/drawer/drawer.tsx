@@ -2,6 +2,7 @@ import type { TranslationKey } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";
 import { useTranslation } from "react-i18next";
 import { Drawer as D, type DialogProps } from "vaul";
+import { DrawerDescription, DrawerFooter, DrawerTitle } from "./primitives";
 
 type Props = DialogProps & {
 	footer?: React.ReactNode;
@@ -57,14 +58,14 @@ export const Drawer = ({
 							{header}
 							<div className="flex flex-col gap-1">
 								{title && (
-									<D.Title className="text-2xl font-semibold text-foreground">
+									<DrawerTitle>
 										{t(title)}
-									</D.Title>
+									</DrawerTitle>
 								)}
 								{description && (
-									<D.Description className="text-foreground/70 text-md">
+									<DrawerDescription>
 										{t(description)}
-									</D.Description>
+									</DrawerDescription>
 								)}
 							</div>
 						</header>
@@ -77,7 +78,7 @@ export const Drawer = ({
 						>
 							{children}
 						</section>
-						{footer && <div className={classNames?.footer}>{footer}</div>}
+						{footer && <DrawerFooter className={classNames?.footer}>{footer}</DrawerFooter>}
 					</div>
 				</D.Content>
 			</D.Portal>

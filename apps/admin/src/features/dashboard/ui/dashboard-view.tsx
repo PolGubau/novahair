@@ -43,7 +43,7 @@ const DashboardControls = memo(({
 				<QuickActions actions={ 
 					[{
 						label: t("refresh"),
-						icon: <RefreshCcw className="size-4" />,
+						icon: <RefreshCcw/>,
 						onClick: refetch,
 						id: "refresh",
 					}]} />
