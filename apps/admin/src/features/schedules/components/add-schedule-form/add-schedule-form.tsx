@@ -4,12 +4,17 @@ import {
 	type Staff,
  } from "@novahair/client";
 import { Button } from "@novahair/ui";
-import { combineDateTime, config } from "@novahair/utils";
+import { combineDateTime, config, type ISODate } from "@novahair/utils";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SelectedDaysArray } from "./selected-days-array";
 import { StaffSelector } from "./staff-selector";
 import { TimeSlotArray } from "./time-slot-array";
+
+type TimeSlot = {
+	startTime: ISODate;
+	endTime: ISODate;
+};
 
 type Props = {
 	onSuccess?: () => void;
@@ -30,27 +35,23 @@ export function AddScheduleForm({
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const newTimeSlots: CreateScheduleDto[] = selectedDays.flatMap((day) =>
-			timeSlots.map((slot) => ({
-				staffId: slot.staffId,
-				endTime: combineDateTime(day, slot.endTime).iso,
-				startTime: combineDateTime(day, slot.startTime).iso,
-			})),
+		// Create all schedules for all selected staff in one array
+		const allSchedules: CreateScheduleDto[] = selectedDays.flatMap((day) =>
+			selectedStaffs.flatMap((staff) =>
+				timeSlots.map((slot) => ({
+					staffId: staff.id,
+					endTime: combineDateTime(day, slot.endTime).iso,
+					startTime: combineDateTime(day, slot.startTime).iso,
+				}))
+			)
 		);
 
-		for (const staff of selectedStaffs) {
-			mutate(
-				{
-					data: newTimeSlots,
-					staffId: staff.id,
-				},
-				{ onSuccess: onSuccess },
-			);
-		}
+		// Single API call with all schedules
+		mutate(allSchedules, { onSuccess });
 	};
 
 	const [selectedStaffs, setSelectedStaffs] = useState<Staff[]>([]);
-	const [timeSlots, setTimeSlots] = useState<CreateScheduleDto[]>([]);
+	const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
 	return (
 		<form className="space-y-6" onSubmit={handleSubmit}>
 			<SelectedDaysArray days={selectedDays} setDays={setSelectedDays} />

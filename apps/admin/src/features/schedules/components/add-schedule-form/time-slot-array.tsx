@@ -1,20 +1,24 @@
-import type { CreateScheduleDto } from "@novahair/client";
 import { Button, Input } from "@novahair/ui";
 import { type ISODate, sizes } from "@novahair/utils";
 import { Plus, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type Props = {
-	timeSlots: CreateScheduleDto[];
-	setTimeSlots: (slots: CreateScheduleDto[]) => void;
+type TimeSlot = {
+	startTime: ISODate;
+	endTime: ISODate;
 };
+
+type Props = {
+	timeSlots: TimeSlot[];
+	setTimeSlots: (slots: TimeSlot[]) => void;
+};
+
 export const TimeSlotArray = ({ timeSlots, setTimeSlots }: Props) => {
 	const { t } = useTranslation();
 	const addTimeSlot = () => {
-		const slots: CreateScheduleDto[] = [...timeSlots];
+		const slots: TimeSlot[] = [...timeSlots];
 		slots.push({
 			endTime: undefined as unknown as ISODate,
-			staffId: undefined as unknown as string,
 			startTime: undefined as unknown as ISODate,
 		});
 		setTimeSlots(slots);

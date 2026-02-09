@@ -19,12 +19,8 @@ export const useScheduleActions = (tenantId: Tenant["id"]) => {
 		},
 	});
 
-	type CreateParams = {
-		data: CreateScheduleDto[];
-		staffId: Staff["id"];
-	};
 	const create = useMutation({
-		mutationFn: ({ data }: CreateParams) =>
+		mutationFn: (data: CreateScheduleDto[]) =>
 			scheduleRepository.create(data),
 		onSuccess: () => {
 			// Invalidate all schedule queries for this tenant (matches useSchedulesQuery key)

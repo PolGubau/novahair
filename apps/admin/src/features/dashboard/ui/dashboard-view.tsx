@@ -5,7 +5,7 @@
  * and displays comprehensive business metrics
  */
 
-import { LineBarChart } from "@novahair/ui";
+import { LineBarChart, QuickActions } from "@novahair/ui";
 import { ApiErrorFallback } from "@novahair/ui/api-error-fallback";
 import { Button } from "@novahair/ui/button";
 import { ClickableMetricCard } from "@novahair/ui/metric-card-clickable";
@@ -40,15 +40,13 @@ const DashboardControls = memo(({
 		<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 			<div className="flex items-center gap-3">
 				<PeriodSelector value={period} onChange={setPeriod} />
-				<Button
-					variant="outline"
-					size="sm"
-					onClick={refetch}
-					className="gap-2"
-				>
-					<RefreshCcw />
-					<span className="max-md:hidden">{t("refresh")}</span>
-				</Button>
+				<QuickActions actions={ 
+					[{
+						label: t("refresh"),
+						icon: <RefreshCcw className="size-4" />,
+						onClick: refetch,
+						id: "refresh",
+					}]} />
 			</div>
 		</div>
 	);
