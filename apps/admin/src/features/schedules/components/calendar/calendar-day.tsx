@@ -60,7 +60,7 @@ export function CalendarDay({
 					{dayLabel(day, i18n.language)}
 				</h2>
 			</Button>
-			<div className="relative border-t" style={{ height: `${dayHeight}px` }}>
+			<div className="relative border-t" style={{ height: `${dayHeight}px` }} data-calendar-day>
 				<HourLines
 					hoursCount={endHour - startHour}
 					isFirstDay={isFirstDay}
