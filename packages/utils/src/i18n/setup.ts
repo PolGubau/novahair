@@ -20,7 +20,7 @@ i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
- 		initImmediate: true,
+ 		initImmediate: false, // Changed to false for better SSR compatibility
  		defaultNS,
 		fallbackLng: defaultLocale,
 		supportedLngs: allLocales,

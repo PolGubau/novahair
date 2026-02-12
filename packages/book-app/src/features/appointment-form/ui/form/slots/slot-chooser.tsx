@@ -1,7 +1,7 @@
 import { type AvailabilitySlot, useSlots } from "@novahair/client";
 import { Label } from "@novahair/ui/label";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useTenantId } from "../../../../../shared/tenant";
 import { SlotList } from "./list";
 import { SlotListSkeleton } from "./list-skeleton";
@@ -20,6 +20,8 @@ export const SlotChooser = ({
 	onChange,
 	serviceId,
 }: SlotChooserProps) => {
+	const { t } = useTranslation();
+	
  	const tenantId = useTenantId();
 	const { isLoading, error, slots } = useSlots({
 		serviceId,

@@ -5,9 +5,9 @@ import { FeatureErrorBoundary } from "@novahair/ui/feature-error-boundary";
 import { Loader } from "@novahair/ui/loader";
 import { config, type ISODate } from "@novahair/utils";
 import { isSameDay, parseISO } from "date-fns";
-import { t } from "i18next";
-import { Filter, Plus } from "lucide-react";
+ import { Filter, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AdminMain } from "~/app/layouts/admin-main";
 import {
 	ScheduleAssignmentDrawer,
@@ -24,6 +24,7 @@ import { useSchedulesQuery } from "~/features/schedules/hooks/use-schedules-quer
 import { useWeekRange } from "~/features/schedules/hooks/use-week-range";
 
 export function SchedulesPage() {
+	const {t}=useTranslation();
 	const {
 		staffs,
 		isLoading: staffsLoading,

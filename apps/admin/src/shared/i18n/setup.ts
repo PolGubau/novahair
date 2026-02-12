@@ -9,8 +9,9 @@ import "./types.d";
 import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
 import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
 
-import adminEn from "./locales/en.json" with { type: "json" };
-import adminEs from "./locales/es.json" with { type: "json" };
+// Removed import assertions for production compatibility
+import adminEn from "./locales/en.json";
+import adminEs from "./locales/es.json";
 
 // Build resources object with imported JSON
 export const resources = {
@@ -28,7 +29,7 @@ i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
-		initImmediate: true,
+		initImmediate: false, // Changed to false for better SSR compatibility
 		defaultNS,
 		fallbackLng: defaultLocale,
 		supportedLngs: allLocales,

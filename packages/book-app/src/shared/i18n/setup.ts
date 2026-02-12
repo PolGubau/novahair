@@ -9,9 +9,9 @@ import "./types.d";
 import commonEn from "../../../../../packages/utils/src/i18n/locales/en.json";
 import commonEs from "../../../../../packages/utils/src/i18n/locales/es.json";
 
-// Import app-specific translations
-import bookAppEn from "./locales/en.json" with { type: "json" };
-import bookAppEs from "./locales/es.json" with { type: "json" };
+// Import app-specific translations (removed import assertions for production compatibility)
+import bookAppEn from "./locales/en.json";
+import bookAppEs from "./locales/es.json";
 
 export const mergedEnTranslations = { ...commonEn, ...bookAppEn };
 export const mergedEsTranslations = { ...commonEs, ...bookAppEs };
@@ -30,7 +30,7 @@ i18n
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
-		initImmediate: true,
+		initImmediate: false, // Changed to false for better SSR compatibility
 		defaultNS: defaultNS,
 		fallbackLng: defaultLocale,
 		supportedLngs: allLocales,

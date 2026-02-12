@@ -11,8 +11,7 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-import { t } from "i18next";
-import { FilterIcon } from "lucide-react";
+ import { FilterIcon } from "lucide-react";
 import { useState } from "react";
 import { DebouncedInput } from "../debounced-input";
 import { IconButton } from "../icon-button";
@@ -46,6 +45,7 @@ export function DataTable<TData, TValue>({
 	pageIndex = 0,
 	pageSize = 10,
 }: DataTableProps<TData, TValue>) {
+	const {t}=useTranslation();
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex,
 		pageSize,

@@ -1,12 +1,12 @@
 import { Service, Staff } from "@novahair/client";
+import { Drawer, Label, StaffSelector } from "@novahair/ui";
 import { IconButton } from "@novahair/ui/icon-button";
+import { TranslationKey } from "@novahair/utils";
 import { ArrowLeft, ArrowRight, Filter } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ServiceSwitcher } from "../../features/services/ui/service-switcher";
 import { useTenantId } from "../tenant";
-import { Drawer, Label, StaffSelector } from "@novahair/ui";
-import { useState } from "react";
-import { t } from "i18next";
-import { TranslationKey } from "@novahair/utils";
  
 type CalendarNavProps = {
 	onPrev?: () => void;
@@ -32,6 +32,8 @@ export const CalendarNav = ({
 	setServiceId,
 
 }: CalendarNavProps) => {
+		const { t } = useTranslation();
+	
 	const tenantId = useTenantId();
 	const [open, setOpen] = useState(false);
 	
