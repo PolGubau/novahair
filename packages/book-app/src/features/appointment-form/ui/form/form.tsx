@@ -14,7 +14,7 @@ import { StaffSelector } from "./staff/list";
 type AppointmentFormProps = {
 	date: Date;
 	serviceId: string;
-	onSuccess: (data:FormValue) => void;
+	onSuccess: (data:FormValue, slot?: AvailabilitySlot) => void;
 	initialStaffId?: string | null;
 };
 
@@ -38,7 +38,7 @@ export const AppointmentForm = ({ date, serviceId, onSuccess, initialStaffId }: 
 		serviceId,
 		staffId,
 		onSuccess: () => {
-			onSuccess(fields);
+			onSuccess(fields, chosenSlot??undefined);
 		},
 	});
 

@@ -1,7 +1,7 @@
 import { useAvailableDays } from "@novahair/client";
 import { Drawer } from "@novahair/ui";
 import { LoadingOverlay } from "@novahair/ui/loading-overlay";
-import { TranslationKey } from "@novahair/utils";
+import { ISODate, toISODate, TranslationKey } from "@novahair/utils";
 import { cn } from "@novahair/utils/lib/cn";
 import confetti from "canvas-confetti";
 import { t } from "i18next";
@@ -35,7 +35,7 @@ type CalendarStepProps = {
 
 export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSelectedStaffId }: CalendarStepProps) {
 	
- const [selectedDayISO, setSelectedDayISO] = useState<string | undefined>(undefined);
+ const [selectedDayISO, setSelectedDayISO] = useState<ISODate | undefined>(undefined);
 	const tenantId = useTenantId();
 	const {
 		goNextMonth,
@@ -98,7 +98,7 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 		setIsSuccessfullySent(false);
 	}
 	function setSelectedDay(date: Date) {
-		setSelectedDayISO(date.toISOString());
+		setSelectedDayISO(toISODate(date));
 	}
 
 	return (
@@ -116,17 +116,21 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 				}) as TranslationKey}
 
 			>
-				<section className="">
+ 				<section>
 					{!isSuccessfullySent ? (
 						selectedDay && (
 							<AppointmentForm
 							serviceId={serviceId}
 								date={selectedDay}
 								initialStaffId={staffId}
-								onSuccess={({ email }) => {
+								onSuccess={({ email },chosenSlot) => {
 									triggerConfetti()
 									setIsSuccessfullySent(true);
 									setSubmittedEmail(email)
+									if (chosenSlot) {
+										alert(getLabelledDate(new Date(chosenSlot.start)));
+										setSelectedDayISO(chosenSlot.start);
+									}
 								}}
 							/>
 						)
