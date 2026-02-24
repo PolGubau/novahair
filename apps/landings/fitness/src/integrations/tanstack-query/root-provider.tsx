@@ -1,22 +1,24 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import type { ReactNode } from "react";
+import { queryClientDefaultOptions } from "@novahair/utils";
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			staleTime: 1000 * 60 * 5, // 5 minutes
-			refetchOnWindowFocus: false,
-		},
-	},
-});
+export function getContext() {
+	const queryClient = new QueryClient({
+		defaultOptions: queryClientDefaultOptions as any
+	});
+	return {
+		queryClient,
+	};
+}
 
-export function RootProvider({ children }: { children: ReactNode }) {
+export function Provider({
+	children,
+	queryClient,
+}: {
+	children: React.ReactNode;
+	queryClient: QueryClient;
+}) {
 	return (
-		<QueryClientProvider client={queryClient}>
-			{children}
-			{import.meta.env.DEV && <ReactQueryDevtools position="bottom" />}
-		</QueryClientProvider>
+		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 	);
 }
 

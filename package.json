@@ -16,6 +16,8 @@
 		"build:admin": "pnpm --filter @novahair/admin build",
 		"build:booking": "pnpm --filter @novahair/booking build",
 		"build:landing:clean": "pnpm --filter @novahair/clean-landing build",
+		"build:landing:fitness": "pnpm --filter @novahair/fitness-landing build",
+		"build:landing:physio": "pnpm --filter @novahair/physio-landing build",
 		"lint": "pnpm --filter \"./apps/*\" --filter \"./packages/*\" lint",
 		"format": "pnpm --filter \"./apps/*\" --filter \"./packages/*\" format",
 		"check": "pnpm --filter \"./apps/*\" --filter \"./packages/*\" check",
