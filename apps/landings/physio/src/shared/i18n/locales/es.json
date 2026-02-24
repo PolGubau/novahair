@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "book_appointment": "Reservar cita",
+    "check_availability": "Comprobar disponibilidad",
+    "description_services": "Ofrecemos una amplia gama de servicios de fisioterapia y rehabilitación para ayudarte a recuperar tu bienestar.",
+    "hero_description": "Reserva tu sesión de fisioterapia en línea en unos pocos clics",
+    "not_found": "404 - Página no encontrada",
+    "our_services": "Nuestros Servicios",
+    "select": "Seleccionar",
+    "testimonials": {
+      "description": "No solo confíes en nuestra palabra. Esto es lo que nuestros pacientes dicen sobre su experiencia de recuperación.",
+      "title": "Lo que dicen nuestros pacientes"
+    }
+  } 
+}
+

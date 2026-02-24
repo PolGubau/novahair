@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "book_appointment": "Reservar clase",
+    "check_availability": "Ver disponibilidad",
+    "description_services": "Ofrecemos una amplia variedad de clases y programas de entrenamiento para ayudarte a alcanzar tus objetivos fitness.",
+    "hero_description": "Reserva tu clase o sesión de entrenamiento en línea en unos pocos clics",
+    "not_found": "404 - Página no encontrada",
+    "our_services": "Nuestras Clases y Servicios",
+    "select": "Seleccionar",
+    "testimonials": {
+      "description": "No solo confíes en nuestra palabra. Esto es lo que nuestros miembros dicen sobre su experiencia de transformación.",
+      "title": "Lo que dicen nuestros miembros"
+    }
+  } 
+}
+

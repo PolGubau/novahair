@@ -152,6 +152,9 @@ export function CalendarStep({ serviceId, staffId, setSelectedServiceId, setSele
 					</div>
 
 					<CalendarNav
+						onVoiceBooking={(v)=>{
+							console.log(v)
+						}}
 						staffId={staffId}
 						serviceId={serviceId}
 						setStaffId={(id) => setSelectedStaffId(id)}

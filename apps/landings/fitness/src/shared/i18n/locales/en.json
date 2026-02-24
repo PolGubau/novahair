@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "book_appointment": "Book class",
+    "check_availability": "Check availability",
+    "description_services": "We offer a wide variety of classes and training programs to help you achieve your fitness goals.",
+    "hero_description": "Book your class or training session online in just a few clicks",
+    "not_found": "404 - Page not found",
+    "our_services": "Our Classes and Services",
+    "select": "Select",
+    "testimonials": {
+      "description": "Don't just take our word for it. Here's what our members say about their transformation experience.",
+      "title": "What our members say"
+    }
+  }
+}
+

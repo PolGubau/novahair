@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "book_appointment": "Book appointment",
+    "check_availability": "Check availability",
+    "description_services": "We offer a wide range of physiotherapy and rehabilitation services to help you regain your wellness.",
+    "hero_description": "Book your physiotherapy session online in just a few clicks",
+    "not_found": "404 - Page not found",
+    "our_services": "Our Services",
+    "select": "Select",
+    "testimonials": {
+      "description": "Don't just take our word for it. Here's what our patients say about their recovery experience.",
+      "title": "What our patients say"
+    }
+  }
+}
+

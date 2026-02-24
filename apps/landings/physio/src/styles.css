@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/outfit";
+
+@import "@novahair/ui/theme/defaults";
+
+@import "@novahair/ui/theme/style";
+
+@source "../../../../packages/book-app/src/**/*.tsx";
+@source "../../../../packages/ui/src/**/*.tsx";
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+	@apply m-0 font-sans antialiased bg-background text-foreground;
+	font-family: "Outfit Variable", sans-serif;
+	scroll-timeline-name: --timeline;
+}
+
+@theme inline {
+	--font-sans: "Outfit Variable", sans-serif;
+}
+

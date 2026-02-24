@@ -6,8 +6,10 @@ import { ArrowLeft, ArrowRight, Filter } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ServiceSwitcher } from "../../features/services/ui/service-switcher";
+import { VoiceBookingButton } from "../../features/voice-booking/ui/voice-booking-button";
+import type { AppointmentIntent } from "../../features/voice-booking/utils/parse-appointment-intent";
 import { useTenantId } from "../tenant";
- 
+
 type CalendarNavProps = {
 	onPrev?: () => void;
 	onNext: () => void;
@@ -18,6 +20,7 @@ type CalendarNavProps = {
 	setStaffId: (id?: Staff["id"]) => void;
 	setServiceId: (id: Service["id"]) => void;
 	serviceId: Service["id"];
+	onVoiceBooking?: (intent: AppointmentIntent) => void;
 };
 
 export const CalendarNav = ({
@@ -30,13 +33,13 @@ export const CalendarNav = ({
 	setStaffId,
 	serviceId,
 	setServiceId,
-
+	onVoiceBooking,
 }: CalendarNavProps) => {
 		const { t } = useTranslation();
-	
+
 	const tenantId = useTenantId();
 	const [open, setOpen] = useState(false);
-	
+
 	return (
 		<nav className="flex gap-2 items-center">
 			<div className="max-md:hidden flex gap-2 items-center">
@@ -59,6 +62,13 @@ export const CalendarNav = ({
 				</fieldset>
 			</Drawer>
 
+			{/* Voice booking button */}
+			{onVoiceBooking && (
+				<VoiceBookingButton
+					onConfirm={onVoiceBooking}
+					language="es-ES"
+				/>
+			)}
 
 			{showPrev && (
 				<IconButton onClick={onPrev} label={t(prevLabel)}>
