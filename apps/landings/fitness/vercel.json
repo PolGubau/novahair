@@ -1,3 +1,12 @@
 {
-	"buildCommand": "cd ../../.. && pnpm install && pnpm build:landing:fitness"
+	"buildCommand": "cd ../../.. && pnpm install && pnpm build:landing:fitness",
+	"outputDirectory": "dist",
+	"installCommand": "pnpm install",
+	"framework": "vite",
+	"rewrites": [
+		{
+			"source": "/(.*)",
+			"destination": "/index.html"
+		}
+	]
 }
