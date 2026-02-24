@@ -24,7 +24,7 @@ export const HeroMedical = () => {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.2 }}
-						className="inline-block px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary"
+						className="inline-block px-4 py-2 bg-primary/10 rounded-full text-balance text-sm font-medium text-primary"
 					>
 						✓ Clínica certificada por el Colegio Oficial de Fisioterapeutas
 					</motion.div>
@@ -54,10 +54,7 @@ export const HeroMedical = () => {
 						transition={{ delay: 0.45 }}
 						className="flex flex-col gap-3 pt-2"
 					>
-						<div className="flex items-center gap-2 text-muted-foreground">
-							<Phone className="size-4 text-primary" />
-							<span className="text-sm">(+34) 932 456 789</span>
-						</div>
+					 
 						<div className="flex items-center gap-2 text-muted-foreground">
 							<MapPin className="size-4 text-primary" />
 							<span className="text-sm">Avenida Salud, 15 - Barcelona</span>
@@ -80,12 +77,6 @@ export const HeroMedical = () => {
 								<ArrowRight className="size-5 ml-2 group-hover:translate-x-1 transition-transform" />
 							</Button>
 						</Link>
-						<a href="tel:+34932456789">
-							<Button size="lg" variant="outline" className="text-lg px-8 h-14 rounded-2xl">
-								<Phone className="size-5 mr-2" />
-								Llamar ahora
-							</Button>
-						</a>
 					</motion.div>
 
 					{/* Stats */}
@@ -119,7 +110,7 @@ export const HeroMedical = () => {
 				>
 					<div className="relative grid grid-cols-2 gap-4">
 						{/* Main large image */}
-						<div className="col-span-2 aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl">
+						<div className="col-span-2 aspect-16/10 rounded-2xl overflow-hidden shadow-2xl">
 							<img
 								src="/images/0.webp"
 								alt="Clínica PhysioCare - Instalaciones modernas"
@@ -149,7 +140,7 @@ export const HeroMedical = () => {
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 1, duration: 0.6 }}
-						className="absolute -bottom-6 -left-6 bg-background/80 border-2 border-primary/20 rounded-xl p-6 shadow-2xl backdrop-blur-sm"
+						className="absolute max-md:hidden -bottom-6 -left-6 bg-background/80 border-2 border-primary/20 rounded-xl p-6 shadow-2xl backdrop-blur-sm"
 					>
 						<div className="flex items-center gap-4">
 							<div className="size-12 rounded-full bg-primary/10 flex items-center justify-center">

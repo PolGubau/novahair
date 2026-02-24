@@ -50,10 +50,7 @@ export const PhysioLanding = () => {
 					</nav>
 
 					<div className="flex items-center gap-3">
-						<a href="tel:+34932456789" className="hidden lg:flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-							<Phone className="size-4" />
-							(+34) 932 456 789
-						</a>
+						 
 						<Link to="/booking">
 							<Button size="sm" className="font-semibold">
 								Reservar cita
