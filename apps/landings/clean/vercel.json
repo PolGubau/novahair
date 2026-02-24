@@ -3,7 +3,7 @@
 	"outputDirectory": "dist",
 	"installCommand": "pnpm install",
 	"framework": "vite",
-	"ignoreCommand": "bash -c 'if [[ \"$VERCEL_GIT_COMMIT_REF\" == \"master\" ]] ; then git diff HEAD^ HEAD --quiet apps/landings/clean packages/ui packages/utils packages/client packages/booking-app; else exit 1; fi'",
+	"ignoreCommand": "bash -c 'git diff HEAD^ HEAD --quiet . ../../packages/ui ../../packages/utils ../../packages/client ../../packages/booking-app && exit 1 || exit 0'",
 	"rewrites": [
 		{
 			"source": "/(.*)",
