@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import { Devtools } from "@novahair/ui/dev-tools";
+import { RootProvider } from "@novahair/utils";
 import {
 	HeadContent,
 	Scripts,
@@ -9,9 +10,6 @@ import {
 import { t } from "i18next";
 import appCss from "../styles.css?url";
 import i18n from "~/shared/i18n/setup";
-import { getContext, Provider } from "~/integrations/tanstack-query/root-provider";
-
-const { queryClient } = getContext();
 
 export const Route = createRootRouteWithContext()({
 	head: () => ({
@@ -100,11 +98,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<Provider queryClient={queryClient}>
+				<RootProvider>
 					<div className="min-h-screen grid w-full">
 						{children}
 					</div>
-				</Provider>
+				</RootProvider>
 				<Devtools />
 				<Scripts />
 			</body>
